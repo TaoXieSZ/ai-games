@@ -50,6 +50,16 @@ export function TitleScreen() {
           })}
         </div>
       </div>
+      <div className="repo-row">
+        <a
+          className="repo-link"
+          href="https://github.com/TaoXieSZ/ai-games"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ⭐ GitHub 仓库 · TaoXieSZ/ai-games
+        </a>
+      </div>
       <p className="disclaimer">
         本游戏纯属虚构讽刺作品，人物与事件均为艺术加工，请勿对号入座。
       </p>

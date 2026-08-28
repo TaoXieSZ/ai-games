@@ -69,6 +69,14 @@ export function EndingScreen({ state }: { state: GameState }) {
             回到标题
           </button>
         </div>
+        <a
+          className="repo-link"
+          href="https://github.com/TaoXieSZ/ai-games"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ⭐ GitHub 仓库 · TaoXieSZ/ai-games
+        </a>
         <p className="disclaimer">本游戏纯属虚构讽刺作品，人物与事件均为艺术加工。</p>
       </section>
     </div>
