@@ -5,6 +5,7 @@ import { sfx } from './sfx/sfx';
 import { useGameStore } from './store/gameStore';
 import { EndingScreen } from './ui/EndingScreen';
 import { EventCard } from './ui/EventCard';
+import { flyGuard } from './ui/flyGuard';
 import { StatBar } from './ui/StatBar';
 import { TitleScreen } from './ui/TitleScreen';
 
@@ -20,6 +21,29 @@ export default function App() {
     if (ENDINGS[endingId]?.isWin) sfx.win();
     else sfx.lose();
   }, [endingId]);
+
+  // 键盘快捷键：1/2/3 或 ←/↑/→ 选择选项
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (screen !== 'game' || !state?.currentEventId || flyGuard.locked) return;
+      const map: Record<string, number> = {
+        '1': 0,
+        '2': 1,
+        '3': 2,
+        ArrowLeft: 0,
+        ArrowUp: 1,
+        ArrowRight: 2,
+      };
+      const idx = map[e.key];
+      if (idx === undefined) return;
+      const ev = CONTENT.events[state.currentEventId];
+      if (idx >= ev.choices.length) return;
+      e.preventDefault();
+      chooseIndex(idx);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [screen, state, chooseIndex]);
 
   if (screen === 'title' || !state) {
     return <TitleScreen />;

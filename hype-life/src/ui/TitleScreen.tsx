@@ -1,4 +1,6 @@
 import { SPRITES } from '../content/sprites';
+import { ENDINGS } from '../content/endings';
+import { getUnlockedEndings, } from '../store/gallery';
 import { peekSave, useGameStore } from '../store/gameStore';
 import { PixelSprite } from './PixelSprite';
 
@@ -6,6 +8,8 @@ export function TitleScreen() {
   const startNew = useGameStore((s) => s.startNew);
   const continueGame = useGameStore((s) => s.continueGame);
   const hasSave = peekSave() !== null;
+  const unlocked = getUnlockedEndings();
+  const all = Object.values(ENDINGS);
 
   return (
     <div className="title-screen">
@@ -26,6 +30,25 @@ export function TitleScreen() {
         <button className="btn choice" onClick={startNew}>
           {hasSave ? '重新投胎' : '开始人生'}
         </button>
+      </div>
+      <div className="gallery">
+        <div className="gallery-title">
+          结局图鉴 {unlocked.length}/{all.length}
+        </div>
+        <div className="gallery-grid">
+          {all.map((e) => {
+            const got = unlocked.includes(e.id);
+            return (
+              <div
+                key={e.id}
+                className={`gallery-item ${got ? 'got' : ''} ${got && e.isWin ? 'win' : ''}`}
+                title={got ? e.subtitle : undefined}
+              >
+                {got ? e.title : '？？？'}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <p className="disclaimer">
         本游戏纯属虚构讽刺作品，人物与事件均为艺术加工，请勿对号入座。

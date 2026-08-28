@@ -42,6 +42,15 @@ body {
   font-family: var(--font-pixel);
   font-size: 16px;
   line-height: 1.7;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
 }
 
 /* CRT 扫描线 */
@@ -127,6 +136,28 @@ body::after {
   }
 }
 
+/* 卡牌甩出动效：按选项方向飞出画面 */
+.card {
+  transition:
+    transform 0.23s cubic-bezier(0.55, 0, 0.85, 0.36),
+    opacity 0.23s ease-in;
+}
+
+.fly-left {
+  transform: translateX(-130%) rotate(-10deg);
+  opacity: 0;
+}
+
+.fly-up {
+  transform: translateY(-130%) scale(0.96);
+  opacity: 0;
+}
+
+.fly-right {
+  transform: translateX(130%) rotate(10deg);
+  opacity: 0;
+}
+
 /* ── 标题页 ─────────────────────────────────────────── */
 
 .title-screen {
@@ -181,6 +212,50 @@ body::after {
   font-size: 12px;
   max-width: 420px;
   margin: 8px 0 0;
+}
+
+/* 结局图鉴 */
+.gallery {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 10px;
+}
+
+.gallery-title {
+  color: var(--ink-dim);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.gallery-item {
+  border: 2px solid #566c86;
+  padding: 6px 4px;
+  font-size: 12px;
+  text-align: center;
+  color: #566c86;
+  background: rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-item.got {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--panel);
+}
+
+.gallery-item.got.win {
+  color: var(--c-hype);
+  border-color: var(--c-hype);
 }
 
 /* ── 游戏页 ─────────────────────────────────────────── */
@@ -419,6 +494,13 @@ body::after {
   font-size: 14px;
 }
 
+.ending-new {
+  color: var(--accent);
+  border: 2px dashed var(--accent);
+  padding: 6px;
+  font-size: 14px;
+}
+
 .ending-scenes {
   text-align: left;
   background: var(--panel-deep);
@@ -454,7 +536,61 @@ body::after {
 }
 
 @media (max-width: 480px) {
+  .game-shell {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+
   .statbar {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 5px 6px;
+  }
+
+  .stat-label,
+  .stat-delta {
+    font-size: 12px;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .card-text {
+    font-size: 15px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .badge {
+    font-size: 11px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery-item {
+    font-size: 10px;
+    padding: 5px 2px;
+  }
+
+  .card-figure canvas {
+    max-width: 60vw;
+    height: auto;
+  }
+
+  .title-main {
+    font-size: clamp(36px, 11vw, 48px);
   }
 }

@@ -30,6 +30,7 @@ const ENDING_SPRITE: Record<string, keyof typeof SPRITES> = {
 export function EndingScreen({ state }: { state: GameState }) {
   const restart = useGameStore((s) => s.restart);
   const toTitle = useGameStore((s) => s.toTitle);
+  const isNew = useGameStore((s) => s.lastEndingNew);
   const ending = ENDINGS[state.endingId ?? 'forgotten'] ?? ENDINGS.forgotten;
   const scenes = state.flags.map((f) => FLAG_LABELS[f]).filter(Boolean);
 
@@ -42,6 +43,7 @@ export function EndingScreen({ state }: { state: GameState }) {
           <PixelSprite matrix={SPRITES[ENDING_SPRITE[ending.id] ?? 'smug']} scale={7} />
         </div>
         <p className="ending-text">{ending.text}</p>
+        {isNew && <div className="ending-new">★ 新结局收录！图鉴已更新</div>}
         {scenes.length > 0 && (
           <div className="ending-scenes">
             <div className="ending-scenes-title">本局名场面（{scenes.length}）</div>
