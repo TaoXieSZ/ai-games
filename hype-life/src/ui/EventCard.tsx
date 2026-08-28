@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import type { GameEvent } from '../engine/types';
+import type { GameEvent, Stats } from '../engine/types';
 import { SPRITES } from '../content/sprites';
+import { reactionsFor } from '../content/reactions';
 import { flyGuard } from './flyGuard';
 import { PixelSprite } from './PixelSprite';
 
@@ -9,12 +10,26 @@ interface Props {
   toast: string | null;
   act: number;
   progress: string;
+  undoLeft: number;
+  canUndo: boolean;
+  lastEffects: Partial<Stats> | null;
   onChoose: (i: number) => void;
+  onUndo: () => void;
 }
 
 type FlyDir = 'left' | 'up' | 'right';
 
-export function EventCard({ event, toast, act, progress, onChoose }: Props) {
+export function EventCard({
+  event,
+  toast,
+  act,
+  progress,
+  undoLeft,
+  canUndo,
+  lastEffects,
+  onChoose,
+  onUndo,
+}: Props) {
   const [picked, setPicked] = useState(false);
   const [fly, setFly] = useState<FlyDir | null>(null);
   const timer = useRef<number | null>(null);
@@ -37,6 +52,8 @@ export function EventCard({ event, toast, act, progress, onChoose }: Props) {
     timer.current = window.setTimeout(() => onChoose(i), 230);
   };
 
+  const reactions = reactionsFor(lastEffects);
+
   return (
     <section
       className={`card panel ${fly ? `fly fly-${fly}` : 'pop-in'}`}
@@ -50,6 +67,13 @@ export function EventCard({ event, toast, act, progress, onChoose }: Props) {
         </span>
       </div>
       {toast && <div className="toast">“{toast}”</div>}
+      {reactions.length > 0 && (
+        <div className="reactions">
+          {reactions.map((r, i) => (
+            <div key={i}>{r}</div>
+          ))}
+        </div>
+      )}
       <h2 className="card-title">{event.title}</h2>
       <div className="card-figure">
         <PixelSprite matrix={SPRITES[event.sprite]} scale={6} />
@@ -67,6 +91,17 @@ export function EventCard({ event, toast, act, progress, onChoose }: Props) {
           </button>
         ))}
       </div>
+      <button
+        className="btn undo"
+        disabled={picked || !canUndo}
+        title="回到上一题，换一种选法"
+        onClick={() => {
+          if (picked || !canUndo) return;
+          onUndo();
+        }}
+      >
+        ↩ 时光机（剩 {undoLeft} 次）
+      </button>
     </section>
   );
 }

@@ -1,12 +1,17 @@
 import { create } from 'zustand';
-import { choose, createInitialState } from '../engine/engine';
+import {
+  choose,
+  createInitialState,
+  undo,
+  UNDO_LIMIT,
+} from '../engine/engine';
 import type { GameState } from '../engine/types';
 import { CONTENT } from '../content/events';
 import { resolveEnding } from '../content/endings';
 import { sfx } from '../sfx/sfx';
 import { recordEnding } from './gallery';
 
-const SAVE_KEY = 'hype-life-save-v1';
+const SAVE_KEY = 'hype-life-save-v2';
 
 type Screen = 'title' | 'game';
 
@@ -18,6 +23,7 @@ interface GameStore {
   startNew: () => void;
   continueGame: () => void;
   chooseIndex: (i: number) => void;
+  undoGame: () => void;
   restart: () => void;
   toTitle: () => void;
 }
@@ -30,6 +36,9 @@ function loadSave(): GameState | null {
     if (!parsed?.currentEventId || !CONTENT.events[parsed.currentEventId]) {
       return null;
     }
+    // 兼容旧存档：补齐时光机字段
+    parsed.history = Array.isArray(parsed.history) ? parsed.history : [];
+    parsed.undoLeft = typeof parsed.undoLeft === 'number' ? parsed.undoLeft : UNDO_LIMIT;
     return parsed;
   } catch {
     return null;
@@ -87,6 +96,15 @@ export const useGameStore = create<GameStore>((set) => ({
       if (deltas.some((d) => d > 0)) sfx.up();
       else if (deltas.some((d) => d < 0)) sfx.down();
       return { state: next, lastEndingNew };
+    });
+  },
+  undoGame: () => {
+    set((s) => {
+      if (!s.state) return s;
+      const next = undo(s.state);
+      persist(next);
+      sfx.choose();
+      return { state: next };
     });
   },
   restart: () => {

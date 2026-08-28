@@ -1,17 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import {
   INITIAL_STATS,
+  UNDO_LIMIT,
   WIN_ENDING_ID,
   applyEffects,
   checkEnding,
   choose,
   createInitialState,
   shuffle,
+  undo,
 } from './engine';
 import type { Content, GameEvent } from './types';
 import { CONTENT } from '../content/events';
 import { ENDINGS, resolveEnding } from '../content/endings';
 import { SPRITES, STAT_ICONS, PALETTE } from '../content/sprites';
+import { reactionsFor } from '../content/reactions';
 
 // ── 数值 ─────────────────────────────────────────────
 
@@ -164,6 +167,135 @@ describe('发牌', () => {
     state = choose(state, content, content.events['m0'].choices[0]);
     expect(state.endingId).toBe('stomach');
     expect(state.currentEventId).toBeNull();
+  });
+});
+
+// ── 舆情反馈文案（灵活下一题的过渡） ───────────────────
+
+describe('reactionsFor', () => {
+  it('按涨跌生成对应反馈，最多两条', () => {
+    const lines = reactionsFor({ hype: 15, trust: -10 });
+    expect(lines.length).toBe(2);
+    expect(lines[0]).toContain('全网');
+    expect(lines[1]).toContain('评论区');
+  });
+
+  it('小幅波动不生成反馈', () => {
+    expect(reactionsFor({ hype: 3, cash: -2 })).toEqual([]);
+    expect(reactionsFor(undefined)).toEqual([]);
+  });
+});
+
+// ── 时光机（回滚上一题） ───────────────────────────────
+
+describe('undo', () => {
+  it('回滚属性、卡牌与旗标，消耗一次次数', () => {
+    const main = [
+      {
+        ...card('m0'),
+        choices: [
+          { text: 'a', effects: { hype: 10 }, flags: ['x'] },
+          { text: 'b', effects: { trust: 10 } },
+        ],
+      },
+      card('m1'),
+    ];
+    const content = buildContent(main);
+    const start = createInitialState(content);
+    let state = choose(start, content, content.events['m0'].choices[0]);
+    expect(state.stats.hype).toBe(INITIAL_STATS.hype + 10);
+    expect(state.flags).toContain('x');
+    expect(state.currentEventId).toBe('m1');
+
+    state = undo(state);
+    expect(state.stats.hype).toBe(INITIAL_STATS.hype);
+    expect(state.flags).not.toContain('x');
+    expect(state.currentEventId).toBe('m0');
+    expect(state.undoLeft).toBe(UNDO_LIMIT - 1);
+
+    // 换个选法：这次走另一条路
+    state = choose(state, content, content.events['m0'].choices[1]);
+    expect(state.stats.trust).toBe(INITIAL_STATS.trust + 10);
+    expect(state.currentEventId).toBe('m1');
+  });
+
+  it('次数用尽或无历史时不可回滚', () => {
+    const main = [
+      {
+        ...card('m0'),
+        choices: [{ text: 'a', effects: { hype: 1 } }],
+      },
+      card('m1'),
+    ];
+    const content = buildContent(main);
+    let state = createInitialState(content);
+    state = { ...state, undoLeft: 0 };
+    const played = choose(state, content, content.events['m0'].choices[0]);
+    expect(undo(played)).toBe(played); // 次数用尽，原样返回
+
+    // 正常玩一题，回滚一次成功；历史耗尽后再回滚则原样返回
+    const played2 = choose(
+      createInitialState(content),
+      content,
+      content.events['m0'].choices[0],
+    );
+    const rewound = undo(played2);
+    expect(rewound.undoLeft).toBe(UNDO_LIMIT - 1);
+    expect(undo(rewound)).toBe(rewound);
+  });
+
+  it('死亡结局后不可回滚（结局已成定局）', () => {
+    const main = [
+      {
+        ...card('m0'),
+        choices: [{ text: '作死', effects: { risk: 100 } }],
+      },
+      card('m1'),
+    ];
+    const content = buildContent(main);
+    let state = createInitialState(content);
+    state = choose(state, content, content.events['m0'].choices[0]);
+    expect(state.endingId).toBe('blocked');
+    expect(undo(state)).toBe(state);
+  });
+});
+
+// ── 状态条件抽卡（灵活下一题） ─────────────────────────
+
+describe('支线卡 when 条件', () => {
+  const whenCard = (id: string, when: (s: { stats: { hype: number } }) => boolean) => ({
+    id,
+    act: 2,
+    year: 't',
+    scene: 't',
+    sprite: 'smug' as const,
+    title: id,
+    text: 't',
+    when,
+    choices: [{ text: 'a', effects: { hype: 1 } }],
+  });
+
+  function sim(mainAct: number, hype: number) {
+    const main = [card('m0', mainAct), card('m1', mainAct)];
+    const side = [
+      whenCard('s_hot', (s) => s.stats.hype >= 70),
+      whenCard('s_calm', (s) => s.stats.hype < 70),
+    ];
+    const content = buildContent(main, side);
+    let state = createInitialState(content, () => 0);
+    state = {
+      ...state,
+      stats: { ...state.stats, hype },
+    };
+    // 连打两张主线卡：第二张之后才会插播支线
+    state = choose(state, content, content.events['m0'].choices[0]);
+    state = choose(state, content, content.events['m1'].choices[0]);
+    return state.currentEventId;
+  }
+
+  it('热度高抽到热度卡，热度低抽到平静卡', () => {
+    expect(sim(2, 80)).toBe('s_hot');
+    expect(sim(2, 20)).toBe('s_calm');
   });
 });
 

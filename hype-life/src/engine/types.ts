@@ -40,6 +40,11 @@ export interface GameEvent {
   text: string;
   /** 主线卡（按顺序推进剧情）；缺省为支线卡（按规则插播） */
   mainline?: boolean;
+  /**
+   * 抽卡条件（仅支线卡）：当前局面满足时才有资格被抽到。
+   * 用于"根据上一题的结果，灵活到下一题"——例如风险爆表才抽到监管卡。
+   */
+  when?: (state: GameState) => boolean;
   choices: Choice[];
 }
 
@@ -70,4 +75,8 @@ export interface GameState {
   lastEffects: Partial<Stats> | null;
   toast: string | null;
   endingId: string | null;
+  /** 时光机快照栈（每项不再嵌套 history），最新在末尾 */
+  history: GameState[];
+  /** 本局剩余的时光机次数 */
+  undoLeft: number;
 }

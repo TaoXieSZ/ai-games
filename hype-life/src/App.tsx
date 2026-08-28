@@ -13,7 +13,26 @@ export default function App() {
   const screen = useGameStore((s) => s.screen);
   const state = useGameStore((s) => s.state);
   const chooseIndex = useGameStore((s) => s.chooseIndex);
+  const undoGame = useGameStore((s) => s.undoGame);
+  const toTitle = useGameStore((s) => s.toTitle);
   const [muted, setMuted] = useState(sfx.muted);
+  const [confirmExit, setConfirmExit] = useState(false);
+
+  // 退出按钮二次确认：3 秒内再点一次才真正退出
+  useEffect(() => {
+    if (!confirmExit) return;
+    const t = window.setTimeout(() => setConfirmExit(false), 3000);
+    return () => window.clearTimeout(t);
+  }, [confirmExit]);
+
+  const exitGame = () => {
+    if (!confirmExit) {
+      setConfirmExit(true);
+      return;
+    }
+    setConfirmExit(false);
+    toTitle();
+  };
 
   const endingId = state?.endingId ?? null;
   useEffect(() => {
@@ -60,6 +79,14 @@ export default function App() {
     <div className="game-shell">
       <header className="game-top">
         <div className="game-topbar">
+          <button
+            className={`icon-btn ${confirmExit ? 'danger' : ''}`}
+            aria-label="退出本局"
+            title="退出本局，回标题页（进度已保存）"
+            onClick={exitGame}
+          >
+            {confirmExit ? '确认退出?' : '✕ 退出'}
+          </button>
           <div className="game-logo">热搜人生</div>
           <button
             className="icon-btn"
@@ -79,7 +106,11 @@ export default function App() {
           toast={state.toast}
           act={event.act}
           progress={`${played}/${CONTENT.mainline.length}`}
+          undoLeft={state.undoLeft}
+          canUndo={state.undoLeft > 0 && state.history.length > 0}
+          lastEffects={state.lastEffects}
           onChoose={chooseIndex}
+          onUndo={undoGame}
         />
       </main>
       <footer className="game-foot">每个选择都算数 · 属性到 0 或 100 就杀青</footer>

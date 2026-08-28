@@ -284,6 +284,12 @@ body::after {
   color: var(--ink);
   padding: 2px 8px;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.icon-btn.danger {
+  border-color: var(--c-risk);
+  color: var(--c-risk);
 }
 
 .game-logo {
@@ -402,6 +408,38 @@ body::after {
   color: var(--c-cash);
   font-size: 13px;
   padding: 6px 10px;
+}
+
+/* 上一题结果的舆情反馈（灵活下一题的过渡文案） */
+.reactions {
+  background: rgba(0, 0, 0, 0.22);
+  border-left: 4px solid var(--c-trust);
+  font-size: 13px;
+  color: var(--ink-dim);
+  padding: 4px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.btn.undo {
+  background: transparent;
+  color: var(--ink-dim);
+  border: 2px dashed #566c86;
+  box-shadow: none;
+  width: 100%;
+  font-size: 13px;
+  padding: 7px;
+}
+
+.btn.undo:not(:disabled):hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: none;
+}
+
+.btn.undo:disabled {
+  opacity: 0.4;
 }
 
 .card-title {

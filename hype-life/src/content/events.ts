@@ -1363,6 +1363,115 @@ const evts: GameEvent[] = [
       },
     ],
   },
+
+  // ── 状态条件卡（只在特定局面下被抽到，"灵活下一题"）──
+  {
+    id: 's_media_call',
+    act: 3,
+    year: '动态',
+    scene: '新闻联播后时段',
+    sprite: 'panic',
+    title: '官媒点名',
+    text: '（你的热度居高不下，引来国家级媒体关注）评论文章《流量不是护身符》点名了你"精心编排的热搜人生"。全网转载，口径一致。',
+    when: (s) => s.stats.hype >= 70,
+    choices: [
+      {
+        text: '沉默删博，低调两周',
+        effects: { trust: 8, hype: -6 },
+        resultText: '你消失的两周里，热搜反而清净了不少。',
+      },
+      {
+        text: '发文回应："欢迎监督"',
+        effects: { hype: 5, risk: 3, trust: 4 },
+        resultText: '姿态摆得端正，评论区给了点面子。',
+      },
+      {
+        text: '嘲讽"传统媒体不懂区块链"',
+        effects: { hype: 10, trust: -10, risk: 6 },
+        resultText: '你赢了下一次热搜，输掉了下一次审核。',
+      },
+    ],
+  },
+  {
+    id: 's_regulator',
+    act: 3,
+    year: '动态',
+    scene: '约谈室',
+    sprite: 'panic',
+    title: '监管约谈',
+    text: '（你的风险值持续走高，被请去喝茶了）约谈室里三杯茶，两位同志，一份《整改建议书》。',
+    when: (s) => s.stats.risk >= 60,
+    choices: [
+      {
+        text: '全力配合，当场承诺整改',
+        effects: { risk: -15, trust: 10, hype: -5 },
+        resultText: '整改方案获认可，你体面地走了出来。',
+      },
+      {
+        text: '装傻充愣，"我不太懂政策"',
+        effects: { risk: 5, trust: -3 },
+        resultText: '同志们的表情说明，下次约谈不会这么客气。',
+      },
+      {
+        text: '官宣"合规是核心竞争力"',
+        effects: { hype: 3, risk: -8, trust: 5 },
+        resultText: '公告发得漂亮，整改组勉强点头。',
+      },
+    ],
+  },
+  {
+    id: 's_broke_alert',
+    act: 2,
+    year: '动态',
+    scene: '财务室',
+    sprite: 'panic',
+    title: '账上见底',
+    text: '（你的资金见了底）财务总监敲开你办公室的门："账上的钱，只够发三个月工资了。"',
+    choices: [
+      {
+        text: '抵押豪宅，紧急输血',
+        effects: { cash: 15, hype: -3 },
+        resultText: '银行经理陪着你签了二十份文件。',
+      },
+      {
+        text: '裁员过冬，瘦身求生',
+        effects: { cash: 10, trust: -6 },
+        resultText: '欢送会上你说了很多，但没人记住内容。',
+      },
+      {
+        text: '带头降薪，与团队共渡难关',
+        effects: { trust: 10, cash: 5 },
+        resultText: '核心团队一个没走，还多了两个转正的实习生。',
+      },
+    ],
+  },
+  {
+    id: 's_fanclub',
+    act: 3,
+    year: '动态',
+    scene: '粉丝应援现场',
+    sprite: 'smug',
+    title: '铁粉后援会',
+    text: '（你的口碑难得地好）粉丝后援会包下了一整面应援墙，灯牌上写着"晨宇加油"。会长问你能不能空降粉丝群。',
+    when: (s) => s.stats.trust >= 75,
+    choices: [
+      {
+        text: '空降粉丝群，连发红包',
+        effects: { cash: -5, hype: 8, trust: 3 },
+        resultText: '红包雨下了十分钟，群人数翻了三倍。',
+      },
+      {
+        text: '录一段感谢视频',
+        effects: { trust: 5 },
+        resultText: '视频被逐帧截图做成应援素材。',
+      },
+      {
+        text: '提醒粉丝理性追星，好好读书',
+        effects: { trust: 10, hype: -3 },
+        resultText: '"晨宇劝学"上了同城热搜，家长们点了赞。',
+      },
+    ],
+  },
 ];
 
 // 被任何选项 nextEventId 引用的卡是连锁卡，只通过上一张卡触发，
