@@ -1,0 +1,1382 @@
+import type { Content, GameEvent } from '../engine/types';
+
+// 影射对照表（内容统一改名处）：
+//   孙宇晨→孙晨宇  波场TRON→涌场TIDE  湖畔大学→湖心大学  巴菲特→股神
+//   贾跃亭→贾亭跃  王小川→王小舟  特朗普→懂王  景甜→田甜  曾颖→曾莹  火币HTX→回声ECHO
+// 本作为纯属虚构的讽刺作品，所有人物与事件均为艺术加工。
+// 每张卡固定三个选项：高调作死 / 稳健发育 / 剑走偏锋。
+
+const evts: GameEvent[] = [
+  // ── 第一幕 · 逆袭开局 ──────────────────────────────
+  {
+    id: 'm_start',
+    act: 1,
+    year: '2007',
+    scene: '高三教室',
+    sprite: 'student',
+    title: '新概念，还是新课本',
+    mainline: true,
+    text: '模考 459 分，只够三本线。班主任说你的人生已经定型了。桌上摊着一张新概念作文大赛报名表，截止还剩 3 天——听说一等奖能拿名校自主招生加分。你决定——',
+    choices: [
+      {
+        text: '孤注一掷：把历年获奖范文拆成公式研究',
+        effects: { hype: 10, trust: -5 },
+        flags: ['gambler'],
+        resultText: '你把十年的获奖文章拆成了十六种开头、九种结尾。',
+      },
+      {
+        text: '关掉报名页，老实刷题',
+        effects: { trust: 8, hype: -3 },
+        resultText: '稳，但没人记得住稳。',
+      },
+      {
+        text: '直接给评委写信自荐，附上全部习作',
+        effects: { hype: 5, risk: 3 },
+        resultText: '评委没回信，但你的信在编辑部传阅了一整个月。',
+      },
+    ],
+  },
+  {
+    id: 'm_prize',
+    act: 1,
+    year: '2007',
+    scene: '颁奖台',
+    sprite: 'smug',
+    title: '一等奖',
+    mainline: true,
+    text: '笔名"史小博"的你真拿了一等奖。名校自主招生面试资格加加分到手，面试官问你的理想，你说："我想被历史记住。"',
+    choices: [
+      {
+        text: '最后一年玩命冲刺，459 冲到 650',
+        effects: { hype: 5, trust: 10 },
+        resultText: '老师们说你疯了，但分数不会说谎。',
+      },
+      {
+        text: '开博客连载《夺冠套路》，顺便赚稿费',
+        effects: { cash: 5, hype: 8, trust: -3 },
+        resultText: '全国的高考生都成了你的读者。',
+      },
+      {
+        text: '躺平享受掌声，平台比冲刺重要',
+        effects: { hype: -5, trust: 5 },
+        resultText: '你相信人生是场马拉松，虽然你跑的是百米。',
+      },
+    ],
+  },
+  {
+    id: 'm_beida',
+    act: 1,
+    year: '2008',
+    scene: '燕园',
+    sprite: 'student',
+    title: '历史系新生',
+    mainline: true,
+    text: '你考进了顶尖大学历史系。开学自我介绍，你说自己"读历史是为了创造历史"，台下笑成一片。',
+    choices: [
+      {
+        text: '当校园意见领袖，博客日更怼天怼地',
+        effects: { hype: 10, trust: -3 },
+        resultText: '你的博客有了第一批忠实读者——和第一批黑粉。',
+      },
+      {
+        text: '埋头苦读，当个卷王',
+        effects: { trust: 8, cash: 3 },
+        resultText: '绩点第一的传说开始流传。',
+      },
+      {
+        text: '申请转去商学院，历史当副业',
+        effects: { cash: 8, hype: -5, trust: 3 },
+        resultText: '你在两个学院之间反复横跳，两边都觉得你是自己人。',
+      },
+    ],
+  },
+  {
+    id: 'm_grad',
+    act: 1,
+    year: '2011',
+    scene: '毕业典礼',
+    sprite: 'suit',
+    title: '历史系总分第一',
+    mainline: true,
+    text: '你以历史系总分第一毕业，顺手拿了五所美国名校的录取。签证官在你的护照上盖章时，太平洋对岸有个新词正在流行：blockchain。',
+    choices: [
+      {
+        text: '登机，去大洋彼岸读法学',
+        effects: { trust: 5, hype: 5 },
+        resultText: '行李箱里塞了三本区块链白皮书打印件。',
+      },
+      {
+        text: 'gap 一年，环游中国"寻找自己"',
+        effects: { hype: 6, cash: -3 },
+        resultText: '你在敦煌的沙漠里想通了一件事：要去搞金融。',
+      },
+      {
+        text: '放弃 offer，去培训机构教历史',
+        effects: { cash: 8, trust: 5, hype: -5 },
+        resultText: '你的历史课成了机构招牌，学费翻了三倍。',
+      },
+    ],
+  },
+  {
+    id: 's_fenke',
+    act: 1,
+    year: '2008',
+    scene: '分科咨询会',
+    sprite: 'student',
+    title: '文理分科',
+    text: '班主任拍着桌子劝你学理："学文没饭吃。"你攥着那张文理分科意向表。',
+    choices: [
+      {
+        text: '学文，赌自主招生那条路',
+        effects: { hype: 6, trust: -3 },
+        resultText: '你在意向表上签字的手很稳。',
+      },
+      {
+        text: '学理，稳一手就业',
+        effects: { cash: 5, hype: -5 },
+        resultText: '多年后你依然会解电磁感应题。',
+      },
+      {
+        text: '都不选，申请出国读高中',
+        effects: { cash: -5, hype: 4, trust: 3 },
+        resultText: '你成了年级里第一个"逃兵"，也是最神秘的那个。',
+      },
+    ],
+  },
+  {
+    id: 's_blog_deleted',
+    act: 1,
+    year: '2010',
+    scene: '机房',
+    sprite: 'panic',
+    title: '删帖之夜',
+    text: '你写的《我们的学校为什么不能讨论这个》一夜之间被删了。博客后台显示阅读 10 万+，然后归零。',
+    choices: [
+      {
+        text: '连夜写公开信，转发求扩散',
+        effects: { hype: 8, risk: 8 },
+        flags: ['censorship'],
+        resultText: '公开信没火，你的 ID 先火了。',
+      },
+      {
+        text: '换个马甲接着写',
+        effects: { trust: 5 },
+        resultText: '你的小号在角落安静生长。',
+      },
+      {
+        text: '假装被盗号，哭诉"黑客可恶"',
+        effects: { hype: 5, trust: -6 },
+        resultText: '没人信，但流量是真的。',
+      },
+    ],
+  },
+  {
+    id: 's_scholar',
+    act: 1,
+    year: '2010',
+    scene: '图书馆',
+    sprite: 'student',
+    title: '故纸堆',
+    text: '系里有个校勘古籍的苦差事，没人愿意接。导师说："接了，你就坐十年冷板凳。"',
+    choices: [
+      {
+        text: '接！坐住冷板凳',
+        effects: { trust: 8 },
+        flags: ['scholar'],
+        resultText: '你比同龄人更早读懂了"历史"两个字的分量。',
+      },
+      {
+        text: '婉拒，给杂志写历史专栏',
+        effects: { cash: 5, hype: 4 },
+        resultText: '你的专栏有了固定读者群。',
+      },
+      {
+        text: '拉企业赞助办"历史大讲堂"',
+        effects: { cash: 6, hype: 6, trust: -3 },
+        resultText: '讲堂场场爆满，导师说你"不务正业但有本事"。',
+      },
+    ],
+  },
+
+  // ── 第二幕 · 标签起飞 ──────────────────────────────
+  {
+    id: 'm_ripple',
+    act: 2,
+    year: '2013',
+    scene: '中关村',
+    sprite: 'suit',
+    title: '区块链传教士',
+    mainline: true,
+    text: '留学时你接触了一家海外区块链协议公司，回国后成了它的大中华区代表，创办了自己的公司"锐波"。投资人问你这是什么，你说："这是下一个互联网。"',
+    choices: [
+      {
+        text: 'All in 区块链，回国巡回布道',
+        effects: { hype: 10, risk: 5 },
+        resultText: '你的PPT在各个科技会场循环播放。',
+      },
+      {
+        text: '先拿融资，再谈理想',
+        effects: { cash: 8, trust: 3 },
+        resultText: 'A轮融资到账，钱包终于不空了。',
+      },
+      {
+        text: '先做自媒体，日更区块链科普',
+        effects: { hype: 8, cash: 3, trust: -3 },
+        resultText: '你的科普视频让"区块链"三个字第一次上了热榜。',
+      },
+    ],
+  },
+  {
+    id: 'm_huxin',
+    act: 2,
+    year: '2015',
+    scene: '湖心大学',
+    sprite: 'smug',
+    title: '湖心大学首批学员',
+    mainline: true,
+    text: '你成了"马老师"创办的湖心大学首批学员，三十多人里唯一的 90 后。开学合影时，你站在了马老师身后半步的位置，并确保所有人都知道这件事。',
+    choices: [
+      {
+        text: '连夜发文《我与马老师》，标签拉满',
+        effects: { hype: 12, trust: -5 },
+        flags: ['huxin_flex'],
+        resultText: '"马云最年轻的门徒"从此成了你的第一张名片。',
+      },
+      {
+        text: '低调听课，认真记笔记',
+        effects: { trust: 8 },
+        resultText: '同学们觉得这小伙子挺踏实。',
+      },
+      {
+        text: '拜师宴上主动表演才艺',
+        effects: { hype: 8, trust: -8 },
+        resultText: '你唱了一段 rap，全场愣了三秒，视频传疯了。',
+      },
+    ],
+  },
+  {
+    id: 'm_ico',
+    act: 2,
+    year: '2017',
+    scene: '发布会',
+    sprite: 'smug',
+    title: '涌场 TIDE 白皮书',
+    mainline: true,
+    text: '你创立了区块链项目"涌场 TIDE"，代币总量 1000 亿枚，白皮书上写着"让全世界的内容创作者自由呼吸"。ICO 窗口定在下周。',
+    choices: [
+      {
+        text: '火速 ICO，一分钟募完',
+        effects: { cash: 20, hype: 10, risk: 10 },
+        resultText: '倒计时 61 秒，资金到账。群里炸了。',
+      },
+      {
+        text: '再打磨半年产品',
+        effects: { trust: 8, hype: -5 },
+        resultText: '社区嫌你慢，但后来说你靠谱。',
+      },
+      {
+        text: '花钱请顶级大 V 背书站台',
+        effects: { cash: -8, hype: 12, risk: 5 },
+        resultText: '大 V 一发声，白皮书阅读量一夜破百万。',
+      },
+    ],
+  },
+  {
+    id: 's_gongwuyuan',
+    act: 1,
+    year: '2009',
+    scene: '宿舍夜谈',
+    sprite: 'student',
+    title: '宿舍夜谈',
+    text: '室友们都在刷公务员行测题。"铁饭碗"和"写博客"之间，整个宿舍吵到了凌晨两点。',
+    choices: [
+      {
+        text: '跟风刷题，随大流',
+        effects: { cash: 5, hype: -5 },
+        resultText: '你行测模考及格了，但总觉得哪里不对。',
+      },
+      {
+        text: '熬夜日更博客，当意见领袖',
+        effects: { hype: 8, trust: -3 },
+        resultText: '你的博客粉丝破万，评论区分成了两派。',
+      },
+      {
+        text: '白天刷题，晚上写博客，全都要',
+        effects: { cash: 3, hype: 4, trust: 2 },
+        resultText: '你瘦了十斤，两边都没耽误。',
+      },
+    ],
+  },
+  {
+    id: 's_interview',
+    act: 2,
+    year: '2016',
+    scene: '演播室',
+    sprite: 'suit',
+    title: '财经访谈',
+    text: '财经频道访谈，主持人笑着问："作为 90 后创业家，您的偶像是谁？"灯光打在脸上，摄像机的红灯亮着。',
+    choices: [
+      {
+        text: '"马老师。但五年后，我会超过他。"',
+        effects: { hype: 10, risk: 5 },
+        resultText: '这段采访被剪成了短视频，播放量千万。',
+      },
+      {
+        text: '"我还年轻，还在学习。"',
+        effects: { trust: 6 },
+        resultText: '网友评论：难得的谦虚。',
+      },
+      {
+        text: '现场给主持人布道区块链',
+        effects: { hype: 8, risk: 3 },
+        resultText: '主持人的表情管理失败，成了当晚的收视高点。',
+      },
+    ],
+  },
+  {
+    id: 's_vc',
+    act: 2,
+    year: '2014',
+    scene: '咖啡厅',
+    sprite: 'panic',
+    title: '投资人爽约',
+    text: '约好的 A 轮 TS 签约，投资人放了鸽子，朋友圈却在晒和你的竞对的合影。',
+    choices: [
+      {
+        text: '发朋友圈挂人',
+        effects: { hype: 6, trust: -6 },
+        resultText: '圈内人说你"敢说"，也说你要凉。',
+      },
+      {
+        text: '咽下去，再谈三家',
+        effects: { cash: 6 },
+        resultText: '第四家的条款更好。',
+      },
+      {
+        text: '把聊天记录做成截图，全网分发',
+        effects: { hype: 8, trust: -8, risk: 3 },
+        resultText: '截图里他说的"绝对靠谱"成了年度笑话。',
+      },
+    ],
+  },
+  {
+    id: 's_cto',
+    act: 2,
+    year: '2015',
+    scene: '办公室',
+    sprite: 'panic',
+    title: '合伙人出走',
+    text: '技术合伙人留下一句"方向不对"，抱着笔记本电脑走了。团队只剩七个人。',
+    choices: [
+      {
+        text: '加薪挽留，要不回就翻倍',
+        effects: { cash: -8, trust: 6 },
+        resultText: '他回来了，带着更快的代码。',
+      },
+      {
+        text: '发公告："公司离了谁都转"',
+        effects: { hype: 8, trust: -6 },
+        resultText: '公告爆了，人心散了一半。',
+      },
+      {
+        text: '写内部信承认"方向我定错了"',
+        effects: { trust: 8, hype: -4 },
+        resultText: '这封内部信多年后被投资人称为"教科书级的担当"。',
+      },
+    ],
+  },
+  {
+    id: 's_movie',
+    act: 2,
+    year: '2016',
+    scene: '片场',
+    sprite: 'suit',
+    title: '纪录片跟拍',
+    text: '一个纪录片团队想跟拍你一年，导演承诺"真实记录一切"。摄像机将架进你的生活。',
+    choices: [
+      {
+        text: '答应，全程跟拍',
+        effects: { hype: 8, trust: -3 },
+        resultText: '你在镜头前越来越会"自然地"看镜头。',
+      },
+      {
+        text: '拒绝，创业不需要观众',
+        effects: { trust: 6 },
+        resultText: '你把所有表情都留给了产品。',
+      },
+      {
+        text: '付费定制剧本，按偶像剧拍',
+        effects: { cash: -6, hype: 8, trust: -5 },
+        resultText: '纪录片播出后被吐槽"悬浮"，但你出圈了。',
+      },
+    ],
+  },
+  {
+    id: 's_plagiarism',
+    act: 2,
+    year: '2017',
+    scene: '技术社区',
+    sprite: 'panic',
+    title: '白皮书抄袭质疑',
+    text: '有人逐行比对后发帖：涌场白皮书和三个海外项目高度雷同。帖子在技术圈疯转。',
+    choices: [
+      {
+        text: '逐条硬刚，直播比对',
+        effects: { hype: 8, trust: -5 },
+        resultText: '你赢了辩论，输了技术圈的口碑。',
+      },
+      {
+        text: '请第三方做原创性审计',
+        effects: { cash: -5, trust: 8 },
+        resultText: '审计报告平息了风波，费用不菲。',
+      },
+      {
+        text: '装死不回应，等下一个热点',
+        effects: { hype: -5, risk: 3 },
+        resultText: '三天后大家真的忘了，但证据链还躺在网上。',
+      },
+    ],
+  },
+  {
+    id: 's_summit',
+    act: 2,
+    year: '2016',
+    scene: '峰会主会场',
+    sprite: 'suit',
+    title: '压轴演讲',
+    text: '区块链峰会临时把你调到压轴场，台下坐着一千人和三十台摄像机。',
+    choices: [
+      {
+        text: '放豪言："十年后行业第一"',
+        effects: { hype: 10, risk: 3 },
+        resultText: '这句话被做成了表情包，也成了你的军令状。',
+      },
+      {
+        text: '老老实实讲技术路线图',
+        effects: { trust: 6 },
+        resultText: '开发者们记住了你的项目。',
+      },
+      {
+        text: '演讲到一半，宣布现场发币',
+        effects: { hype: 12, trust: -10, risk: 5 },
+        resultText: '全场沸腾，主办方脸色铁青，头条是你的。',
+      },
+    ],
+  },
+
+  // ── 第三幕 · 争议登顶 ──────────────────────────────
+  {
+    id: 'm_cashout',
+    act: 3,
+    year: '2017',
+    scene: '深夜书房',
+    sprite: 'panic',
+    title: '拉盘之后',
+    mainline: true,
+    text: '币价两个月翻了 40 倍，你的持仓数字后面跟了一长串零。持仓群里的散户还在喊"冲到宇宙"，你的手放在了卖出键上。',
+    choices: [
+      {
+        text: '悄悄分批抛售，落袋为安',
+        effects: { cash: 25, trust: -12, risk: 10 },
+        flags: ['cut_leek'],
+        resultText: '你套现离场的那天，接盘的人还在山顶等"千倍币"。',
+      },
+      {
+        text: '按住不动，做长期主义',
+        effects: { trust: 12, hype: -8 },
+        resultText: '"币圈良心"的锦旗和腰斩的资产一起寄到了。',
+      },
+      {
+        text: '只抛一半，剩下的公开锁仓三年',
+        effects: { cash: 12, trust: -5, hype: 3 },
+        resultText: '"与社区共进退"的人设立住了，钱包也鼓了一半。',
+      },
+    ],
+  },
+  {
+    id: 'm_lunch',
+    act: 3,
+    year: '2019',
+    scene: '拍卖行',
+    sprite: 'bell',
+    title: '股神午餐',
+    mainline: true,
+    text: '你以 456.78 万美元拍下与股神的慈善午餐，历史最高价。发布会上你举起手机："这不是我一个人的胜利，是整个社区的胜利！"',
+    choices: [
+      {
+        text: '全网高调官宣，倒计时 30 天',
+        effects: { hype: 20, cash: -15 },
+        nextEventId: 'm_stone',
+        resultText: '热搜挂了一整周，你开始每天直播"午餐备战"。',
+      },
+      {
+        text: '低调赴约，饭桌上慢慢聊',
+        effects: { trust: 8, cash: -15 },
+        resultText: '没有镜头的一顿饭，你聊得格外真诚。',
+      },
+      {
+        text: '发起社区众筹餐费，"人人都是股东"',
+        effects: { cash: 10, trust: -15, hype: 8 },
+        resultText: '众筹三天破百万，舆论骂声也破了百万。',
+      },
+    ],
+  },
+  {
+    id: 'm_stone',
+    act: 3,
+    year: '2019',
+    scene: '病房',
+    sprite: 'panic',
+    title: '突发肾结石',
+    mainline: true,
+    text: '距午餐还有 36 小时，你宣布："突发肾结石，取消与股神的会面。"全网问号。有人翻出你前一天打篮球的视频。',
+    choices: [
+      {
+        text: '坚持病重，直播养病',
+        effects: { hype: 12, trust: -12, risk: 10 },
+        flags: ['kidney'],
+        nextEventId: 'm_makeup',
+        resultText: '病床直播间在线人数破百万，弹幕全是一个字：演。',
+      },
+      {
+        text: '捂着腰也要去吃这顿饭',
+        effects: { trust: 10, hype: -5 },
+        flags: ['kidney_avoided'],
+        resultText: '你拄着拐出现在餐厅，舆论一夜反转。',
+      },
+      {
+        text: '干脆玩失踪，让全网"寻人"',
+        effects: { hype: 15, trust: -20, risk: 8 },
+        flags: ['kidney'],
+        nextEventId: 'm_makeup',
+        resultText: '你消失了七天，#寻找孙晨宇# 挂了三天榜首。',
+      },
+    ],
+  },
+  {
+    id: 'm_makeup',
+    act: 3,
+    year: '2020',
+    scene: '牛排餐厅',
+    sprite: 'suit',
+    title: '补上的午餐',
+    mainline: true,
+    text: '半年后风波平息，这顿全世界都盯着的午餐总算吃上了。股神吃得很香，你趁机掏出手机给他看你的币。',
+    choices: [
+      {
+        text: '送股神一枚"涌场"，请他持币',
+        effects: { hype: 10, trust: 5 },
+        flags: ['lunch_done'],
+        resultText: '股神笑着说"谢谢"，然后把钱夹收好了。',
+      },
+      {
+        text: '只吃饭，不谈币',
+        effects: { trust: 8 },
+        resultText: '这顿饭你吃出了久违的松弛感。',
+      },
+      {
+        text: '偷偷直播整场午餐',
+        effects: { hype: 12, trust: -10, risk: 5 },
+        flags: ['lunch_done'],
+        resultText: '股神的叉子在直播镜头前停顿了 0.5 秒，成了名画。',
+      },
+    ],
+  },
+  {
+    id: 's_listing',
+    act: 3,
+    year: '2018',
+    scene: '会议室',
+    sprite: 'suit',
+    title: '上线费谈判',
+    text: '三大交易所开价 800 万 BTC 计价的"上币费"，业务员笑着说："同行都交了。"',
+    choices: [
+      {
+        text: '交钱，上大所',
+        effects: { cash: -10, hype: 10 },
+        resultText: '上币钟声敲响，你的币涨了 30%。',
+      },
+      {
+        text: '只上二线交易所',
+        effects: { cash: 3, trust: 5 },
+        resultText: '社区嫌流动性差，但你说"钱要花在技术"',
+      },
+      {
+        text: '反向上币：让交易所付费接入你的生态',
+        effects: { cash: 5, hype: 8, risk: 8 },
+        resultText: '你把谈判桌掀了，居然还有一家真付了钱。',
+      },
+    ],
+  },
+  {
+    id: 's_pump',
+    act: 3,
+    year: '2018',
+    scene: '深夜推特',
+    sprite: 'smug',
+    title: '喊单之夜',
+    text: '币价新高，社区大 V 晒出十万倍杠杆的暴富截图，@你 让你"说点什么"。',
+    choices: [
+      {
+        text: '转发晒单图，配文"感恩"',
+        effects: { hype: 10, trust: -8 },
+        flags: ['pump'],
+        resultText: '这张截图后来成了维权群里的证据一号。',
+      },
+      {
+        text: '发风险提示：币价有波动',
+        effects: { trust: 8, hype: -3 },
+        resultText: '你的冷静在那个疯狂夏夜显得格格不入。',
+      },
+      {
+        text: '只发一个字："稳"',
+        effects: { hype: 5, trust: -3 },
+        resultText: '这个字被解读出了十八种含义。',
+      },
+    ],
+  },
+  {
+    id: 's_crash',
+    act: 3,
+    year: '2018',
+    scene: '维权群',
+    sprite: 'panic',
+    title: '维权群卧底',
+    text: '币价腰斩，你用小号潜进了自己的维权群。三百条@官方 的消息里，有人贴出了你的照片。',
+    choices: [
+      {
+        text: '沉住气，潜水取证',
+        effects: { trust: 6 },
+        resultText: '你把用户骂你的话截图存进了一个文件夹，标题是"戒骄"。',
+      },
+      {
+        text: '公开空投"安慰金"',
+        effects: { cash: -8, trust: 8 },
+        flags: ['crash'],
+        resultText: '维权群改名为"感恩群"，又改了回去。',
+      },
+      {
+        text: '雇一队客服，7×24 小时在线',
+        effects: { cash: -6, trust: 6, hype: -3 },
+        resultText: '客服的耐心安抚了两千人，工资单也安抚了失业率。',
+      },
+    ],
+  },
+  {
+    id: 's_rename',
+    act: 3,
+    year: '2021',
+    scene: '凌晨书房',
+    sprite: 'smug',
+    title: '改名字蹭热点',
+    text: '凌晨两点，一个现象级梗刷屏全网。运营总监提议：把代币改名蹭上去，热度立等可取。',
+    choices: [
+      {
+        text: '改！热点不等人',
+        effects: { hype: 8, trust: -6 },
+        resultText: '币价涨了，你的百度百科词条多了"蹭王"称号。',
+      },
+      {
+        text: '专心搞生态，不改',
+        effects: { trust: 6 },
+        resultText: '热点三天就过了，你的主网还在。',
+      },
+      {
+        text: '发起社区投票，让持币者决定',
+        effects: { hype: 5, trust: 4, cash: -2 },
+        resultText: '投票率 3%，改名通过。你说是"民主的胜利"。',
+      },
+    ],
+  },
+  {
+    id: 's_bet',
+    act: 3,
+    year: '2019',
+    scene: '微博评论区',
+    sprite: 'smug',
+    title: '一个比特币的赌约',
+    text: '科技大佬王小舟公开说："三年后你若超过我，我输你一个比特币。"评论区都在@你。',
+    choices: [
+      {
+        text: '接下赌约，连夜发博立帖为证',
+        effects: { hype: 10, trust: -3 },
+        flags: ['bet'],
+        resultText: '这条微博成了你每三个月都要转发一次的打卡帖。',
+      },
+      {
+        text: '微笑不语，专注做事',
+        effects: { trust: 6 },
+        resultText: '你不接招的样子被夸"格局打开"。',
+      },
+      {
+        text: '加注：赌十个比特币，全网见证',
+        effects: { hype: 12, risk: 5, trust: -5 },
+        flags: ['bet'],
+        resultText: '王小舟回了个"？"，全网搬好小板凳。',
+      },
+    ],
+  },
+  {
+    id: 's_jia',
+    act: 3,
+    year: '2021',
+    scene: '直播间',
+    sprite: 'bell',
+    title: '追债下周回国',
+    text: '你买下了"下周回国老板"贾亭跃的一笔债权。债主身份加身，全网都在等你直播讨债。',
+    choices: [
+      {
+        text: '高调直播讨债，天天倒计时',
+        effects: { hype: 12, risk: 8 },
+        flags: ['debt'],
+        resultText: '"贾亭跃还款倒计时"话题连续霸榜 30 天。',
+      },
+      {
+        text: '走法律程序，不搞行为艺术',
+        effects: { trust: 8 },
+        resultText: '律师函比直播安静，但更有用。',
+      },
+      {
+        text: '全网发布"债主通缉令"海报',
+        effects: { hype: 10, risk: 10 },
+        flags: ['debt'],
+        resultText: '海报设计感极强，被美术生当成了作业范例。',
+      },
+    ],
+  },
+  {
+    id: 's_taunt',
+    act: 3,
+    year: '2022',
+    scene: '推特',
+    sprite: 'smug',
+    title: '跨国对线',
+    text: '海外加密大佬发推暗讽你的项目是"庞氏乐园"。评论区等你表态，翻译软件都准备好了。',
+    choices: [
+      {
+        text: '英文挂人对线三轮',
+        effects: { hype: 10, risk: 6 },
+        flags: ['taunt'],
+        resultText: '对线截图冲上了两国热搜，你的英语语法被逐帧分析。',
+      },
+      {
+        text: '用中文回两个字："格局"',
+        effects: { trust: 5 },
+        resultText: '这两个字被做成了无数表情包。',
+      },
+      {
+        text: '公开邀请对方来中国吃火锅',
+        effects: { trust: 8, hype: 4, cash: -2 },
+        resultText: '对方回了个火锅表情，对线化成了段子。',
+      },
+    ],
+  },
+  {
+    id: 'm_banana',
+    act: 3,
+    year: '2024',
+    scene: '美术馆',
+    sprite: 'smug',
+    title: '《喜剧演员》',
+    mainline: true,
+    text: '你花 620 万美元买下那根用胶带贴在墙上的香蕉。发布会上，你当着全球媒体的面，把它吃了。"比香蕉更好吃的，是热度。"',
+    choices: [
+      {
+        text: '吃！吃出仪式感',
+        effects: { hype: 15, cash: -10 },
+        flags: ['banana'],
+        nextEventId: 'm_stomachache',
+        resultText: '你吃香蕉的直播间同时在线人数超过了春晚。',
+      },
+      {
+        text: '捐给美术馆，附言"艺术无价"',
+        effects: { trust: 10, hype: 3 },
+        resultText: '美术馆馆长握着你的手久久不放。',
+      },
+      {
+        text: '原价转手，赚个差价',
+        effects: { cash: 8, hype: -8, trust: 3 },
+        resultText: '接盘的收藏家说"这是信仰"，你说是"流动性"。',
+      },
+    ],
+  },
+  {
+    id: 'm_stomachache',
+    act: 3,
+    year: '2024',
+    scene: '豪宅卧室',
+    sprite: 'panic',
+    title: '凌晨胃疼',
+    mainline: true,
+    text: '吃了那根 620 万美元的香蕉，凌晨三点你的胃开始绞痛。床头柜上恰好还摆着组委会送的另一根"同款"香蕉。',
+    choices: [
+      {
+        text: '再吃一根压压惊',
+        endingId: 'stomach',
+        resultText: '急救车灯划破了豪宅的夜。',
+      },
+      {
+        text: '乖乖去医院，顺便发个vlog',
+        effects: { trust: 5, cash: -5, hype: 3 },
+        resultText: '《富豪的胃也是胃》播放量破千万。',
+      },
+      {
+        text: '发微博直播胃疼全过程',
+        effects: { hype: 10, trust: -5, cash: -3 },
+        resultText: '你疼得龇牙咧嘴的样子，收获了两百万个"哈哈哈"。',
+      },
+    ],
+  },
+
+  // ── 第四幕 · 资本收官 ──────────────────────────────
+  {
+    id: 'm_exchange',
+    act: 4,
+    year: '2023',
+    scene: '并购签约厅',
+    sprite: 'suit',
+    title: '收购回声交易所',
+    mainline: true,
+    text: '你全资收购了老牌交易所"回声 ECHO"，签完字它更名为"涌场交易所"。发布会横幅写着："生态闭环，就此完成。"',
+    choices: [
+      {
+        text: '高调宣布 all in 交易所',
+        effects: { hype: 12, risk: 10, cash: -10 },
+        flags: ['echo'],
+        resultText: '"并购女王/ king"的头衔和监管的注视一起到来。',
+      },
+      {
+        text: '低调整合，先补安全技术',
+        effects: { trust: 8, cash: 5 },
+        resultText: '半年后，回声的风控成了行业标杆。',
+      },
+      {
+        text: '把交易所主体迁到海外',
+        effects: { cash: 10, risk: 8, trust: -5 },
+        resultText: '办公室搬去了热带岛屿，邮件签名多了个 .io。',
+      },
+    ],
+  },
+  {
+    id: 's_sculpture',
+    act: 4,
+    year: '2024',
+    scene: '拍卖行',
+    sprite: 'smug',
+    title: '7840 万的雕塑',
+    text: '拍卖行力荐的贾科梅蒂式青铜雕塑，估价 7840 万美元。拍卖师说："它属于能读懂孤独的人。"',
+    choices: [
+      {
+        text: '拍下，捐给美术馆',
+        effects: { cash: -15, trust: 10, hype: 6 },
+        flags: ['museum'],
+        resultText: '美术馆为它单开了一个以你名字命名的展厅。',
+      },
+      {
+        text: '拍下，搬回自家客厅',
+        effects: { hype: 8, cash: -5 },
+        resultText: '你直播里的每一次背景出镜，都价值千万。',
+      },
+      {
+        text: '拍下，租出去全球巡回展览',
+        effects: { cash: 8, hype: 5, trust: -3 },
+        resultText: '雕塑一年巡展十二城，你躺着收租。',
+      },
+    ],
+  },
+  {
+    id: 'm_wlfi',
+    act: 4,
+    year: '2024',
+    scene: '豪华酒会',
+    sprite: 'suit',
+    title: '懂王的酒局',
+    mainline: true,
+    text: '"懂王家族"的加密项目向你抛来橄榄枝，邀请你成为最大买家之一。宴会上人人举着香槟，说这是"历史性机遇"。',
+    choices: [
+      {
+        text: '砸钱站台，合影发圈',
+        effects: { cash: -15, hype: 15, risk: 10 },
+        flags: ['trump_station'],
+        resultText: '你和"懂王"的合影冲上了中外热搜。',
+      },
+      {
+        text: '婉拒观望，见机行事',
+        effects: { trust: 8 },
+        resultText: '你缺席酒局的第二天，项目方发来了更低的折扣。',
+      },
+      {
+        text: '只站台不掏钱，"荣誉顾问"',
+        effects: { hype: 5, risk: 3, trust: -3 },
+        resultText: '头衔免费，合影收费——你把生意做成了玄学。',
+      },
+    ],
+  },
+  {
+    id: 'm_ipo',
+    act: 4,
+    year: '2025',
+    scene: '纳斯达克',
+    sprite: 'bell',
+    title: '借壳上市',
+    mainline: true,
+    text: '涌场 TIDE 借壳登陆纳斯达克，首夜股价暴涨 647%。敲钟名单里，出现了一个熟悉的名字——懂王家的小儿子。',
+    choices: [
+      {
+        text: '敲钟！全球直播！',
+        effects: { hype: 20, cash: 15 },
+        flags: ['ipo_done'],
+        resultText: '钟声响起的瞬间，你的表情包横扫了全网。',
+      },
+      {
+        text: '低调庆功，闷声发财',
+        effects: { trust: 10, cash: 5 },
+        resultText: '庆功宴只有一桌人，但每杯酒都值一套房。',
+      },
+      {
+        text: '请上父母一起敲钟',
+        effects: { trust: 8, hype: 5 },
+        flags: ['ipo_done'],
+        resultText: '你妈在钟声里比了个耶，这个画面比你所有营销都出圈。',
+      },
+    ],
+  },
+  {
+    id: 'm_countersue',
+    act: 4,
+    year: '2026',
+    scene: '法院门口',
+    sprite: 'panic',
+    title: '反手一诉',
+    mainline: true,
+    text: '合作破裂。你宣布起诉对方"敲诈勒索"——而半年前，你还在他们的酒会上举杯。记者问你为什么，你说："因为他们不讲武德。"',
+    choices: [
+      {
+        text: '起诉！律师团拉满',
+        effects: { hype: 10, risk: 15, trust: -10 },
+        flags: ['countersue'],
+        resultText: '起诉书上了热搜，阅读量是判决书的十万倍。',
+      },
+      {
+        text: '见好就收，安静离场',
+        effects: { trust: 10, risk: -5 },
+        resultText: '你删掉了草稿箱里那篇檄文。',
+      },
+      {
+        text: '开直播朗读起诉书全稿',
+        effects: { hype: 15, trust: -8, risk: 8 },
+        flags: ['countersue'],
+        resultText: '三小时朗读直播，在线人数比跨年晚会还高。',
+      },
+    ],
+  },
+  {
+    id: 's_forbes',
+    act: 4,
+    year: '2025',
+    scene: '摄影棚',
+    sprite: 'suit',
+    title: '福布斯封面',
+    text: '福布斯亚洲版封面拍摄邀请。造型师问："要走极简科技风，还是……把您的收藏都带上？"',
+    choices: [
+      {
+        text: '摆满周边，主打一个壕',
+        effects: { hype: 10 },
+        flags: ['forbes'],
+        resultText: '封面文案：《他和他的一千件藏品》。',
+      },
+      {
+        text: '极简风，白衬衫配牛仔裤',
+        effects: { trust: 6 },
+        resultText: '评论说这期"像个正经企业家了"。',
+      },
+      {
+        text: '胸口别一枚自家代币徽章',
+        effects: { hype: 12, risk: 8 },
+        resultText: '徽章当天销量破了十万，监管的邮箱也多了一封举报。',
+      },
+    ],
+  },
+  {
+    id: 's_charity',
+    act: 4,
+    year: '2025',
+    scene: '慈善晚宴',
+    sprite: 'suit',
+    title: '慈善晚宴',
+    text: '慈善晚宴邀请你压轴发言，主持人暗示：上一年的成交纪录是 2000 万。',
+    choices: [
+      {
+        text: '捐出当晚全部成交额',
+        effects: { cash: -10, trust: 10 },
+        flags: ['charity'],
+        resultText: '掌声雷动，也有人说你在"洗白"。',
+      },
+      {
+        text: '出席致辞，分文不掏',
+        effects: { hype: 4 },
+        resultText: '你的致辞视频播放量不错，捐款名单上没有你。',
+      },
+      {
+        text: '捐一件自己的"数字艺术"',
+        effects: { hype: 8, trust: -5 },
+        resultText: '那幅 NFT 的估值由你自己的基金会出具。',
+      },
+    ],
+  },
+  {
+    id: 's_audit',
+    act: 4,
+    year: '2025',
+    scene: '直播间',
+    sprite: 'panic',
+    title: '做空报告',
+    text: '知名做空机构发布 47 页报告，标题《涌场：一场精心编排的数字游戏》，市值应声跌 18%。',
+    choices: [
+      {
+        text: '连夜直播逐条驳斥',
+        effects: { hype: 12, risk: 8 },
+        flags: ['audit'],
+        resultText: '你的直播间变成了财经课堂，股价止跌。',
+      },
+      {
+        text: '发律师函，静默处理',
+        effects: { trust: 6 },
+        resultText: '股价两周后收复失地，报告无人再提。',
+      },
+      {
+        text: '反向做空对方做空的股票',
+        effects: { cash: 8, risk: 12 },
+        resultText: '你在对方的恐慌里赚了一笔，也在对方的记仇本上排到了第一。',
+      },
+    ],
+  },
+  {
+    id: 's_hack',
+    act: 4,
+    year: '2026',
+    scene: '作战室',
+    sprite: 'panic',
+    title: '被盗之夜',
+    text: '凌晨，交易所热钱包被盗 2 亿美元。工程师们盯着链上轨迹，你的手机在疯狂震动。',
+    choices: [
+      {
+        text: '公司全额兑付用户',
+        effects: { cash: -15, trust: 12 },
+        flags: ['hack'],
+        resultText: '"兜底"两个字让恐慌止于当夜。',
+      },
+      {
+        text: '发起链上回滚投票',
+        effects: { hype: 8, trust: -8 },
+        resultText: '矿工们吵了三天，最后各让一步。',
+      },
+      {
+        text: '悬赏 2000 万抓白帽黑客',
+        effects: { cash: -5, hype: 8, trust: 3 },
+        resultText: '赏金猎人闻风而动，你把灾难办成了赛事。',
+      },
+    ],
+  },
+  {
+    id: 's_live',
+    act: 4,
+    year: '2026.08',
+    scene: '别人的直播间',
+    sprite: 'melon',
+    title: '无关的直播间',
+    text: '一位前运动员的带货直播间突然被挤爆——涌进来的全是你的吃瓜群众，弹幕刷的全是你的名字。主播一脸问号。',
+    choices: [
+      {
+        text: '发文感谢这场"流量雨"',
+        effects: { hype: 8, trust: -5 },
+        resultText: '主播连夜把你拉黑了。',
+      },
+      {
+        text: '装作看不见',
+        effects: { trust: 5 },
+        resultText: '吃瓜群众们散了，各自回家。',
+      },
+      {
+        text: '给直播间空投一万份福利',
+        effects: { cash: -6, hype: 10, trust: -3 },
+        resultText: '主播删了黑名单又把你加回了置顶。',
+      },
+    ],
+  },
+
+  // ── 第五幕 · 终章：热搜连续剧（纯属虚构，请勿对号入座）──
+  {
+    id: 'm_love',
+    act: 5,
+    year: '2026.08',
+    scene: '热搜榜',
+    sprite: 'melon',
+    title: '热搜爆了',
+    mainline: true,
+    text: '上市后的第一个夏天。凌晨三点，你被手机震醒：#顶流女星田甜疑似恋情曝光# 冲上第一，配图里的人是你。全网吃瓜群众正在连夜考古你的微博。',
+    choices: [
+      {
+        text: '发文认爱："我们爱过"',
+        effects: { hype: 15, trust: -5 },
+        flags: ['teaser_love'],
+        resultText: '你的认爱声明一小时转发破百万，服务器又挂了。',
+      },
+      {
+        text: '沉默是金，装没看见',
+        effects: { trust: 8, hype: -5 },
+        resultText: '你的沉默被解读出了一百种剧情。',
+      },
+      {
+        text: '反手挂出偷拍的狗仔',
+        effects: { hype: 12, risk: 10 },
+        flags: ['teaser_love'],
+        resultText: '狗仔的工作室连夜注销了账号，你的经纪人却被约谈了。',
+      },
+    ],
+  },
+  {
+    id: 'm_essay',
+    act: 5,
+    year: '2026.08',
+    scene: '深夜书房',
+    sprite: 'panic',
+    title: '万字长文',
+    mainline: true,
+    text: '你失眠了。凌晨四点，你决定亲笔写一篇《我的女友田甜》，把这段从相恋到分手的故事讲给全世界——毕竟，没有比热搜更好的自传载体。',
+    choices: [
+      {
+        text: '发！万字长文，深情并茂',
+        effects: { hype: 15, trust: -10 },
+        flags: ['essay'],
+        nextEventId: 'm_backlash',
+        resultText: '长文刷屏。有人看哭了，有人拿出了放大镜。',
+      },
+      {
+        text: '写完，又一个字一个字删掉',
+        effects: { trust: 8 },
+        resultText: '草稿箱替你保守了秘密，热搜第 7 天自己凉了。',
+      },
+      {
+        text: '先搞付费预览，再看免费公开',
+        effects: { cash: 8, hype: 8, trust: -8 },
+        flags: ['essay'],
+        nextEventId: 'm_backlash',
+        resultText: '预览卖出三十万份，"爱情明码标价"的骂声也如期而至。',
+      },
+    ],
+  },
+  {
+    id: 'm_backlash',
+    act: 5,
+    year: '2026.08',
+    scene: '舆论战场',
+    sprite: 'panic',
+    title: '长文翻车',
+    mainline: true,
+    text: '网友逐条打假你的长文，时间线对不上、细节有出入。第三天，你接受采访，说了一句注定载入流量史册的话："长文有艺术加工。"',
+    choices: [
+      {
+        text: '大方承认"艺术加工"',
+        effects: { hype: 12, trust: -12 },
+        flags: ['essay_backlash'],
+        resultText: '"艺术加工"四个字成了年度热梗。',
+      },
+      {
+        text: '死不承认，硬刚到底',
+        effects: { trust: -8, risk: 10 },
+        nextEventId: 'm_statement',
+        resultText: '你把爆料博主一个个挂了出来。',
+      },
+      {
+        text: '邀请田甜上直播间当面对谈',
+        effects: { hype: 15, risk: 12 },
+        flags: ['essay_backlash'],
+        nextEventId: 'm_statement',
+        resultText: '对方工作室回复了三个字：不约。直播间预约数破了千万。',
+      },
+    ],
+  },
+  {
+    id: 'm_statement',
+    act: 5,
+    year: '2026.08',
+    scene: '律师楼会议室',
+    sprite: 'suit',
+    title: '律师函警告',
+    mainline: true,
+    text: '被你挂出来的博主们集体转发了律师函，话题#孙晨宇 律师函#冲上第四。你的律师问：下一步怎么办？',
+    choices: [
+      {
+        text: '再挂十个，对决到底',
+        effects: { hype: 8, risk: 10 },
+        flags: ['lawyer_letter'],
+        resultText: '你的律师团成了全网最忙的律师团。',
+      },
+      {
+        text: '删博道歉，体面收场',
+        effects: { trust: 10, hype: -5 },
+        resultText: '道歉信下面第一次排起了好评队。',
+      },
+      {
+        text: '给对方父母也寄一份律师函',
+        effects: { hype: 5, risk: 15, trust: -10 },
+        flags: ['lawyer_letter'],
+        resultText: '律师函的复印费都成了新闻标题，你的律师递了辞职信。',
+      },
+    ],
+  },
+  {
+    id: 's_archaeology',
+    act: 5,
+    year: '2026.08',
+    scene: '微博考古现场',
+    sprite: 'melon',
+    title: '微博考古',
+    text: '网友挖出你 2012 年的微博："这辈子不谈恋爱，专注搞钱。"转发 80 万，配文全是"哈哈哈"。',
+    choices: [
+      {
+        text: '亲手转发："青春啊"',
+        effects: { hype: 8, trust: -4 },
+        flags: ['archaeology'],
+        resultText: '这条转发成了新的考古入口，考古队又挖出了 300 条。',
+      },
+      {
+        text: '让工作室批量删帖',
+        effects: { trust: 5, hype: -3 },
+        resultText: '删帖速度赶不上截图速度，但至少官方账号干净了。',
+      },
+      {
+        text: '把黑历史做成表情包周边售卖',
+        effects: { cash: 6, hype: 8, trust: -6 },
+        resultText: '"专注搞钱"马克杯三天卖了五万个，你确实专注搞钱。',
+      },
+    ],
+  },
+  {
+    id: 's_trending3',
+    act: 5,
+    year: '2026.08',
+    scene: '热搜后台',
+    sprite: 'smug',
+    title: '前十占三',
+    text: '热搜前十你占了三席：#恋情曝光# #万字长文# #彩礼诉讼#。运营总监问你，要不要发个庆祝海报。',
+    choices: [
+      {
+        text: '发图庆祝："感谢全国网友"',
+        effects: { hype: 8, trust: -4 },
+        flags: ['trending3'],
+        resultText: '海报被骂上了第四个热搜。',
+      },
+      {
+        text: '装作不知情',
+        effects: { trust: 5 },
+        resultText: '你的低调被解读为"大局观"。',
+      },
+      {
+        text: '买下剩下七个热搜位，一整排',
+        effects: { cash: -15, hype: 15, risk: 8 },
+        flags: ['trending3'],
+        resultText: '热搜史上第一次整排同姓，平台客服电话被打爆。',
+      },
+    ],
+  },
+  {
+    id: 's_rumors',
+    act: 5,
+    year: '2026.08',
+    scene: '机场通道',
+    sprite: 'melon',
+    title: '复合传闻',
+    text: '你和田甜被拍到前后脚出现在同一座机场。#世纪复合# 的词条以每分钟一万条的速度增长。',
+    choices: [
+      {
+        text: '评论区回复两个字："勿念"',
+        effects: { hype: 10, trust: -5 },
+        flags: ['rumors'],
+        resultText: '"勿念"的释义被各路大 V 分析了八百字。',
+      },
+      {
+        text: '沉默，快步走过通道',
+        effects: { trust: 5, hype: -3 },
+        resultText: '你的背影登上了三家媒体的封面。',
+      },
+      {
+        text: '晒出机票和行程单自证清白',
+        effects: { hype: 6, trust: 4, cash: -2 },
+        resultText: '行程单被逐字研究，你永远不知道网友多闲。',
+      },
+    ],
+  },
+  {
+    id: 's_qa',
+    act: 5,
+    year: '2026.08',
+    scene: '连麦直播间',
+    sprite: 'panic',
+    title: '两小时拷问',
+    text: '头部主播邀请你连麦"回答一切"，预告页面写着：不设限、不预审、不剪辑。',
+    choices: [
+      {
+        text: '接！两小时极限拷问',
+        effects: { hype: 12, trust: -6 },
+        resultText: '你金句频出，但有三段切片正在被逐帧解读。',
+      },
+      {
+        text: '婉拒，只发书面声明',
+        effects: { trust: 6, hype: -3 },
+        resultText: '声明很安全，也很无聊，这是它的优点。',
+      },
+      {
+        text: '接，但带上整个律师团',
+        effects: { risk: 5, trust: 6, hype: -3 },
+        resultText: '律师团整齐入镜，主播的问题越来越有礼貌。',
+      },
+    ],
+  },
+  {
+    id: 'm_lawsuit',
+    act: 5,
+    year: '2026.08',
+    scene: '律师楼',
+    sprite: 'suit',
+    title: '彩礼诉讼',
+    mainline: true,
+    text: '恋情撕成了财产纠纷。律师函发出：以田甜及其父母为被告，追讨 3000 余万，已立案并申请财产保全。对方回应："不会为钱出卖爱情与灵魂。"',
+    choices: [
+      {
+        text: '告！把官司打到底',
+        effects: { cash: 20, risk: 15, trust: -12 },
+        flags: ['bride_lawsuit'],
+        resultText: '财产保全申请书被做成了表情包。',
+      },
+      {
+        text: '撤回诉状，留点体面',
+        effects: { trust: 12, hype: -8 },
+        resultText: '你撤诉的声明下面，第一次出现了好评。',
+      },
+      {
+        text: '把诉讼过程做成连载纪录片',
+        effects: { cash: 10, hype: 8, trust: -10, risk: 5 },
+        flags: ['bride_lawsuit'],
+        resultText: '纪录片预告片播放量是法院立案公告的一万倍。',
+      },
+    ],
+  },
+];
+
+// 被任何选项 nextEventId 引用的卡是连锁卡，只通过上一张卡触发，
+// 不得进入主线线性序列，否则会"演两遍"。
+const chainedIds = new Set(
+  evts.flatMap((e) =>
+    e.choices.map((c) => c.nextEventId).filter((id): id is string => !!id),
+  ),
+);
+
+export const CONTENT: Content = {
+  events: Object.fromEntries(evts.map((e) => [e.id, e])),
+  mainline: evts
+    .filter((e) => e.mainline && !chainedIds.has(e.id))
+    .map((e) => e.id),
+  side: evts.filter((e) => !e.mainline).map((e) => e.id),
+};
