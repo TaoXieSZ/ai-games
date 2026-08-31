@@ -73,7 +73,7 @@ const TOP = statusBarHeight + 8;
 
 export function render() {
   hit = [];
-  const { screen } = getStore();
+  const { screen, state } = getStore();
   if (renderedScreen !== screen) {
     scrollY = 0;
     renderedScreen = screen;
@@ -82,9 +82,13 @@ export function render() {
   ctx.textBaseline = 'top';
   ctx.fillStyle = C.bg;
   ctx.fillRect(0, 0, W, H);
+  // 结局态：screen 仍是 'game'，但剧情已终结（currentEventId 空）→ 必须画结局页，
+  // 否则 drawGame 会因没有当前卡牌而直接 return，只剩背景（黑屏）
+  const showEnding =
+    screen === 'game' && (!state || !!state.endingId || !state.currentEventId);
   if (screen === 'title') drawTitle();
-  else if (screen === 'game') drawGame();
-  else drawEnding();
+  else if (showEnding) drawEnding();
+  else drawGame();
   ctx.restore();
 }
 

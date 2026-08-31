@@ -83,7 +83,7 @@ tapLabel('continue');
 assert.equal(store().screen, 'game');
 assert.equal(store().state.currentEventId, 'm_prize');
 
-// 7. 死亡局：风险爆表直接触发结局，且时光机不可用
+// 7. 死亡局：风险爆表直接触发结局，结局页必须真正渲染出按钮
 tapLabel('exit');
 tapLabel('exit');
 tapLabel('start');
@@ -98,6 +98,11 @@ while (!store().state.endingId && guard < 200) {
 assert.ok(
   store().state.endingId === null || typeof store().state.endingId === 'string',
   'endingId 非法',
+);
+// 结局页必须注册了结局按钮（否则说明结局页没被渲染——黑屏 bug 回归）
+assert.ok(
+  hype.hitRegions().some((b) => b.label === 'restart'),
+  '结局页未渲染（缺少再活一次按钮）',
 );
 
 console.log('✅ 冒烟测试通过：标题/开局/选择/时光机回滚/退出/存档续玩/结局链路均正常');
