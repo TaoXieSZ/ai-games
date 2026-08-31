@@ -71,7 +71,7 @@ assert.equal(store().state.undoLeft, 2);
 // 4. 再选一次（换条路线：老实刷题）
 tapLabel('choice:1');
 assert.equal(store().state.currentEventId, 'm_prize');
-assert.equal(store().state.stats.trust, 65 + 8);
+assert.equal(store().state.stats.trust, 90 + 8); // 开局信用 90 + 刷题 8
 
 // 5. 退出（二次确认）→ 标题页，存档保留
 tapLabel('exit');
