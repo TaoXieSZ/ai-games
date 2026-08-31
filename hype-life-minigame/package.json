@@ -1,0 +1,20 @@
+{
+  "name": "hype-life-minigame",
+  "private": true,
+  "version": "0.1.0",
+  "description": "热搜人生 · 微信小游戏版（复用 hype-life 的引擎与内容层）",
+  "type": "module",
+  "scripts": {
+    "gen:sfx": "node scripts/gen-sfx.mjs",
+    "gen:font": "node scripts/subset-font.mjs",
+    "build": "npm run gen:sfx && npm run gen:font && node build.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "esbuild": "^0.24.0",
+    "typescript": "~5.6.2",
+    "wawoff2": "^2.0.1"
+  }
+}

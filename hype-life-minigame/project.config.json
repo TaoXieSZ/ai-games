@@ -1,0 +1,23 @@
+{
+  "description": "热搜人生 · 微信小游戏（虚构讽刺作品）",
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "src" },
+      { "type": "folder", "value": "scripts" },
+      { "type": "folder", "value": "node_modules" },
+      { "type": "file", "value": "build.mjs" },
+      { "type": "file", "value": "package.json" },
+      { "type": "file", "value": "package-lock.json" },
+      { "type": "file", "value": "tsconfig.json" },
+      { "type": "file", "value": ".gitignore" }
+    ]
+  },
+  "setting": {
+    "es6": true,
+    "minified": true
+  },
+  "compileType": "game",
+  "libVersion": "latest",
+  "appid": "touristappid",
+  "projectname": "hype-life"
+}

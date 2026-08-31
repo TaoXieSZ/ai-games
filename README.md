@@ -9,13 +9,15 @@ AI 打造的游戏实验合集。每个子目录是一个独立游戏，推送�
 | 游戏 | 目录 | 简介 |
 | --- | --- | --- |
 | 🔥 [热搜人生 Hype Life](https://taoxiesz.github.io/ai-games/hype-life/) | [`hype-life/`](hype-life/) | 以孙宇晨为原型（虚构影射）的像素风人生抉择模拟器，从高三三本线玩到纳斯达克敲钟 |
+| 🔥 热搜人生 · 微信小游戏版 | [`hype-life-minigame/`](hype-life-minigame/) | 同一款游戏的微信小游戏移植版（个人主体可发布免费小游戏），见其 README 的上传指南 |
 
 ## 结构
 
 ```
 ai-games/
 ├── index.html              # 落地页（游戏列表）
-├── hype-life/              # 游戏：热搜人生（Vite + React + TS）
+├── hype-life/              # 游戏：热搜人生（Vite + React + TS，网页版）
+├── hype-life-minigame/     # 同款微信小游戏版（Canvas 渲染，引擎/内容复用网页版）
 └── .github/workflows/
     └── deploy.yml          # 推送 main 自动构建部署 Pages
 ```
