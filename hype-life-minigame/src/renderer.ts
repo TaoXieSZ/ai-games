@@ -1,6 +1,6 @@
 // Canvas 即时模式渲染器：标题 / 卡牌 / 结局三屏。
 // 每帧重建可点击区域，触摸命中后回调 store 动作。
-import { ctx, W, H, getStorage } from './platform';
+import { ctx, W, H, getStorage, statusBarHeight, bottomInset } from './platform';
 import { SPRITES, STAT_ICONS, PALETTE } from '../../hype-life/src/content/sprites';
 import type { SpriteKey } from '../../hype-life/src/engine/types';
 import { CONTENT } from '../../hype-life/src/content/events';
@@ -66,10 +66,18 @@ let hit: Btn[] = [];
 let scrollY = 0;
 let expandedGallery = false;
 let confirmExitAt = 0;
+/** 切屏时重置滚动位置，否则上一屏的滚动会把新屏内容顶出画面（黑屏） */
+let renderedScreen: string | null = null;
+/** 状态栏下移量：全屏画布要避开挖孔/刘海 */
+const TOP = statusBarHeight + 8;
 
 export function render() {
   hit = [];
   const { screen } = getStore();
+  if (renderedScreen !== screen) {
+    scrollY = 0;
+    renderedScreen = screen;
+  }
   ctx.save();
   ctx.textBaseline = 'top';
   ctx.fillStyle = C.bg;
@@ -199,7 +207,7 @@ function statIcon(key: string, x: number, y: number, scale = 2) {
 function drawTitle() {
   const cw = Math.min(W - 40, 480);
   const x0 = (W - cw) / 2;
-  let y = 20 - scrollY;
+  let y = TOP + 12 - scrollY;
   y += sprite('smug', W / 2, y, 7) + 18;
   // 标题：阴影 → 描红 → 主体
   font(42, true);
@@ -295,7 +303,7 @@ function drawGame() {
   if (!state?.currentEventId) return;
   const event = CONTENT.events[state.currentEventId];
   const confirmExit = Date.now() < confirmExitAt;
-  let y = 10 - scrollY;
+  let y = TOP - scrollY;
 
   // 顶栏
   button(10, y, confirmExit ? 96 : 70, 26, confirmExit ? '确认退出?' : '✕ 退出', () => {
@@ -462,7 +470,7 @@ function drawGame() {
   iy += undoH;
 
   clampScroll(iy + 30);
-  text('每个选择都算数 · 属性到 0 或 100 就杀青', W / 2, H - 24, { size: 11, color: C.dim, align: 'center' });
+  text('每个选择都算数 · 属性到 0 或 100 就杀青', W / 2, H - 24 - bottomInset, { size: 11, color: C.dim, align: 'center' });
 }
 
 // ── 结局页 ───────────────────────────────────────────
@@ -473,7 +481,7 @@ function drawEnding() {
   const ending = ENDINGS[state.endingId ?? 'forgotten'] ?? ENDINGS.forgotten;
   const cw = Math.min(W - 28, 500);
   const px = (W - cw) / 2;
-  let y = 20 - scrollY;
+  let y = TOP + 10 - scrollY;
 
   y += text(ending.subtitle, W / 2, y, { size: 12, color: C.dim, align: 'center' });
   y += 4;
@@ -538,7 +546,7 @@ function drawEnding() {
   text('GitHub: TaoXieSZ/ai-games', W / 2, ly, { size: 12, color: C.dim, align: 'center' });
   ly += repoH;
   text('本游戏纯属虚构讽刺作品，人物与事件均为艺术加工。', W / 2, ly, { size: 11, color: C.dim, align: 'center' });
-  clampScroll(iy + panelH + 20);
+  clampScroll(ly + 30);
 }
 
 // ── 滚动与触摸 ───────────────────────────────────────
