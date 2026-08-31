@@ -8,7 +8,7 @@ export const WIN_ENDING_ID = 'ipo';
 /** 每局可用的"时光机"（回滚上一题）次数 */
 export const UNDO_LIMIT = 3;
 
-export const INITIAL_STATS: Stats = { hype: 30, trust: 65, cash: 30, risk: 10 };
+export const INITIAL_STATS: Stats = { hype: 30, trust: 90, cash: 30, risk: 10 };
 
 export const clampStat = (n: number): number =>
   Math.max(0, Math.min(100, Math.round(n)));

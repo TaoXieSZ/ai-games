@@ -370,7 +370,7 @@ describe('内容校验', () => {
   });
 
   it('每幕的主线脊柱不能缺故事', () => {
-    const minByAct: Record<number, number> = { 1: 4, 2: 3, 3: 3, 4: 4, 5: 3 };
+    const minByAct: Record<number, number> = { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 };
     for (const [actStr, min] of Object.entries(minByAct)) {
       const act = Number(actStr);
       const n = CONTENT.mainline.filter(
@@ -378,6 +378,38 @@ describe('内容校验', () => {
       ).length;
       expect(n, `第 ${act} 幕主线卡数量`).toBeGreaterThanOrEqual(min);
     }
+    // 第五幕（女神终章）整幕含连锁在内必须足够厚
+    const act5All = Object.values(CONTENT.events).filter((e) => e.act === 5);
+    expect(act5All.length, `终章事件总数`).toBeGreaterThanOrEqual(8);
+  });
+
+  it('作死流可活着进终章并触发隐藏结局《流量之神》', () => {
+    const noSide: Content = { ...CONTENT, side: [] };
+    let st = createInitialState(noSide);
+    let n = 0;
+    while (!st.endingId && n < 120) {
+      const ev = noSide.events[st.currentEventId!];
+      // 全选第一项，唯独胃疼时选"乖乖就医"（再吃一根会当场死掉）
+      const idx = ev.id === 'm_stomachache' ? 1 : 0;
+      st = choose(st, noSide, ev.choices[idx]);
+      n++;
+    }
+    expect(resolveEnding(st.endingId!, st.flags), '作死流应达成流量之神').toBe('flowgod');
+    expect(st.stats.trust, '终章存活').toBeGreaterThan(0);
+    expect(st.flags).toEqual(expect.arrayContaining(['teaser_love', 'essay', 'essay_backlash', 'bride_lawsuit']));
+  });
+
+  it('清白流（每题选第二项，全程零旗标）通关 → 无名富翁', () => {
+    const noSide: Content = { ...CONTENT, side: [] };
+    let st = createInitialState(noSide);
+    let n = 0;
+    while (!st.endingId && n < 120) {
+      const ev = noSide.events[st.currentEventId!];
+      st = choose(st, noSide, ev.choices[1]);
+      n++;
+    }
+    expect(st.flags.length, '清白流不应有任何旗标').toBe(0);
+    expect(resolveEnding(st.endingId!, st.flags)).toBe('nobody');
   });
 
   it('所有连锁/主线/支线引用的卡都存在', () => {

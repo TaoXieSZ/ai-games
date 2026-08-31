@@ -266,7 +266,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '火速 ICO，一分钟募完',
-        effects: { cash: 20, hype: 10, risk: 10 },
+        effects: { cash: 20, hype: 10, risk: 8 },
         resultText: '倒计时 61 秒，资金到账。群里炸了。',
       },
       {
@@ -477,7 +477,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '悄悄分批抛售，落袋为安',
-        effects: { cash: 25, trust: -12, risk: 10 },
+        effects: { cash: 25, trust: -12, risk: 8 },
         flags: ['cut_leek'],
         resultText: '你套现离场的那天，接盘的人还在山顶等"千倍币"。',
       },
@@ -533,7 +533,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '坚持病重，直播养病',
-        effects: { hype: 12, trust: -12, risk: 10 },
+        effects: { hype: 12, trust: -12, risk: 8 },
         flags: ['kidney'],
         nextEventId: 'm_makeup',
         resultText: '病床直播间在线人数破百万，弹幕全是一个字：演。',
@@ -699,7 +699,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '接下赌约，连夜发博立帖为证',
-        effects: { hype: 10, trust: -3 },
+        effects: { hype: 10, trust: -2 },
         flags: ['bet'],
         resultText: '这条微博成了你每三个月都要转发一次的打卡帖。',
       },
@@ -896,8 +896,9 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '砸钱站台，合影发圈',
-        effects: { cash: -15, hype: 15, risk: 10 },
+        effects: { cash: -15, hype: 15, risk: 8 },
         flags: ['trump_station'],
+        nextEventId: 'm_freeze',
         resultText: '你和"懂王"的合影冲上了中外热搜。',
       },
       {
@@ -953,7 +954,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '起诉！律师团拉满',
-        effects: { hype: 10, risk: 15, trust: -10 },
+        effects: { hype: 10, risk: 10, trust: -8 },
         flags: ['countersue'],
         resultText: '起诉书上了热搜，阅读量是判决书的十万倍。',
       },
@@ -1089,7 +1090,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '发文感谢这场"流量雨"',
-        effects: { hype: 8, trust: -5 },
+        effects: { hype: 8, trust: -3 },
         resultText: '主播连夜把你拉黑了。',
       },
       {
@@ -1120,17 +1121,20 @@ const evts: GameEvent[] = [
         text: '发文认爱："我们爱过"',
         effects: { hype: 15, trust: -5 },
         flags: ['teaser_love'],
+        nextEventId: 'm_exgf',
         resultText: '你的认爱声明一小时转发破百万，服务器又挂了。',
       },
       {
         text: '沉默是金，装没看见',
         effects: { trust: 8, hype: -5 },
+        nextEventId: 'm_exgf',
         resultText: '你的沉默被解读出了一百种剧情。',
       },
       {
         text: '反手挂出偷拍的狗仔',
         effects: { hype: 12, risk: 10 },
         flags: ['teaser_love'],
+        nextEventId: 'm_exgf',
         resultText: '狗仔的工作室连夜注销了账号，你的经纪人却被约谈了。',
       },
     ],
@@ -1147,7 +1151,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '发！万字长文，深情并茂',
-        effects: { hype: 15, trust: -10 },
+        effects: { hype: 15, trust: -8 },
         flags: ['essay'],
         nextEventId: 'm_backlash',
         resultText: '长文刷屏。有人看哭了，有人拿出了放大镜。',
@@ -1155,6 +1159,7 @@ const evts: GameEvent[] = [
       {
         text: '写完，又一个字一个字删掉',
         effects: { trust: 8 },
+        nextEventId: 'm_lawsuit',
         resultText: '草稿箱替你保守了秘密，热搜第 7 天自己凉了。',
       },
       {
@@ -1178,8 +1183,9 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '大方承认"艺术加工"',
-        effects: { hype: 12, trust: -12 },
+        effects: { hype: 12, trust: -10 },
         flags: ['essay_backlash'],
+        nextEventId: 'm_apology',
         resultText: '"艺术加工"四个字成了年度热梗。',
       },
       {
@@ -1237,7 +1243,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '亲手转发："青春啊"',
-        effects: { hype: 8, trust: -4 },
+        effects: { hype: 8, trust: -2 },
         flags: ['archaeology'],
         resultText: '这条转发成了新的考古入口，考古队又挖出了 300 条。',
       },
@@ -1264,7 +1270,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '发图庆祝："感谢全国网友"',
-        effects: { hype: 8, trust: -4 },
+        effects: { hype: 8, trust: -3 },
         flags: ['trending3'],
         resultText: '海报被骂上了第四个热搜。',
       },
@@ -1292,7 +1298,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '评论区回复两个字："勿念"',
-        effects: { hype: 10, trust: -5 },
+        effects: { hype: 10, trust: -3 },
         flags: ['rumors'],
         resultText: '"勿念"的释义被各路大 V 分析了八百字。',
       },
@@ -1319,7 +1325,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '接！两小时极限拷问',
-        effects: { hype: 12, trust: -6 },
+        effects: { hype: 12, trust: -4 },
         resultText: '你金句频出，但有三段切片正在被逐帧解读。',
       },
       {
@@ -1346,7 +1352,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '告！把官司打到底',
-        effects: { cash: 20, risk: 15, trust: -12 },
+        effects: { cash: 20, risk: 10, trust: -10 },
         flags: ['bride_lawsuit'],
         resultText: '财产保全申请书被做成了表情包。',
       },
@@ -1469,6 +1475,128 @@ const evts: GameEvent[] = [
         text: '提醒粉丝理性追星，好好读书',
         effects: { trust: 10, hype: -3 },
         resultText: '"晨宇劝学"上了同城热搜，家长们点了赞。',
+      },
+    ],
+  },
+
+  // ── 终章连锁网：代币冻结 / 前女友 / 道歉声明 / 女方发声 ──
+  {
+    id: 'm_freeze',
+    act: 4,
+    year: '2026',
+    scene: '推特战场',
+    sprite: 'panic',
+    title: '代币被冻结',
+    mainline: true,
+    text: '（你站台的项目翻脸了）你名下的代币被"懂王家族项目"单方面冻结，理由是"违反合作协议"。半年前你举杯的合影，此刻正挂在热搜第一。',
+    choices: [
+      {
+        text: '控诉"背离价值"，直播开撕',
+        effects: { hype: 12, trust: -8, risk: 8 },
+        flags: ['freeze_fight'],
+        nextEventId: 'm_countersue',
+        resultText: '你的控诉长文阅读破亿，法务连夜拟了起诉书。',
+      },
+      {
+        text: '认栽，私下协商',
+        effects: { trust: -3, hype: -5, risk: -5 },
+        resultText: '破财免灾，你删掉了所有相关微博。',
+      },
+      {
+        text: '宣布"退出该项目，专注自家"',
+        effects: { trust: 6, hype: 4 },
+        resultText: '社区夸你"止损果断"，只有你知道心里多疼。',
+      },
+    ],
+  },
+  {
+    id: 'm_exgf',
+    act: 5,
+    year: '2026.08',
+    scene: '微博战场',
+    sprite: 'melon',
+    title: '前女友开撕',
+    mainline: true,
+    text: '（女神剧情正酣，前女友下场了）你的前女友"曾莹"发文回忆同居细节：每天吃便宜凉拌沙拉、看盗版电影，分手理由是"咖位不同"。评论区一片"哈哈哈"，还@了你。',
+    choices: [
+      {
+        text: '甩出聊天记录，逐条对线',
+        effects: { hype: 12, trust: -10 },
+        flags: ['exgf_fight'],
+        nextEventId: 'm_essay',
+        resultText: '聊天记录半小时冲上热搜第一，有人开始同情你了。',
+      },
+      {
+        text: '大方回应："祝她幸福"',
+        effects: { trust: 10, hype: -5 },
+        nextEventId: 'm_essay',
+        resultText: '体面得让网友们不知所措。',
+      },
+      {
+        text: '给她的新剧买热搜应援',
+        effects: { cash: -5, hype: 8, trust: 4 },
+        nextEventId: 'm_essay',
+        resultText: '这波反向操作让全网直呼看不懂，但很保全。',
+      },
+    ],
+  },
+  {
+    id: 'm_apology',
+    act: 5,
+    year: '2026.08',
+    scene: '公关会议室',
+    sprite: 'panic',
+    title: '公关部的声明',
+    mainline: true,
+    text: '（舆论烧到第三天）公关部熬夜起草了道歉声明放在你面前："签了，这事就翻篇。"声明里写着"对造成的社会影响深表歉意"。',
+    choices: [
+      {
+        text: '撕掉声明："我没错"',
+        effects: { hype: 6, trust: -5 },
+        nextEventId: 'm_lawsuit',
+        resultText: '"我没错"三个字成了新的热梗。',
+      },
+      {
+        text: '照发，诚恳道歉',
+        effects: { trust: 12, hype: -8 },
+        flags: ['apology_sent'],
+        nextEventId: 'm_lawsuit',
+        resultText: '评论区第一次出现了"知错能改"。',
+      },
+      {
+        text: '改成"联合声明"，滴水不漏',
+        effects: { trust: 6, hype: 3 },
+        nextEventId: 'm_lawsuit',
+        resultText: '公关界把这份声明当成了范文。',
+      },
+    ],
+  },
+  {
+    id: 'm_rebuttal',
+    act: 5,
+    year: '2026.08',
+    scene: '热搜评论区',
+    sprite: 'smug',
+    title: '对方发声',
+    mainline: true,
+    text: '（彩礼诉讼打响后）田甜工作室回应："不会为钱出卖爱情与灵魂。"她本人补了一句："我眼光是不行。"全网刷"姐姐清醒"，你的评论区彻底沦陷。',
+    choices: [
+      {
+        text: '转发点评："祝早日还钱"',
+        effects: { hype: 8, trust: -3 },
+        flags: ['rebuttal_forward'],
+        resultText: '你完成了对这场连续剧的最后一击。',
+      },
+      {
+        text: '沉默，等法院见',
+        effects: { trust: 8 },
+        resultText: '你说的话都在起诉书里。',
+      },
+      {
+        text: '宣布全额捐赠诉讼所得',
+        effects: { cash: -10, trust: 12, hype: 5 },
+        flags: ['rebuttal_forward'],
+        resultText: '舆论一夜反转，"格局"两个字刷了满屏。',
       },
     ],
   },
