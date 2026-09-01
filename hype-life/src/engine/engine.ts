@@ -69,6 +69,15 @@ export function createInitialState(
   };
 }
 
+function evalWhenSpec(
+  spec: { stat: StatKey; op: '>=' | '<='; value: number } | undefined,
+  stats: Stats,
+): boolean {
+  if (!spec) return true;
+  const v = stats[spec.stat];
+  return spec.op === '>=' ? v >= spec.value : v <= spec.value;
+}
+
 function currentMainAct(state: GameState, content: Content): number {
   const lastIdx = Math.min(state.mainIndex, content.mainline.length) - 1;
   const id = content.mainline[lastIdx];
@@ -80,7 +89,7 @@ function drawSide(state: GameState, content: Content): string | null {
   const act = currentMainAct(state, content);
   for (let i = state.sideIndex; i < state.sideOrder.length; i++) {
     const ev = content.events[state.sideOrder[i]];
-    if (ev && ev.act <= act && (!ev.when || ev.when(state))) {
+    if (ev && ev.act <= act && evalWhenSpec(ev.whenSpec, state.stats)) {
       const picked = state.sideOrder[i];
       state.sideOrder[i] = state.sideOrder[state.sideIndex];
       state.sideOrder[state.sideIndex] = picked;

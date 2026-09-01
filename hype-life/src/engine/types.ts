@@ -41,10 +41,10 @@ export interface GameEvent {
   /** 主线卡（按顺序推进剧情）；缺省为支线卡（按规则插播） */
   mainline?: boolean;
   /**
-   * 抽卡条件（仅支线卡）：当前局面满足时才有资格被抽到。
+   * 抽卡条件（仅支线卡）：声明式可序列化条件，当前局面满足时才有资格被抽到。
    * 用于"根据上一题的结果，灵活到下一题"——例如风险爆表才抽到监管卡。
    */
-  when?: (state: GameState) => boolean;
+  whenSpec?: { stat: StatKey; op: '>=' | '<='; value: number };
   choices: Choice[];
 }
 

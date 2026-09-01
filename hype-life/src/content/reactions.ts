@@ -20,6 +20,9 @@ const RULES: Rule[] = [
   { key: 'risk', threshold: -5, line: '✅ 风险警报暂时解除，法务终于睡了个好觉' },
 ];
 
+/** 供跨平台导出的规则数据 */
+export const REACTION_RULES = RULES;
+
 export function reactionsFor(effects?: Partial<Stats> | null): string[] {
   if (!effects) return [];
   const out: string[] = [];

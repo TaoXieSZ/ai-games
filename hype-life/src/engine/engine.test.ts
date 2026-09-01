@@ -263,7 +263,7 @@ describe('undo', () => {
 // ── 状态条件抽卡（灵活下一题） ─────────────────────────
 
 describe('支线卡 when 条件', () => {
-  const whenCard = (id: string, when: (s: { stats: { hype: number } }) => boolean) => ({
+  const whenCard = (id: string, whenSpec: { stat: 'hype'; op: '>=' | '<='; value: number }) => ({
     id,
     act: 2,
     year: 't',
@@ -271,15 +271,15 @@ describe('支线卡 when 条件', () => {
     sprite: 'smug' as const,
     title: id,
     text: 't',
-    when,
+    whenSpec,
     choices: [{ text: 'a', effects: { hype: 1 } }],
   });
 
   function sim(mainAct: number, hype: number) {
     const main = [card('m0', mainAct), card('m1', mainAct)];
     const side = [
-      whenCard('s_hot', (s) => s.stats.hype >= 70),
-      whenCard('s_calm', (s) => s.stats.hype < 70),
+      whenCard('s_hot', { stat: 'hype', op: '>=', value: 70 }),
+      whenCard('s_calm', { stat: 'hype', op: '<=', value: 69 }),
     ];
     const content = buildContent(main, side);
     let state = createInitialState(content, () => 0);

@@ -1379,7 +1379,7 @@ const evts: GameEvent[] = [
     sprite: 'panic',
     title: '官媒点名',
     text: '（你的热度居高不下，引来国家级媒体关注）评论文章《流量不是护身符》点名了你"精心编排的热搜人生"。全网转载，口径一致。',
-    when: (s) => s.stats.hype >= 70,
+    whenSpec: { stat: 'hype', op: '>=', value: 70 },
     choices: [
       {
         text: '沉默删博，低调两周',
@@ -1406,7 +1406,7 @@ const evts: GameEvent[] = [
     sprite: 'panic',
     title: '监管约谈',
     text: '（你的风险值持续走高，被请去喝茶了）约谈室里三杯茶，两位同志，一份《整改建议书》。',
-    when: (s) => s.stats.risk >= 60,
+    whenSpec: { stat: 'risk', op: '>=', value: 60 },
     choices: [
       {
         text: '全力配合，当场承诺整改',
@@ -1432,6 +1432,7 @@ const evts: GameEvent[] = [
     scene: '财务室',
     sprite: 'panic',
     title: '账上见底',
+    whenSpec: { stat: 'cash', op: '<=', value: 25 },
     text: '（你的资金见了底）财务总监敲开你办公室的门："账上的钱，只够发三个月工资了。"',
     choices: [
       {
@@ -1459,7 +1460,7 @@ const evts: GameEvent[] = [
     sprite: 'smug',
     title: '铁粉后援会',
     text: '（你的口碑难得地好）粉丝后援会包下了一整面应援墙，灯牌上写着"晨宇加油"。会长问你能不能空降粉丝群。',
-    when: (s) => s.stats.trust >= 75,
+    whenSpec: { stat: 'trust', op: '>=', value: 75 },
     choices: [
       {
         text: '空降粉丝群，连发红包',

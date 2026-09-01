@@ -1,0 +1,19 @@
+{
+  "name": "hype-life",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Game": {
+        "$path": "src/ReplicatedStorage/Game"
+      }
+    },
+    "ServerScriptService": {
+      "$path": "src/ServerScriptService"
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/StarterPlayer/StarterPlayerScripts"
+      }
+    }
+  }
+}

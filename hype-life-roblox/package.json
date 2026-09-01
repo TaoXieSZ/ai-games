@@ -1,0 +1,15 @@
+{
+  "name": "hype-life-roblox",
+  "private": true,
+  "version": "0.1.0",
+  "description": "热搜人生 · Roblox 版（引擎/内容与网页版同源，构建脚本生成 .rbxlx）",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/export-content.mjs && node scripts/build-rbxlx.mjs",
+    "export": "node scripts/export-content.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "typescript": "~5.6.2"
+  }
+}
