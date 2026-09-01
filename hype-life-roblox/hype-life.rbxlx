@@ -432,7 +432,10 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AssetService = game:GetService("AssetService")
 
-local Content = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Content"))
+-- 注意：Roblox 有个全局 Content 数据类型（fromObject 等 API），
+-- 必须在内容模块变量遮蔽它之前捕获，否则像素立绘会调用到 nil。
+local RobloxContent = Content
+local GameContent = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Content"))
 local Engine = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Engine"))
 local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI", 10) -- 未发布地形下服务端可能未创建
 
@@ -564,7 +567,7 @@ local function chooseIndex(i: number)
 	if not st or not st.currentEventId then
 		return
 	end
-	local event = Content.cards[st.currentEventId]
+	local event = GameContent.cards[st.currentEventId]
 	local choice = event.choices[i]
 	if not choice then
 		return
@@ -667,7 +670,7 @@ local function spriteLabel(key: string, pxSize: number): ImageLabel?
 		end
 		return nil
 	end
-	local matrix = Content.sprites[key]
+	local matrix = GameContent.sprites[key]
 	local label: ImageLabel? = nil
 	local ok, result = pcall(function()
 		local size = #matrix
@@ -677,7 +680,7 @@ local function spriteLabel(key: string, pxSize: number): ImageLabel?
 			local row = matrix[r]
 			for c = 1, size do
 				local ch = row:sub(c, c)
-				local hex = Content.palette[ch]
+				local hex = GameContent.palette[ch]
 				local idx = ((r - 1) * size + (c - 1)) * 4
 				if hex then
 					buffer.writeu8(buf, idx, tonumber(hex:sub(2, 3), 16) or 0)
@@ -693,12 +696,17 @@ local function spriteLabel(key: string, pxSize: number): ImageLabel?
 		return image
 	end)
 	if ok and result then
-		label = mk("ImageLabel", {
-			BackgroundTransparency = 1,
-			ImageContent = Content.fromObject(result),
-			ResampleMode = Enum.ResamplerMode.Pixelated,
-			Size = UDim2.fromOffset(pxSize, pxSize),
-		})
+		local okContent, contentRef = pcall(function()
+			return RobloxContent.fromObject(result)
+		end)
+		if okContent and contentRef then
+			label = mk("ImageLabel", {
+				BackgroundTransparency = 1,
+				ImageContent = contentRef,
+				ResampleMode = Enum.ResamplerMode.Pixelated,
+				Size = UDim2.fromOffset(pxSize, pxSize),
+			})
+		end
 	end
 	spriteCache[key] = label
 	return if label then label:Clone() else nil
@@ -810,7 +818,7 @@ local function renderTitle()
 	endingFrame.Visible = false
 	local unlocked = gallery
 	local all = {}
-	for id, _e in pairs(Content.endings) do
+	for id, _e in pairs(GameContent.endings) do
 		table.insert(all, id)
 	end
 	local count = 0
@@ -821,13 +829,13 @@ local function renderTitle()
 	end
 	-- 固定顺序展示
 	local ordered = {}
-	for id, _e in pairs(Content.endings) do
+	for id, _e in pairs(GameContent.endings) do
 		table.insert(ordered, id)
 	end
 	table.sort(ordered)
 	for _, id in ipairs(ordered) do
 		local got = table.find(unlocked, id) ~= nil
-		local item = mk("TextLabel", { Text = if got then Content.endings[id].title else "？？？", TextSize = 10, TextColor3 = if got then C.gold else C.lock, BackgroundColor3 = if got then C.panel else C.bg, TextWrapped = true, Size = UDim2.new(1, 0, 1, 0) }, galleryGrid)
+		local item = mk("TextLabel", { Text = if got then GameContent.endings[id].title else "？？？", TextSize = 10, TextColor3 = if got then C.gold else C.lock, BackgroundColor3 = if got then C.panel else C.bg, TextWrapped = true, Size = UDim2.new(1, 0, 1, 0) }, galleryGrid)
 		mk("UIStroke", { Color = if got then C.gold else C.lock, Thickness = 1 }, item)
 		if got then
 			count += 1
@@ -877,8 +885,8 @@ local function renderGame()
 		end
 	end
 
-	local event = Content.cards[st.currentEventId]
-	cardBadges.Text = `{event.year} · {event.scene} · 第{event.act}幕 {st.mainIndex}/{#Content.mainline}`
+	local event = GameContent.cards[st.currentEventId]
+	cardBadges.Text = `{event.year} · {event.scene} · 第{event.act}幕 {st.mainIndex}/{#GameContent.mainline}`
 	if st.toast then
 		toastLabel.Text = `“{st.toast}”`
 		toastLabel.Visible = true
@@ -934,7 +942,7 @@ local function renderEnding()
 	titleFrame.Visible = false
 	gameFrame.Visible = false
 	endingFrame.Visible = true
-	local ending = Content.endings[st.endingId or "forgotten"] or Content.endings.forgotten
+	local ending = GameContent.endings[st.endingId or "forgotten"] or GameContent.endings.forgotten
 	endingSub.Text = ending.subtitle
 	endingTitle.Text = ending.title
 	endingText.Text = ending.text
@@ -952,7 +960,7 @@ local function renderEnding()
 
 	local scenes = {}
 	for _, f in ipairs(st.flags) do
-		local label = Content.flagLabels[f]
+		local label = GameContent.flagLabels[f]
 		if label then
 			table.insert(scenes, `· {label}`)
 		end
