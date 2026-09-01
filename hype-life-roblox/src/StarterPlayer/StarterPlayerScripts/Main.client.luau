@@ -11,6 +11,8 @@ local RobloxContent = Content
 local GameContent = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Content"))
 local Engine = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Engine"))
 local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI", 10) -- 未发布地形下服务端可能未创建
+local SceneSpecs = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("SceneSpecs"))
+local Director = require(script.Parent:WaitForChild("Director"))
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -86,6 +88,8 @@ local ENDING_SPRITE: { [string]: string } = {
 
 local gallery: { string } = {}
 local store: any = { screen = "title", state = nil, lastEndingNew = false }
+local lastActShown: number? = nil
+local lastTypedId: string? = nil
 local listeners = {}
 
 local function getStore()
@@ -154,6 +158,17 @@ local function chooseIndex(i: number)
 		lastEndingNew = recordEnding(next.endingId)
 	end
 	set({ state = next, lastEndingNew = lastEndingNew })
+	local sum, biggest = 0, 0
+	for _, d in pairs(choice.effects or {}) do
+		sum += d
+		if math.abs(d) > biggest then
+			biggest = math.abs(d)
+		end
+	end
+	Director.flash(if sum >= 0 then Color3.fromRGB(140, 255, 170) else Color3.fromRGB(255, 96, 96))
+	if biggest >= 10 then
+		Director.shake(0.8)
+	end
 	pushSave()
 end
 
@@ -166,6 +181,8 @@ local function undoGame()
 end
 
 local function startNew()
+	lastActShown = nil
+	lastTypedId = nil
 	local fresh = Engine.createInitialState()
 	set({ screen = "game", state = fresh, lastEndingNew = false })
 	pushSave()
@@ -288,7 +305,7 @@ end
 -- ── 三屏骨架 ─────────────────────────────────────────
 
 local titleFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, Visible = true })
-local gameFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, Visible = false })
+local gameFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, BackgroundTransparency = 1, Visible = false })
 local endingFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, Visible = false })
 
 -- 标题页
@@ -339,7 +356,7 @@ for i, meta in ipairs(STAT_META) do
 	statBars[meta.key] = { fill = fill, delta = delta }
 end
 
-local cardPanel = mk("Frame", { BackgroundColor3 = C.panel, LayoutOrder = 3 }, gameScroll)
+local cardPanel = mk("Frame", { BackgroundColor3 = C.panel, BackgroundTransparency = 0.15, LayoutOrder = 3 }, gameScroll)
 mk("UIStroke", { Color = C.ink, Thickness = 3 }, cardPanel)
 mk("UIPadding", { PaddingTop = UDim.new(0, 12), PaddingBottom = UDim.new(0, 12), PaddingLeft = UDim.new(0, 12), PaddingRight = UDim.new(0, 12) }, cardPanel)
 mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, cardPanel)
@@ -459,6 +476,17 @@ local function renderGame()
 	end
 
 	local event = GameContent.cards[st.currentEventId]
+
+	-- 场景联动：切换摄影棚 + 幕间标题卡
+	local sceneArch = SceneSpecs.sceneFor(event.scene)
+	if sceneArch ~= Director.currentSceneName() then
+		Director.showScene(sceneArch)
+	end
+	if lastActShown ~= event.act then
+		lastActShown = event.act
+		Director.actCard(event.act)
+	end
+
 	cardBadges.Text = `{event.year} · {event.scene} · 第{event.act}幕 {st.mainIndex}/{#GameContent.mainline}`
 	if st.toast then
 		toastLabel.Text = `“{st.toast}”`
@@ -474,7 +502,23 @@ local function renderGame()
 		reactionsLabel.Visible = false
 	end
 	cardTitle.Text = event.title
-	cardText.Text = event.text
+	-- 打字机：逐字显现（换卡自动取消旧动画）
+	if lastTypedId ~= event.id then
+		lastTypedId = event.id
+		cardText.Text = event.text
+		local total = utf8.len(event.text) or #event.text
+		cardText.MaxVisibleGraphemes = 0
+		local myToken = lastTypedId
+		task.spawn(function()
+			for i = 1, total do
+				if lastTypedId ~= myToken then
+					return
+				end
+				cardText.MaxVisibleGraphemes = i
+				task.wait(0.018)
+			end
+		end)
+	end
 
 	-- 立绘
 	for _, child in ipairs(cardSpriteHolder:GetChildren()) do

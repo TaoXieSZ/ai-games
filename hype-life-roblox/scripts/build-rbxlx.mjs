@@ -47,12 +47,19 @@ ${children.join('\n')}
 const gameFolder = containerItem('Folder', 'Game', [
   scriptItem('ModuleScript', 'Content', 'src/ReplicatedStorage/Game/Content.luau'),
   scriptItem('ModuleScript', 'Engine', 'src/ReplicatedStorage/Game/Engine.luau'),
+  scriptItem('ModuleScript', 'SceneSpecs', 'src/ReplicatedStorage/Game/SceneSpecs.luau'),
 ]);
 
 const xml = `<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 ${containerItem('ReplicatedStorage', 'ReplicatedStorage', [gameFolder])}
-${containerItem('ServerScriptService', 'ServerScriptService', [scriptItem('Script', 'SaveService', 'src/ServerScriptService/SaveService.server.luau')])}
-${containerItem('StarterPlayer', 'StarterPlayer', [containerItem('StarterPlayerScripts', 'StarterPlayerScripts', [scriptItem('LocalScript', 'Main', 'src/StarterPlayer/StarterPlayerScripts/Main.client.luau')])])}
+${containerItem('ServerScriptService', 'ServerScriptService', [
+  scriptItem('Script', 'SaveService', 'src/ServerScriptService/SaveService.server.luau'),
+  scriptItem('Script', 'SceneBuilder', 'src/ServerScriptService/SceneBuilder.server.luau'),
+])}
+${containerItem('StarterPlayer', 'StarterPlayer', [containerItem('StarterPlayerScripts', 'StarterPlayerScripts', [
+  scriptItem('LocalScript', 'Main', 'src/StarterPlayer/StarterPlayerScripts/Main.client.luau'),
+  scriptItem('ModuleScript', 'Director', 'src/StarterPlayer/StarterPlayerScripts/Director.luau'),
+])])}
 ${containerItem('Workspace', 'Workspace', [
   `<Item class="Part" referent="${ref()}">
 <Properties>
