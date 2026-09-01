@@ -383,31 +383,32 @@ describe('内容校验', () => {
     expect(act5All.length, `终章事件总数`).toBeGreaterThanOrEqual(8);
   });
 
-  it('作死流可活着进终章并触发隐藏结局《流量之神》', () => {
-    const noSide: Content = { ...CONTENT, side: [] };
-    let st = createInitialState(noSide);
+  it('作死流（完整牌池）可活着进终章并触发隐藏结局《流量之神》', () => {
+    let st = createInitialState(CONTENT, () => 0.5);
     let n = 0;
     while (!st.endingId && n < 120) {
-      const ev = noSide.events[st.currentEventId!];
+      const ev = CONTENT.events[st.currentEventId!];
       // 全选第一项，唯独胃疼时选"乖乖就医"（再吃一根会当场死掉）
       const idx = ev.id === 'm_stomachache' ? 1 : 0;
-      st = choose(st, noSide, ev.choices[idx]);
+      st = choose(st, CONTENT, ev.choices[idx]);
       n++;
     }
+    console.log('作死流: ending=', st.endingId, 'flags=', JSON.stringify(st.flags), 'stats=', JSON.stringify(st.stats), 'cards=', st.cardsPlayed);
     expect(resolveEnding(st.endingId!, st.flags), '作死流应达成流量之神').toBe('flowgod');
+    expect(st.stats.risk, '风险不应爆表').toBeLessThan(100);
     expect(st.stats.trust, '终章存活').toBeGreaterThan(0);
     expect(st.flags).toEqual(expect.arrayContaining(['teaser_love', 'essay', 'essay_backlash', 'bride_lawsuit']));
   });
 
   it('清白流（每题选第二项，全程零旗标）通关 → 无名富翁', () => {
-    const noSide: Content = { ...CONTENT, side: [] };
-    let st = createInitialState(noSide);
+    let st = createInitialState(CONTENT, () => 0.5);
     let n = 0;
     while (!st.endingId && n < 120) {
-      const ev = noSide.events[st.currentEventId!];
-      st = choose(st, noSide, ev.choices[1]);
+      const ev = CONTENT.events[st.currentEventId!];
+      st = choose(st, CONTENT, ev.choices[1]);
       n++;
     }
+    if (st.flags.length > 0) console.log('清白流 flags:', JSON.stringify(st.flags), 'ending:', st.endingId);
     expect(st.flags.length, '清白流不应有任何旗标').toBe(0);
     expect(resolveEnding(st.endingId!, st.flags)).toBe('nobody');
   });

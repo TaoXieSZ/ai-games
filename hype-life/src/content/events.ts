@@ -211,7 +211,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: 'All in 区块链，回国巡回布道',
-        effects: { hype: 10, risk: 5 },
+        effects: { hype: 10, risk: 4 },
         resultText: '你的PPT在各个科技会场循环播放。',
       },
       {
@@ -318,7 +318,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '"马老师。但五年后，我会超过他。"',
-        effects: { hype: 10, risk: 5 },
+        effects: { hype: 10, risk: 4 },
         resultText: '这段采访被剪成了短视频，播放量千万。',
       },
       {
@@ -727,7 +727,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '高调直播讨债，天天倒计时',
-        effects: { hype: 12, risk: 8 },
+        effects: { hype: 12, risk: 6 },
         flags: ['debt'],
         resultText: '"贾亭跃还款倒计时"话题连续霸榜 30 天。',
       },
@@ -755,7 +755,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '英文挂人对线三轮',
-        effects: { hype: 10, risk: 6 },
+        effects: { hype: 10, risk: 4 },
         flags: ['taunt'],
         resultText: '对线截图冲上了两国热搜，你的英语语法被逐帧分析。',
       },
@@ -954,7 +954,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '起诉！律师团拉满',
-        effects: { hype: 10, risk: 10, trust: -8 },
+        effects: { hype: 10, risk: 8, trust: -8 },
         flags: ['countersue'],
         resultText: '起诉书上了热搜，阅读量是判决书的十万倍。',
       },
@@ -993,7 +993,7 @@ const evts: GameEvent[] = [
       },
       {
         text: '胸口别一枚自家代币徽章',
-        effects: { hype: 12, risk: 8 },
+        effects: { hype: 12, risk: 6 },
         resultText: '徽章当天销量破了十万，监管的邮箱也多了一封举报。',
       },
     ],
@@ -1036,7 +1036,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '连夜直播逐条驳斥',
-        effects: { hype: 12, risk: 8 },
+        effects: { hype: 12, risk: 6 },
         flags: ['audit'],
         resultText: '你的直播间变成了财经课堂，股价止跌。',
       },
@@ -1352,7 +1352,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '告！把官司打到底',
-        effects: { cash: 20, risk: 10, trust: -10 },
+        effects: { cash: 20, risk: 8, trust: -10 },
         flags: ['bride_lawsuit'],
         resultText: '财产保全申请书被做成了表情包。',
       },
@@ -1493,7 +1493,7 @@ const evts: GameEvent[] = [
     choices: [
       {
         text: '控诉"背离价值"，直播开撕',
-        effects: { hype: 12, trust: -8, risk: 8 },
+        effects: { hype: 12, trust: -8, risk: 6 },
         flags: ['freeze_fight'],
         nextEventId: 'm_countersue',
         resultText: '你的控诉长文阅读破亿，法务连夜拟了起诉书。',
