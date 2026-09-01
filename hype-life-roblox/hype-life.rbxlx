@@ -426,6 +426,45 @@ local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+local function showFatal(title: string, message: unknown)
+	local ok, err = pcall(function()
+		local f = Instance.new("ScreenGui")
+		f.Name = "HypeLifeFatal"
+		f.ResetOnSpawn = false
+		f.Parent = playerGui
+		local bg = Instance.new("Frame")
+		bg.Size = UDim2.fromScale(1, 1)
+		bg.BackgroundColor3 = Color3.fromRGB(26, 28, 44)
+		bg.Parent = f
+		local t = Instance.new("TextLabel")
+		t.Size = UDim2.new(1, -24, 0, 24)
+		t.Position = UDim2.new(0, 12, 0, 12)
+		t.BackgroundTransparency = 1
+		t.TextColor3 = Color3.fromRGB(255, 107, 107)
+		t.TextXAlignment = Enum.TextXAlignment.Left
+		t.TextSize = 16
+		t.Font = Enum.Font.Code
+		t.Text = title
+		t.Parent = bg
+		local body = Instance.new("TextLabel")
+		body.Size = UDim2.new(1, -24, 1, -48)
+		body.Position = UDim2.new(0, 12, 0, 44)
+		body.BackgroundTransparency = 1
+		body.TextColor3 = Color3.fromRGB(244, 244, 244)
+		body.TextXAlignment = Enum.TextXAlignment.Left
+		body.TextYAlignment = Enum.TextYAlignment.Top
+		body.TextSize = 12
+		body.Font = Enum.Font.Code
+		body.TextWrapped = true
+		body.Text = tostring(message)
+		body.Parent = bg
+	end)
+	if not ok then
+		warn(title, message)
+	end
+end
+
+local function boot()
 local C = {
 	bg = Color3.fromRGB(26, 28, 44),
 	panel = Color3.fromRGB(41, 54, 111),
@@ -941,19 +980,60 @@ task.spawn(function()
 		end
 	end
 	render()
+end
+
+local okBoot, bootErr = pcall(boot)
+if not okBoot then
+	showFatal("启动异常 Startup Error", bootErr)
+end
+
+pcall(function()
+	game:GetService("LogService").MessageOut:Connect(function(message, messageType)
+		if messageType == Enum.MessageType.MessageError then
+			showFatal("运行时错误 Runtime Error", message)
+		end
+	end)
 end)
 </ProtectedString>
 </Properties>
 </Item>
 </Item>
 </Item>
-<Item class="Workspace" referent="RBX10">
+<Item class="Workspace" referent="RBX12">
 <Properties>
 <string name="Name">Workspace</string>
 </Properties>
-
+<Item class="Part" referent="RBX10">
+<Properties>
+<string name="Name">Baseplate</string>
+<bool name="Anchored">true</bool>
+<CoordinateFrame name="CFrame">
+<X>0</X><Y>-10</Y><Z>0</Z>
+<R00>1</R00><R01>0</R01><R02>0</R02>
+<R10>0</R10><R11>1</R11><R12>0</R12>
+<R20>0</R20><R21>0</R21><R22>1</R22>
+</CoordinateFrame>
+<Vector3 name="size"><X>512</X><Y>20</Y><Z>512</Z></Vector3>
+<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+</Properties>
 </Item>
-<Item class="Lighting" referent="RBX11">
+<Item class="SpawnLocation" referent="RBX11">
+<Properties>
+<string name="Name">SpawnLocation</string>
+<bool name="Anchored">true</bool>
+<bool name="Neutral">true</bool>
+<CoordinateFrame name="CFrame">
+<X>0</X><Y>0.5</Y><Z>0</Z>
+<R00>1</R00><R01>0</R01><R02>0</R02>
+<R10>0</R10><R11>1</R11><R12>0</R12>
+<R20>0</R20><R21>0</R21><R22>1</R22>
+</CoordinateFrame>
+<Vector3 name="size"><X>12</X><Y>1</Y><Z>12</Z></Vector3>
+<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+</Properties>
+</Item>
+</Item>
+<Item class="Lighting" referent="RBX13">
 <Properties>
 <string name="Name">Lighting</string>
 </Properties>

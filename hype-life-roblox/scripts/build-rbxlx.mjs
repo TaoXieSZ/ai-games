@@ -53,7 +53,37 @@ const xml = `<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="
 ${containerItem('ReplicatedStorage', 'ReplicatedStorage', [gameFolder])}
 ${containerItem('ServerScriptService', 'ServerScriptService', [scriptItem('Script', 'SaveService', 'src/ServerScriptService/SaveService.server.luau')])}
 ${containerItem('StarterPlayer', 'StarterPlayer', [containerItem('StarterPlayerScripts', 'StarterPlayerScripts', [scriptItem('LocalScript', 'Main', 'src/StarterPlayer/StarterPlayerScripts/Main.client.luau')])])}
-${containerItem('Workspace', 'Workspace', [])}
+${containerItem('Workspace', 'Workspace', [
+  `<Item class="Part" referent="${ref()}">
+<Properties>
+<string name="Name">Baseplate</string>
+<bool name="Anchored">true</bool>
+<CoordinateFrame name="CFrame">
+<X>0</X><Y>-10</Y><Z>0</Z>
+<R00>1</R00><R01>0</R01><R02>0</R02>
+<R10>0</R10><R11>1</R11><R12>0</R12>
+<R20>0</R20><R21>0</R21><R22>1</R22>
+</CoordinateFrame>
+<Vector3 name="size"><X>512</X><Y>20</Y><Z>512</Z></Vector3>
+<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+</Properties>
+</Item>`,
+  `<Item class="SpawnLocation" referent="${ref()}">
+<Properties>
+<string name="Name">SpawnLocation</string>
+<bool name="Anchored">true</bool>
+<bool name="Neutral">true</bool>
+<CoordinateFrame name="CFrame">
+<X>0</X><Y>0.5</Y><Z>0</Z>
+<R00>1</R00><R01>0</R01><R02>0</R02>
+<R10>0</R10><R11>1</R11><R12>0</R12>
+<R20>0</R20><R21>0</R21><R22>1</R22>
+</CoordinateFrame>
+<Vector3 name="size"><X>12</X><Y>1</Y><Z>12</Z></Vector3>
+<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+</Properties>
+</Item>`
+])}
 ${containerItem('Lighting', 'Lighting', [])}
 </roblox>
 `;

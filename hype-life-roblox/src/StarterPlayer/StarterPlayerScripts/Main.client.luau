@@ -12,6 +12,45 @@ local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+local function showFatal(title: string, message: unknown)
+	local ok, err = pcall(function()
+		local f = Instance.new("ScreenGui")
+		f.Name = "HypeLifeFatal"
+		f.ResetOnSpawn = false
+		f.Parent = playerGui
+		local bg = Instance.new("Frame")
+		bg.Size = UDim2.fromScale(1, 1)
+		bg.BackgroundColor3 = Color3.fromRGB(26, 28, 44)
+		bg.Parent = f
+		local t = Instance.new("TextLabel")
+		t.Size = UDim2.new(1, -24, 0, 24)
+		t.Position = UDim2.new(0, 12, 0, 12)
+		t.BackgroundTransparency = 1
+		t.TextColor3 = Color3.fromRGB(255, 107, 107)
+		t.TextXAlignment = Enum.TextXAlignment.Left
+		t.TextSize = 16
+		t.Font = Enum.Font.Code
+		t.Text = title
+		t.Parent = bg
+		local body = Instance.new("TextLabel")
+		body.Size = UDim2.new(1, -24, 1, -48)
+		body.Position = UDim2.new(0, 12, 0, 44)
+		body.BackgroundTransparency = 1
+		body.TextColor3 = Color3.fromRGB(244, 244, 244)
+		body.TextXAlignment = Enum.TextXAlignment.Left
+		body.TextYAlignment = Enum.TextYAlignment.Top
+		body.TextSize = 12
+		body.Font = Enum.Font.Code
+		body.TextWrapped = true
+		body.Text = tostring(message)
+		body.Parent = bg
+	end)
+	if not ok then
+		warn(title, message)
+	end
+end
+
+local function boot()
 local C = {
 	bg = Color3.fromRGB(26, 28, 44),
 	panel = Color3.fromRGB(41, 54, 111),
@@ -527,4 +566,17 @@ task.spawn(function()
 		end
 	end
 	render()
+end
+
+local okBoot, bootErr = pcall(boot)
+if not okBoot then
+	showFatal("启动异常 Startup Error", bootErr)
+end
+
+pcall(function()
+	game:GetService("LogService").MessageOut:Connect(function(message, messageType)
+		if messageType == Enum.MessageType.MessageError then
+			showFatal("运行时错误 Runtime Error", message)
+		end
+	end)
 end)
