@@ -81,11 +81,12 @@ end)
 
 -- 切换到某摄影棚：传送 + 光照 + 运镜（instant = 无运镜直切）
 function Director.showScene(sceneName: string, instant: boolean?)
-	local model = workspace:FindFirstChild("Scenes")
-	if not model then
+	-- 场景是服务器开局才建造的，等待复制完成（最多 20 秒）
+	local scenesFolder = workspace:WaitForChild("Scenes", 20)
+	if not scenesFolder then
 		return false
 	end
-	local sceneModel = model:FindFirstChild("Scene_" .. sceneName)
+	local sceneModel = scenesFolder:WaitForChild("Scene_" .. sceneName, 20)
 	if not sceneModel then
 		return false
 	end

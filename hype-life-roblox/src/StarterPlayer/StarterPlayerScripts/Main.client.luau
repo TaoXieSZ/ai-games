@@ -1,8 +1,10 @@
 --!strict
--- 热搜人生 · Roblox 客户端：ScreenGui 三屏 UI（标题 / 卡牌 / 结局）。
--- 引擎与内容来自 ReplicatedStorage.Game（与网页版同源）。
+-- 热搜人生 · Roblox 客户端：RPG 风格 HUD + 3D 场景演出。
+-- 布局：左上角色状态栏 / 顶中场景名 / 右上时光机 / 底部 RPG 对话框（头像+打字机+三选项）。
+-- 3D 世界为主画面：程序化摄影棚 + 运镜 + 角色传送由 Director 负责。
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 local AssetService = game:GetService("AssetService")
 
 -- 注意：Roblox 有个全局 Content 数据类型（fromObject 等 API），
@@ -10,65 +12,25 @@ local AssetService = game:GetService("AssetService")
 local RobloxContent = Content
 local GameContent = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Content"))
 local Engine = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Engine"))
-local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI", 10) -- 未发布地形下服务端可能未创建
 local SceneSpecs = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("SceneSpecs"))
 local Director = require(script.Parent:WaitForChild("Director"))
+local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI", 10) -- 未发布地形下服务端可能未创建
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
-local function showFatal(title: string, message: unknown)
-	local ok, err = pcall(function()
-		local f = Instance.new("ScreenGui")
-		f.Name = "HypeLifeFatal"
-		f.ResetOnSpawn = false
-		f.Parent = playerGui
-		local bg = Instance.new("Frame")
-		bg.Size = UDim2.fromScale(1, 1)
-		bg.BackgroundColor3 = Color3.fromRGB(26, 28, 44)
-		bg.Parent = f
-		local t = Instance.new("TextLabel")
-		t.Size = UDim2.new(1, -24, 0, 24)
-		t.Position = UDim2.new(0, 12, 0, 12)
-		t.BackgroundTransparency = 1
-		t.TextColor3 = Color3.fromRGB(255, 107, 107)
-		t.TextXAlignment = Enum.TextXAlignment.Left
-		t.TextSize = 16
-		t.Font = Enum.Font.Code
-		t.Text = title
-		t.Parent = bg
-		local body = Instance.new("TextLabel")
-		body.Size = UDim2.new(1, -24, 1, -48)
-		body.Position = UDim2.new(0, 12, 0, 44)
-		body.BackgroundTransparency = 1
-		body.TextColor3 = Color3.fromRGB(244, 244, 244)
-		body.TextXAlignment = Enum.TextXAlignment.Left
-		body.TextYAlignment = Enum.TextYAlignment.Top
-		body.TextSize = 12
-		body.Font = Enum.Font.Code
-		body.TextWrapped = true
-		body.Text = tostring(message)
-		body.Parent = bg
-	end)
-	if not ok then
-		warn(title, message)
-	end
-end
-
-local function boot()
 local C = {
-	bg = Color3.fromRGB(26, 28, 44),
-	panel = Color3.fromRGB(41, 54, 111),
-	deep = Color3.fromRGB(31, 42, 82),
-	ink = Color3.fromRGB(244, 244, 244),
-	dim = Color3.fromRGB(148, 176, 194),
-	lock = Color3.fromRGB(86, 108, 134),
-	gold = Color3.fromRGB(255, 205, 117),
-	hot = Color3.fromRGB(239, 125, 87),
-	trust = Color3.fromRGB(115, 239, 247),
-	cash = Color3.fromRGB(255, 205, 117),
-	risk = Color3.fromRGB(177, 62, 83),
-	blue = Color3.fromRGB(65, 166, 246),
+	bg = Color3.fromRGB(14, 14, 20),
+	panel = Color3.fromRGB(24, 26, 34),
+	ink = Color3.fromRGB(240, 240, 244),
+	dim = Color3.fromRGB(168, 176, 190),
+	gold = Color3.fromRGB(255, 204, 110),
+	hot = Color3.fromRGB(255, 122, 89),
+	trust = Color3.fromRGB(96, 220, 232),
+	cash = Color3.fromRGB(255, 204, 110),
+	risk = Color3.fromRGB(235, 87, 87),
+	blue = Color3.fromRGB(70, 130, 240),
+	line = Color3.fromRGB(70, 76, 92),
 }
 
 local STAT_META = {
@@ -87,7 +49,7 @@ local ENDING_SPRITE: { [string]: string } = {
 -- ── 客户端状态 ───────────────────────────────────────
 
 local gallery: { string } = {}
-local store: any = { screen = "title", state = nil, lastEndingNew = false }
+local store: any = { screen = "title", state = nil, lastEndingNew = false, savedGame = nil }
 local lastActShown: number? = nil
 local lastTypedId: string? = nil
 local listeners = {}
@@ -109,9 +71,7 @@ local function subscribe(fn)
 	table.insert(listeners, fn)
 end
 
--- ── 存档（经服务端 DataStore） ────────────────────────
-
-local galleryDirty = false
+-- ── 存档（服务端 DataStore；不可用时自动降级） ─────────
 
 local function pushSave()
 	if not SaveAPI then
@@ -127,17 +87,20 @@ local function pushSave()
 	end)
 end
 
--- （存档加载在文件末尾执行，避免引用未定义的渲染函数）
-
--- ── 动作 ─────────────────────────────────────────────
-
 local function recordEnding(id: string): boolean
 	if table.find(gallery, id) then
 		return false
 	end
 	table.insert(gallery, id)
+	pushSave()
 	return true
 end
+
+-- 特效函数前置声明（实现在特效层）
+local flash: (Color3) -> () = function() end
+local shake: (number) -> () = function() end
+
+-- ── 动作 ─────────────────────────────────────────────
 
 local function chooseIndex(i: number)
 	local st = store.state
@@ -150,14 +113,14 @@ local function chooseIndex(i: number)
 		return
 	end
 	local next = Engine.choose(st, choice)
-	if next.endingId then
-		next.endingId = Engine.resolveEnding(next.endingId, next.flags)
-	end
 	local lastEndingNew = store.lastEndingNew
 	if next.endingId then
+		next.endingId = Engine.resolveEnding(next.endingId, next.flags)
 		lastEndingNew = recordEnding(next.endingId)
 	end
 	set({ state = next, lastEndingNew = lastEndingNew })
+	pushSave()
+	-- 反馈：正负闪色 + 大事件震屏
 	local sum, biggest = 0, 0
 	for _, d in pairs(choice.effects or {}) do
 		sum += d
@@ -165,11 +128,10 @@ local function chooseIndex(i: number)
 			biggest = math.abs(d)
 		end
 	end
-	Director.flash(if sum >= 0 then Color3.fromRGB(140, 255, 170) else Color3.fromRGB(255, 96, 96))
+	flash(if sum >= 0 then Color3.fromRGB(140, 255, 170) else Color3.fromRGB(255, 96, 96))
 	if biggest >= 10 then
-		Director.shake(0.8)
+		shake(0.8)
 	end
-	pushSave()
 end
 
 local function undoGame()
@@ -183,12 +145,13 @@ end
 local function startNew()
 	lastActShown = nil
 	lastTypedId = nil
-	local fresh = Engine.createInitialState()
-	set({ screen = "game", state = fresh, lastEndingNew = false })
+	set({ screen = "game", state = Engine.createInitialState(), lastEndingNew = false })
 	pushSave()
 end
 
 local function continueGame()
+	lastActShown = nil
+	lastTypedId = nil
 	if store.savedGame then
 		set({ screen = "game", state = store.savedGame, lastEndingNew = false })
 	else
@@ -200,7 +163,7 @@ local function toTitle()
 	set({ screen = "title" })
 end
 
--- ── UI 构建工具 ──────────────────────────────────────
+-- ── UI 工具 ──────────────────────────────────────────
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "HypeLife"
@@ -217,60 +180,52 @@ local function mk(className: string, props: { [string]: any }, parent: Instance?
 	return inst
 end
 
-local function mkLabel(parent, text: string, size: number, color: Color3): TextLabel
-	return mk("TextLabel", {
-		Text = text,
-		TextSize = size,
-		TextColor3 = color,
+local function mkLabel(parent, props): TextLabel
+	local base = {
 		BackgroundTransparency = 1,
 		Font = Enum.Font.Arimo,
-		TextWrapped = true,
 		TextXAlignment = Enum.TextXAlignment.Left,
-		Size = UDim2.new(1, 0, 0, size * 1.5),
-	}, parent)
+		TextYAlignment = Enum.TextYAlignment.Top,
+	}
+	for k, v in pairs(props) do
+		base[k] = v
+	end
+	return mk("TextLabel", base, parent) :: TextLabel
 end
 
-local function mkButton(parent, text: string, size: number, onClick, props): TextButton
+local function mkButton(parent, text: string, onClick, props): TextButton
 	local btn = mk("TextButton", {
 		Text = text,
-		TextSize = size,
+		TextSize = props.textSize or 15,
 		TextColor3 = props.color or C.ink,
 		BackgroundColor3 = props.bg or C.blue,
-		Font = Enum.Font.Arimo,
+		Font = Enum.Font.ArimoBold,
 		TextWrapped = true,
-		Size = props.size or UDim2.new(1, 0, 0, 44),
+		Size = props.size or UDim2.new(1, 0, 0, 42),
 		AutoButtonColor = true,
 	}, parent)
-	mk("UICorner", { CornerRadius = UDim.new(0, 4) }, btn)
-	mk("UIStroke", { Color = props.border or C.ink, Thickness = 2 }, btn)
+	mk("UICorner", { CornerRadius = UDim.new(0, 8) }, btn)
+	if props.border then
+		mk("UIStroke", { Color = props.border, Thickness = 2 }, btn)
+	end
 	btn.Activated:Connect(onClick)
 	return btn
 end
 
--- 像素立绘：EditableImage 运行时写入像素（需在 Game Settings → Security 开启
--- "Allow Mesh & Image APIs"；未开启时立绘自动隐藏，不影响游玩）
+-- 像素立绘（EditableImage 运行时写入；API 不可用时优雅隐藏）
 local spriteCache: { [string]: ImageLabel? } = {}
 
-local function spriteLabel(key: string, pxSize: number): ImageLabel?
-	if spriteCache[key] ~= nil then
-		local cached = spriteCache[key]
-		if cached then
-			local clone = cached:Clone()
-			return clone
-		end
-		return nil
-	end
+local function spriteImage(key: string, pxSize: number): Content?
 	local matrix = GameContent.sprites[key]
 	local label: ImageLabel? = nil
-	local ok, result = pcall(function()
+	local okBuild = pcall(function()
 		local size = #matrix
 		local image = AssetService:CreateEditableImage({ Size = Vector2.new(size, size) })
 		local buf = buffer.create(size * size * 4)
 		for r = 1, size do
 			local row = matrix[r]
 			for c = 1, size do
-				local ch = row:sub(c, c)
-				local hex = GameContent.palette[ch]
+				local hex = GameContent.palette[row:sub(c, c)]
 				local idx = ((r - 1) * size + (c - 1)) * 4
 				if hex then
 					buffer.writeu8(buf, idx, tonumber(hex:sub(2, 3), 16) or 0)
@@ -283,175 +238,242 @@ local function spriteLabel(key: string, pxSize: number): ImageLabel?
 			end
 		end
 		image:WritePixelsBuffer(Vector2.zero, Vector2.new(size, size), buf)
-		return image
+		label = Instance.new("ImageLabel")
+		label.BackgroundTransparency = 1
+		label.ImageContent = RobloxContent.fromObject(image)
+		label.ResampleMode = Enum.ResamplerMode.Pixelated
+		label.Size = UDim2.fromOffset(pxSize, pxSize)
 	end)
-	if ok and result then
-		local okContent, contentRef = pcall(function()
-			return RobloxContent.fromObject(result)
-		end)
-		if okContent and contentRef then
-			label = mk("ImageLabel", {
-				BackgroundTransparency = 1,
-				ImageContent = contentRef,
-				ResampleMode = Enum.ResamplerMode.Pixelated,
-				Size = UDim2.fromOffset(pxSize, pxSize),
-			})
-		end
-	end
 	spriteCache[key] = label
-	return if label then label:Clone() else nil
+	if label then
+		return label:Clone().ImageContent
+	end
+	return nil
 end
 
--- ── 三屏骨架 ─────────────────────────────────────────
+-- ── HUD：左上角色状态栏 ──────────────────────────────
+
+local hudRoot = mk("Frame", {
+	Name = "HUD",
+	Size = UDim2.new(1, 0, 1, 0),
+	BackgroundTransparency = 1,
+	Visible = false,
+})
+
+local statsPanel = mk("Frame", {
+	Position = UDim2.new(0, 12, 0, 12),
+	Size = UDim2.fromOffset(228, 150),
+	BackgroundColor3 = C.panel,
+	BackgroundTransparency = 0.3,
+}, hudRoot)
+mk("UICorner", { CornerRadius = UDim.new(0, 10) }, statsPanel)
+mk("UIStroke", { Color = C.line, Thickness = 1, Transparency = 0.4 }, statsPanel)
+mkLabel(statsPanel, { Text = "孙晨宇", TextSize = 16, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, Size = UDim2.new(1, -16, 0, 22), Position = UDim2.new(0, 10, 0, 6) })
+local statRows = {}
+for i, meta in ipairs(STAT_META) do
+	local row = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, -16, 0, 22), Position = UDim2.new(0, 10, 0, 32 + (i - 1) * 27) }, statsPanel)
+	mkLabel(row, { Text = meta.label, TextSize = 13, TextColor3 = C.dim, Size = UDim2.fromOffset(34, 16) })
+	local track = mk("Frame", { BackgroundColor3 = Color3.fromRGB(0, 0, 0), BackgroundTransparency = 0.45, Size = UDim2.new(1, -78, 0, 8), Position = UDim2.new(0, 38, 0, 5) }, row)
+	mk("UICorner", { CornerRadius = UDim.new(0, 4) }, track)
+	local fill = mk("Frame", { BackgroundColor3 = meta.color, Size = UDim2.fromScale(0.3, 1) }, track)
+	mk("UICorner", { CornerRadius = UDim.new(0, 4) }, fill)
+	local delta = mkLabel(row, { Text = "", TextSize = 12, Size = UDim2.fromOffset(40, 16), Position = UDim2.new(1, -42, 0, 0), TextXAlignment = Enum.TextXAlignment.Right })
+	statRows[meta.key] = { fill = fill, delta = delta }
+end
+
+-- ── HUD：顶中场景名 + 右上时光机 ─────────────────────
+
+local sceneLabel = mkLabel(hudRoot, {
+	Text = "",
+	TextSize = 15,
+	TextColor3 = C.gold,
+	Font = Enum.Font.ArimoBold,
+	Size = UDim2.new(0, 460, 0, 22),
+	Position = UDim2.new(0.5, -230, 0, 12),
+	TextXAlignment = Enum.TextXAlignment.Center,
+})
+local undoBtn = mkButton(hudRoot, "↩ 时光机 ×3", function()
+	undoGame()
+end, { bg = C.panel, bgT = 0.25, border = C.line, size = UDim2.fromOffset(120, 32), color = C.dim })
+undoBtn.Position = UDim2.new(1, -132, 0, 12)
+
+-- ── 底部 RPG 对话框 ──────────────────────────────────
+
+local dialog = mk("Frame", {
+	AnchorPoint = Vector2.new(0.5, 1),
+	Position = UDim2.new(0.5, 0, 1, -14),
+	Size = UDim2.fromOffset(660, 0),
+	AutomaticSize = Enum.AutomaticSize.Y,
+	BackgroundColor3 = C.panel,
+	BackgroundTransparency = 0.18,
+}, hudRoot)
+mk("UICorner", { CornerRadius = UDim.new(0, 12) }, dialog)
+mk("UIStroke", { Color = C.line, Thickness = 1, Transparency = 0.3 }, dialog)
+mk("UIPadding", {
+	PaddingTop = UDim.new(0, 14), PaddingBottom = UDim.new(0, 14),
+	PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16),
+}, dialog)
+mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, dialog)
+
+local dlgTop = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 24), LayoutOrder = 1 }, dialog)
+local sceneBadge = mkLabel(dlgTop, { Text = "", TextSize = 12, TextColor3 = C.dim, Size = UDim2.new(1, -100, 1, 0) })
+local toastLabel = mkLabel(dlgTop, { Text = "", TextSize = 12, TextColor3 = C.cash, Size = UDim2.new(1, -100, 1, 0), Position = UDim2.new(0, 100, 0, 0), TextXAlignment = Enum.TextXAlignment.Right, Visible = false })
+
+local dlgBody = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 96), LayoutOrder = 2 }, dialog)
+local portraitHolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.fromOffset(92, 92) }, dlgBody)
+local cardTitle = mkLabel(dlgBody, { Text = "", TextSize = 22, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, Size = UDim2.new(1, -104, 0, 30), Position = UDim2.new(0, 104, 0, 0) })
+local reactionsLabel = mkLabel(dlgBody, { Text = "", TextSize = 13, TextColor3 = C.trust, Size = UDim2.new(1, -104, 0, 20), Position = UDim2.new(0, 104, 0, 34), Visible = false })
+local cardText = mkLabel(dlgBody, { Text = "", TextSize = 15, TextColor3 = C.ink, TextWrapped = true, Size = UDim2.new(1, -104, 0, 56), Position = UDim2.new(0, 104, 0, 38), AutomaticSize = Enum.AutomaticSize.Y })
+
+local choicesFolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = 3 }, dialog)
+mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, choicesFolder)
+
+-- ── 标题页 ───────────────────────────────────────────
 
 local titleFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, Visible = true })
-local gameFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, BackgroundTransparency = 1, Visible = false })
-local endingFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.bg, Visible = false })
+mkLabel(titleFrame, { Text = "热搜人生", TextSize = 52, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, Size = UDim2.new(1, 0, 0, 70), Position = UDim2.new(0, 0, 0, 120), TextXAlignment = Enum.TextXAlignment.Center })
+mkLabel(titleFrame, { Text = "HYPE LIFE · 流量炼金术士模拟器", TextSize = 14, TextColor3 = C.dim, Size = UDim2.new(1, 0, 0, 22), Position = UDim2.new(0, 0, 0, 196), TextXAlignment = Enum.TextXAlignment.Center })
+mkLabel(titleFrame, { Text = "从三本线到纳斯达克。你有四条命：热度、信用、资金、风险——任何一条归零，人生杀青。", TextSize = 14, TextColor3 = C.ink, TextWrapped = true, Size = UDim2.new(1, -80, 0, 44), Position = UDim2.new(0, 40, 0, 236), TextXAlignment = Enum.TextXAlignment.Center })
+local titleButtons = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(0, 260, 0, 100), Position = UDim2.new(0.5, -130, 0, 300) }, titleFrame)
+mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }, titleButtons)
+local galleryLabel = mkLabel(titleFrame, { Text = "结局图鉴 0/12", TextSize = 13, TextColor3 = C.dim, Size = UDim2.new(1, 0, 0, 22), Position = UDim2.new(0, 0, 0, 420), TextXAlignment = Enum.TextXAlignment.Center })
+local galleryGrid = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(0, 560, 0, 108), Position = UDim2.new(0.5, -280, 0, 446) }, titleFrame)
+mk("UIGridLayout", { CellSize = UDim2.new(0.25, -6, 0, 30), CellPadding = UDim2.new(0, 6, 0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, galleryGrid)
+mkLabel(titleFrame, { Text = "GitHub: TaoXieSZ/ai-games", TextSize = 12, TextColor3 = C.dim, Size = UDim2.new(1, 0, 0, 18), Position = UDim2.new(0, 0, 0, 566), TextXAlignment = Enum.TextXAlignment.Center })
+mkLabel(titleFrame, { Text = "本游戏纯属虚构讽刺作品，人物与事件均为艺术加工，请勿对号入座。", TextSize = 11, TextColor3 = C.dim, TextWrapped = true, Size = UDim2.new(1, -80, 0, 30), Position = UDim2.new(0, 40, 0, 586), TextXAlignment = Enum.TextXAlignment.Center })
 
--- 标题页
-local titleSpriteHolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 130), Position = UDim2.new(0, 0, 0, 70) }, titleFrame)
-mk("TextLabel", { Text = "热搜人生", TextSize = 44, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 60), Position = UDim2.new(0, 0, 0, 206) }, titleFrame)
-mk("TextLabel", { Text = "HYPE LIFE · 流量炼金术士模拟器", TextSize = 13, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 20), Position = UDim2.new(0, 0, 0, 266) }, titleFrame)
-mk("TextLabel", { Text = "从三本线到纳斯达克。你有四条命：热度、信用、资金、风险——任何一条归零，人生杀青。", TextSize = 14, TextColor3 = C.ink, BackgroundTransparency = 1, TextWrapped = true, Size = UDim2.new(1, -60, 0, 60), Position = UDim2.new(0, 30, 0, 296) }, titleFrame)
-local titleButtons = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, -120, 0, 100), Position = UDim2.new(0, 60, 0, 366) }, titleFrame)
-mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, HorizontalAlignment = Enum.HorizontalAlignment.Center }, titleButtons)
-local galleryLabel = mk("TextLabel", { Text = "结局图鉴 0/12", TextSize = 13, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 22), Position = UDim2.new(0, 0, 0, 480) }, titleFrame)
-local galleryGrid = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, -80, 0, 120), Position = UDim2.new(0, 40, 0, 506) }, titleFrame)
-mk("UIGridLayout", { CellSize = UDim2.new(0.24, -4, 0, 28), CellPadding = UDim2.new(0.01, 0, 0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, galleryGrid)
-mk("TextLabel", { Text = "GitHub: TaoXieSZ/ai-games", TextSize = 12, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 18), Position = UDim2.new(0, 0, 0, 636) }, titleFrame)
-mk("TextLabel", { Text = "本游戏纯属虚构讽刺作品，人物与事件均为艺术加工，请勿对号入座。", TextSize = 11, TextColor3 = C.dim, TextWrapped = true, BackgroundTransparency = 1, Size = UDim2.new(1, -80, 0, 32), Position = UDim2.new(0, 40, 0, 656) }, titleFrame)
+-- ── 结局页 ───────────────────────────────────────────
 
--- 游戏页
-local gameScroll = mk("ScrollingFrame", {
-	Position = UDim2.new(0, 8, 0, 8),
-	Size = UDim2.new(1, -16, 1, -16),
+local endingFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.fromRGB(10, 10, 14), BackgroundTransparency = 0.06, Visible = false })
+local endingPanel = mk("Frame", {
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.fromScale(0.5, 0.5),
+	Size = UDim2.new(0, 620, 0, 0),
+	AutomaticSize = Enum.AutomaticSize.Y,
+	BackgroundColor3 = C.panel,
+	BackgroundTransparency = 0.1,
+}, endingFrame)
+mk("UICorner", { CornerRadius = UDim.new(0, 12) }, endingPanel)
+mk("UIStroke", { Color = C.gold, Thickness = 2 }, endingPanel)
+mk("UIPadding", {
+	PaddingTop = UDim.new(0, 18), PaddingBottom = UDim.new(0, 18),
+	PaddingLeft = UDim.new(0, 20), PaddingRight = UDim.new(0, 20),
+}, endingPanel)
+mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }, endingPanel)
+local endingSub = mkLabel(endingPanel, { Text = "", TextSize = 13, TextColor3 = C.dim, Size = UDim2.new(1, 0, 0, 18), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 1 })
+local endingTitle = mkLabel(endingPanel, { Text = "", TextSize = 34, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, Size = UDim2.new(1, 0, 0, 46), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 2 })
+local endingPortraitHolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 100), LayoutOrder = 3 }, endingPanel)
+local endingText = mkLabel(endingPanel, { Text = "", TextSize = 15, TextColor3 = C.ink, TextWrapped = true, Size = UDim2.new(1, 0, 0, 70), AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = 4 })
+local endingNew = mkLabel(endingPanel, { Text = "★ 新结局收录！图鉴已更新", TextSize = 14, TextColor3 = C.gold, Size = UDim2.new(1, 0, 0, 22), TextXAlignment = Enum.TextXAlignment.Center, Visible = false, LayoutOrder = 5 })
+local endingScenes = mkLabel(endingPanel, { Text = "", TextSize = 13, TextColor3 = C.ink, TextWrapped = true, BackgroundColor3 = C.bg, BackgroundTransparency = 0.4, Size = UDim2.new(1, 0, 0, 60), AutomaticSize = Enum.AutomaticSize.Y, Visible = false, LayoutOrder = 6 })
+local endingStats = mkLabel(endingPanel, { Text = "", TextSize = 13, TextColor3 = C.cash, Size = UDim2.new(1, 0, 0, 22), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 7 })
+local endingButtons = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 96), LayoutOrder = 8 }, endingPanel)
+mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }, endingButtons)
+mkButton(endingButtons, "再活一次", startNew, { bg = C.gold, color = C.bg })
+mkButton(endingButtons, "回到标题", toTitle, { bg = C.blue })
+mkLabel(endingPanel, { Text = "本游戏纯属虚构讽刺作品，人物与事件均为艺术加工。", TextSize = 11, TextColor3 = C.dim, Size = UDim2.new(1, 0, 0, 18), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 9 })
+
+-- ── 特效层 ───────────────────────────────────────────
+
+local flashFrame = mk("Frame", { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, BorderSizePixel = 0, ZIndex = 50 })
+local actLabel = mkLabel(flashFrame, {
+	Text = "",
+	TextSize = 40,
+	TextColor3 = C.gold,
+	Font = Enum.Font.ArimoBold,
 	BackgroundTransparency = 1,
-	ScrollBarThickness = 4,
-	CanvasSize = UDim2.new(0, 0, 0, 0),
-	AutomaticCanvasSize = Enum.AutomaticSize.Y,
-}, gameFrame)
-mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, gameScroll)
+	Size = UDim2.new(1, 0, 0, 60),
+	Position = UDim2.new(0, 0, 0.38, 0),
+	TextXAlignment = Enum.TextXAlignment.Center,
+	Visible = false,
+	ZIndex = 51,
+}, flashFrame)
 
-local topbar = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 32), LayoutOrder = 1 }, gameScroll)
-local exitBtn = mkButton(topbar, "✕ 退出", 12, function()
-	toTitle()
-end, { bg = C.panel, border = C.dim, size = UDim2.fromOffset(80, 26) })
-exitBtn.Position = UDim2.new(0, 0, 0, 3)
-mk("TextLabel", { Text = "热搜人生", TextSize = 14, TextColor3 = C.gold, BackgroundTransparency = 1, Size = UDim2.new(1, -180, 1, 0), Position = UDim2.new(0, 90, 0, 0) }, topbar)
-local muteBtn = mkButton(topbar, "🔊", 12, function()
-	-- 小游戏版音效独立；Roblox 版 v1 为静音界面
-end, { bg = C.panel, border = C.dim, size = UDim2.fromOffset(40, 26) })
-muteBtn.Position = UDim2.new(1, -40, 0, 3)
-
-local statsFrame = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 70), LayoutOrder = 2 }, gameScroll)
-mk("UIGridLayout", { CellSize = UDim2.new(0.5, -5, 1, -4), CellPadding = UDim2.new(0, 10, 0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, statsFrame)
-local statBars = {}
-for i, meta in ipairs(STAT_META) do
-	local cell = mk("Frame", { BackgroundColor3 = C.panel, LayoutOrder = i }, statsFrame)
-	mk("UIStroke", { Color = C.ink, Thickness = 2 }, cell)
-	mk("TextLabel", { Text = meta.label, TextSize = 12, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(0, 40, 0, 14), Position = UDim2.new(0, 6, 0, 2) }, cell)
-	local track = mk("Frame", { BackgroundColor3 = C.bg, Size = UDim2.new(1, -34, 0, 6), Position = UDim2.new(0, 28, 0, 17) }, cell)
-	local fill = mk("Frame", { BackgroundColor3 = meta.color, Size = UDim2.new(0.3, 0, 1, 0) }, track)
-	local delta = mk("TextLabel", { Text = "", TextSize = 12, BackgroundTransparency = 1, Size = UDim2.new(0, 40, 0, 14), Position = UDim2.new(1, -44, 0, 2) }, cell)
-	statBars[meta.key] = { fill = fill, delta = delta }
+local actToken = 0
+local function showActCard(act: number)
+	actToken += 1
+	local token = actToken
+	actLabel.Text = SceneSpecs.ACT_NAMES[act] or (`第{act}幕`)
+	actLabel.Visible = true
+	actLabel.TextTransparency = 1
+	TweenService:Create(actLabel, TweenInfo.new(0.4), { TextTransparency = 0 }):Play()
+	task.delay(1.6, function()
+		if token ~= actToken then
+			return
+		end
+		local out = TweenService:Create(actLabel, TweenInfo.new(0.5), { TextTransparency = 1 })
+		out:Play()
+		out.Completed:Once(function()
+			if token == actToken then
+				actLabel.Visible = false
+			end
+		end)
+	end)
 end
 
-local cardPanel = mk("Frame", { BackgroundColor3 = C.panel, BackgroundTransparency = 0.15, LayoutOrder = 3 }, gameScroll)
-mk("UIStroke", { Color = C.ink, Thickness = 3 }, cardPanel)
-mk("UIPadding", { PaddingTop = UDim.new(0, 12), PaddingBottom = UDim.new(0, 12), PaddingLeft = UDim.new(0, 12), PaddingRight = UDim.new(0, 12) }, cardPanel)
-mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, cardPanel)
+flash = function(color: Color3)
+	flashFrame.BackgroundColor3 = color
+	flashFrame.BackgroundTransparency = 0.55
+	TweenService:Create(flashFrame, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
+end
 
-local cardBadges = mk("TextLabel", { Text = "", TextSize = 12, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 20), TextXAlignment = Enum.TextXAlignment.Right, LayoutOrder = 1 }, cardPanel)
-local toastLabel = mk("TextLabel", { Text = "", TextSize = 13, TextColor3 = C.cash, BackgroundColor3 = C.deep, TextWrapped = true, Size = UDim2.new(1, 0, 0, 30), Visible = false, LayoutOrder = 2 }, cardPanel)
-local reactionsLabel = mk("TextLabel", { Text = "", TextSize = 12, TextColor3 = C.dim, BackgroundTransparency = 1, TextWrapped = true, Size = UDim2.new(1, 0, 0, 20), Visible = false, LayoutOrder = 3 }, cardPanel)
-local cardTitle = mk("TextLabel", { Text = "", TextSize = 24, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 34), LayoutOrder = 4 }, cardPanel)
-local cardSpriteHolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 96), LayoutOrder = 5 }, cardPanel)
-local cardText = mk("TextLabel", { Text = "", TextSize = 14, TextColor3 = C.ink, TextWrapped = true, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 60), AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = 6 }, cardPanel)
-local choicesFolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = 7 }, cardPanel)
-mk("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }, choicesFolder)
-local undoBtn = mkButton(cardPanel, "↩ 时光机", 13, function()
-	undoGame()
-end, { bg = C.panel, color = C.dim, border = C.lock, size = UDim2.new(1, 0, 0, 32), LayoutOrder = 8 })
-
--- 结局页
-local endingPanel = mk("Frame", { BackgroundColor3 = C.panel, Size = UDim2.new(1, -28, 0, 500), Position = UDim2.new(0, 14, 0, 16) }, endingFrame)
-mk("UIStroke", { Color = C.gold, Thickness = 3 }, endingPanel)
-mk("UIPadding", { PaddingTop = UDim.new(0, 16), PaddingBottom = UDim.new(0, 16), PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16) }, endingPanel)
-mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }, endingPanel)
-local endingSub = mk("TextLabel", { Text = "", TextSize = 12, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 18), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 1 }, endingPanel)
-local endingTitle = mk("TextLabel", { Text = "", TextSize = 34, TextColor3 = C.gold, Font = Enum.Font.ArimoBold, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 44), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 2 }, endingPanel)
-local endingSpriteHolder = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 126), LayoutOrder = 3 }, endingPanel)
-local endingText = mk("TextLabel", { Text = "", TextSize = 14, TextColor3 = C.ink, TextWrapped = true, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 80), AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = 4 }, endingPanel)
-local endingNew = mk("TextLabel", { Text = "★ 新结局收录！图鉴已更新", TextSize = 13, TextColor3 = C.gold, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 24), Visible = false, LayoutOrder = 5 }, endingPanel)
-local endingScenes = mk("TextLabel", { Text = "", TextSize = 13, TextColor3 = C.ink, TextWrapped = true, BackgroundColor3 = C.deep, Size = UDim2.new(1, 0, 0, 60), AutomaticSize = Enum.AutomaticSize.Y, Visible = false, LayoutOrder = 6 }, endingPanel)
-local endingStats = mk("TextLabel", { Text = "", TextSize = 13, TextColor3 = C.cash, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 22), TextXAlignment = Enum.TextXAlignment.Center, LayoutOrder = 7 }, endingPanel)
-local endingButtons = mk("Frame", { BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 100), LayoutOrder = 8 }, endingPanel)
-mk("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }, endingButtons)
-mkButton(endingButtons, "再活一次", 15, startNew, { bg = C.gold, color = C.bg })
-mkButton(endingButtons, "回到标题", 15, toTitle, { bg = C.blue })
-mk("TextLabel", { Text = "本游戏纯属虚构讽刺作品，人物与事件均为艺术加工。", TextSize = 11, TextColor3 = C.dim, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 18), LayoutOrder = 9 }, endingPanel)
+shake = function(intensity: number)
+	local orig = workspace.CurrentCamera.CFrame
+	task.spawn(function()
+		for _ = 1, 8 do
+			workspace.CurrentCamera.CFrame = orig
+				* CFrame.new(
+					(math.random() - 0.5) * intensity,
+					(math.random() - 0.5) * intensity,
+					0
+				)
+			task.wait(0.03)
+		end
+		workspace.CurrentCamera.CFrame = orig
+	end)
+end
 
 -- ── 渲染 ─────────────────────────────────────────────
 
-local function statColor(key: string): Color3
-	for _, meta in ipairs(STAT_META) do
-		if meta.key == key then
-			return meta.color
-		end
-	end
-	return C.ink
-end
-
 local function renderTitle()
 	titleFrame.Visible = true
-	gameFrame.Visible = false
+	hudRoot.Visible = false
 	endingFrame.Visible = false
-	local unlocked = gallery
-	local all = {}
-	for id, _e in pairs(GameContent.endings) do
-		table.insert(all, id)
-	end
 	local count = 0
 	for _, child in ipairs(galleryGrid:GetChildren()) do
-		if child:IsA("TextLabel") then
-			child:Destroy()
-		end
+		child:Destroy()
 	end
-	-- 固定顺序展示
 	local ordered = {}
-	for id, _e in pairs(GameContent.endings) do
+	for id in pairs(GameContent.endings) do
 		table.insert(ordered, id)
 	end
 	table.sort(ordered)
 	for _, id in ipairs(ordered) do
-		local got = table.find(unlocked, id) ~= nil
-		local item = mk("TextLabel", { Text = if got then GameContent.endings[id].title else "？？？", TextSize = 10, TextColor3 = if got then C.gold else C.lock, BackgroundColor3 = if got then C.panel else C.bg, TextWrapped = true, Size = UDim2.new(1, 0, 1, 0) }, galleryGrid)
+		local got = table.find(gallery, id) ~= nil
+		local item = mkLabel(galleryGrid, {
+			Text = if got then GameContent.endings[id].title else "？？？",
+			TextSize = 10,
+			TextColor3 = if got then C.gold else C.lock,
+			BackgroundColor3 = if got then C.panel else C.bg,
+			BackgroundTransparency = if got then 0 else 0.3,
+			Size = UDim2.new(1, 0, 1, 0),
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+		})
 		mk("UIStroke", { Color = if got then C.gold else C.lock, Thickness = 1 }, item)
 		if got then
 			count += 1
 		end
 	end
-	galleryLabel.Text = `结局图鉴 {count}/{#all}`
-	-- 按钮区
+	galleryLabel.Text = `结局图鉴 {count}/{#ordered}`
 	for _, child in ipairs(titleButtons:GetChildren()) do
-		if child:IsA("TextButton") then
-			child:Destroy()
-		end
+		child:Destroy()
 	end
 	local hasSave = store.savedGame ~= nil
 	if hasSave then
-		mkButton(titleButtons, "继续上辈子", 15, continueGame, { bg = C.gold, color = C.bg, size = UDim2.new(1, 0, 0, 44) })
+		mkButton(titleButtons, "继续上辈子", continueGame, { bg = C.gold, color = C.bg })
 	end
-	mkButton(titleButtons, if hasSave then "重新投胎" else "开始人生", 15, startNew, { bg = C.blue, size = UDim2.new(1, 0, 0, 44) })
-	-- 立绘
-	for _, child in ipairs(titleSpriteHolder:GetChildren()) do
-		child:Destroy()
-	end
-	local sprite = spriteLabel("smug", 112)
-	if sprite then
-		sprite.Parent = titleSpriteHolder
-		sprite.Position = UDim2.new(0.5, -56, 0, 8)
-	end
+	mkButton(titleButtons, if hasSave then "重新投胎" else "开始人生", startNew, { bg = C.blue })
 end
 
 local function renderGame()
@@ -461,52 +483,60 @@ local function renderGame()
 	end
 	titleFrame.Visible = false
 	endingFrame.Visible = false
-	gameFrame.Visible = true
+	hudRoot.Visible = true
 
 	for _, meta in ipairs(STAT_META) do
-		local bar = statBars[meta.key]
-		bar.fill.Size = UDim2.new(st.stats[meta.key] / 100, 0, 1, 0)
+		local row = statRows[meta.key]
+		TweenService:Create(row.fill, TweenInfo.new(0.35), { Size = UDim2.new(st.stats[meta.key] / 100, 0, 1, 0) }):Play()
 		local delta = st.lastEffects and st.lastEffects[meta.key]
 		if delta then
-			bar.delta.Text = string.format("%s%d", if delta > 0 then "+" else "", delta)
-			bar.delta.TextColor3 = if delta > 0 then C.trust else C.risk
+			row.delta.Text = string.format("%s%d", if delta > 0 then "+" else "", delta)
+			row.delta.TextColor3 = if delta > 0 then C.trust else C.risk
 		else
-			bar.delta.Text = ""
+			row.delta.Text = ""
 		end
 	end
 
 	local event = GameContent.cards[st.currentEventId]
+	sceneLabel.Text = `{event.scene} · {SceneSpecs.ACT_NAMES[event.act] or ""}`
 
-	-- 场景联动：切换摄影棚 + 幕间标题卡
-	local sceneArch = SceneSpecs.sceneFor(event.scene)
-	if sceneArch ~= Director.currentSceneName() then
-		Director.showScene(sceneArch)
-	end
-	if lastActShown ~= event.act then
-		lastActShown = event.act
-		Director.actCard(event.act)
-	end
+	local undoLeft = st.undoLeft
+	undoBtn.Text = `↩ 时光机 ×{undoLeft}`
+	undoBtn.AutoButtonColor = st.undoLeft > 0 and #st.history > 0
+	undoBtn.TextColor3 = if st.undoLeft > 0 and #st.history > 0 then C.ink else C.dim
 
-	cardBadges.Text = `{event.year} · {event.scene} · 第{event.act}幕 {st.mainIndex}/{#GameContent.mainline}`
 	if st.toast then
 		toastLabel.Text = `“{st.toast}”`
 		toastLabel.Visible = true
 	else
 		toastLabel.Visible = false
 	end
-	local reactions = Engine.reactionsFor(st.lastEffects)
-	if #reactions > 0 then
-		reactionsLabel.Text = table.concat(reactions, "　")
-		reactionsLabel.Visible = true
-	else
-		reactionsLabel.Visible = false
+
+	-- 场景联动（Director 内部等待复制完成）
+	local sceneArch = SceneSpecs.sceneFor(event.scene)
+	if sceneArch ~= Director.currentSceneName then
+		task.spawn(function()
+			Director.showScene(sceneArch)
+		end)
 	end
-	cardTitle.Text = event.title
-	-- 打字机：逐字显现（换卡自动取消旧动画）
+
+	-- 幕间标题卡
+	if lastActShown ~= event.act then
+		lastActShown = event.act
+		showActCard(event.act)
+	end
+
+	-- 头像立绘（表情随事件变化）
+	local spriteContent = spriteImage(event.sprite, 88)
+	if spriteContent then
+		portrait.ImageContent = spriteContent
+	end
+
+	-- 打字机
 	if lastTypedId ~= event.id then
 		lastTypedId = event.id
-		cardText.Text = event.text
 		local total = utf8.len(event.text) or #event.text
+		cardText.Text = event.text
 		cardText.MaxVisibleGraphemes = 0
 		local myToken = lastTypedId
 		task.spawn(function()
@@ -515,40 +545,21 @@ local function renderGame()
 					return
 				end
 				cardText.MaxVisibleGraphemes = i
-				task.wait(0.018)
+				task.wait(0.02)
 			end
 		end)
 	end
 
-	-- 立绘
-	for _, child in ipairs(cardSpriteHolder:GetChildren()) do
-		child:Destroy()
-	end
-	local sprite = spriteLabel(event.sprite, 90)
-	if sprite then
-		sprite.Parent = cardSpriteHolder
-		sprite.Position = UDim2.new(0.5, -45, 0, 4)
-	end
-
-	-- 选项
+	-- 选项重建
 	for _, child in ipairs(choicesFolder:GetChildren()) do
 		child:Destroy()
 	end
 	for i, choice in ipairs(event.choices) do
-		local btn = mkButton(choicesFolder, choice.text, 14, function()
+		local btn = mkButton(choicesFolder, choice.text, function()
 			chooseIndex(i)
-		end, { bg = C.blue, size = UDim2.new(1, 0, 0, 44) })
+		end, { bg = C.blue, size = UDim2.new(1, 0, 0, 40), textSize = 14 })
 		btn.LayoutOrder = i
 	end
-
-	-- 时光机
-	local canUndo = st.undoLeft > 0 and #st.history > 0
-	undoBtn.Text = `↩ 时光机（剩 {st.undoLeft} 次）`
-	undoBtn.Active = canUndo
-	undoBtn.AutoButtonColor = canUndo
-	undoBtn.TextColor3 = if canUndo then C.dim else C.lock
-
-	gameScroll.CanvasPosition = Vector2.new(0, 0)
 end
 
 local function renderEnding()
@@ -557,22 +568,27 @@ local function renderEnding()
 		return
 	end
 	titleFrame.Visible = false
-	gameFrame.Visible = false
+	hudRoot.Visible = false
 	endingFrame.Visible = true
 	local ending = GameContent.endings[st.endingId or "forgotten"] or GameContent.endings.forgotten
 	endingSub.Text = ending.subtitle
 	endingTitle.Text = ending.title
 	endingText.Text = ending.text
 	endingNew.Visible = store.lastEndingNew
-	endingPanel.UIStroke.Color = if ending.isWin then C.gold else C.ink
+	endingPanel.UIStroke.Color = if ending.isWin then C.gold else C.line
 
-	for _, child in ipairs(endingSpriteHolder:GetChildren()) do
+	for _, child in ipairs(endingPortraitHolder:GetChildren()) do
 		child:Destroy()
 	end
-	local sprite = spriteLabel(ENDING_SPRITE[ending.id] or "smug", 112)
-	if sprite then
-		sprite.Parent = endingSpriteHolder
-		sprite.Position = UDim2.new(0.5, -56, 0, 6)
+	local spriteContent = spriteImage(ENDING_SPRITE[ending.id] or "smug", 96)
+	if spriteContent then
+		local img = mk("ImageLabel", {
+			BackgroundTransparency = 1,
+			ImageContent = spriteContent,
+			ResampleMode = Enum.ResamplerMode.Pixelated,
+			Size = UDim2.fromOffset(96, 96),
+			Position = UDim2.new(0.5, -48, 0, 2),
+		}, endingPortraitHolder)
 	end
 
 	local scenes = {}
@@ -595,8 +611,15 @@ local function renderEnding()
 	endingStats.Text = table.concat(statStr, "   ")
 end
 
+local renderedScreen: string? = nil
+
 local function render()
 	local screen = getStore().screen
+	if renderedScreen ~= screen then
+		lastActShown = nil
+		lastTypedId = nil
+		renderedScreen = screen
+	end
 	if screen == "title" then
 		renderTitle()
 	elseif screen == "game" and getStore().state and getStore().state.currentEventId then
@@ -609,7 +632,16 @@ end
 subscribe(render)
 render()
 
--- 异步加载云端存档与图鉴，完成后刷新标题页
+-- 调试钩子（自动化验证用）
+_G.__hype = {
+	startNew = startNew,
+	continueGame = continueGame,
+	chooseIndex = chooseIndex,
+	undoGame = undoGame,
+	getStore = getStore,
+}
+
+-- 云端存档与图鉴加载（异步，完成后刷新）
 task.spawn(function()
 	if not SaveAPI then
 		return
@@ -625,12 +657,3 @@ task.spawn(function()
 	end
 	render()
 end)
-end
-
-local okBoot, bootErr = pcall(boot)
-if not okBoot then
-	showFatal("启动异常 Startup Error", bootErr)
-end
-
--- 说明：不挂 LogService 错误钩子——DataStore 等预期内的告警也会被当成致命错误遮住整个画面；
--- 启动异常已由 pcall(boot) 捕获并展示。
