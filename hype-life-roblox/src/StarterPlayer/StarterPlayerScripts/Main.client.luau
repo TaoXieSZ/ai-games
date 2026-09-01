@@ -7,7 +7,7 @@ local AssetService = game:GetService("AssetService")
 
 local Content = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Content"))
 local Engine = require(ReplicatedStorage:WaitForChild("Game"):WaitForChild("Engine"))
-local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI")
+local SaveAPI = ReplicatedStorage:WaitForChild("SaveAPI", 10) -- 未发布地形下服务端可能未创建
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -107,6 +107,9 @@ end
 local galleryDirty = false
 
 local function pushSave()
+	if not SaveAPI then
+		return
+	end
 	task.spawn(function()
 		pcall(function()
 			SaveAPI:InvokeServer("save", {
@@ -556,6 +559,9 @@ render()
 
 -- 异步加载云端存档与图鉴，完成后刷新标题页
 task.spawn(function()
+	if not SaveAPI then
+		return
+	end
 	local ok, payload = pcall(function()
 		return SaveAPI:InvokeServer("load", player.UserId)
 	end)
@@ -566,6 +572,7 @@ task.spawn(function()
 		end
 	end
 	render()
+end)
 end
 
 local okBoot, bootErr = pcall(boot)
@@ -573,10 +580,5 @@ if not okBoot then
 	showFatal("启动异常 Startup Error", bootErr)
 end
 
-pcall(function()
-	game:GetService("LogService").MessageOut:Connect(function(message, messageType)
-		if messageType == Enum.MessageType.MessageError then
-			showFatal("运行时错误 Runtime Error", message)
-		end
-	end)
-end)
+-- 说明：不挂 LogService 错误钩子——DataStore 等预期内的告警也会被当成致命错误遮住整个画面；
+-- 启动异常已由 pcall(boot) 捕获并展示。
