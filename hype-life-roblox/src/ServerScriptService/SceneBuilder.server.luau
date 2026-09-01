@@ -24,12 +24,6 @@ if not folder then
 end
 folder:ClearAllChildren()
 
-local names = {}
-for name in pairs(SceneSpecs.BUILDS) do
-	table.insert(names, name)
-end
-table.sort(names)
-
 local HOT_LINES = {
 	"1  热搜人生·连续剧..........爆",
 	"2  前女友下场开撕...........沸",
@@ -40,39 +34,38 @@ local HOT_LINES = {
 	"7  突发肾结石取消午餐.......热",
 }
 
-for i, name in ipairs(names) do
-	local spec = SceneSpecs.BUILDS[name]
-	local origin = Vector3.new((i - 1) * 400, 0, 0)
+local function addPart(model: Instance, origin: Vector3, shape: string, size, pos, color): Part
+	local p = Instance.new("Part")
+	p.Shape = SHAPES[shape] or Enum.PartType.Block
+	p.Size = Vector3.new(size[1], size[2], size[3])
+	p.Color = c3(color)
+	p.Anchored = true
+	p.Material = Enum.Material.SmoothPlastic
+	p.TopSurface = Enum.SurfaceType.Smooth
+	p.BottomSurface = Enum.SurfaceType.Smooth
+	p.CFrame = CFrame.new(origin + Vector3.new(pos[1], pos[2], pos[3]))
+	p.Parent = model
+	return p
+end
+
+local function buildOne(name: string, spec, originX: number)
+	local origin = Vector3.new(originX, 0, 0)
 	local model = Instance.new("Model")
 	model.Name = "Scene_" .. name
 
-	local function cfAt(pos): any
+	local function cfAt(pos)
 		return CFrame.new(origin + Vector3.new(pos[1], pos[2], pos[3]))
 	end
 
-	local function addPart(shape, size, pos, color): Part
-		local p = Instance.new("Part")
-		p.Shape = SHAPES[shape] or Enum.PartType.Block
-		p.Size = Vector3.new(size[1], size[2], size[3])
-		p.Color = c3(color)
-		p.Anchored = true
-		p.Material = Enum.Material.SmoothPlastic
-		p.TopSurface = Enum.SurfaceType.Smooth
-		p.BottomSurface = Enum.SurfaceType.Smooth
-		p.CFrame = cfAt(pos)
-		p.Parent = model
-		return p
-	end
-
 	-- 地板 / 背墙
-	addPart("Block", { 60, 1, 60 }, { 0, -0.5, 0 }, spec.floor)
+	addPart(model, origin, "Block", { 60, 1, 60 }, { 0, -0.5, 0 }, spec.floor)
 	if spec.wall then
-		addPart("Block", { 60, 22, 1 }, { 0, 11, -15.5 }, spec.wall)
+		addPart(model, origin, "Block", { 60, 22, 1 }, { 0, 11, -15.5 }, spec.wall)
 	end
 
 	-- 道具
 	for _, prop in ipairs(spec.props) do
-		local p = addPart(prop[1], prop[2], prop[3], prop[4])
+		local p = addPart(model, origin, prop[1], prop[2], prop[3], prop[4])
 		if prop[1] == "Cylinder" then
 			p.CFrame = p.CFrame * CFrame.Angles(0, 0, math.rad(90))
 		end
@@ -80,7 +73,7 @@ for i, name in ipairs(names) do
 
 	-- 热搜巨幕（SurfaceGui 文字）
 	if spec.screen then
-		local p = addPart("Block", spec.screen.part, spec.screen.pos, { 10, 12, 20 })
+		local p = addPart(model, origin, "Block", spec.screen.part, spec.screen.pos, { 10, 12, 20 })
 		p.CFrame = cfAt(spec.screen.pos)
 		local sg = Instance.new("SurfaceGui")
 		sg.Face = Enum.NormalId.Front
@@ -114,6 +107,25 @@ for i, name in ipairs(names) do
 	model:SetAttribute("PlayerSpawn", origin + Vector3.new(spec.spawn[1], spec.spawn[2], spec.spawn[3]))
 	model:SetAttribute("Sky", spec.sky or 14)
 	model:SetAttribute("SceneName", name)
+	return model
 end
 
-print(string.format("[HypeLife] 已建造 %d 个摄影棚", #names))
+local names = {}
+for name in pairs(SceneSpecs.BUILDS) do
+	table.insert(names, name)
+end
+table.sort(names)
+
+local built = 0
+for i, name in ipairs(names) do
+	local okBuild, model = pcall(buildOne, name, SceneSpecs.BUILDS[name], (i - 1) * 400)
+	if okBuild and model then
+		model.Parent = folder
+		built += 1
+		print("[HypeLife] 摄影棚建造成功:", name)
+	else
+		warn("[HypeLife] 摄影棚建造失败:", name, model)
+	end
+end
+
+print(string.format("[HypeLife] 已建造 %d/%d 个摄影棚", built, #names))
