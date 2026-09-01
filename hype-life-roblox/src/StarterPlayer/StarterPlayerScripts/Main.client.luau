@@ -261,7 +261,8 @@ local hudRoot = mk("Frame", {
 })
 
 local statsPanel = mk("Frame", {
-	Position = UDim2.new(0, 12, 0, 12),
+	AnchorPoint = Vector2.new(0, 1),
+	Position = UDim2.new(0, 12, 1, -12),
 	Size = UDim2.fromOffset(228, 150),
 	BackgroundColor3 = C.panel,
 	BackgroundTransparency = 0.3,
@@ -498,6 +499,13 @@ local function renderGame()
 	end
 
 	local event = GameContent.cards[st.currentEventId]
+	if not event then
+		-- 存档里的卡牌在内容更新后已不存在：回到主线第一张自愈
+		st.currentEventId = GameContent.mainline[1]
+		st.queue = {}
+		st.history = {}
+		event = GameContent.cards[st.currentEventId]
+	end
 	sceneLabel.Text = `{event.scene} · {SceneSpecs.ACT_NAMES[event.act] or ""}`
 
 	local undoLeft = st.undoLeft
@@ -651,8 +659,11 @@ task.spawn(function()
 	end)
 	if ok and payload then
 		gallery = payload.gallery or {}
-		if payload.save and payload.save.currentEventId and not payload.save.endingId then
-			store.savedGame = payload.save
+		local sv = payload.save
+		if sv and sv.currentEventId and GameContent.cards[sv.currentEventId] and not sv.endingId then
+			store.savedGame = sv
+		elseif sv then
+			gallery = payload.gallery or gallery
 		end
 	end
 	render()
