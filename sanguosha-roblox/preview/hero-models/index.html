@@ -70,7 +70,17 @@
             </div>
             <div class="effect-panel" aria-label="技能特效试播">
               <p class="effect-title">技能特效试播</p>
+              <div id="effectCategories" class="segmented" aria-label="特效牌类">
+                <button type="button" data-category="basic" aria-pressed="false">基本牌</button>
+                <button type="button" data-category="trick" aria-pressed="true">锦囊牌</button>
+                <button type="button" data-category="equipment" aria-pressed="false">装备牌</button>
+              </div>
+              <div id="equipmentModes" class="segmented" aria-label="装备预览方式" hidden>
+                <button type="button" data-mode="equip" aria-pressed="true">装备入场</button>
+                <button type="button" data-mode="trigger" aria-pressed="false">效果触发</button>
+              </div>
               <div id="effectButtons" class="effect-grid"></div>
+              <p id="effectDescription" class="effect-description">选择一张牌，查看它的表现。</p>
               <div class="effect-status-row">
                 <output id="effectStage">选择技能预览特效</output>
                 <button id="effectCancel" type="button">清理</button>
@@ -103,6 +113,7 @@
       <section id="status" class="status" role="status" aria-live="polite"></section>
     </main>
 
+    <script src="./card-effects.js" defer></script>
     <script src="./main.js" defer></script>
   </body>
 </html>

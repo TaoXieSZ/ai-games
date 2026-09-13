@@ -303,6 +303,7 @@ function openCard(card, trigger) {
   document.querySelector("#dialogComposition").textContent = card.composition || "构图说明待补充";
   document.querySelector("#dialogReadability").textContent = card.readability || "辨识说明待补充";
   document.querySelector("#dialogLink").href = getImageUrl(card);
+  document.querySelector("#dialogEffectLink").href = `../hero-models/?hero=sun_shangxiang&effect=${encodeURIComponent(card.id)}`;
   copySelect.innerHTML = card.copies.length
     ? card.copies.map((copy, index) => `<option value="${index}">${escapeHtml(copyLabel(copy, true))}</option>`).join("")
     : `<option value="0">花色点数待补</option>`;

@@ -29,6 +29,9 @@ const state = {
   gridMesh: null,
   fileManifest: null,
   effectSpecs: [],
+  effectCategory: "trick",
+  effectMode: "equip",
+  selectedEffectId: null,
   effectsLoaded: false,
   activeEffect: null,
   previousAction: "ready",
@@ -60,6 +63,25 @@ const cueIcons = {
   heal: '<path d="M12 10C3-5-4 15 10 15-2 23 20 30 15 15c14 2 11-18-1-8 6-14-12-12-2 3Z" transform="translate(3 2) scale(.75)"/><circle cx="12" cy="12" r="2"/>',
   arrows: '<path d="M5 3v16m-3-4 3 5 3-5M12 1v20m-3-4 3 5 3-5M19 3v16m-3-4 3 5 3-5"/>',
 };
+
+Object.assign(cueIcons, {
+  duel: '<path d="m3 3 18 18M21 3 3 21M2 16l6 6m8-20 6 6"/>',
+  ward: '<path d="M12 2 3 6v7l9 9 9-9V6ZM8 12l3 3 5-6"/>',
+  transfer: '<path d="M6 3h13v16H6ZM3 8v14h13M2 13h12m-4-4 4 4-4 4"/>',
+  shatter: '<path d="M4 2h16v20H4ZM12 3l-3 6 6 4-5 8"/>',
+  seal: '<path d="M5 2h14v20H5Zm3 5h8m-8 5h8m-8 5h8M12 4v16"/>',
+  grain: '<path d="M12 22V4m0 6L6 4m6 12-7-5m7-1 6-6m-6 12 7-5M3 3l18 18"/>',
+  chain: '<path d="m10 8 3-3c5-5 11 1 6 6l-3 3m-2 2-3 3C6 24 0 18 5 13l3-3m0 6 8-8"/>',
+  charge: '<path d="m3 5 6 7-6 7m6-14 6 7-6 7m6-14 6 7-6 7"/>',
+  blossom: cueIcons.heal, harvest: '<path d="M2 7h7v13H2Zm6-4h8v16H8Zm7 4h7v13h-7"/>',
+  draw: '<path d="M2 3h9v15H2Zm11 3h9v15h-9M5 7h3m8 3h3"/>',
+  redirect: '<path d="M2 18h7V6h12m-5-5 5 5-5 5"/>',
+  fire: '<path d="M12 2c3 8 9 9 7 15s-13 7-15 0c-2-5 3-8 4-11 0 6 3 5 4-4Z"/>',
+  storm: '<path d="m14 1-9 12h7l-2 10 10-14h-8Z"/>',
+  wine: '<path d="M5 3h14v8c0 8-14 8-14 0ZM12 17v5M7 22h10"/>',
+  weapon: cueIcons.slash, armor: '<path d="m12 2 9 4v8l-9 8-9-8V6ZM7 8h10M12 5v12"/>',
+  mount: '<path d="M5 21V10l7-8 7 6-4 4-2-2-2 5 8 6ZM5 10H3"/>',
+});
 
 const factionNames = {
   wei: "魏",
@@ -134,7 +156,8 @@ async function loadEffects() {
     const required = ["slash", "dodge", "heal", "arrows"];
     const byId = new Map(effects.map((effect) => [effect.id, effect]));
     if (!required.every((id) => byId.has(id))) throw new Error("特效数据缺少基础技能");
-    state.effectSpecs = required.map((id) => byId.get(id));
+    if (byId.size !== effects.length) throw new Error("特效 ID 重复");
+    state.effectSpecs = effects;
     state.effectsLoaded = true;
   } catch (error) {
     console.warn(`技能特效数据读取失败：${error.message}`);
@@ -287,30 +310,53 @@ function setupTabs() {
   });
 }
 
-function setupEffects() {
-  if (!effectButtons) return;
+function renderEffectButtons() {
   effectButtons.replaceChildren();
-  if (!state.effectsLoaded) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.disabled = true;
-    button.innerHTML = `<span class="effect-label">未加载</span><span class="effect-kind">需要 hero-effects-v1.json</span>`;
-    effectButtons.append(button);
-    if (effectStage) effectStage.textContent = "特效数据未加载";
-    return;
-  }
-  state.effectSpecs.forEach((effect) => {
+  document.querySelectorAll("[data-category]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.category === state.effectCategory)));
+  document.querySelector("#equipmentModes").hidden = state.effectCategory !== "equipment";
+  document.querySelectorAll("[data-mode]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mode === state.effectMode)));
+  state.effectSpecs.filter((effect) => effect.category === state.effectCategory).forEach((effect) => {
     const button = document.createElement("button");
     button.type = "button";
     button.dataset.effect = effect.id;
-    button.style.setProperty("--effect-color", effect.color || "#F4B45F");
-    button.style.setProperty("--effect-accent", effect.accent || "#F66D58");
-    button.setAttribute("aria-pressed", "false");
-    button.innerHTML = `<span class="effect-label">${escapeHtml(effect.label || effect.id)}</span><span class="effect-kind">${escapeHtml(EFFECT_KINDS[effect.id] || "技能特效")}</span>`;
+    button.dataset.selected = String(effect.id === state.selectedEffectId);
+    button.style.setProperty("--effect-color", effect.color);
+    button.style.setProperty("--effect-accent", effect.accent);
+    button.setAttribute("aria-pressed", String(state.activeEffect?.id === effect.id));
+    const kind = effect.slot ? ({weapon:"武器",armor:"防具",mount:"坐骑"}[effect.slot]) : EFFECT_KINDS[effect.id] || (effect.category === "trick" ? "锦囊" : "基本牌");
+    button.innerHTML = `<span class="effect-label">${escapeHtml(effect.label)}</span><span class="effect-kind">${escapeHtml(kind)}</span>`;
     button.addEventListener("click", () => playEffect(effect.id));
     effectButtons.append(button);
   });
+}
+
+function setupEffects() {
+  if (!effectButtons) return;
+  if (!state.effectsLoaded) { effectButtons.textContent = "特效数据未加载"; return; }
+  document.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
+    cancelEffect(false);
+    state.effectCategory = button.dataset.category;
+    renderEffectButtons();
+    document.querySelector("#effectDescription").textContent = state.effectCategory === "equipment" ? "选择装备，可分别预览入场与触发效果。" : "选择一张牌，查看它的表现。";
+  }));
+  document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => {
+    state.effectMode = button.dataset.mode;
+    renderEffectButtons();
+    const selected = state.effectSpecs.find((effect) => effect.id === state.selectedEffectId);
+    if (selected?.category === "equipment") playEffect(selected.id);
+  }));
+  renderEffectButtons();
   effectCancel?.addEventListener("click", () => cancelEffect(true));
+  const requested = new URLSearchParams(location.search).get("effect");
+  const spec = state.effectSpecs.find((effect) => effect.cardId === requested || effect.id === requested);
+  if (spec) {
+    state.effectCategory = spec.category;
+    state.selectedEffectId = spec.id;
+    renderEffectButtons();
+    document.querySelector("#effectDescription").textContent = `${spec.label} · ${spec.visual}`;
+    const selectedButton = effectButtons.querySelector(`[data-effect="${spec.id}"]`);
+    if (selectedButton) effectButtons.scrollTop = selectedButton.offsetTop - effectButtons.firstElementChild.offsetTop;
+  }
 }
 
 function playEffect(id) {
@@ -318,15 +364,18 @@ function playEffect(id) {
   if (!effect) return;
   const now = state.time || performance.now() / 1000;
   state.previousAction = state.activeEffect ? state.previousAction : state.action;
-  state.activeEffect = { ...effect, startedAt: now };
+  state.selectedEffectId = id;
+  state.activeEffect = { ...effect, startedAt: now, previewMode: effect.category === "equipment" ? state.effectMode : "trigger" };
+  document.querySelector("#effectDescription").textContent = effect.category === "equipment" && state.effectMode === "equip" ? `${effect.label} · 装备轮廓在角色身侧凝聚成形。` : effect.visual || "";
   if (skillCue) {
     skillCue.dataset.skill = effect.id;
+    skillCue.dataset.long = String(effect.label.length > 2);
     skillCue.style.setProperty("--cue-color", effect.color);
     skillCue.style.setProperty("--cue-accent", effect.accent);
     skillCue.querySelector(".cue-name").textContent = effect.label;
-    skillCue.querySelector(".cue-icon").innerHTML = `<svg viewBox="0 0 24 24">${cueIcons[effect.id] || ""}</svg>`;
+    skillCue.querySelector(".cue-icon").innerHTML = `<svg viewBox="0 0 24 24">${cueIcons[effect.icon || effect.id] || ""}</svg>`;
   }
-  setPreviewAction(id === "slash" || id === "arrows" ? "attack" : "ready");
+  setPreviewAction(effect.category === "equipment" && state.effectMode === "equip" ? "ready" : effect.pose || "ready");
   updateEffectUi(0);
   frameCurrentModel(state.yaw, true);
 }
@@ -356,12 +405,13 @@ function updateEffectUi(elapsed) {
   updateEffectButtons(effect?.id || null);
   if (!effectStage || !effect) return;
   const stage = elapsed < effect.telegraph ? "预示" : elapsed < effect.impact ? "释放" : "消散";
-  effectStage.textContent = `${effect.label || effect.id} · ${stage}`;
+  effectStage.textContent = `${effect.label || effect.id}${effect.category === "equipment" ? (effect.previewMode === "equip" ? " · 装备入场" : " · 效果触发") : ""} · ${stage}`;
 }
 
 function updateEffectButtons(activeId) {
   effectButtons?.querySelectorAll("[data-effect]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.effect === activeId));
+    button.dataset.selected = String(button.dataset.effect === state.selectedEffectId);
   });
 }
 
@@ -581,7 +631,7 @@ function render(now = 0) {
   } else if (effect) {
     updateEffectUi(effectElapsed);
   }
-  const poseTime = effect && (effect.id === "slash" || effect.id === "arrows") ? clamp(effectElapsed, 0, 0.799) : state.time;
+  const poseTime = effect && action === "attack" ? clamp(effectElapsed, 0, 0.799) : state.time;
   const boneMatrices = computeBoneMatrices(model, action, poseTime);
   statsEl.textContent = `几何 ${model.runtime.draws.length} · 顶点 ${model.runtime.vertexCount} · 骨骼 ${model.bones.length}`;
 
@@ -623,6 +673,7 @@ function drawActiveEffect(model, viewProj, boneMatrices, elapsed, layer) {
   if (effect.id === "dodge") drawDodgeEffect(model, viewProj, boneMatrices, effect, elapsed, layer);
   if (effect.id === "heal") drawHealEffect(model, viewProj, effect, elapsed, layer);
   if (effect.id === "arrows") drawArrowsEffect(model, viewProj, effect, elapsed, layer);
+  if (!["slash", "dodge", "heal", "arrows"].includes(effect.id)) drawCardEffect(model, viewProj, boneMatrices, effect, elapsed, layer, effect.previewMode);
 }
 
 function effectProgress(effect, elapsed) {
@@ -918,6 +969,7 @@ function activeEffectBounds(model) {
   if (effect.id === "dodge") includeBox([center[0] - 4, ground, center[2] - 0.9], [center[0] + 4, center[1] + 2, center[2] + 1.4]);
   if (effect.id === "heal") includeBox([center[0] - 1.8, ground, center[2] - 1.5], [center[0] + 1.8, center[1] + 2.7, center[2] + 1.5]);
   if (effect.id === "arrows") includeBox([center[0] - 3.2, ground, center[2] - 4.7], [center[0] + 3.2, center[1] + 4.1, center[2] + 1.1]);
+  if (!["slash", "dodge", "heal", "arrows"].includes(effect.id)) includeBox([center[0]-4.6, ground, center[2]-4.8], [center[0]+4.6, ground+6.3, center[2]+1.7]);
   const mergedCenter = bounds.min.map((value, index) => (value + bounds.max[index]) / 2);
   const corners = [];
   for (const x of [bounds.min[0], bounds.max[0]]) {

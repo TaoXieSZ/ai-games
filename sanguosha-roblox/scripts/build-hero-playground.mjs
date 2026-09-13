@@ -186,6 +186,7 @@ const serverScript = item('Script', 'HeroPlayground', '', prop.protectedString('
 const clientScript = item('LocalScript', 'HeroPlayground', '', prop.protectedString('Source', readScript('HeroPlayground.client.luau')));
 const catalogScript = item('ModuleScript', 'HeroPlaygroundCatalog', '', prop.protectedString('Source', catalogModuleSource()));
 const effectsScript = item('ModuleScript', 'HeroEffects', '', prop.protectedString('Source', effectsModuleSource()));
+const cardEffectsScript = item('ModuleScript', 'CardEffects', '', prop.protectedString('Source', readScript('CardEffects.luau')));
 const remote = item('RemoteFunction', 'HeroPlaygroundRemote');
 const effectsRemote = item('RemoteEvent', 'HeroPlaygroundEffects');
 
@@ -196,7 +197,7 @@ const workspace = item('Workspace', 'Workspace', [
   boundaryRing(),
 ].join('\n'));
 const serverStorage = item('ServerStorage', 'ServerStorage', item('Folder', 'HeroTemplates', templateItems));
-const replicatedStorage = item('ReplicatedStorage', 'ReplicatedStorage', `${remote}\n${effectsRemote}\n${catalogScript}\n${effectsScript}`);
+const replicatedStorage = item('ReplicatedStorage', 'ReplicatedStorage', `${remote}\n${effectsRemote}\n${catalogScript}\n${effectsScript}\n${cardEffectsScript}`);
 const serverScriptService = item('ServerScriptService', 'ServerScriptService', serverScript);
 const starterPlayerScripts = item('StarterPlayerScripts', 'StarterPlayerScripts', clientScript);
 const starterPlayer = item('StarterPlayer', 'StarterPlayer', starterPlayerScripts, [

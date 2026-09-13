@@ -1,0 +1,10 @@
+{
+  "scrolling": true,
+  "invalidPayloads": 4,
+  "uiTricks": 15,
+  "replacement": 5,
+  "switch": true,
+  "cancel": 5,
+  "pass": true,
+  "newHead": true
+}

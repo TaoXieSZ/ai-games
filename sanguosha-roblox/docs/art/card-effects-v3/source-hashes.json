@@ -1,0 +1,9 @@
+{
+  "data/hero-effects-v1.json": "d4ff02b807c0b964f658eece0d657c372b1ab000a27622fb6a664a7e854ead49",
+  "preview/hero-models/main.js": "8e5f6a714f54287e125dd6b8938155edd490e4ff0674ba5763f9a5ce8245f7c9",
+  "preview/hero-models/card-effects.js": "5e2baa8abed7a40b0dbc9f3b137f327aa78e62055d828e4d046525d4f1b048b4",
+  "workshop/HeroPlayground.client.luau": "4be636b2897fc76bbd31d9180114185f2b5bbaa36f4050ace24c80d1a407553f",
+  "workshop/HeroPlayground.server.luau": "2a7041d6e2825518ba460c12741cae26ec95718fb57b940c2d4323c8ac706d76",
+  "workshop/CardEffects.luau": "5c2a756cf1924474f8d2966a109d50b35045087e5189ce8b9954828aaeacb1ad",
+  "models/hero-models-v1/hero-playground.rbxlx": "bf42c5fcad37f321b656a79428809c1ae243bb14ae3dd231784054a5eafe8786"
+}

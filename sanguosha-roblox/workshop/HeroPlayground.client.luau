@@ -9,6 +9,10 @@ local player = Players.LocalPlayer
 local remote = ReplicatedStorage:WaitForChild("HeroPlaygroundRemote") :: RemoteFunction
 local effectsRemote = ReplicatedStorage:WaitForChild("HeroPlaygroundEffects") :: RemoteEvent
 
+local CardEffects = require(ReplicatedStorage:WaitForChild("CardEffects"))
+local effectCategory = "trick"
+local previewMode = "equip"
+
 local catalog = {}
 local effectCatalog = {}
 local currentHeroId = "guan_yu"
@@ -229,7 +233,7 @@ local function addSkillCue(parent: Instance, payload, spec)
 	local duration = tonumber(cue.duration) or 1.05
 	local height = tonumber(cue.height) or 2.1
 	local label = if typeof(spec.label) == "string" then spec.label else tostring(payload.effectId or "")
-	local width = if label == "万箭齐发" then 235 else 180
+	local width = if (utf8.len(label) or 0) > 2 then 250 else 180
 	local billboard = Instance.new("BillboardGui")
 	billboard.Name = "SkillCue"
 	billboard.Adornee = head
@@ -297,7 +301,7 @@ local function addSkillCue(parent: Instance, payload, spec)
 	icon.Size = UDim2.fromOffset(42, 24)
 	icon.BackgroundTransparency = 1
 	icon.Font = Enum.Font.GothamBold
-	icon.Text = if payload.effectId == "dodge" then "≈" elseif payload.effectId == "heal" then "✿" elseif payload.effectId == "arrows" then "⇣" else "✦"
+	icon.Text = ({ dodge = "≈", heal = "✿", arrows = "⇣", duel = "⚔", ward = "◇", transfer = "⇄", shatter = "✧", seal = "封", grain = "麦", chain = "∞", charge = "⇈", blossom = "✿", harvest = "穗", draw = "＋", redirect = "↗", fire = "炎", storm = "雷", wine = "酒", weapon = "刃", armor = "甲", mount = "骑" })[spec.icon or payload.effectId] or "✦"
 	icon.TextColor3 = accent
 	icon.TextScaled = true
 	icon.TextTransparency = 0
@@ -556,6 +560,7 @@ local function playClientEffect(payload)
 	local folder = Instance.new("Folder")
 	folder.Name = `Effect_{payload.sequence or 0}_{payload.effectId}`
 	folder:SetAttribute("EffectId", payload.effectId)
+	folder:SetAttribute("PreviewMode", payload.previewMode or "trigger")
 	folder:SetAttribute("OwnerUserId", payload.ownerUserId)
 	folder:SetAttribute("HeroId", payload.heroId or "")
 	folder:SetAttribute("Sequence", payload.sequence or 0)
@@ -589,8 +594,10 @@ local function playClientEffect(payload)
 		playHeal(folder, payload, spec)
 	elseif payload.effectId == "arrows" then
 		playArrows(folder, payload, spec)
-	else
+	elseif payload.effectId == "slash" then
 		playSlash(folder, payload, spec)
+	else
+		CardEffects.play(folder, payload, spec, { effectPart = effectPart, addRing = addRing, addSpark = addSpark, addImpactBurst = addImpactBurst, fadeAndDestroy = fadeAndDestroy, lineCFrame = lineCFrame, colorFromHex = colorFromHex, characterForUserId = characterForUserId })
 	end
 	task.delay((spec.duration or 1) + 0.12, function()
 		local isCurrent = activeEffectFolders[payload.ownerUserId] == folder
@@ -724,16 +731,36 @@ local effectControls = Instance.new("Frame")
 effectControls.Name = "PreviewEffectControls"
 effectControls.AnchorPoint = Vector2.new(1, 1)
 effectControls.Position = UDim2.new(1, -18, 1, -112)
-effectControls.Size = UDim2.fromOffset(420, 48)
-effectControls.BackgroundTransparency = 1
+effectControls.Size = UDim2.fromOffset(360, 224)
+effectControls.BackgroundColor3 = Color3.fromRGB(22, 29, 32)
+effectControls.BackgroundTransparency = 0.12
 effectControls.Parent = screenGui
+local effectCategories = Instance.new("Frame")
+effectCategories.Name = "Categories"
+effectCategories.Position = UDim2.fromOffset(8, 8)
+effectCategories.Size = UDim2.new(1, -16, 0, 32)
+effectCategories.BackgroundTransparency = 1
+effectCategories.Parent = effectControls
+local effectModes = effectCategories:Clone()
+effectModes.Name = "Modes"
+effectModes.Position = UDim2.fromOffset(8, 46)
+effectModes.Parent = effectControls
+local effectList = Instance.new("ScrollingFrame")
+effectList.Name = "Cards"
+effectList.Position = UDim2.fromOffset(8, 46)
+effectList.Size = UDim2.new(1, -16, 1, -54)
+effectList.BackgroundTransparency = 1
+effectList.BorderSizePixel = 0
+effectList.ScrollBarThickness = 4
+effectList.CanvasSize = UDim2.new()
+effectList.AutomaticCanvasSize = Enum.AutomaticSize.Y
+effectList.Parent = effectControls
+local effectGrid = Instance.new("UIGridLayout")
+effectGrid.CellSize = UDim2.new(1/3, -6, 0, 42)
+effectGrid.CellPadding = UDim2.fromOffset(6, 6)
+effectGrid.SortOrder = Enum.SortOrder.LayoutOrder
+effectGrid.Parent = effectList
 
-local effectControlsLayout = Instance.new("UIListLayout")
-effectControlsLayout.FillDirection = Enum.FillDirection.Horizontal
-effectControlsLayout.SortOrder = Enum.SortOrder.LayoutOrder
-effectControlsLayout.Padding = UDim.new(0, 8)
-effectControlsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-effectControlsLayout.Parent = effectControls
 
 local bindable = Instance.new("BindableFunction")
 bindable.Name = "HeroPlaygroundClientAction"
@@ -782,7 +809,7 @@ local function requestAction(request)
 	if action == "SwitchHero" and request and request.heroId then
 		payload = { heroId = request.heroId }
 	elseif action == "PreviewEffect" and request and request.effectId then
-		payload = { effectId = request.effectId }
+		payload = { effectId = request.effectId, previewMode = request.previewMode or "trigger" }
 	end
 	local result = invokeServer(action, payload)
 	if result and result.ok then
@@ -856,34 +883,51 @@ local function renderFilters()
 end
 
 local function requestEffect(effectId: string)
-	return requestAction({ action = "PreviewEffect", effectId = effectId })
-end
-
-local function clearEffectButtons()
-	for _, child in ipairs(effectControls:GetChildren()) do
-		if child:IsA("TextButton") then
-			child:Destroy()
-		end
+	local mode = "trigger"
+	for _, effect in ipairs(effectCatalog) do
+		if effect.id == effectId and effect.category == "equipment" then mode = previewMode end
 	end
+	return requestAction({ action = "PreviewEffect", effectId = effectId, previewMode = mode })
 end
 
 local function renderEffectButtons()
-	clearEffectButtons()
-	local orderById = { slash = 1, dodge = 2, heal = 3, arrows = 4 }
-	table.sort(effectCatalog, function(a, b)
-		return (orderById[a.id] or 99) < (orderById[b.id] or 99)
-	end)
-	for index, effect in ipairs(effectCatalog) do
-		local key = tostring(index)
-		local label = if UserInputService.TouchEnabled then (effect.label or effect.id) else `{key} {effect.label or effect.id}`
-		local size = if UserInputService.TouchEnabled then UDim2.new(0.25, -6, 0, 44) else UDim2.fromOffset(if effect.id == "arrows" then 112 else 78, 44)
-		local button = makeButton(effectControls, label, size, function()
-			requestEffect(effect.id)
+	for _, container in ipairs({ effectList, effectCategories, effectModes }) do
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("TextButton") then child:Destroy() end
+		end
+	end
+	for i, category in ipairs({ "basic", "trick", "equipment" }) do
+		local button = makeButton(effectCategories, ({ basic = "基本牌", trick = "锦囊牌", equipment = "装备牌" })[category], UDim2.new(1/3, -4, 1, 0), function()
+			effectCategory = category
+			effectList.CanvasPosition = Vector2.zero
+			renderEffectButtons()
 		end)
-		button.LayoutOrder = index
-		button.TextSize = if effect.id == "arrows" then 14 else 18
-		button.BackgroundColor3 = colorFromHex(effect.color, Color3.fromRGB(57, 70, 92))
-		button.TextColor3 = Color3.fromRGB(22, 23, 26)
+		button.Position = UDim2.new((i-1)/3, 0, 0, 0)
+		button.TextSize = 14
+		button.BackgroundColor3 = if category == effectCategory then Color3.fromRGB(126, 85, 39) else Color3.fromRGB(44, 48, 58)
+	end
+	local equipment = effectCategory == "equipment"
+	effectModes.Visible = equipment
+	effectList.Position = UDim2.fromOffset(8, if equipment then 84 else 46)
+	effectList.Size = UDim2.new(1, -16, 1, if equipment then -92 else -54)
+	for i, mode in ipairs({ "equip", "trigger" }) do
+		local button = makeButton(effectModes, if mode == "equip" then "装备入场" else "效果触发", UDim2.new(0.5, -4, 1, 0), function()
+			previewMode = mode
+			renderEffectButtons()
+		end)
+		button.Position = UDim2.new((i-1)*0.5, 0, 0, 0)
+		button.TextSize = 13
+		button.BackgroundColor3 = if previewMode == mode then Color3.fromRGB(58, 106, 95) else Color3.fromRGB(44, 48, 58)
+	end
+	for index, effect in ipairs(effectCatalog) do
+		if effect.category == effectCategory then
+			local button = makeButton(effectList, effect.label or effect.id, UDim2.fromOffset(100, 42), function() requestEffect(effect.id) end)
+			button.Name = effect.id
+			button.LayoutOrder = index
+			button.TextSize = 14
+			button.BackgroundColor3 = colorFromHex(effect.color, Color3.fromRGB(57, 70, 92))
+			button.TextColor3 = Color3.fromRGB(22, 23, 26)
+		end
 	end
 end
 
@@ -932,10 +976,7 @@ local EFFECT_KEYS = { Enum.KeyCode.One, Enum.KeyCode.Two, Enum.KeyCode.Three, En
 for index, keyCode in ipairs(EFFECT_KEYS) do
 	ContextActionService:BindAction(`HeroPlaygroundPreviewEffect{index}`, function(_, state)
 		if state == Enum.UserInputState.Begin then
-			local effect = effectCatalog[index]
-			if effect then
-				requestEffect(effect.id)
-			end
+			requestEffect(({ "slash", "dodge", "heal", "arrows" })[index])
 		end
 		return Enum.ContextActionResult.Sink
 	end, false, keyCode)
@@ -972,7 +1013,7 @@ if UserInputService.TouchEnabled then
 			button.Text = button.Text:match("^%S+") or button.Text
 		end
 	end
-	effectControls.Size = UDim2.new(1, -24, 0, 44)
+	effectControls.Size = UDim2.new(1, -24, 0, 200)
 	effectControls.Position = UDim2.new(1, -12, 1, -166)
 end
 

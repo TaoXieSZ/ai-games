@@ -1,0 +1,430 @@
+{
+  "pass": true,
+  "counts": {
+    "basic": 6,
+    "trick": 15,
+    "equipment": 22
+  },
+  "rows": [
+    {
+      "id": "slash",
+      "mode": "trigger",
+      "peakDraws": 23,
+      "label": "杀"
+    },
+    {
+      "id": "dodge",
+      "mode": "trigger",
+      "peakDraws": 37,
+      "label": "闪"
+    },
+    {
+      "id": "heal",
+      "mode": "trigger",
+      "peakDraws": 52,
+      "label": "桃"
+    },
+    {
+      "id": "fire_sha",
+      "mode": "trigger",
+      "peakDraws": 23,
+      "label": "火杀"
+    },
+    {
+      "id": "thunder_sha",
+      "mode": "trigger",
+      "peakDraws": 13,
+      "label": "雷杀"
+    },
+    {
+      "id": "jiu",
+      "mode": "trigger",
+      "peakDraws": 14,
+      "label": "酒"
+    },
+    {
+      "id": "juedou",
+      "mode": "trigger",
+      "peakDraws": 9,
+      "label": "决斗"
+    },
+    {
+      "id": "wuxie",
+      "mode": "trigger",
+      "peakDraws": 6,
+      "label": "无懈可击"
+    },
+    {
+      "id": "shunshou",
+      "mode": "trigger",
+      "peakDraws": 5,
+      "label": "顺手牵羊"
+    },
+    {
+      "id": "guohe",
+      "mode": "trigger",
+      "peakDraws": 8,
+      "label": "过河拆桥"
+    },
+    {
+      "id": "lebusishu",
+      "mode": "trigger",
+      "peakDraws": 11,
+      "label": "乐不思蜀"
+    },
+    {
+      "id": "bingliang",
+      "mode": "trigger",
+      "peakDraws": 6,
+      "label": "兵粮寸断"
+    },
+    {
+      "id": "tiesuo",
+      "mode": "trigger",
+      "peakDraws": 13,
+      "label": "铁索连环"
+    },
+    {
+      "id": "nanman",
+      "mode": "trigger",
+      "peakDraws": 12,
+      "label": "南蛮入侵"
+    },
+    {
+      "id": "arrows",
+      "mode": "trigger",
+      "peakDraws": 92,
+      "label": "万箭齐发"
+    },
+    {
+      "id": "taoyuan",
+      "mode": "trigger",
+      "peakDraws": 16,
+      "label": "桃园结义"
+    },
+    {
+      "id": "wugu",
+      "mode": "trigger",
+      "peakDraws": 16,
+      "label": "五谷丰登"
+    },
+    {
+      "id": "wuzhong",
+      "mode": "trigger",
+      "peakDraws": 17,
+      "label": "无中生有"
+    },
+    {
+      "id": "jiedao",
+      "mode": "trigger",
+      "peakDraws": 9,
+      "label": "借刀杀人"
+    },
+    {
+      "id": "huogong",
+      "mode": "trigger",
+      "peakDraws": 12,
+      "label": "火攻"
+    },
+    {
+      "id": "shandian",
+      "mode": "trigger",
+      "peakDraws": 12,
+      "label": "闪电"
+    },
+    {
+      "id": "zhuge_crossbow",
+      "mode": "equip",
+      "peakDraws": 10,
+      "label": "诸葛连弩"
+    },
+    {
+      "id": "zhuge_crossbow",
+      "mode": "trigger",
+      "peakDraws": 24,
+      "label": "诸葛连弩"
+    },
+    {
+      "id": "double_swords",
+      "mode": "equip",
+      "peakDraws": 11,
+      "label": "雌雄双股剑"
+    },
+    {
+      "id": "double_swords",
+      "mode": "trigger",
+      "peakDraws": 9,
+      "label": "雌雄双股剑"
+    },
+    {
+      "id": "green_dragon_blade",
+      "mode": "equip",
+      "peakDraws": 8,
+      "label": "青龙偃月刀"
+    },
+    {
+      "id": "green_dragon_blade",
+      "mode": "trigger",
+      "peakDraws": 12,
+      "label": "青龙偃月刀"
+    },
+    {
+      "id": "qinggang_sword",
+      "mode": "equip",
+      "peakDraws": 8,
+      "label": "青釭剑"
+    },
+    {
+      "id": "qinggang_sword",
+      "mode": "trigger",
+      "peakDraws": 7,
+      "label": "青釭剑"
+    },
+    {
+      "id": "serpent_spear",
+      "mode": "equip",
+      "peakDraws": 8,
+      "label": "丈八蛇矛"
+    },
+    {
+      "id": "serpent_spear",
+      "mode": "trigger",
+      "peakDraws": 8,
+      "label": "丈八蛇矛"
+    },
+    {
+      "id": "stone_axe",
+      "mode": "equip",
+      "peakDraws": 7,
+      "label": "贯石斧"
+    },
+    {
+      "id": "stone_axe",
+      "mode": "trigger",
+      "peakDraws": 8,
+      "label": "贯石斧"
+    },
+    {
+      "id": "halberd",
+      "mode": "equip",
+      "peakDraws": 9,
+      "label": "方天画戟"
+    },
+    {
+      "id": "halberd",
+      "mode": "trigger",
+      "peakDraws": 11,
+      "label": "方天画戟"
+    },
+    {
+      "id": "kylin_bow",
+      "mode": "equip",
+      "peakDraws": 11,
+      "label": "麒麟弓"
+    },
+    {
+      "id": "kylin_bow",
+      "mode": "trigger",
+      "peakDraws": 10,
+      "label": "麒麟弓"
+    },
+    {
+      "id": "ice_sword",
+      "mode": "equip",
+      "peakDraws": 8,
+      "label": "寒冰剑"
+    },
+    {
+      "id": "ice_sword",
+      "mode": "trigger",
+      "peakDraws": 13,
+      "label": "寒冰剑"
+    },
+    {
+      "id": "fire_fan",
+      "mode": "equip",
+      "peakDraws": 10,
+      "label": "朱雀羽扇"
+    },
+    {
+      "id": "fire_fan",
+      "mode": "trigger",
+      "peakDraws": 14,
+      "label": "朱雀羽扇"
+    },
+    {
+      "id": "ancient_scimitar",
+      "mode": "equip",
+      "peakDraws": 10,
+      "label": "古锭刀"
+    },
+    {
+      "id": "ancient_scimitar",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "古锭刀"
+    },
+    {
+      "id": "eight_trigrams",
+      "mode": "equip",
+      "peakDraws": 15,
+      "label": "八卦阵"
+    },
+    {
+      "id": "eight_trigrams",
+      "mode": "trigger",
+      "peakDraws": 14,
+      "label": "八卦阵"
+    },
+    {
+      "id": "renwang_shield",
+      "mode": "equip",
+      "peakDraws": 7,
+      "label": "仁王盾"
+    },
+    {
+      "id": "renwang_shield",
+      "mode": "trigger",
+      "peakDraws": 6,
+      "label": "仁王盾"
+    },
+    {
+      "id": "vine_armor",
+      "mode": "equip",
+      "peakDraws": 13,
+      "label": "藤甲"
+    },
+    {
+      "id": "vine_armor",
+      "mode": "trigger",
+      "peakDraws": 13,
+      "label": "藤甲"
+    },
+    {
+      "id": "silver_lion",
+      "mode": "equip",
+      "peakDraws": 9,
+      "label": "白银狮子"
+    },
+    {
+      "id": "silver_lion",
+      "mode": "trigger",
+      "peakDraws": 8,
+      "label": "白银狮子"
+    },
+    {
+      "id": "red_hare",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "赤兔"
+    },
+    {
+      "id": "red_hare",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "赤兔"
+    },
+    {
+      "id": "dayuan",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "大宛"
+    },
+    {
+      "id": "dayuan",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "大宛"
+    },
+    {
+      "id": "zixing",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "紫骍"
+    },
+    {
+      "id": "zixing",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "紫骍"
+    },
+    {
+      "id": "dilu",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "的卢"
+    },
+    {
+      "id": "dilu",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "的卢"
+    },
+    {
+      "id": "jueying",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "绝影"
+    },
+    {
+      "id": "jueying",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "绝影"
+    },
+    {
+      "id": "zhuahuang_feidian",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "爪黄飞电"
+    },
+    {
+      "id": "zhuahuang_feidian",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "爪黄飞电"
+    },
+    {
+      "id": "hualiu",
+      "mode": "equip",
+      "peakDraws": 16,
+      "label": "骅骝"
+    },
+    {
+      "id": "hualiu",
+      "mode": "trigger",
+      "peakDraws": 21,
+      "label": "骅骝"
+    }
+  ],
+  "stability": {
+    "before": 1995,
+    "after": 1995,
+    "expiry": true,
+    "cancel": true
+  },
+  "mobile": {
+    "cue": {
+      "x": 65.21875,
+      "y": 399.359375,
+      "width": 235,
+      "height": 108,
+      "top": 399.359375,
+      "right": 300.21875,
+      "bottom": 507.359375,
+      "left": 65.21875
+    },
+    "canvas": {
+      "x": 11,
+      "y": 275.03125,
+      "width": 368,
+      "height": 498,
+      "top": 275.03125,
+      "right": 379,
+      "bottom": 773.03125,
+      "left": 11
+    },
+    "horizontalOverflow": false
+  },
+  "errors": []
+}

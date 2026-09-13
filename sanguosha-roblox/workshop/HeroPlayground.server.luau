@@ -520,13 +520,11 @@ clearEffect = function(player: Player, reason: string)
 	effectsRemote:FireAllClients({ kind = "clear", ownerUserId = player.UserId, reason = reason })
 end
 
-local function effectActionFor(effectId: string): string?
-	if effectId == "slash" or effectId == "arrows" then
-		return "Attack"
-	elseif effectId == "dodge" then
-		return "Dodge"
-	end
-	return nil
+local function effectActionFor(effectId: string, previewMode: string?): string
+	if previewMode == "equip" then return "Idle" end
+	if effectId == "dodge" then return "Dodge" end
+	local effect = EFFECT_BY_ID[effectId]
+	return if effect and effect.pose == "attack" then "Attack" else "Idle"
 end
 
 local function groundYAt(point: Vector3, ignore: Instance?): number
@@ -555,7 +553,7 @@ local function groundYAt(point: Vector3, ignore: Instance?): number
 	return 0.46
 end
 
-local function previewEffect(player: Player, effectId: string, automatic: boolean)
+local function previewEffect(player: Player, effectId: string, automatic: boolean, previewMode: string?)
 	local effect = EFFECT_BY_ID[effectId]
 	local state = playerState[player]
 	local character = player.Character
@@ -585,6 +583,7 @@ local function previewEffect(player: Player, effectId: string, automatic: boolea
 	effectsRemote:FireAllClients({
 		kind = "play",
 		effectId = effectId,
+		previewMode = previewMode or "trigger",
 		effect = effect,
 		ownerUserId = player.UserId,
 		heroId = state.heroId,
@@ -632,10 +631,15 @@ remote.OnServerInvoke = function(player: Player, action: string, payload)
 		return { ok = false, error = "no-character" }
 	end
 	local requestedEffectId = nil
+	local requestedPreviewMode = "trigger"
 	if action == "PreviewEffect" then
 		requestedEffectId = if typeof(payload) == "table" and typeof(payload.effectId) == "string" then payload.effectId else nil
 		if not requestedEffectId or not EFFECT_BY_ID[requestedEffectId] then
 			return { ok = false, error = "invalid-effect" }
+		end
+		requestedPreviewMode = payload.previewMode or "trigger"
+		if (requestedPreviewMode ~= "equip" and requestedPreviewMode ~= "trigger") or (requestedPreviewMode == "equip" and EFFECT_BY_ID[requestedEffectId].category ~= "equipment") then
+			return { ok = false, error = "invalid-preview-mode" }
 		end
 	end
 	local requestedHeroId = nil
@@ -663,11 +667,11 @@ remote.OnServerInvoke = function(player: Player, action: string, payload)
 		previewEffect(player, "dodge", true)
 		return { ok = true, action = action, effectId = "dodge" }
 	elseif action == "PreviewEffect" then
-		local played, effectError, effect = previewEffect(player, requestedEffectId, false)
+		local played, effectError, effect = previewEffect(player, requestedEffectId, false, requestedPreviewMode)
 		if not played then
 			return { ok = false, error = effectError or "effect-failed" }
 		end
-		local poseAction = effectActionFor(requestedEffectId)
+		local poseAction = effectActionFor(requestedEffectId, requestedPreviewMode)
 		if poseAction then
 			setAction(player, poseAction)
 		end

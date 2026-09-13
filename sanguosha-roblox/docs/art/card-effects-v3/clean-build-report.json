@@ -1,0 +1,56 @@
+{
+  "pass": true,
+  "from": "git index in independent temporary directory",
+  "rows": [
+    {
+      "path": "sanguosha-roblox/data/hero-effects-v1.json",
+      "sha256": "d4ff02b807c0b964f658eece0d657c372b1ab000a27622fb6a664a7e854ead49",
+      "identical": true
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/hero-playground.rbxlx",
+      "sha256": "bf42c5fcad37f321b656a79428809c1ae243bb14ae3dd231784054a5eafe8786",
+      "identical": true
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/hero-models/main.js",
+      "identical": true,
+      "sha256": "8e5f6a714f54287e125dd6b8938155edd490e4ff0674ba5763f9a5ce8245f7c9"
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/hero-models/card-effects.js",
+      "identical": true,
+      "sha256": "5e2baa8abed7a40b0dbc9f3b137f327aa78e62055d828e4d046525d4f1b048b4"
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/hero-models/index.html",
+      "identical": true,
+      "sha256": "8a41ef4b9facaa5822a1bfb53edae8b5cfd854cd0b3588f3b6bfb2a298d4862b"
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/hero-models/style.css",
+      "identical": true,
+      "sha256": "3a92db91da3a39fd5788a49087039e0fb0be38b9ec6e99246b4193989deb11fb"
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/game-cards/index.html",
+      "identical": true,
+      "sha256": "47671a17f0df157ee670e7113c8809539c79f92157913c23067cd1a1a6fb58a7"
+    },
+    {
+      "path": "site/sanguosha-roblox/preview/game-cards/main.js",
+      "identical": true,
+      "sha256": "e2e7d54197c9117bd5d886e74c2ecf6bbf7527704f8870de90be497d15be3203"
+    },
+    {
+      "path": "site/sanguosha-roblox/data/hero-effects-v1.json",
+      "identical": true,
+      "sha256": "d4ff02b807c0b964f658eece0d657c372b1ab000a27622fb6a664a7e854ead49"
+    },
+    {
+      "path": "site/sanguosha-roblox/models/hero-models-v1/hero-playground.rbxlx",
+      "identical": true,
+      "sha256": "bf42c5fcad37f321b656a79428809c1ae243bb14ae3dd231784054a5eafe8786"
+    }
+  ]
+}

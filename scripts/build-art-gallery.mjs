@@ -169,6 +169,7 @@ async function build() {
     await copyFile(path.join(previewRoot, "main.js"), path.join(outputRoot, "main.js"));
   }
 
+  await copyFile(path.join(sourceRoot, "preview/hero-models/card-effects.js"), path.join(siteRoot, "sanguosha-roblox/preview/hero-models/card-effects.js"));
   await copyFile(path.join(dataRoot, "hero-models-v1.json"), path.join(siteRoot, "sanguosha-roblox/data/hero-models-v1.json"));
   await copyFile(path.join(dataRoot, "hero-effects-v1.json"), path.join(siteRoot, "sanguosha-roblox/data/hero-effects-v1.json"));
   for (const file of [...heroes.flatMap(hero => [`${hero.id}.glb`, `${hero.id}.rbxmx`]), "manifest.json", "hero-model-workshop.rbxlx", "hero-playground.rbxlx"]) {

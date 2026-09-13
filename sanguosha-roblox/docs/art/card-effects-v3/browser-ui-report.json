@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "equipTrigger": true,
+  "categoryCancel": true,
+  "mobileLastEquipment": true,
+  "cardLink": "../hero-models/?hero=sun_shangxiang&effect=sha",
+  "selected": {
+    "id": "slash",
+    "category": "basic"
+  },
+  "errors": []
+}
