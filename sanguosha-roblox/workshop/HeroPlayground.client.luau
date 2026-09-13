@@ -116,9 +116,16 @@ local function effectPart(parent: Instance, name: string, size: Vector3, cframe:
 end
 
 local function fadeAndDestroy(part: Instance, duration: number, delayTime: number?)
+	local startDelay = delayTime or 0
+	local fadeDuration = math.max(0.05, duration)
 	task.delay(delayTime or 0, function()
 		if part and part.Parent and part:IsA("BasePart") then
-			TweenService:Create(part, TweenInfo.new(math.max(0.05, duration), Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transparency = 1 }):Play()
+			TweenService:Create(part, TweenInfo.new(fadeDuration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transparency = 1 }):Play()
+		end
+	end)
+	task.delay(startDelay + fadeDuration + 0.04, function()
+		if part and part.Parent then
+			part:Destroy()
 		end
 	end)
 end
@@ -147,6 +154,35 @@ local function addSpark(parent: Instance, center: Vector3, color: Color3, accent
 		local a = (i / count) * math.pi * 2
 		local spark = effectPart(parent, `ImpactSpark_{i}`, Vector3.new(0.08, 0.08, 0.34), CFrame.new(center + Vector3.new(0, 0.1, 0)) * CFrame.Angles(0, -a, 0), if i % 2 == 0 then accent else color, 0.08)
 		TweenService:Create(spark, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = spark.CFrame + Vector3.new(math.cos(a) * 0.75, 0.35, math.sin(a) * 0.75), Transparency = 1 }):Play()
+	end
+end
+
+local function addImpactBurst(parent: Instance, center: Vector3, color: Color3, accent: Color3, duration: number)
+	addSpark(parent, center, color, accent, 10, duration)
+	addRing(parent, "ImpactHalo", center - Vector3.new(0, 0.34, 0), 0.95, accent, duration, 0.08)
+	for i = 1, 8 do
+		local a = i / 8 * math.pi * 2
+		local ray = effectPart(parent, `ImpactRay_{i}`, Vector3.new(0.055, 0.055, 0.34), CFrame.new(center) * CFrame.Angles(0, -a, math.rad(55)), if i % 2 == 0 then accent else color, 0.04)
+		TweenService:Create(ray, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = ray.CFrame + Vector3.new(math.cos(a) * 0.85, 0.28, math.sin(a) * 0.85), Transparency = 1 }):Play()
+	end
+end
+
+local function arrowHeadCFrame(tip: Vector3, direction: Vector3, sign: number): CFrame
+	local flatDirection = if direction.Magnitude > 0.05 then direction.Unit else Vector3.new(0, -1, 0)
+	local side = flatDirection:Cross(Vector3.new(0, 1, 0))
+	if side.Magnitude < 0.05 then
+		side = Vector3.new(1, 0, 0)
+	end
+	side = side.Unit
+	local back = tip - flatDirection * 0.32 + side * sign * 0.12
+	return lineCFrame(back, tip)
+end
+
+local function addArrowHead(parent: Instance, name: string, startTip: Vector3, finishTip: Vector3, direction: Vector3, color: Color3, travelTime: number, fadeDelay: number)
+	for sign = -1, 1, 2 do
+		local barb = effectPart(parent, `{name}_{sign}`, Vector3.new(0.04, 0.04, 0.36), arrowHeadCFrame(startTip, direction, sign), color, 0.06)
+		TweenService:Create(barb, TweenInfo.new(travelTime, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { CFrame = arrowHeadCFrame(finishTip, direction, sign) }):Play()
+		fadeAndDestroy(barb, 0.16, fadeDelay)
 	end
 end
 
@@ -181,6 +217,135 @@ local function handPosition(payload, fallback: Vector3): Vector3
 	return fallback
 end
 
+local function addSkillCue(parent: Instance, payload, spec)
+	local character = characterForUserId(payload.ownerUserId)
+	local head = character and character:FindFirstChild("Head")
+	if not head or not head:IsA("BasePart") then
+		return
+	end
+	local color = colorFromHex(spec.color, Color3.fromRGB(244, 180, 95))
+	local accent = colorFromHex(spec.accent, Color3.fromRGB(246, 109, 88))
+	local cue = if typeof(spec.cue) == "table" then spec.cue else {}
+	local duration = tonumber(cue.duration) or 1.05
+	local height = tonumber(cue.height) or 2.1
+	local label = if typeof(spec.label) == "string" then spec.label else tostring(payload.effectId or "")
+	local width = if label == "万箭齐发" then 235 else 180
+	local billboard = Instance.new("BillboardGui")
+	billboard.Name = "SkillCue"
+	billboard.Adornee = head
+	billboard.AlwaysOnTop = false
+	billboard.LightInfluence = 0
+	billboard.MaxDistance = 85
+	billboard.Size = UDim2.fromOffset(width, 108)
+	billboard.StudsOffsetWorldSpace = Vector3.new(0, height, 0)
+	billboard.Parent = parent
+	parent:SetAttribute("CueLabel", label)
+	parent:SetAttribute("CueDuration", duration)
+
+	local root = Instance.new("Frame")
+	root.Name = "CueRoot"
+	root.AnchorPoint = Vector2.new(0.5, 0.5)
+	root.Position = UDim2.fromScale(0.5, 0.5)
+	root.Size = UDim2.fromScale(1, 1)
+	root.BackgroundTransparency = 1
+	root.Parent = billboard
+
+	local scale = Instance.new("UIScale")
+	scale.Scale = 0.72
+	scale.Parent = root
+	TweenService:Create(scale, TweenInfo.new(0.14, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1.08 }):Play()
+	task.delay(0.16, function()
+		if scale.Parent then
+			TweenService:Create(scale, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+		end
+	end)
+	TweenService:Create(billboard, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), { StudsOffsetWorldSpace = Vector3.new(0, height + 0.35, 0) }):Play()
+
+	for i = 1, 8 do
+		local ray = Instance.new("Frame")
+		ray.Name = `CueRay_{i}`
+		ray.AnchorPoint = Vector2.new(0.5, 0.5)
+		ray.Position = UDim2.fromScale(0.5, 0.5)
+		ray.Size = UDim2.fromOffset(2, 72)
+		ray.Rotation = i * 22.5
+		ray.BackgroundColor3 = color
+		ray.BackgroundTransparency = 0.62
+		ray.BorderSizePixel = 0
+		ray.Parent = root
+	end
+
+	local seal = Instance.new("Frame")
+	seal.Name = "CueSeal"
+	seal.AnchorPoint = Vector2.new(0.5, 0.5)
+	seal.Position = UDim2.fromScale(0.5, 0.5)
+	seal.Size = UDim2.fromOffset(65, 65)
+	seal.Rotation = 45
+	seal.BackgroundColor3 = Color3.fromRGB(18, 36, 32)
+	seal.BackgroundTransparency = 0.24
+	seal.BorderSizePixel = 0
+	seal.Parent = root
+	local sealStroke = Instance.new("UIStroke")
+	sealStroke.Color = color
+	sealStroke.Thickness = 1.5
+	sealStroke.Transparency = 0.08
+	sealStroke.Parent = seal
+
+	local icon = Instance.new("TextLabel")
+	icon.Name = "CueIcon"
+	icon.AnchorPoint = Vector2.new(0.5, 0)
+	icon.Position = UDim2.fromScale(0.5, 0.03)
+	icon.Size = UDim2.fromOffset(42, 24)
+	icon.BackgroundTransparency = 1
+	icon.Font = Enum.Font.GothamBold
+	icon.Text = if payload.effectId == "dodge" then "≈" elseif payload.effectId == "heal" then "✿" elseif payload.effectId == "arrows" then "⇣" else "✦"
+	icon.TextColor3 = accent
+	icon.TextScaled = true
+	icon.TextTransparency = 0
+	icon.Parent = root
+
+	local text = Instance.new("TextLabel")
+	text.Name = "CueName"
+	text.AnchorPoint = Vector2.new(0.5, 0.5)
+	text.Position = UDim2.fromScale(0.5, 0.52)
+	text.Size = UDim2.new(1, -18, 0, 48)
+	text.BackgroundTransparency = 1
+	text.Font = Enum.Font.GothamBlack
+	text.Text = label
+	text.TextColor3 = Color3.fromRGB(255, 245, 217)
+	text.TextScaled = true
+	text.TextStrokeColor3 = Color3.fromRGB(12, 28, 24)
+	text.TextStrokeTransparency = 0.12
+	text.TextTransparency = 0
+	text.Parent = root
+
+	local rule = Instance.new("Frame")
+	rule.Name = "CueRule"
+	rule.AnchorPoint = Vector2.new(0.5, 1)
+	rule.Position = UDim2.fromScale(0.5, 0.89)
+	rule.Size = UDim2.fromOffset(104, 2)
+	rule.BackgroundColor3 = color
+	rule.BackgroundTransparency = 0.18
+	rule.BorderSizePixel = 0
+	rule.Parent = root
+
+	task.delay(math.max(0.05, duration * 0.62), function()
+		if not billboard.Parent then
+			return
+		end
+		local fadeInfo = TweenInfo.new(math.max(0.12, duration * 0.32), Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+		TweenService:Create(text, fadeInfo, { TextTransparency = 1, TextStrokeTransparency = 1 }):Play()
+		TweenService:Create(icon, fadeInfo, { TextTransparency = 1 }):Play()
+		TweenService:Create(rule, fadeInfo, { BackgroundTransparency = 1 }):Play()
+		TweenService:Create(seal, fadeInfo, { BackgroundTransparency = 1 }):Play()
+		TweenService:Create(sealStroke, fadeInfo, { Transparency = 1 }):Play()
+		for _, child in ipairs(root:GetChildren()) do
+			if child:IsA("Frame") and child.Name:match("^CueRay_") then
+				TweenService:Create(child, fadeInfo, { BackgroundTransparency = 1 }):Play()
+			end
+		end
+	end)
+end
+
 local function playSlash(parent: Instance, payload, spec)
 	local origin = payload.origin :: Vector3
 	local target = payload.target :: Vector3
@@ -203,17 +368,24 @@ local function playSlash(parent: Instance, payload, spec)
 			for i = 1, 3 do
 				local start = startPoint + right * ((i - 2) * 0.12)
 				local finish = targetPoint + right * ((i - 2) * 0.06)
-				local streak = effectPart(parent, `SpearThrust_{i}`, Vector3.new(0.09, 0.09, math.min(1.4, (finish - start).Magnitude)), lineCFrame(start, start + (finish - start).Unit * math.min(1.4, (finish - start).Magnitude)), if i == 2 then accent else color, 0.08)
+				local streak = effectPart(parent, `SpearThrust_{i}`, Vector3.new(0.11, 0.11, math.min(1.6, (finish - start).Magnitude)), lineCFrame(start, start + (finish - start).Unit * math.min(1.6, (finish - start).Magnitude)), if i == 2 then accent else color, 0.06)
+				local core = effectPart(parent, `SpearCore_{i}`, Vector3.new(0.035, 0.035, math.min(1.65, (finish - start).Magnitude)), streak.CFrame, Color3.fromRGB(255, 244, 217), 0.02)
 				TweenService:Create(streak, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = lineCFrame(finish - forward * 1.3, finish) }):Play()
+				TweenService:Create(core, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = lineCFrame(finish - forward * 1.3, finish) }):Play()
 				fadeAndDestroy(streak, 0.22, 0.18)
+				fadeAndDestroy(core, 0.22, 0.18)
 			end
 		elseif actionType == "bow" then
 			local finish = targetPoint
 			local arrowLength = 1.05
 			local direction = (finish - startPoint).Unit
-			local arrow = effectPart(parent, "BowArrowStreak", Vector3.new(0.07, 0.07, arrowLength), lineCFrame(startPoint, startPoint + direction * arrowLength), accent, 0.04)
+			local arrow = effectPart(parent, "BowArrowStreak", Vector3.new(0.08, 0.08, arrowLength), lineCFrame(startPoint, startPoint + direction * arrowLength), accent, 0.03)
+			local trail = effectPart(parent, "BowArrowTrail", Vector3.new(0.18, 0.18, arrowLength * 1.15), arrow.CFrame, color, 0.7)
 			TweenService:Create(arrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { CFrame = lineCFrame(finish - direction * arrowLength, finish) }):Play()
+			TweenService:Create(trail, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { CFrame = lineCFrame(finish - direction * arrowLength, finish) }):Play()
+			addArrowHead(parent, "BowArrowHead", startPoint + direction * arrowLength, finish, direction, accent, 0.2, 0.2)
 			fadeAndDestroy(arrow, 0.18, 0.2)
+			fadeAndDestroy(trail, 0.16, 0.18)
 		elseif actionType == "hammer" then
 			addRing(parent, "HammerImpact", groundTarget, 1.25, accent, 0.55, 0.08)
 			addSpark(parent, groundTarget + Vector3.new(0, 0.25, 0), color, accent, 8, 0.42)
@@ -228,15 +400,18 @@ local function playSlash(parent: Instance, payload, spec)
 			for i = 1, 7 do
 				local angle = math.rad(-60 + i * 17)
 				local pos = startPoint + forward * (0.55 + i * 0.18) + right * math.sin(angle) * 0.95 + Vector3.new(0, math.cos(angle) * 0.28, 0)
-				local arc = effectPart(parent, `SlashArc_{i}`, Vector3.new(0.11, 0.08, 0.9), CFrame.new(pos, pos + forward) * CFrame.Angles(0, 0, angle), if i % 2 == 0 then accent else color, 0.06 + i * 0.035)
+				local arc = effectPart(parent, `SlashArc_{i}`, Vector3.new(0.16, 0.10, 0.95), CFrame.new(pos, pos + forward) * CFrame.Angles(0, 0, angle), if i % 2 == 0 then accent else color, 0.06 + i * 0.03)
+				local core = effectPart(parent, `SlashCore_{i}`, Vector3.new(0.045, 0.035, 0.98), arc.CFrame, Color3.fromRGB(255, 244, 217), 0.04)
 				TweenService:Create(arc, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = arc.CFrame + forward * 1.15 }):Play()
+				TweenService:Create(core, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { CFrame = core.CFrame + forward * 1.15 }):Play()
 				fadeAndDestroy(arc, 0.28, 0.12)
+				fadeAndDestroy(core, 0.28, 0.12)
 			end
 		end
 	end)
 	task.delay(spec.impact or 0.35, function()
 		if parent.Parent then
-			addSpark(parent, targetPoint, color, accent, 8, 0.35)
+			addImpactBurst(parent, targetPoint, color, accent, 0.38)
 		end
 	end)
 end
@@ -248,10 +423,34 @@ local function playDodge(parent: Instance, payload, spec)
 	local color = colorFromHex(spec.color, Color3.fromRGB(120, 221, 235))
 	local accent = colorFromHex(spec.accent, Color3.fromRGB(216, 251, 255))
 	local ground = Vector3.new(origin.X, payload.originGroundY or origin.Y, origin.Z)
+	local character = characterForUserId(payload.ownerUserId)
+	local bodyNames = { "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg" }
 	for i = 1, 3 do
 		local offset = right * (i * 0.45)
-		local ghost = effectPart(parent, `DodgeAfterimage_{i}`, Vector3.new(1.35, 2.5, 0.55), CFrame.new(origin + Vector3.new(0, 1.45, 0) - offset, origin + Vector3.new(0, 1.45, 0) - offset + forward), color, 0.62)
-		TweenService:Create(ghost, TweenInfo.new(0.32 + i * 0.08), { CFrame = ghost.CFrame - offset * 0.55, Transparency = 1 }):Play()
+		if character then
+			for _, bodyName in ipairs(bodyNames) do
+				local source = character:FindFirstChild(bodyName)
+				if source and source:IsA("BasePart") then
+					local ghost = effectPart(parent, `DodgeAfterimage_{i}_{bodyName:gsub(" ", "")}`, source.Size, source.CFrame + (-offset), if bodyName == "Head" then accent else color, 0.6)
+					TweenService:Create(ghost, TweenInfo.new(0.32 + i * 0.08), { CFrame = ghost.CFrame + (-offset * 0.65), Transparency = 1 }):Play()
+				end
+			end
+		else
+			local ghostCenter = origin + Vector3.new(0, 2.75, 0) - offset
+			local baseFrame = CFrame.new(ghostCenter, ghostCenter + forward)
+			local pieces = {
+				{ name = "Torso", size = Vector3.new(1.05, 1.45, 0.32), offset = Vector3.new(0, 0, 0), color = color },
+				{ name = "Head", size = Vector3.new(0.72, 0.62, 0.34), offset = Vector3.new(0, 1.06, 0), color = accent },
+				{ name = "ArmL", size = Vector3.new(0.32, 1.2, 0.24), offset = Vector3.new(-0.72, -0.12, 0), color = color },
+				{ name = "ArmR", size = Vector3.new(0.32, 1.2, 0.24), offset = Vector3.new(0.72, -0.12, 0), color = color },
+				{ name = "LegL", size = Vector3.new(0.35, 1.35, 0.26), offset = Vector3.new(-0.25, -1.36, 0), color = color },
+				{ name = "LegR", size = Vector3.new(0.35, 1.35, 0.26), offset = Vector3.new(0.25, -1.36, 0), color = color },
+			}
+			for _, piece in ipairs(pieces) do
+				local ghost = effectPart(parent, `DodgeAfterimage_{i}_{piece.name}`, piece.size, baseFrame * CFrame.new(piece.offset), piece.color, 0.58)
+				TweenService:Create(ghost, TweenInfo.new(0.32 + i * 0.08), { CFrame = ghost.CFrame + (-offset * 0.65), Transparency = 1 }):Play()
+			end
+		end
 	end
 	addRing(parent, "DodgeRing", ground, 1.05, accent, 0.52, 0.09)
 end
@@ -262,10 +461,22 @@ local function playHeal(parent: Instance, payload, spec)
 	local color = colorFromHex(spec.color, Color3.fromRGB(117, 227, 161))
 	local accent = colorFromHex(spec.accent, Color3.fromRGB(246, 188, 189))
 	addRing(parent, "PeachGround", ground, 1.45, color, spec.duration, 0.1)
+	for stream = 1, 2 do
+		for i = 1, 12 do
+			local t0 = (i - 1) / 12
+			local t1 = i / 12
+			local a0 = t0 * 3.7 + stream * math.pi
+			local a1 = t1 * 3.7 + stream * math.pi
+			local p0 = ground + Vector3.new(math.cos(a0) * 1.75, 0.35 + t0 * 3.2, math.sin(a0) * 1.35)
+			local p1 = ground + Vector3.new(math.cos(a1) * 1.75, 0.35 + t1 * 3.2, math.sin(a1) * 1.35)
+			local wisp = effectPart(parent, `PeachWisp_{stream}_{i}`, Vector3.new(0.055, 0.055, (p1 - p0).Magnitude), lineCFrame(p0, p1), if stream == 1 then color else accent, 0.34)
+			fadeAndDestroy(wisp, spec.duration * 0.72, spec.duration * 0.18)
+		end
+	end
 	for i = 1, 14 do
 		local a = i / 14 * math.pi * 2
-		local start = ground + Vector3.new(math.cos(a) * 0.45, 0.35 + (i % 3) * 0.08, math.sin(a) * 0.45)
-		local petal = effectPart(parent, `PeachPetal_{i}`, Vector3.new(0.12, 0.05, 0.22), CFrame.new(start) * CFrame.Angles(0, a, math.rad(18)), if i % 2 == 0 then accent else color, 0.16)
+		local start = ground + Vector3.new(math.cos(a) * 0.78, 0.35 + (i % 3) * 0.08, math.sin(a) * 0.78)
+		local petal = effectPart(parent, `PeachPetal_{i}`, Vector3.new(0.18, 0.06, 0.32), CFrame.new(start) * CFrame.Angles(0, a, math.rad(18)), if i % 2 == 0 then accent else color, 0.12)
 		TweenService:Create(petal, TweenInfo.new(spec.duration * 0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), { CFrame = petal.CFrame + Vector3.new(math.cos(a) * 0.55, 1.45, math.sin(a) * 0.55), Transparency = 1 }):Play()
 	end
 end
@@ -298,14 +509,18 @@ local function playArrows(parent: Instance, payload, spec)
 				local bottom = point + scatter * 0.25 + Vector3.new(0, 0.45, 0)
 				local direction = (bottom - top).Unit
 				local arrowLength = 0.85 + arrowIndex * 0.08
-				local arrow = effectPart(parent, `ArrowRain_{index}_{arrowIndex}`, Vector3.new(0.065, 0.065, arrowLength), lineCFrame(top, top + direction * arrowLength), if arrowIndex == 2 then accent else color, 0.06)
+				local arrow = effectPart(parent, `ArrowRain_{index}_{arrowIndex}`, Vector3.new(0.07, 0.07, arrowLength), lineCFrame(top, top + direction * arrowLength), if arrowIndex == 2 then accent else color, 0.04)
+				local trail = effectPart(parent, `ArrowRainTrail_{index}_{arrowIndex}`, Vector3.new(0.16, 0.16, arrowLength * 1.15), arrow.CFrame, color, 0.72)
 				TweenService:Create(arrow, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { CFrame = lineCFrame(bottom - direction * arrowLength, bottom) }):Play()
+				TweenService:Create(trail, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { CFrame = lineCFrame(bottom - direction * arrowLength, bottom) }):Play()
+				addArrowHead(parent, `ArrowRainHead_{index}_{arrowIndex}`, top + direction * arrowLength, bottom, direction, accent, 0.32, 0.32)
 				fadeAndDestroy(arrow, 0.18, 0.32)
+				fadeAndDestroy(trail, 0.16, 0.32)
 			end
 			task.delay(0.34, function()
 				if parent.Parent then
 					addRing(parent, `ArrowSpark_{index}`, point, 0.42, accent, 0.35, 0.08)
-					addSpark(parent, point + Vector3.new(0, 0.35, 0), color, accent, 5, 0.3)
+					addSpark(parent, point + Vector3.new(0, 0.35, 0), color, accent, 6, 0.3)
 				end
 			end)
 		end)
@@ -355,6 +570,7 @@ local function playClientEffect(payload)
 	local activeCount = 0
 	for _ in pairs(activeEffectFolders) do activeCount += 1 end
 	effectsFolder:SetAttribute("ActiveCount", activeCount)
+	addSkillCue(folder, payload, spec)
 	task.delay(spec.telegraph or 0.1, function()
 		if folder.Parent then
 			folder:SetAttribute("Phase", "release")

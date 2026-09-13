@@ -53,6 +53,13 @@ const poseNotes = document.querySelector("#poseNotes");
 const effectButtons = document.querySelector("#effectButtons");
 const effectStage = document.querySelector("#effectStage");
 const effectCancel = document.querySelector("#effectCancel");
+const skillCue = document.querySelector("#skillCue");
+const cueIcons = {
+  slash: '<path d="M5 21 20 6l1-4-4 1L2 18m1-4 7 7m-8 1 3-3"/>',
+  dodge: '<path d="M3 8h13c6 0 6-7 1-5M2 12h17c5 0 5 7 0 7M5 16h7M15 3l-5 7 4 2-6 9"/>',
+  heal: '<path d="M12 10C3-5-4 15 10 15-2 23 20 30 15 15c14 2 11-18-1-8 6-14-12-12-2 3Z" transform="translate(3 2) scale(.75)"/><circle cx="12" cy="12" r="2"/>',
+  arrows: '<path d="M5 3v16m-3-4 3 5 3-5M12 1v20m-3-4 3 5 3-5M19 3v16m-3-4 3 5 3-5"/>',
+};
 
 const factionNames = {
   wei: "魏",
@@ -312,6 +319,13 @@ function playEffect(id) {
   const now = state.time || performance.now() / 1000;
   state.previousAction = state.activeEffect ? state.previousAction : state.action;
   state.activeEffect = { ...effect, startedAt: now };
+  if (skillCue) {
+    skillCue.dataset.skill = effect.id;
+    skillCue.style.setProperty("--cue-color", effect.color);
+    skillCue.style.setProperty("--cue-accent", effect.accent);
+    skillCue.querySelector(".cue-name").textContent = effect.label;
+    skillCue.querySelector(".cue-icon").innerHTML = `<svg viewBox="0 0 24 24">${cueIcons[effect.id] || ""}</svg>`;
+  }
   setPreviewAction(id === "slash" || id === "arrows" ? "attack" : "ready");
   updateEffectUi(0);
   frameCurrentModel(state.yaw, true);
@@ -321,6 +335,7 @@ function cancelEffect(showMessage = true) {
   if (!state.activeEffect && !showMessage) return;
   const restore = state.previousAction || "ready";
   state.activeEffect = null;
+  if (skillCue) skillCue.hidden = true;
   state.previousAction = restore;
   setPreviewAction(restore);
   updateEffectButtons(null);
@@ -330,6 +345,7 @@ function cancelEffect(showMessage = true) {
 function finishEffect() {
   const restore = state.previousAction || "ready";
   state.activeEffect = null;
+  if (skillCue) skillCue.hidden = true;
   setPreviewAction(restore);
   updateEffectButtons(null);
   if (effectStage) effectStage.textContent = "特效播放完成，已回到动作预览。";
@@ -376,7 +392,7 @@ function describePose(model) {
   return model.poseDescription || "旋转查看站姿，切换下方动作预览。";
 }
 
-function frameCurrentModel(yaw = state.yaw, includeActiveEffect = false) {
+function frameCurrentModel(yaw = state.yaw, includeActiveEffect = Boolean(state.activeEffect)) {
   const model = currentModel();
   if (!model?.runtime?.bounds) return;
   state.yaw = yaw;
@@ -573,14 +589,38 @@ function render(now = 0) {
   drawActiveEffect(model, viewProj, boneMatrices, effectElapsed, "behind");
   model.runtime.draws.forEach((item) => drawMesh(item.mesh, drawMatrixForItem(model, item, boneMatrices, action, poseTime), viewProj, 1, item.material === "Neon" ? 1 : 0, item.material));
   drawActiveEffect(model, viewProj, boneMatrices, effectElapsed, "front");
+  updateSkillCue(model, boneMatrices, viewProj, effectElapsed);
   requestAnimationFrame(render);
+}
+
+function updateSkillCue(model, boneMatrices, viewProj, elapsed) {
+  if (!skillCue) return;
+  const effect = state.activeEffect;
+  const duration = Math.min(effect?.cue?.duration || 1.05, effect?.duration || 0);
+  if (!effect || elapsed < 0 || elapsed >= duration) { skillCue.hidden = true; return; }
+  const head = model.bones.find((bone) => bone.name === "Head");
+  const point = transformPoint(boneMatrices.get("Head") || identityMat4(), vec3(head?.center || [0, 1.8, 0]));
+  point[1] += (effect.cue?.height || 2.1) + (state.reducedMotion ? 0 : 0.3 * elapsed / duration);
+  const clip = transformPoint(viewProj, point);
+  const w = viewProj[3] * point[0] + viewProj[7] * point[1] + viewProj[11] * point[2] + viewProj[15];
+  if (w <= 0 || Math.abs(clip[0] / w) > 1 || Math.abs(clip[1] / w) > 1) { skillCue.hidden = true; return; }
+  const x = (clip[0] / w * .5 + .5) * canvas.clientWidth;
+  const y = (.5 - clip[1] / w * .5) * canvas.clientHeight;
+  const enter = smoothstep(0, .10, elapsed);
+  const fade = 1 - smoothstep(duration * .64, duration, elapsed);
+  const scale = state.reducedMotion ? 1 : elapsed < .14 ? .72 + .38 * enter : 1 + .10 * (1 - smoothstep(.14, .28, elapsed));
+  skillCue.hidden = false;
+  skillCue.style.left = `${x}px`;
+  skillCue.style.top = `${y}px`;
+  skillCue.style.opacity = String(enter * fade);
+  skillCue.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
 
 function drawActiveEffect(model, viewProj, boneMatrices, elapsed, layer) {
   const effect = state.activeEffect;
   if (!effect || elapsed < 0 || elapsed > effect.duration) return;
   if (effect.id === "slash") drawSlashEffect(model, viewProj, boneMatrices, effect, elapsed, layer);
-  if (effect.id === "dodge") drawDodgeEffect(model, viewProj, effect, elapsed, layer);
+  if (effect.id === "dodge") drawDodgeEffect(model, viewProj, boneMatrices, effect, elapsed, layer);
   if (effect.id === "heal") drawHealEffect(model, viewProj, effect, elapsed, layer);
   if (effect.id === "arrows") drawArrowsEffect(model, viewProj, effect, elapsed, layer);
 }
@@ -620,18 +660,27 @@ function drawSlashEffect(model, viewProj, boneMatrices, effect, elapsed, layer) 
     return;
   }
   const alpha = Math.max(0.08, fade);
+  if (hit > .01) {
+    const impactPoint = [front[0], ground + (profile.actionType === "hammer" ? .15 : 1.4), front[2]];
+    drawImpactBurst(viewProj, impactPoint, effect, hit, fade);
+  }
   if (profile.actionType === "bow") {
     const hand = transformPoint(boneMatrices.get("LeftArm") || identityMat4(), [0, -1.05, -1.18]);
     const start = [hand[0] + 0.18, hand[1] + 0.1, hand[2] - 0.45];
     const end = [front[0] + 0.2, ground + 1.42, front[2] - 0.72];
     const streak = mixVec3(start, end, state.reducedMotion ? 0.72 : Math.max(hit, 0.42));
-    drawLine(viewProj, start, streak, 0.13, effect.color, 0.98 * alpha);
+    drawLine(viewProj, start, streak, 0.25, effect.color, 0.20 * alpha);
+    drawLine(viewProj, start, streak, 0.10, effect.color, 0.90 * alpha);
+    drawLine(viewProj, start, streak, 0.032, "#FFF4D9", 0.98 * alpha);
+    drawArrowHead(viewProj, start, streak, effect.accent, .9 * fade);
     drawLine(viewProj, addVec3(start, [-0.12, 0.08, 0.08]), addVec3(streak, [-0.05, 0.04, 0.06]), 0.055, effect.accent, 0.72 * alpha);
     if (hit > 0.12) drawSpark(viewProj, streak, effect.accent, 0.26 + 0.24 * hit, 0.75 * fade);
   } else if (profile.actionType === "spear") {
     const start = addVec3(chest, [0, 0.15, 0.35]);
     const end = [front[0], ground + 1.45, front[2] - 0.75 * hit];
-    drawLine(viewProj, start, end, 0.12, effect.color, 0.95 * alpha);
+    drawLine(viewProj, start, end, 0.28, effect.color, 0.18 * alpha);
+    drawLine(viewProj, start, end, 0.12, effect.color, 0.90 * alpha);
+    drawLine(viewProj, start, end, 0.034, "#FFF4D9", .95 * alpha);
     if (hit > 0.02) drawSpark(viewProj, end, effect.accent, 0.28 + 0.24 * hit, 0.62 * fade * hit);
   } else if (profile.actionType === "hammer") {
     drawGroundRing(viewProj, front, 0.82 + 0.55 * hit, 0.1, effect.accent, 0.78 * fade, false);
@@ -653,12 +702,14 @@ function drawSlashEffect(model, viewProj, boneMatrices, effect, elapsed, layer) 
       const sweep = clamp((hit - t * 0.08) / 0.55, 0, 1);
       const pos = [chest[0] + Math.sin(angle) * 1.05, chest[1] + 0.1 + Math.cos(angle) * 0.9, chest[2] - 1.0 - 0.35 * sweep];
       const mat = multiplyMat4(translationMat4(...pos), rotationMat4(0.2, 0, -angle));
+      drawMesh(effectBox([0.46, 0.16, 0.16], effect.color), mat, viewProj, .18 * sweep * fade);
       drawMesh(effectBox([0.46, 0.06, 0.09], i < segments * 0.55 ? effect.color : effect.accent), mat, viewProj, (0.25 + 0.65 * sweep) * fade);
+      drawMesh(effectBox([0.46, 0.025, 0.045], "#FFF4D9"), mat, viewProj, .9 * sweep * fade);
     }
   }
 }
 
-function drawDodgeEffect(model, viewProj, effect, elapsed, layer) {
+function drawDodgeEffect(model, viewProj, boneMatrices, effect, elapsed, layer) {
   const { center, ground } = effectAnchors(model);
   const p = effectProgress(effect, elapsed);
   const move = state.reducedMotion ? 0.35 : Math.sin(Math.min(1, p * 1.35) * Math.PI) * 1.05;
@@ -667,15 +718,27 @@ function drawDodgeEffect(model, viewProj, effect, elapsed, layer) {
     drawGroundRing(viewProj, [center[0], ground, center[2]], 0.82 + p * 0.58, 0.06, effect.color, 0.58 * fade, true);
     return;
   }
-  const ghosts = state.reducedMotion ? [-0.55, 0.55] : [-1.15, -0.55, 0.55, 1.15];
+  const ghosts = state.reducedMotion ? [-.8, .8] : [-1.7, -.9, .9, 1.7];
   ghosts.forEach((offset, index) => {
-    const side = Math.sign(offset) || 1;
-    const alpha = (0.28 + index * 0.045) * fade;
-    const pos = [center[0] + offset * move, center[1] - 0.1, center[2] + 0.1 * side];
-    const mat = multiplyMat4(translationMat4(...pos), rotationMat4(0, 0, 0.16 * side));
-    drawMesh(effectBox([0.52, 3.25, 0.18], effect.color), mat, viewProj, alpha);
-    drawLine(viewProj, [pos[0] - side * 0.7, ground + 0.5, pos[2]], [pos[0] + side * 0.72, ground + 1.15, pos[2] - 0.48], 0.07, effect.accent, 0.62 * fade);
+    const side = Math.sign(offset);
+    const alpha = (.10 + .16 * (1 - Math.abs(offset) / 2)) * fade;
+    const pos = [center[0] + offset * (.55 + move), center[1] - .1, center[2] + .32 + Math.abs(offset) * .2];
+    drawAfterimageBlock(viewProj, addVec3(pos, [0, .62, 0]), [.44, 1.05, .16], .16 * side, effect.color, alpha);
+    drawAfterimageBlock(viewProj, addVec3(pos, [0, 1.36, 0]), [.34, .30, .16], .16 * side, effect.accent, alpha * 1.35);
+    drawAfterimageBlock(viewProj, addVec3(pos, [-.38, .52, 0]), [.13, .72, .11], .42 * side, effect.color, alpha * .78);
+    drawAfterimageBlock(viewProj, addVec3(pos, [.38, .52, 0]), [.13, .72, .11], -.28 * side, effect.color, alpha * .78);
+    drawAfterimageBlock(viewProj, addVec3(pos, [-.17, -.24, 0]), [.13, .88, .11], .18 * side, effect.color, alpha);
+    drawAfterimageBlock(viewProj, addVec3(pos, [.17, -.24, 0]), [.13, .88, .11], -.18 * side, effect.color, alpha);
+    for (let line = 0; line < 3; line += 1) {
+      const y = ground + .7 + line * .72;
+      drawLine(viewProj, [pos[0] - side * .6, y, pos[2]], [pos[0] + side * .7, y + .2, pos[2] - .35], .034, effect.accent, .55 * fade);
+    }
   });
+}
+
+function drawAfterimageBlock(viewProj, center, size, tilt, color, alpha) {
+  const mat = multiplyMat4(translationMat4(...center), rotationMat4(0, 0, tilt));
+  drawMesh(effectBox(size, color), mat, viewProj, alpha);
 }
 
 function drawHealEffect(model, viewProj, effect, elapsed, layer) {
@@ -687,6 +750,23 @@ function drawHealEffect(model, viewProj, effect, elapsed, layer) {
     drawGroundRing(viewProj, [center[0], ground, center[2]], 0.68 + 1.28 * bloom, 0.075, effect.color, 0.7 * fade, false);
     drawGroundRing(viewProj, [center[0], ground + 0.035, center[2]], 0.42 + 0.9 * p, 0.055, effect.accent, 0.58 * fade, true);
     return;
+  }
+  const petalMesh = primitiveMesh("sphere", [1, 1, 1], materialColor(effect.accent, "SmoothPlastic"));
+  for (let i = 0; i < 5; i += 1) {
+    const angle = i * Math.PI * 2 / 5;
+    const radius = .8 + .4 * bloom;
+    const mat = multiplyMat4(translationMat4(center[0] + Math.sin(angle) * radius, ground + .08, center[2] + Math.cos(angle) * radius), multiplyMat4(rotationMat4(0, angle, 0), scaleMat4(.65, .085, 1.25)));
+    drawMesh(petalMesh, mat, viewProj, .7 * fade * bloom);
+  }
+  const streams = state.reducedMotion ? 1 : 2;
+  for (let stream = 0; stream < streams; stream += 1) {
+    for (let j = 0; j < 15; j += 1) {
+      const arcPoint = (t) => {
+        const a = t * 3.5 + p * 2 + stream * Math.PI;
+        return [center[0] + Math.cos(a) * 1.8, ground + .35 + t * 3.3, center[2] + Math.sin(a) * 1.5];
+      };
+      drawLine(viewProj, arcPoint(j / 15), arcPoint((j + 1) / 15), .065, stream ? effect.accent : effect.color, .72 * fade * bloom);
+    }
   }
   const count = state.reducedMotion ? 6 : 12;
   for (let i = 0; i < count; i += 1) {
@@ -729,9 +809,40 @@ function drawArrowsEffect(model, viewProj, effect, elapsed, layer) {
     const end = [target[0] + side * 0.45, ground + 0.55, target[2] + 0.22];
     const tip = mixVec3(start, end, fall);
     const tail = mixVec3(start, end, Math.max(0, fall - 0.26));
-    drawLine(viewProj, tail, tip, 0.07, i % 2 ? effect.accent : effect.color, 0.9 * fade);
-    if (fall > 0.82) drawSpark(viewProj, end, effect.accent, 0.22 + 0.1 * (i % 3), 0.52 * fade);
+    drawLine(viewProj, mixVec3(start, end, Math.max(0, fall - .46)), tip, .14, effect.color, .16 * fade);
+    drawLine(viewProj, tail, tip, .055, i % 2 ? effect.accent : effect.color, .9 * fade);
+    drawLine(viewProj, tail, tip, .022, "#FFF4D9", .9 * fade);
+    drawArrowHead(viewProj, tail, tip, effect.accent, .92 * fade);
+    if (fall > .82) {
+      drawSpark(viewProj, end, effect.accent, .28 + .1 * (i % 3), .75 * fade);
+      if (i < 3) drawGroundRing(viewProj, [end[0], ground + .07, end[2]], .25 + .8 * (fall - .82) / .18, .05, effect.accent, .7 * fade, false);
+    }
   }
+}
+
+function drawArrowHead(viewProj, from, tip, color, alpha) {
+  const direction = normalize(subtractVec3(tip, from));
+  if (Math.hypot(...direction) < .1) return;
+  const side = normalize(cross(direction, Math.abs(direction[1]) > .95 ? [0, 0, 1] : [0, 1, 0]));
+  const back = addVec3(tip, scaleVec3(direction, -.26));
+  for (const sign of [-1, 1]) drawLine(viewProj, addVec3(back, scaleVec3(side, sign * .14)), tip, .05, color, alpha);
+}
+
+function drawImpactBurst(viewProj, center, effect, hit, fade) {
+  const phase = state.reducedMotion ? .65 : hit;
+  const rays = state.reducedMotion ? 5 : 9;
+  for (let i = 0; i < rays; i += 1) {
+    const angle = i / rays * Math.PI * 2;
+    const direction = [Math.cos(angle), Math.sin(angle), Math.sin(angle * 3) * .3];
+    const inner = addVec3(center, scaleVec3(direction, .12 + phase * .3));
+    const outer = addVec3(center, scaleVec3(direction, .35 + phase * (.6 + (i % 3) * .13)));
+    drawLine(viewProj, inner, outer, .038, i % 2 ? effect.accent : "#FFF4D9", .9 * fade * hit);
+  }
+  const ring = ringMesh(.044, materialColor(effect.color, "SmoothPlastic"));
+  const size = .12 + .75 * phase;
+  const mat = multiplyMat4(translationMat4(...center), multiplyMat4(rotationMat4(Math.PI / 2, 0, 0), scaleMat4(size, 1, size)));
+  drawMesh(ring, mat, viewProj, .64 * fade * hit);
+  drawSpark(viewProj, center, "#FFF4D9", .18 + .28 * hit, .95 * fade * hit);
 }
 
 function drawGroundRing(viewProj, center, radius, thickness, color, alpha, dashed) {
@@ -798,8 +909,13 @@ function activeEffectBounds(model) {
     includePoint(bounds, min);
     includePoint(bounds, max);
   };
+  const head = model.bones.find((bone) => bone.name === "Head");
+  for (const t of [0, .2, .4, .6]) {
+    const point = transformPoint(computeBoneMatrices(model, state.action, t).get("Head") || identityMat4(), vec3(head?.center || [0, 1.8, 0]));
+    includePoint(bounds, addVec3(point, [0, (effect.cue?.height || 2.1) + 1.4, 0]));
+  }
   if (effect.id === "slash") includeBox([center[0] - 1.8, ground, center[2] - 3.6], [center[0] + 1.8, center[1] + 1.8, center[2] + 0.7]);
-  if (effect.id === "dodge") includeBox([center[0] - 2.2, ground, center[2] - 0.9], [center[0] + 2.2, center[1] + 1.4, center[2] + 0.9]);
+  if (effect.id === "dodge") includeBox([center[0] - 4, ground, center[2] - 0.9], [center[0] + 4, center[1] + 2, center[2] + 1.4]);
   if (effect.id === "heal") includeBox([center[0] - 1.8, ground, center[2] - 1.5], [center[0] + 1.8, center[1] + 2.7, center[2] + 1.5]);
   if (effect.id === "arrows") includeBox([center[0] - 3.2, ground, center[2] - 4.7], [center[0] + 3.2, center[1] + 4.1, center[2] + 1.1]);
   const mergedCenter = bounds.min.map((value, index) => (value + bounds.max[index]) / 2);

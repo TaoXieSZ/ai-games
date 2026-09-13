@@ -24,7 +24,7 @@
 | `data/hero-art-v1.json` | 25 位武将的 id、名称、势力、原画路径与美术设定；技能文字供核对，不充当规则执行器 |
 | `data/game-card-art-v1.json` | 43 种牌的 id、名称、分类、描述、份数与原画路径 |
 | `data/hero-models-v1.json` | 模型骨架、部件、姿态、附属摆动、弓箭运动参数 |
-| `data/hero-effects-v1.json` | 四种特效的时间与表现配置 |
+| `data/hero-effects-v1.json` | 四种特效的时间、表现配置与头顶技能名 cue |
 | `models/hero-models-v1/<hero_id>.rbxmx` | 可导入 Studio 的原生角色模型 |
 | `models/hero-models-v1/<hero_id>.glb` | 模型交换与外部查看文件，包含 Idle/Walk/Attack 动画 |
 | `models/hero-models-v1/hero-playground.rbxlx` | 当前可 Play 的美术动作及特效试演场 |
@@ -47,7 +47,9 @@
 | `PreviewEffect` | `{effectId = "slash"}` 等，试播指定特效 |
 | `CancelEffect` | 清理当前特效并恢复待机 |
 
-这些接口没有实现完整的三国杀回合、出牌合法性、目标判定、手牌消耗或伤害结算。现有冷却、圆形活动边界和地面特效圈属于试演行为，不应直接解释成正式攻击距离或选目标规则。
+这些接口没有实现完整的三国杀回合、出牌合法性、目标判定、手牌消耗或伤害结算。现有冷却、圆形活动边界、地面特效圈和头顶技能名 cue 属于试演行为，不应直接解释成正式攻击距离、选目标规则或技能触发判定。
+
+`hero-effects-v1.json` 当前为 `version: 2`，在保留 `slash`、`dodge`、`heal`、`arrows` 原 id 与 duration 的基础上增加 `cue`：`duration` 控制头顶技能名停留时间，`height` 控制相对 Head 的世界高度。玩法层只需要在自己的校验完成后广播表现事件，表现层会按 `label`、`color`、`accent` 和 `cue` 播放。
 
 玩法 session 接入建议：服务端先校验当前回合、牌与目标，再广播已确认的动作/特效事件；手牌身份遵守可见性规则，对手默认只显示数量，公开装备可查看，获得授权的看牌事件再展示具体牌。回合状态、技能判定与伤害由玩法层负责，表现层负责播放、结束及取消。用户此前确认角色应能在限定范围内活动，并需要查看他人装备和手牌的交互。
 
