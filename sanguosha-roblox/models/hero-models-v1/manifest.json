@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-13T06:23:42.233Z",
+  "source": "data/hero-models-v1.json",
+  "conventions": {
+    "coordinates": "Y-up, heroes face -Z.",
+    "glb": "Rigid hierarchical nodes; no skinning. Bone meshes render only when bone.visible is not false.",
+    "wedge": "Y-up triangular prism ramp: full height at local +Z rear edge, low edge at local -Z front, length along Z, width along X.",
+    "cylinder": "GLB cylinders are generated along local Y. Roblox CylinderMesh defaults along X, so rbxmx cylinder decorations rotate 90 degrees around Z.",
+    "rbxmx": "Humanoid R6 with seven standard body parts, six Motor6D joints, decoration parts welded to their owner body part."
+  },
+  "counts": {
+    "heroes": 2,
+    "glb": 2,
+    "rbxmx": 2,
+    "workshopModels": 2,
+    "triangles": 6348,
+    "vertices": 13182
+  },
+  "heroes": [
+    {
+      "id": "guan_yu",
+      "name": "关羽",
+      "files": {
+        "glb": "guan_yu.glb",
+        "rbxmx": "guan_yu.rbxmx"
+      },
+      "bones": 7,
+      "parts": 207,
+      "glb": {
+        "vertices": 6418,
+        "triangles": 3096,
+        "nodes": 221,
+        "meshes": 213,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -1.111
+          ],
+          "max": [
+            2.191486211944968,
+            8.430000000000001,
+            1.1441743841618481
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 207,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "zhao_yun",
+      "name": "赵云",
+      "files": {
+        "glb": "zhao_yun.glb",
+        "rbxmx": "zhao_yun.rbxmx"
+      },
+      "bones": 7,
+      "parts": 216,
+      "glb": {
+        "vertices": 6764,
+        "triangles": 3252,
+        "nodes": 230,
+        "meshes": 222,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -1.00925
+          ],
+          "max": [
+            2.191486211944968,
+            7.64,
+            2.026012927214814
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 216,
+        "motors": 6,
+        "humanoids": 1
+      }
+    }
+  ]
+}

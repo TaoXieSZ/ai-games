@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Roblox 三国杀 · 武将3D模型检视</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Roblox 三国杀美术设定</p>
+          <h1>武将3D模型</h1>
+          <p id="modelSummary" class="subtitle">读取骨架模型中</p>
+        </div>
+        <nav class="page-links" aria-label="图鉴导航">
+          <a href="../hero-pool/">武将图鉴</a>
+          <a href="../game-cards/">游戏牌图鉴</a>
+          <a href="../../../">图鉴首页</a>
+        </nav>
+      </header>
+
+      <section class="viewer-shell" aria-label="武将3D模型检视器">
+        <div class="stage-wrap">
+          <canvas id="stage" aria-label="可拖动旋转、滚轮缩放的武将3D模型"></canvas>
+          <div class="stage-badges">
+            <output id="modelStats">几何 0 · 骨骼 0</output>
+            <output id="cameraHint">拖动旋转 · 滚轮缩放</output>
+          </div>
+        </div>
+
+        <aside class="control-panel">
+          <section class="panel-block">
+            <p class="panel-kicker">武将</p>
+            <div id="heroTabs" class="segmented" role="tablist" aria-label="选择武将"></div>
+          </section>
+
+          <section class="panel-block">
+            <p class="panel-kicker">视角</p>
+            <div class="segmented" aria-label="选择视角">
+              <button type="button" data-view="front" aria-pressed="false">前</button>
+              <button type="button" data-view="side" aria-pressed="false">侧</button>
+              <button type="button" data-view="back" aria-pressed="false">后</button>
+            </div>
+          </section>
+
+          <section class="panel-block">
+            <p class="panel-kicker">动作</p>
+            <div class="segmented stacked" aria-label="动作预览">
+              <button type="button" data-action="ready" aria-pressed="true">待机</button>
+              <button type="button" data-action="walk" aria-pressed="false">行走</button>
+              <button type="button" data-action="attack" aria-pressed="false">攻击</button>
+            </div>
+          </section>
+
+          <section class="panel-block reference-block">
+            <label class="toggle-row">
+              <input id="referenceToggle" type="checkbox" checked />
+              <span>显示原画参考</span>
+            </label>
+            <figure id="referenceCard" class="reference-card"></figure>
+          </section>
+
+          <section class="panel-block">
+            <p class="panel-kicker">模型文件</p>
+            <div class="download-grid">
+              <a id="glbLink" href="#" download>GLB</a>
+              <a id="rbxmxLink" href="#" download>RBXMX</a>
+            </div>
+            <p id="fileStatus" class="file-status" role="status" aria-live="polite">检查下载文件中</p>
+          </section>
+        </aside>
+      </section>
+
+      <section id="status" class="status" role="status" aria-live="polite"></section>
+    </main>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>

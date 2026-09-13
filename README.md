@@ -9,6 +9,8 @@
 
 卡面可以点击放大。【杀】【闪】等规则名词使用独立颜色与括号强调。插画是独立 PNG，规则由网页排版，方便逐张精修。
 
+- [3D 武将模型](https://taoxiesz.github.io/ai-games/sanguosha-roblox/preview/hero-models/)：首批关羽、赵云，可旋转查看、预览动作，下载 GLB 和 Roblox 模型。
+
 ## 本地预览
 
 无需安装依赖，Node.js 20 或以上：
@@ -30,6 +32,6 @@ python3 -m http.server 4178 --directory site
 
 ## 发布
 
-推送到 `main` 后，GitHub Actions 自动组装并部署到 GitHub Pages。网站只发布图鉴页面、数据和选用插画。旧热搜人生网站已撤下，旧网址跳转到图鉴首页；历史游戏源码保留在原目录。
+推送到 `main` 后，GitHub Actions 自动组装并部署到 GitHub Pages。网站发布图鉴页面、数据、选用插画和首批 3D 模型。旧热搜人生网站已撤下，旧网址跳转到图鉴首页；历史游戏源码保留在原目录。
 
-这是美术设计展示，Roblox 内的模型、动画与技能接入属于后续游戏开发。
+首批 3D 模型采用独立关节和绑定饰件，当前为造型与动作验证版本。GLB 含三段动作；RBXMX 可导入 Studio，独立 workshop 文件含演示脚本。正式游戏中的技能接入、碰撞和多人同步尚未接入。
