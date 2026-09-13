@@ -15,7 +15,10 @@
 - [x] 网页全员正、侧、背视角检查；动作与四种既有特效回归。
 - [x] 原生导出、附属连接和可动模型验证；检查全员影响范围。
 - [x] 从干净暂存内容重新生成并核对产物。
-发布目标：[武将模型美术图鉴](https://taoxiesz.github.io/ai-games/sanguosha-roblox/preview/hero-models/)。部署后的线上产物一致性另在任务交付时核验。
+
+- [x] 美术基线 `789014e` 已发布：[武将模型美术图鉴](https://taoxiesz.github.io/ai-games/sanguosha-roblox/preview/hero-models/)。Pages 部署 `34773168241` 成功，部署后核对 54 个线上文件逐字节一致。
+
+跨 session 接入说明见 [美术与玩法交接](../../art-gameplay-handoff.md)。
 
 已完成的验收以本目录审阅文档、模型源文件与验证记录为准。
 
