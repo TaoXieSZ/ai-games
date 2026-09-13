@@ -1,0 +1,53 @@
+{
+  "cancel": true,
+  "switchCleanup": true,
+  "replays": [
+    32,
+    78,
+    32,
+    78,
+    32,
+    78,
+    32,
+    78,
+    32,
+    78,
+    32,
+    78
+  ],
+  "invalidRejected": true,
+  "effects": [
+    {
+      "startParts": 20,
+      "releaseParts": 29,
+      "health": 100,
+      "id": "slash",
+      "endedParts": 0,
+      "phase": "impact"
+    },
+    {
+      "startParts": 21,
+      "releaseParts": 21,
+      "health": 100,
+      "id": "dodge",
+      "endedParts": 0,
+      "phase": "impact"
+    },
+    {
+      "startParts": 32,
+      "releaseParts": 32,
+      "health": 100,
+      "id": "heal",
+      "endedParts": 0,
+      "phase": "release"
+    },
+    {
+      "startParts": 78,
+      "releaseParts": 86,
+      "health": 100,
+      "id": "arrows",
+      "endedParts": 0,
+      "phase": "release"
+    }
+  ]
+}

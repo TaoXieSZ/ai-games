@@ -171,12 +171,13 @@ function prepareModelRuntime(model) {
     const size = vec3(part.size);
     const mesh = primitiveMesh(part.shape || "box", size, materialColor(part.color, part.material));
     const local = multiplyMat4(translationMat4(...vec3(part.position)), rotationMat4(...vec3(part.rotation).map(degToRad)));
-    draws.push({ name: part.name || "", bone: part.bone, mesh, local, size, kind: "part" });
+    draws.push({ name: part.name || "", bone: part.bone, mesh, local, size, material: part.material || "SmoothPlastic", kind: "part" });
     vertexCount += mesh.positions.length / 3;
   });
 
   const prepared = { ...model, runtime: { draws, vertexCount, bounds: null, attachmentMotion, bowMotion } };
   prepared.runtime.bounds = computeModelBounds(prepared);
+  prepared.runtime.boundsByAction = Object.fromEntries(["ready", "walk", "attack"].map((action) => [action, computeModelBounds(prepared, [action])]));
   return prepared;
 }
 
@@ -211,12 +212,12 @@ function prepareBowMotion(motion) {
   };
 }
 
-function computeModelBounds(model) {
+function computeModelBounds(model, actions = ["ready", "walk", "attack"]) {
   const bounds = {
     min: [Infinity, Infinity, Infinity],
     max: [-Infinity, -Infinity, -Infinity],
   };
-  ["ready", "walk", "attack"].forEach((action) => {
+  actions.forEach((action) => {
     [0, 0.25, 0.5, 0.75, 1].forEach((time) => {
       const boneMatrices = computeBoneMatrices(model, action, time);
       model.runtime.draws.forEach((item) => {
@@ -350,6 +351,7 @@ function updateEffectButtons(activeId) {
 
 function setPreviewAction(action) {
   state.action = action || "ready";
+  frameCurrentModel(state.yaw, Boolean(state.activeEffect));
   document.querySelectorAll("[data-action]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.action === state.action));
   });
@@ -378,7 +380,8 @@ function frameCurrentModel(yaw = state.yaw, includeActiveEffect = false) {
   const model = currentModel();
   if (!model?.runtime?.bounds) return;
   state.yaw = yaw;
-  const bounds = includeActiveEffect ? (activeEffectBounds(model) || model.runtime.bounds) : model.runtime.bounds;
+  const actionBounds = model.runtime.boundsByAction?.[state.action] || model.runtime.bounds;
+  const bounds = includeActiveEffect ? (activeEffectBounds(model) || model.runtime.bounds) : actionBounds;
   const rect = canvas.getBoundingClientRect();
   const aspect = Math.max(0.55, (rect.width || 1) / (rect.height || 1));
   const fovY = degToRad(38);
@@ -467,11 +470,22 @@ function initGl() {
     uniform vec3 uLight;
     uniform float uAlpha;
     uniform float uEmissive;
+    uniform vec3 uEye;
+    uniform float uMetal;
+    uniform float uRoughness;
     void main() {
       vec3 n = normalize(vNormal);
-      float diffuse = max(dot(n, normalize(uLight)), 0.0);
-      float rim = pow(1.0 - max(dot(n, normalize(vec3(0.0, 0.35, 1.0))), 0.0), 2.0);
-      vec3 lit = vColor * (0.48 + diffuse * 0.48) + vec3(0.85, 0.90, 1.0) * rim * 0.035;
+      vec3 key = normalize(uLight);
+      vec3 view = normalize(uEye - vWorld);
+      float diffuse = max(dot(n, key), 0.0);
+      float fill = max(dot(n, normalize(view + vec3(0.35, 0.45, 0.0))), 0.0);
+      float sky = n.y * 0.5 + 0.5;
+      float rim = pow(1.0 - max(dot(n, view), 0.0), 3.0);
+      float specular = pow(max(dot(n, normalize(key + view)), 0.0), mix(90.0, 10.0, uRoughness));
+      vec3 lit = vColor * (0.30 + diffuse * 0.54 + fill * 0.22 + sky * 0.12);
+      vec3 reflection = mix(vec3(1.0, 0.94, 0.82), vColor, uMetal * 0.65);
+      lit += reflection * specular * mix(0.05, 0.38, uMetal) * (1.0 - uRoughness * 0.65);
+      lit += vec3(0.70, 0.83, 1.0) * rim * mix(0.018, 0.06, uMetal);
       vec3 glow = min(vec3(1.0), vColor * 1.42 + vec3(0.06, 0.055, 0.035));
       vec3 color = mix(lit, glow, uEmissive);
       float fog = smoothstep(12.0, 23.0, length(vWorld.xz)) * (1.0 - uEmissive * 0.72);
@@ -493,6 +507,9 @@ function initGl() {
     uLight: gl.getUniformLocation(program, "uLight"),
     uAlpha: gl.getUniformLocation(program, "uAlpha"),
     uEmissive: gl.getUniformLocation(program, "uEmissive"),
+    uEye: gl.getUniformLocation(program, "uEye"),
+    uMetal: gl.getUniformLocation(program, "uMetal"),
+    uRoughness: gl.getUniformLocation(program, "uRoughness"),
   };
   state.gridMesh = makeGrid();
   gl.enable(gl.DEPTH_TEST);
@@ -535,6 +552,7 @@ function render(now = 0) {
   const aspect = canvas.width / canvas.height;
   const camera = cameraBasis(state.yaw, state.pitch);
   const eye = addVec3(state.cameraTarget, scaleVec3(camera.back, state.distance));
+  state.cameraEye = eye;
   const view = lookAt(eye, state.cameraTarget, [0, 1, 0]);
   const proj = perspective(degToRad(38), aspect, 0.1, 80);
   const viewProj = multiplyMat4(proj, view);
@@ -553,7 +571,7 @@ function render(now = 0) {
 
   drawMesh(state.gridMesh, identityMat4(), viewProj);
   drawActiveEffect(model, viewProj, boneMatrices, effectElapsed, "behind");
-  model.runtime.draws.forEach((item) => drawMesh(item.mesh, drawMatrixForItem(model, item, boneMatrices, action, poseTime), viewProj));
+  model.runtime.draws.forEach((item) => drawMesh(item.mesh, drawMatrixForItem(model, item, boneMatrices, action, poseTime), viewProj, 1, item.material === "Neon" ? 1 : 0, item.material));
   drawActiveEffect(model, viewProj, boneMatrices, effectElapsed, "front");
   requestAnimationFrame(render);
 }
@@ -876,7 +894,7 @@ function arrowFrameMatrix(origin, grip) {
   return multiplyMat4(translationMat4(...origin), alignYMat4(towardGrip));
 }
 
-function drawMesh(mesh, matrix, viewProj, alpha = 1, emissive = alpha < 0.999 ? 1 : 0) {
+function drawMesh(mesh, matrix, viewProj, alpha = 1, emissive = alpha < 0.999 ? 1 : 0, material = "SmoothPlastic") {
   const gl = state.gl;
   const program = state.program;
   if (!mesh.indices.length) return;
@@ -892,6 +910,9 @@ function drawMesh(mesh, matrix, viewProj, alpha = 1, emissive = alpha < 0.999 ? 
   gl.uniform3f(program.uLight, -0.42, 0.82, -0.64);
   gl.uniform1f(program.uAlpha, clamp(alpha, 0, 1));
   gl.uniform1f(program.uEmissive, clamp(emissive, 0, 1));
+  gl.uniform3fv(program.uEye, state.cameraEye || [0, 4, -10]);
+  gl.uniform1f(program.uMetal, material === "Metal" ? 1 : 0);
+  gl.uniform1f(program.uRoughness, material === "Metal" ? 0.34 : material === "Fabric" ? 0.95 : 0.7);
   if (translucent) gl.depthMask(false);
   gl.drawElements(gl.TRIANGLES, gpu.count, gl.UNSIGNED_SHORT, 0);
   if (translucent) gl.depthMask(true);
@@ -1070,7 +1091,7 @@ function primitiveMesh(shape, size, color) {
 function materialColor(color, material) {
   const rgb = hexToRgb(color || "#ffffff");
   if (material === "Metal") return rgb;
-  if (material === "Fabric") return rgb.map((value) => value * 0.88);
+  if (material === "Fabric") return rgb.map((value) => value * 0.96);
   return rgb;
 }
 

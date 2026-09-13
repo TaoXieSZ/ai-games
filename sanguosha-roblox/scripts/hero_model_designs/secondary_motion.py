@@ -12,7 +12,7 @@ def add_secondary_motion(model):
     group('cape',cape,(0,.65,.79),(9,3,4),.4)
     for index,bone in enumerate(['Head','Torso','LeftArm','RightArm']):
         ribbon=[p for p in model['parts'] if p['bone']==bone and p['name']not in used and
-                (p['name'].startswith(('Ribbon','WaterSleeveTail','WhiteSashTail','RoseRibbonTail','HairRibbon','HatRibbon','JudgeRibbon')))]
+                (p['name'].startswith(('Ribbon','WaterSleeveTail','WhiteSashTail','RoseRibbonTail','HairRibbon','HatRibbon','JudgeRibbon','HeadbandRibbon','SashTail','ScarfFlyingTail','SilkTrail')))]
         if ribbon and bone in ['Head','Torso']:
             for part in ribbon:
                 pivot=[*part['position']];pivot[1]+=part['size'][1]/2
@@ -37,6 +37,14 @@ def add_secondary_motion(model):
     if model['id']=='sun_shangxiang':
         pony=[p for p in model['parts'] if p['name'].startswith('HighPonyTail')]
         group('ponytail',pony,(-.06,1.60,.61),(7,4,6),.8)
+    if model['id']=='guan_yu':
+        robes=[p for p in model['parts'] if p['bone']=='Torso' and (p['name'].startswith(('RobeTail','ArtRobe')))]
+        group('green-robe',robes,(0,.65,.79),(7,2,4),.6)
+        wraps=[p for p in model['parts'] if p['name'].startswith('WrapTail')]
+        group('headwrap-tails',wraps,(0,1.25,.70),(8,2,6),.5)
+    if model['id']=='zhao_yun':
+        plume=[p for p in model['parts'] if p['name'].startswith('ArtPlume')]
+        group('blue-plume',plume,(0,1.70,.42),(6,3,7),.7)
     model['attachmentMotion']=groups
     if model['id']=='sun_shangxiang':add_bow_motion(model)
     return model

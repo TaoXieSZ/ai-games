@@ -1,0 +1,492 @@
+{
+  "result": "pass",
+  "heroes": [
+    {
+      "hero": "cao_cao",
+      "health": 100,
+      "moved": 4.451188087463379,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.2388768047094345
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.4371774196624756
+        }
+      ],
+      "attackLeft": 0.19468125700950623,
+      "attackRight": 0.7197328805923462,
+      "parts": 236
+    },
+    {
+      "hero": "sima_yi",
+      "health": 100,
+      "moved": 4.878739356994629,
+      "groups": [
+        {
+          "id": "ribbon-JudgeRibbon",
+          "angle": 0.3787725269794464
+        }
+      ],
+      "attackLeft": 1.2255938053131104,
+      "attackRight": 0.3869195580482483,
+      "parts": 95
+    },
+    {
+      "hero": "xiahou_dun",
+      "health": 100,
+      "moved": 5.053825378417969,
+      "groups": [
+        {
+          "id": "ribbon-SashTailA",
+          "angle": 0.32413816452026367
+        },
+        {
+          "id": "ribbon-SashTailB",
+          "angle": 0.32411420345306396
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.1222909465432167
+        }
+      ],
+      "attackLeft": 0.18478399515151978,
+      "attackRight": 0.9649664759635925,
+      "parts": 187
+    },
+    {
+      "hero": "zhang_liao",
+      "health": 100,
+      "moved": 4.451188087463379,
+      "groups": [
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.02630910649895668
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.0006905339541845024
+        }
+      ],
+      "attackLeft": 0.1845203936100006,
+      "attackRight": 0.9887728095054626,
+      "parts": 235
+    },
+    {
+      "hero": "xu_chu",
+      "health": 100,
+      "moved": 5.229085445404053,
+      "groups": [],
+      "attackLeft": 1.0775772333145142,
+      "attackRight": 0.31306543946266174,
+      "parts": 112
+    },
+    {
+      "hero": "guo_jia",
+      "health": 100,
+      "moved": 4.821528911590576,
+      "groups": [
+        {
+          "id": "tassel-Torso",
+          "angle": 0.10571106523275375
+        },
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.2758379876613617
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.27857527136802673
+        }
+      ],
+      "attackLeft": 0.6181468367576599,
+      "attackRight": 0.8249659538269043,
+      "parts": 121
+    },
+    {
+      "hero": "zhen_ji",
+      "health": 100,
+      "moved": 4.574016571044922,
+      "groups": [
+        {
+          "id": "tassel-HairTassel-1",
+          "angle": 0.07810363918542862
+        },
+        {
+          "id": "tassel-HairTassel1",
+          "angle": 0.07810363918542862
+        },
+        {
+          "id": "ribbon-LeftArm",
+          "angle": 0.14369405806064606
+        },
+        {
+          "id": "ribbon-RightArm",
+          "angle": 0.3977004587650299
+        }
+      ],
+      "attackLeft": 0.5524534583091736,
+      "attackRight": 0.8341522812843323,
+      "parts": 189
+    },
+    {
+      "hero": "liu_bei",
+      "health": 100,
+      "moved": 4.821528911590576,
+      "groups": [
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.08765924721956253
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.3610224723815918
+        }
+      ],
+      "attackLeft": 1.0278061628341675,
+      "attackRight": 0.5298810005187988,
+      "parts": 160
+    },
+    {
+      "hero": "guan_yu",
+      "health": 100,
+      "moved": 4.691797733306885,
+      "groups": [
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.1224764809012413
+        },
+        {
+          "id": "green-robe",
+          "angle": 0.18937508761882782
+        },
+        {
+          "id": "headwrap-tails",
+          "angle": 0.23599810898303986
+        }
+      ],
+      "attackLeft": 0.18316403031349182,
+      "attackRight": 0.9603716731071472,
+      "parts": 395
+    },
+    {
+      "hero": "zhang_fei",
+      "health": 100,
+      "moved": 4.597142219543457,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.043788470327854156
+        },
+        {
+          "id": "ribbon-ScarfFlyingTail-1",
+          "angle": 0.06533007323741913
+        },
+        {
+          "id": "ribbon-ScarfFlyingTail1",
+          "angle": 0.06521309912204742
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.0014648438664153218
+        }
+      ],
+      "attackLeft": 0.20035691559314728,
+      "attackRight": 0.9633252620697021,
+      "parts": 225
+    },
+    {
+      "hero": "zhuge_liang",
+      "health": 100,
+      "moved": 4.66529655456543,
+      "groups": [
+        {
+          "id": "tassel-Torso",
+          "angle": 0.1396842747926712
+        }
+      ],
+      "attackLeft": 0.3775193989276886,
+      "attackRight": 1.2073825597763062,
+      "parts": 146
+    },
+    {
+      "hero": "zhao_yun",
+      "health": 100,
+      "moved": 4.66529655456543,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.028793031349778175
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.3208802342414856
+        },
+        {
+          "id": "blue-plume",
+          "angle": 0.06649385392665863
+        }
+      ],
+      "attackLeft": 0.4089517295360565,
+      "attackRight": 0.7158939838409424,
+      "parts": 378
+    },
+    {
+      "hero": "ma_chao",
+      "health": 100,
+      "moved": 4.878739356994629,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.1094525083899498
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.38648873567581177
+        }
+      ],
+      "attackLeft": 0.5402753949165344,
+      "attackRight": 0.5005542039871216,
+      "parts": 242
+    },
+    {
+      "hero": "huang_yueying",
+      "health": 100,
+      "moved": 4.451188087463379,
+      "groups": [
+        {
+          "id": "ribbon-HeadbandRibbon-1",
+          "angle": 0.48333311080932617
+        },
+        {
+          "id": "ribbon-HeadbandRibbon1",
+          "angle": 0.4832746088504791
+        }
+      ],
+      "attackLeft": 0.7157413959503174,
+      "attackRight": 0.761130690574646,
+      "parts": 183
+    },
+    {
+      "hero": "sun_quan",
+      "health": 100,
+      "moved": 5.0538225173950195,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.2866272032260895
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.1672326773405075
+        }
+      ],
+      "attackLeft": 0.12402310222387314,
+      "attackRight": 0.6804633736610413,
+      "parts": 253
+    },
+    {
+      "hero": "gan_ning",
+      "health": 100,
+      "moved": 4.589920520782471,
+      "groups": [],
+      "attackLeft": 0.44450876116752625,
+      "attackRight": 1.2651532888412476,
+      "parts": 110
+    },
+    {
+      "hero": "lu_meng",
+      "health": 100,
+      "moved": 4.451188087463379,
+      "groups": [
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.09244715422391891
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.051006969064474106
+        }
+      ],
+      "attackLeft": 0.7626742124557495,
+      "attackRight": 0.7108097076416016,
+      "parts": 150
+    },
+    {
+      "hero": "huang_gai",
+      "health": 100,
+      "moved": 4.987702369689941,
+      "groups": [],
+      "attackLeft": 0.5873097777366638,
+      "attackRight": 1.6493232250213623,
+      "parts": 207
+    },
+    {
+      "hero": "zhou_yu",
+      "health": 100,
+      "moved": 4.878739356994629,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.09971768409013748
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.4091717302799225
+        }
+      ],
+      "attackLeft": 1.0250052213668823,
+      "attackRight": 0.36425721645355225,
+      "parts": 240
+    },
+    {
+      "hero": "da_qiao",
+      "health": 100,
+      "moved": 4.878739356994629,
+      "groups": [
+        {
+          "id": "ribbon-HairRibbonL",
+          "angle": 0.46629318594932556
+        },
+        {
+          "id": "ribbon-HairRibbonR",
+          "angle": 0.46631333231925964
+        },
+        {
+          "id": "ribbon-WhiteSashTail-1",
+          "angle": 0.27312350273132324
+        },
+        {
+          "id": "ribbon-RoseRibbonTail-1",
+          "angle": 0.2731305658817291
+        },
+        {
+          "id": "ribbon-WhiteSashTail1",
+          "angle": 0.27311640977859497
+        },
+        {
+          "id": "ribbon-RoseRibbonTail1",
+          "angle": 0.27315178513526917
+        },
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.19045619666576385
+        },
+        {
+          "id": "sleeve-LeftArm",
+          "angle": 0.41525039076805115
+        },
+        {
+          "id": "sleeve-RightArm",
+          "angle": 0.30976781249046326
+        }
+      ],
+      "attackLeft": 0.6903515458106995,
+      "attackRight": 0.7693535685539246,
+      "parts": 201
+    },
+    {
+      "hero": "lu_xun",
+      "health": 100,
+      "moved": 4.82151985168457,
+      "groups": [
+        {
+          "id": "ribbon-HatRibbonL",
+          "angle": 0.4461476504802704
+        },
+        {
+          "id": "ribbon-HatRibbonR",
+          "angle": 0.44614100456237793
+        }
+      ],
+      "attackLeft": 1.2083557844161987,
+      "attackRight": 0.377917617559433,
+      "parts": 149
+    },
+    {
+      "hero": "sun_shangxiang",
+      "health": 100,
+      "moved": 2.31562876701355,
+      "groups": [
+        {
+          "id": "ribbon-HairRibbonTail-1",
+          "angle": 0.17541779577732086
+        },
+        {
+          "id": "ribbon-HairRibbonTail1",
+          "angle": 0.17536860704421997
+        },
+        {
+          "id": "ribbon-RibbonJadeTail-1",
+          "angle": 0.06413590908050537
+        },
+        {
+          "id": "ribbon-RibbonJadeTail1",
+          "angle": 0.06405960768461227
+        },
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.13098213076591492
+        },
+        {
+          "id": "ponytail",
+          "angle": 0.014109671115875244
+        }
+      ],
+      "attackLeft": 0.03160786256194115,
+      "attackRight": 0.37616854906082153,
+      "parts": 184
+    },
+    {
+      "hero": "hua_tuo",
+      "health": 100,
+      "moved": 4.878739356994629,
+      "groups": [
+        {
+          "id": "ribbon-SashTail-1",
+          "angle": 0.06498036533594131
+        },
+        {
+          "id": "ribbon-SashTail1",
+          "angle": 0.06494180113077164
+        }
+      ],
+      "attackLeft": 0.7915005683898926,
+      "attackRight": 0.6341391205787659,
+      "parts": 121
+    },
+    {
+      "hero": "lu_bu",
+      "health": 100,
+      "moved": 5.002573013305664,
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.0433945506811142
+        }
+      ],
+      "attackLeft": 0.1468423306941986,
+      "attackRight": 0.9697296023368835,
+      "parts": 234
+    },
+    {
+      "hero": "diao_chan",
+      "health": 100,
+      "moved": 4.821515083312988,
+      "groups": [
+        {
+          "id": "ribbon-LeftArm",
+          "angle": 0.2543588876724243
+        },
+        {
+          "id": "ribbon-RightArm",
+          "angle": 0.45011255145072937
+        }
+      ],
+      "attackLeft": 0.9961264133453369,
+      "attackRight": 0.37853971123695374,
+      "parts": 153
+    }
+  ]
+}

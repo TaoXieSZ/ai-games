@@ -1,0 +1,130 @@
+{
+  "errors": [],
+  "rows": [
+    {
+      "id": "cao_cao",
+      "draws": 174,
+      "vertices": 7524
+    },
+    {
+      "id": "sima_yi",
+      "draws": 66,
+      "vertices": 4944
+    },
+    {
+      "id": "xiahou_dun",
+      "draws": 152,
+      "vertices": 5538
+    },
+    {
+      "id": "zhang_liao",
+      "draws": 165,
+      "vertices": 8160
+    },
+    {
+      "id": "xu_chu",
+      "draws": 73,
+      "vertices": 5532
+    },
+    {
+      "id": "guo_jia",
+      "draws": 68,
+      "vertices": 4992
+    },
+    {
+      "id": "zhen_ji",
+      "draws": 116,
+      "vertices": 12864
+    },
+    {
+      "id": "liu_bei",
+      "draws": 104,
+      "vertices": 5856
+    },
+    {
+      "id": "guan_yu",
+      "draws": 217,
+      "vertices": 10914
+    },
+    {
+      "id": "zhang_fei",
+      "draws": 170,
+      "vertices": 7860
+    },
+    {
+      "id": "zhuge_liang",
+      "draws": 125,
+      "vertices": 6318
+    },
+    {
+      "id": "zhao_yun",
+      "draws": 226,
+      "vertices": 11340
+    },
+    {
+      "id": "ma_chao",
+      "draws": 169,
+      "vertices": 7836
+    },
+    {
+      "id": "huang_yueying",
+      "draws": 136,
+      "vertices": 8952
+    },
+    {
+      "id": "sun_quan",
+      "draws": 170,
+      "vertices": 7644
+    },
+    {
+      "id": "gan_ning",
+      "draws": 113,
+      "vertices": 10908
+    },
+    {
+      "id": "lu_meng",
+      "draws": 92,
+      "vertices": 5784
+    },
+    {
+      "id": "huang_gai",
+      "draws": 143,
+      "vertices": 7656
+    },
+    {
+      "id": "zhou_yu",
+      "draws": 166,
+      "vertices": 9456
+    },
+    {
+      "id": "da_qiao",
+      "draws": 146,
+      "vertices": 15960
+    },
+    {
+      "id": "lu_xun",
+      "draws": 92,
+      "vertices": 6000
+    },
+    {
+      "id": "sun_shangxiang",
+      "draws": 155,
+      "vertices": 11928
+    },
+    {
+      "id": "hua_tuo",
+      "draws": 118,
+      "vertices": 8088
+    },
+    {
+      "id": "lu_bu",
+      "draws": 179,
+      "vertices": 8052
+    },
+    {
+      "id": "diao_chan",
+      "draws": 95,
+      "vertices": 14040
+    }
+  ]
+}

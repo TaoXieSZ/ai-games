@@ -1,0 +1,219 @@
+{
+  "result": "pass",
+  "files": [
+    {
+      "path": "sanguosha-roblox/data/hero-models-v1.json",
+      "sha256": "b3aca5223435f856e02c70cc124256051593cf144840fef10eebafe175ea8d5c"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_meng.glb",
+      "sha256": "77f82a74dd27f9ec8f232a1915a66dfa04f4b8b4ee54f41b75c5a5d72fae4ed8"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhang_fei.glb",
+      "sha256": "81d48e3fe74f9b6ce37d4c2918d99f7702cf3fb1396c5a6d48aea35a1c8854c4"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/gan_ning.glb",
+      "sha256": "706d6b5150105b1aa127ab15bfd04cdae321e3ba9dc246fc7eb43d2db23d2841"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_xun.glb",
+      "sha256": "a256f8b055aeb056489f8aafb89effbfbbd1d719a034ff97f0728f4674f04c6d"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/gan_ning.rbxmx",
+      "sha256": "f95f6d45fbaa3e2d90d062e9ecd79c99e0801902f8921ebb888848d048a092c3"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/hero-model-workshop.rbxlx",
+      "sha256": "36f296d8a710b362ae38585270779c7208a73225a68eac5120e3a3f0df5328e6"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_xun.rbxmx",
+      "sha256": "b74999a4c53dc901a788d7f7a0a1e70612ffb64c977de9119903f100162476c7"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_meng.rbxmx",
+      "sha256": "7280789ca5286120ed06a694260b7376ce153894b1d29bdf2c80961ac618525e"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/xu_chu.rbxmx",
+      "sha256": "c53b02eb3f80febf09c4d38667e812e5645521e222346612d8164fc6ead13e0b"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/xiahou_dun.rbxmx",
+      "sha256": "d65c12a7489ab27e779aef1ab91422df117475575ea4c3212f461b48193865a2"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/xu_chu.glb",
+      "sha256": "2358f16f094a530fc73f8b873b39bd24d5c24c45e8f7dddd3e068750ebe71065"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sun_shangxiang.glb",
+      "sha256": "8fb1b018a3dabd52ae6573d5daa3df5665c5e530b702e9388a6d02f6efdfacc3"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/huang_yueying.glb",
+      "sha256": "f94afc9b187a2d8157655835a52e5fc2b3726cde7dd1fdda1738e5b6aec8669a"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/da_qiao.glb",
+      "sha256": "ed8f6308bd888cfa5dd6e77a208c3d9712b006926e1fb3e7846372f61455335b"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhang_fei.rbxmx",
+      "sha256": "fa016f15cb47fef53ad9b906502d89fc4ffc9a22753a60560580375b28d380ec"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/liu_bei.rbxmx",
+      "sha256": "7160e846b47772a7d8b8f9af64d881ad1342fc6ab683b8b243d87f4b94959464"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/diao_chan.glb",
+      "sha256": "9cdf0487537c705c7058f99296f65d5354d47f5797fce05a3e890c2bdb2fef16"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_bu.glb",
+      "sha256": "93f6769b39617a89e0bc072c7a0f5396c590fc0c20df8eba50246dcfea702403"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/guo_jia.rbxmx",
+      "sha256": "111a4e135ec00a5b11efbf49c41e8211c114e7fc9521848aef52cdbc23d3f868"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhuge_liang.glb",
+      "sha256": "bae6a71fd6b3bf0efff53c44c2af5e40e21cfcc97c3ab8a5f747d83ae7d7b98a"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhuge_liang.rbxmx",
+      "sha256": "920bb769ce0f4e8080d6e64580d4d20f18d9f0d8522a34246f867ea5cfa6852c"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/lu_bu.rbxmx",
+      "sha256": "73b04ae5bafc4092a597aa7f552f7d9f9e3f6e22b133edb1868cf675c7799c02"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sun_shangxiang.rbxmx",
+      "sha256": "568f29f75a43da3faafb6d74e1a5a4ef33742e5fec2f78e18884915f82a0b00d"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sun_quan.rbxmx",
+      "sha256": "5e63b5bb61b4bbab43835345802ab390588b5bea24ac4aae1ddc134787e23619"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhang_liao.rbxmx",
+      "sha256": "0cddac8b5d3613d57e423fd924eab259ce05498b459ef9cb629e03b3541a84da"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhen_ji.glb",
+      "sha256": "17f4271a6eca4daf1da4df979d2a65685bdc175621c8b1c9f9021dcd478ab623"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhao_yun.glb",
+      "sha256": "6841358ab316cbba883108a7aa546b758d34f479156e0dcf80caf0207b9ceb24"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhang_liao.glb",
+      "sha256": "efdb3bc28904968ced373e6a072f7791c5d22e48a98598d790749d280f64b73c"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/cao_cao.glb",
+      "sha256": "9b0975430931faf3a7cc2f38482e7490d4ffef682a2ebc76ef9b1ebc5159516f"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/ma_chao.rbxmx",
+      "sha256": "88a213fb75242adc121b7c39210c384cae372676b30a3232245b0746ae7c4370"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sun_quan.glb",
+      "sha256": "dd2cab6b5ff4d04ef72ca05e1b34e963d03507b40a964d1abb6276b9fcdbdafe"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/guan_yu.glb",
+      "sha256": "0e3cb73c2ca8e896fdd555cd5e47a401a74ff8053cf0e85efb083f91d6a98fc1"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sima_yi.rbxmx",
+      "sha256": "9f857d02246995f15f8a37a0bcba4fbf71c1811b52611d4547887c4a1c70cdd1"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/huang_gai.glb",
+      "sha256": "ef9861b48ff94096fcbdbb2847c609b318c0a64111db251d0a8e3109fe98d4cf"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/guan_yu.rbxmx",
+      "sha256": "297af4d4d30f50a40e73e777adae10fa3fbdcb401633eb25dcb7a5129aee4cb8"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/huang_yueying.rbxmx",
+      "sha256": "4bff1044d38de39b0abd766c9f23e10d81605abd858ba2555cf152f1086c871a"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/hua_tuo.glb",
+      "sha256": "80518868fd4479071108dd40b98c7c4c2c29af814f4cce5dd9a0d52a8d9e5ca0"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhou_yu.rbxmx",
+      "sha256": "69c9eb25f2468be5c91e1d7f927f122db45b8e27ee9ef139d3e282fe3ed628e1"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/xiahou_dun.glb",
+      "sha256": "a842e78c258ce623eb40e4e7d4595d901426695235a1a104701ed22209860401"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/ma_chao.glb",
+      "sha256": "95c6492c93c7ef9ddd1423a142f89df2514f3354c13b7c333e4b5d070e7c763a"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/guo_jia.glb",
+      "sha256": "f5dc8a8c74b17f1b26c3f0d9bda5ec32bb7bca37f507c43bd6f8f67f80f3109c"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhao_yun.rbxmx",
+      "sha256": "6cfa3db90deec165f797df07fe56d8a4514fac9d9c49e1927b99410eb8785c8c"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/huang_gai.rbxmx",
+      "sha256": "abb0faec71da5515d00c77c453ccbd585475a0083635c040aca97ee1fcac047b"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/da_qiao.rbxmx",
+      "sha256": "1868edc2d04a6c1a9f2d6d57292bec68ca2b6458c21911dfaebed1a8c6232f83"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/hero-playground.rbxlx",
+      "sha256": "cfc8458638389f2665c0b927910d89916eded56549224f22dd70572fb22b28f7"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/sima_yi.glb",
+      "sha256": "0becda2135d4b7254dd86d8ca4ce9042eb7184f2acfd4115d0364e2931e07abe"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/diao_chan.rbxmx",
+      "sha256": "20ff58130006db3d5cfeaf3a9fe51d4971d7f292da866c6c40b7bbd3f0161985"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/liu_bei.glb",
+      "sha256": "4c4ce26bf11a7bc80bace2266b5b0b0445bf9ffcaf7c58ee96c8b6cc0f134bc9"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhou_yu.glb",
+      "sha256": "36cf155f2247bbd56a0ce5e58eda847516c68299fe5a87c24d793d64c2111908"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/cao_cao.rbxmx",
+      "sha256": "2254dc439bc5700a743488b0c9db7d9fbe2efbd186ae14b9bfcfca012cda1e8e"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/zhen_ji.rbxmx",
+      "sha256": "1846706b9262c76c3510adb669f47c0a310477204c941c544be8393313bbdc70"
+    },
+    {
+      "path": "sanguosha-roblox/models/hero-models-v1/hua_tuo.rbxmx",
+      "sha256": "5ac2a60d6ba4f659e12c84a9e92cbd705013aea557cc4485d0f74a0520c43b5b"
+    }
+  ],
+  "manifest": "equal excluding generatedAt",
+  "site": "25 heroes,43 card designs,160 physical cards"
+}

@@ -1,0 +1,456 @@
+{
+  "result": "pass",
+  "errors": [],
+  "rows": [
+    {
+      "hero": "cao_cao",
+      "action": "ready",
+      "peakNdc": 0.7210668600950041,
+      "distance": 12.402623169070452
+    },
+    {
+      "hero": "cao_cao",
+      "action": "walk",
+      "peakNdc": 0.6930350800259011,
+      "distance": 12.86359772289546
+    },
+    {
+      "hero": "cao_cao",
+      "action": "attack",
+      "peakNdc": 0.6880425174820645,
+      "distance": 12.952224897530911
+    },
+    {
+      "hero": "sima_yi",
+      "action": "ready",
+      "peakNdc": 0.7479425664792174,
+      "distance": 12.523603252276818
+    },
+    {
+      "hero": "sima_yi",
+      "action": "walk",
+      "peakNdc": 0.6996739805073627,
+      "distance": 13.16951623965813
+    },
+    {
+      "hero": "sima_yi",
+      "action": "attack",
+      "peakNdc": 0.6982178580453658,
+      "distance": 13.131293790413844
+    },
+    {
+      "hero": "xiahou_dun",
+      "action": "ready",
+      "peakNdc": 0.6996816103034201,
+      "distance": 13.176136281472646
+    },
+    {
+      "hero": "xiahou_dun",
+      "action": "walk",
+      "peakNdc": 0.6676409058515899,
+      "distance": 13.693366576742054
+    },
+    {
+      "hero": "xiahou_dun",
+      "action": "attack",
+      "peakNdc": 0.6611769688093515,
+      "distance": 13.915513711789849
+    },
+    {
+      "hero": "zhang_liao",
+      "action": "ready",
+      "peakNdc": 0.7109107994978819,
+      "distance": 13.1737692791237
+    },
+    {
+      "hero": "zhang_liao",
+      "action": "walk",
+      "peakNdc": 0.6655067674105813,
+      "distance": 13.790493463115387
+    },
+    {
+      "hero": "zhang_liao",
+      "action": "attack",
+      "peakNdc": 0.6380923155277705,
+      "distance": 14.183444406726558
+    },
+    {
+      "hero": "xu_chu",
+      "action": "ready",
+      "peakNdc": 0.7501287631112143,
+      "distance": 13.026030528291027
+    },
+    {
+      "hero": "xu_chu",
+      "action": "walk",
+      "peakNdc": 0.7111856035794105,
+      "distance": 13.583359707897094
+    },
+    {
+      "hero": "xu_chu",
+      "action": "attack",
+      "peakNdc": 0.6851948605938348,
+      "distance": 13.987991280942664
+    },
+    {
+      "hero": "guo_jia",
+      "action": "ready",
+      "peakNdc": 0.7109461201613746,
+      "distance": 11.76779663755123
+    },
+    {
+      "hero": "guo_jia",
+      "action": "walk",
+      "peakNdc": 0.6952170254236594,
+      "distance": 12.145732038089076
+    },
+    {
+      "hero": "guo_jia",
+      "action": "attack",
+      "peakNdc": 0.6930182392419919,
+      "distance": 12.270911808279168
+    },
+    {
+      "hero": "zhen_ji",
+      "action": "ready",
+      "peakNdc": 0.7259143384564509,
+      "distance": 12.263042579782507
+    },
+    {
+      "hero": "zhen_ji",
+      "action": "walk",
+      "peakNdc": 0.698469950433098,
+      "distance": 12.67022929165021
+    },
+    {
+      "hero": "zhen_ji",
+      "action": "attack",
+      "peakNdc": 0.7139022823874885,
+      "distance": 12.729360896815955
+    },
+    {
+      "hero": "liu_bei",
+      "action": "ready",
+      "peakNdc": 0.7604188550780161,
+      "distance": 12.779098079520145
+    },
+    {
+      "hero": "liu_bei",
+      "action": "walk",
+      "peakNdc": 0.7158169586397907,
+      "distance": 13.302593251876758
+    },
+    {
+      "hero": "liu_bei",
+      "action": "attack",
+      "peakNdc": 0.739453346667587,
+      "distance": 13.206561275632495
+    },
+    {
+      "hero": "guan_yu",
+      "action": "ready",
+      "peakNdc": 0.7975308149399725,
+      "distance": 16.8495719779743
+    },
+    {
+      "hero": "guan_yu",
+      "action": "walk",
+      "peakNdc": 0.7033670303031612,
+      "distance": 18.349880503159604
+    },
+    {
+      "hero": "guan_yu",
+      "action": "attack",
+      "peakNdc": 0.6452531333972834,
+      "distance": 19.967983356547013
+    },
+    {
+      "hero": "zhang_fei",
+      "action": "ready",
+      "peakNdc": 0.5925019838970655,
+      "distance": 15.23693963847315
+    },
+    {
+      "hero": "zhang_fei",
+      "action": "walk",
+      "peakNdc": 0.6081026219316501,
+      "distance": 15.824363799695828
+    },
+    {
+      "hero": "zhang_fei",
+      "action": "attack",
+      "peakNdc": 0.580223091524539,
+      "distance": 15.687863857696833
+    },
+    {
+      "hero": "zhuge_liang",
+      "action": "ready",
+      "peakNdc": 0.7242860031559847,
+      "distance": 13.200589632804077
+    },
+    {
+      "hero": "zhuge_liang",
+      "action": "walk",
+      "peakNdc": 0.7009897321938295,
+      "distance": 13.562542669071298
+    },
+    {
+      "hero": "zhuge_liang",
+      "action": "attack",
+      "peakNdc": 0.7142778849530818,
+      "distance": 13.684696786616193
+    },
+    {
+      "hero": "zhao_yun",
+      "action": "ready",
+      "peakNdc": 0.7975878082170879,
+      "distance": 14.653841114351156
+    },
+    {
+      "hero": "zhao_yun",
+      "action": "walk",
+      "peakNdc": 0.7135259836330369,
+      "distance": 16.27105064851133
+    },
+    {
+      "hero": "zhao_yun",
+      "action": "attack",
+      "peakNdc": 0.7414758065817263,
+      "distance": 15.665818115613723
+    },
+    {
+      "hero": "ma_chao",
+      "action": "ready",
+      "peakNdc": 0.6932740436413758,
+      "distance": 14.666313954771187
+    },
+    {
+      "hero": "ma_chao",
+      "action": "walk",
+      "peakNdc": 0.6707405399356412,
+      "distance": 15.32647315978537
+    },
+    {
+      "hero": "ma_chao",
+      "action": "attack",
+      "peakNdc": 0.6795112405551439,
+      "distance": 15.255568802712757
+    },
+    {
+      "hero": "huang_yueying",
+      "action": "ready",
+      "peakNdc": 0.7576893913683234,
+      "distance": 12.085398737978664
+    },
+    {
+      "hero": "huang_yueying",
+      "action": "walk",
+      "peakNdc": 0.7084135604508514,
+      "distance": 12.684726096525706
+    },
+    {
+      "hero": "huang_yueying",
+      "action": "attack",
+      "peakNdc": 0.7435662934708517,
+      "distance": 12.51579425936393
+    },
+    {
+      "hero": "sun_quan",
+      "action": "ready",
+      "peakNdc": 0.6909583885908153,
+      "distance": 13.193312267961705
+    },
+    {
+      "hero": "sun_quan",
+      "action": "walk",
+      "peakNdc": 0.6723726409286089,
+      "distance": 13.659368943671637
+    },
+    {
+      "hero": "sun_quan",
+      "action": "attack",
+      "peakNdc": 0.6564661926891371,
+      "distance": 13.80034619384386
+    },
+    {
+      "hero": "gan_ning",
+      "action": "ready",
+      "peakNdc": 0.6823136397956521,
+      "distance": 13.694534712257871
+    },
+    {
+      "hero": "gan_ning",
+      "action": "walk",
+      "peakNdc": 0.658380471548701,
+      "distance": 14.007048066497648
+    },
+    {
+      "hero": "gan_ning",
+      "action": "attack",
+      "peakNdc": 0.6914097587776554,
+      "distance": 13.692892813234089
+    },
+    {
+      "hero": "lu_meng",
+      "action": "ready",
+      "peakNdc": 0.7516622657773196,
+      "distance": 11.778330329674965
+    },
+    {
+      "hero": "lu_meng",
+      "action": "walk",
+      "peakNdc": 0.7097712126195941,
+      "distance": 12.382731853448368
+    },
+    {
+      "hero": "lu_meng",
+      "action": "attack",
+      "peakNdc": 0.7187006488562715,
+      "distance": 12.464285961222554
+    },
+    {
+      "hero": "huang_gai",
+      "action": "ready",
+      "peakNdc": 0.7130000763795209,
+      "distance": 12.641076831742739
+    },
+    {
+      "hero": "huang_gai",
+      "action": "walk",
+      "peakNdc": 0.6802291405670857,
+      "distance": 13.165176541910421
+    },
+    {
+      "hero": "huang_gai",
+      "action": "attack",
+      "peakNdc": 0.6961624960668569,
+      "distance": 13.392456589575952
+    },
+    {
+      "hero": "zhou_yu",
+      "action": "ready",
+      "peakNdc": 0.6887838168707998,
+      "distance": 13.200178139943985
+    },
+    {
+      "hero": "zhou_yu",
+      "action": "walk",
+      "peakNdc": 0.6741521523977976,
+      "distance": 13.58296760282759
+    },
+    {
+      "hero": "zhou_yu",
+      "action": "attack",
+      "peakNdc": 0.683725018937374,
+      "distance": 13.410724231972981
+    },
+    {
+      "hero": "da_qiao",
+      "action": "ready",
+      "peakNdc": 0.6679069230673241,
+      "distance": 13.50179628736902
+    },
+    {
+      "hero": "da_qiao",
+      "action": "walk",
+      "peakNdc": 0.6518932152909805,
+      "distance": 13.824726073645369
+    },
+    {
+      "hero": "da_qiao",
+      "action": "attack",
+      "peakNdc": 0.6585437044216046,
+      "distance": 13.881093779735155
+    },
+    {
+      "hero": "lu_xun",
+      "action": "ready",
+      "peakNdc": 0.7138822292112038,
+      "distance": 13.027331320027397
+    },
+    {
+      "hero": "lu_xun",
+      "action": "walk",
+      "peakNdc": 0.6946170479333318,
+      "distance": 13.408556381456759
+    },
+    {
+      "hero": "lu_xun",
+      "action": "attack",
+      "peakNdc": 0.6897485877262609,
+      "distance": 13.828998862726337
+    },
+    {
+      "hero": "sun_shangxiang",
+      "action": "ready",
+      "peakNdc": 0.6223447504591262,
+      "distance": 14.262389304639683
+    },
+    {
+      "hero": "sun_shangxiang",
+      "action": "walk",
+      "peakNdc": 0.6124927947272188,
+      "distance": 14.661203650366456
+    },
+    {
+      "hero": "sun_shangxiang",
+      "action": "attack",
+      "peakNdc": 0.6207585312881706,
+      "distance": 14.486843830428597
+    },
+    {
+      "hero": "hua_tuo",
+      "action": "ready",
+      "peakNdc": 0.7562298603633801,
+      "distance": 12.146564312446497
+    },
+    {
+      "hero": "hua_tuo",
+      "action": "walk",
+      "peakNdc": 0.714820822610406,
+      "distance": 12.574124686147059
+    },
+    {
+      "hero": "hua_tuo",
+      "action": "attack",
+      "peakNdc": 0.7166949705622748,
+      "distance": 12.670678668076897
+    },
+    {
+      "hero": "lu_bu",
+      "action": "ready",
+      "peakNdc": 0.6279059917149918,
+      "distance": 16.79371928414028
+    },
+    {
+      "hero": "lu_bu",
+      "action": "walk",
+      "peakNdc": 0.6045424435552728,
+      "distance": 17.2864174107118
+    },
+    {
+      "hero": "lu_bu",
+      "action": "attack",
+      "peakNdc": 0.621110864295049,
+      "distance": 17.155419109537966
+    },
+    {
+      "hero": "diao_chan",
+      "action": "ready",
+      "peakNdc": 0.7307477299141527,
+      "distance": 12.501028590050282
+    },
+    {
+      "hero": "diao_chan",
+      "action": "walk",
+      "peakNdc": 0.6862762310663872,
+      "distance": 13.180259827957832
+    },
+    {
+      "hero": "diao_chan",
+      "action": "attack",
+      "peakNdc": 0.7166345663437019,
+      "distance": 12.965573171146094
+    }
+  ]
+}

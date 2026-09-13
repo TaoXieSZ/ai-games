@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-13T17:23:13.364Z",
+  "generatedAt": "2026-09-13T17:45:49.621Z",
   "source": "data/hero-models-v1.json",
   "conventions": {
     "coordinates": "Y-up, heroes face -Z.",
@@ -14,8 +14,8 @@
     "glb": 25,
     "rbxmx": 25,
     "workshopModels": 25,
-    "triangles": 69668,
-    "vertices": 141426
+    "triangles": 144004,
+    "vertices": 291224
   },
   "heroes": [
     {
@@ -26,29 +26,29 @@
         "rbxmx": "cao_cao.rbxmx"
       },
       "bones": 7,
-      "parts": 168,
+      "parts": 229,
       "glb": {
-        "vertices": 5604,
-        "triangles": 2800,
-        "nodes": 182,
-        "meshes": 174,
+        "vertices": 18276,
+        "triangles": 9088,
+        "nodes": 243,
+        "meshes": 235,
         "animations": 3,
         "bounds": {
           "min": [
             -2.1247288441965533,
             0.18000000000000022,
-            -0.919
+            -1.055
           ],
           "max": [
             2.1247288441965533,
             5.95,
-            0.9532773717808907
+            0.9644983555520932
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 168,
+        "decorations": 229,
         "motors": 6,
         "humanoids": 1
       }
@@ -61,29 +61,29 @@
         "rbxmx": "sima_yi.rbxmx"
       },
       "bones": 7,
-      "parts": 60,
+      "parts": 88,
       "glb": {
-        "vertices": 3024,
-        "triangles": 1512,
-        "nodes": 74,
-        "meshes": 66,
+        "vertices": 4056,
+        "triangles": 2028,
+        "nodes": 102,
+        "meshes": 94,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.06,
+            -2.369662956756792,
             0.18000000000000022,
-            -0.919
+            -1.074137792960605
           ],
           "max": [
             2.06,
-            5.97,
-            0.8300000000000001
+            5.9750000000000005,
+            0.97
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 60,
+        "decorations": 88,
         "motors": 6,
         "humanoids": 1
       }
@@ -96,12 +96,12 @@
         "rbxmx": "xiahou_dun.rbxmx"
       },
       "bones": 7,
-      "parts": 146,
+      "parts": 180,
       "glb": {
-        "vertices": 4498,
-        "triangles": 2232,
-        "nodes": 160,
-        "meshes": 152,
+        "vertices": 11434,
+        "triangles": 5700,
+        "nodes": 194,
+        "meshes": 186,
         "animations": 3,
         "bounds": {
           "min": [
@@ -111,14 +111,14 @@
           ],
           "max": [
             3.93330110604617,
-            5.665,
-            1.02
+            6.099521647637904,
+            1.3569439253967686
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 146,
+        "decorations": 180,
         "motors": 6,
         "humanoids": 1
       }
@@ -131,29 +131,29 @@
         "rbxmx": "zhang_liao.rbxmx"
       },
       "bones": 7,
-      "parts": 159,
+      "parts": 228,
       "glb": {
-        "vertices": 5920,
-        "triangles": 2892,
-        "nodes": 173,
-        "meshes": 165,
+        "vertices": 17556,
+        "triangles": 8676,
+        "nodes": 242,
+        "meshes": 234,
         "animations": 3,
         "bounds": {
           "min": [
             -2.265517136678216,
             0.18000000000000022,
-            -0.919
+            -1.0526396310000867
           ],
           "max": [
-            2.2424269667344663,
-            6.17,
-            0.715
+            2.260119025265224,
+            6.370757594662944,
+            1.6020446158285055
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 159,
+        "decorations": 228,
         "motors": 6,
         "humanoids": 1
       }
@@ -166,29 +166,29 @@
         "rbxmx": "xu_chu.rbxmx"
       },
       "bones": 7,
-      "parts": 67,
+      "parts": 105,
       "glb": {
-        "vertices": 3452,
-        "triangles": 1692,
-        "nodes": 81,
-        "meshes": 73,
+        "vertices": 7202,
+        "triangles": 3560,
+        "nodes": 119,
+        "meshes": 111,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.16,
+            -2.1708000000000003,
             0.19080000000000025,
-            -1.3
+            -1.3234000000000001
           ],
           "max": [
-            2.16,
-            5.9678,
-            0.7384
+            2.1708000000000003,
+            6.36926129280796,
+            0.7072
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 67,
+        "decorations": 105,
         "motors": 6,
         "humanoids": 1
       }
@@ -201,12 +201,12 @@
         "rbxmx": "guo_jia.rbxmx"
       },
       "bones": 7,
-      "parts": 62,
+      "parts": 114,
       "glb": {
-        "vertices": 3072,
-        "triangles": 1536,
-        "nodes": 76,
-        "meshes": 68,
+        "vertices": 4456,
+        "triangles": 2212,
+        "nodes": 128,
+        "meshes": 120,
         "animations": 3,
         "bounds": {
           "min": [
@@ -216,14 +216,14 @@
           ],
           "max": [
             2.11,
-            5.630000000000001,
-            0.71
+            5.67,
+            0.764872323579016
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 62,
+        "decorations": 114,
         "motors": 6,
         "humanoids": 1
       }
@@ -236,29 +236,29 @@
         "rbxmx": "zhen_ji.rbxmx"
       },
       "bones": 7,
-      "parts": 110,
+      "parts": 182,
       "glb": {
-        "vertices": 7104,
-        "triangles": 3552,
-        "nodes": 124,
-        "meshes": 116,
+        "vertices": 10992,
+        "triangles": 5496,
+        "nodes": 196,
+        "meshes": 188,
         "animations": 3,
         "bounds": {
           "min": [
             -2.307351096635911,
             0.17640000000000028,
-            -0.92414
+            -1.18026459339848
           ],
           "max": [
             2.4230758521489837,
             5.9094,
-            0.735
+            0.9372206675696919
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 110,
+        "decorations": 182,
         "motors": 6,
         "humanoids": 1
       }
@@ -271,29 +271,29 @@
         "rbxmx": "liu_bei.rbxmx"
       },
       "bones": 7,
-      "parts": 98,
+      "parts": 153,
       "glb": {
-        "vertices": 3936,
-        "triangles": 1968,
-        "nodes": 112,
-        "meshes": 104,
+        "vertices": 7764,
+        "triangles": 3880,
+        "nodes": 167,
+        "meshes": 159,
         "animations": 3,
         "bounds": {
           "min": [
             -2.08,
             0.18000000000000022,
-            -0.919
+            -1.035
           ],
           "max": [
             2.08,
-            5.945,
+            6.26,
             1.01
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 98,
+        "decorations": 153,
         "motors": 6,
         "humanoids": 1
       }
@@ -306,29 +306,29 @@
         "rbxmx": "guan_yu.rbxmx"
       },
       "bones": 7,
-      "parts": 211,
+      "parts": 388,
       "glb": {
-        "vertices": 7954,
-        "triangles": 3864,
-        "nodes": 225,
-        "meshes": 217,
+        "vertices": 14096,
+        "triangles": 6852,
+        "nodes": 402,
+        "meshes": 394,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.1247288441965533,
+            -2.175109727375327,
             0.18000000000000022,
             -1.111
           ],
           "max": [
             2.191486211944968,
-            8.430000000000001,
-            1.1441743841618481
+            8.700000000000001,
+            1.1850298067630207
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 211,
+        "decorations": 388,
         "motors": 6,
         "humanoids": 1
       }
@@ -341,12 +341,12 @@
         "rbxmx": "zhang_fei.rbxmx"
       },
       "bones": 7,
-      "parts": 164,
+      "parts": 218,
       "glb": {
-        "vertices": 5780,
-        "triangles": 2856,
-        "nodes": 178,
-        "meshes": 170,
+        "vertices": 16790,
+        "triangles": 8360,
+        "nodes": 232,
+        "meshes": 224,
         "animations": 3,
         "bounds": {
           "min": [
@@ -357,13 +357,13 @@
           "max": [
             2.312340804031814,
             7.8081000000000005,
-            0.991461072341532
+            1.0531417707259325
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 164,
+        "decorations": 218,
         "motors": 6,
         "humanoids": 1
       }
@@ -376,29 +376,29 @@
         "rbxmx": "zhuge_liang.rbxmx"
       },
       "bones": 7,
-      "parts": 119,
+      "parts": 139,
       "glb": {
-        "vertices": 4398,
-        "triangles": 2192,
-        "nodes": 133,
-        "meshes": 125,
+        "vertices": 6318,
+        "triangles": 3152,
+        "nodes": 153,
+        "meshes": 145,
         "animations": 3,
         "bounds": {
           "min": [
             -2.233169409681007,
             0.18000000000000022,
-            -0.9515
+            -0.99
           ],
           "max": [
-            2.421195090021842,
-            6.105,
+            2.702428893987521,
+            6.305000000000001,
             1.0420694185957071
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 119,
+        "decorations": 139,
         "motors": 6,
         "humanoids": 1
       }
@@ -411,29 +411,29 @@
         "rbxmx": "zhao_yun.rbxmx"
       },
       "bones": 7,
-      "parts": 220,
+      "parts": 371,
       "glb": {
-        "vertices": 8300,
-        "triangles": 4020,
-        "nodes": 234,
-        "meshes": 226,
+        "vertices": 14804,
+        "triangles": 7272,
+        "nodes": 385,
+        "meshes": 377,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.1247288441965533,
+            -2.175109727375327,
             0.18000000000000022,
             -1.00925
           ],
           "max": [
             2.191486211944968,
             7.64,
-            2.026012927214814
+            2.258494655160389
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 220,
+        "decorations": 371,
         "motors": 6,
         "humanoids": 1
       }
@@ -446,29 +446,29 @@
         "rbxmx": "ma_chao.rbxmx"
       },
       "bones": 7,
-      "parts": 163,
+      "parts": 235,
       "glb": {
-        "vertices": 5756,
-        "triangles": 2844,
-        "nodes": 177,
-        "meshes": 169,
+        "vertices": 17144,
+        "triangles": 8528,
+        "nodes": 249,
+        "meshes": 241,
         "animations": 3,
         "bounds": {
           "min": [
             -2.1247288441965533,
             0.18000000000000022,
-            -0.919
+            -0.9550000000000001
           ],
           "max": [
             2.1247288441965533,
-            6.9973597695692735,
-            0.9827975619842688
+            6.8243834775510095,
+            1.2039151524740745
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 163,
+        "decorations": 235,
         "motors": 6,
         "humanoids": 1
       }
@@ -481,29 +481,29 @@
         "rbxmx": "huang_yueying.rbxmx"
       },
       "bones": 7,
-      "parts": 130,
+      "parts": 176,
       "glb": {
-        "vertices": 5832,
-        "triangles": 2868,
-        "nodes": 144,
-        "meshes": 136,
+        "vertices": 9280,
+        "triangles": 4528,
+        "nodes": 190,
+        "meshes": 182,
         "animations": 3,
         "bounds": {
           "min": [
             -2.08,
             0.18000000000000022,
-            -0.9400000000000001
+            -0.9600000000000001
           ],
           "max": [
             2.3825066481597097,
             5.925,
-            0.71
+            0.8542855139456091
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 130,
+        "decorations": 176,
         "motors": 6,
         "humanoids": 1
       }
@@ -516,29 +516,29 @@
         "rbxmx": "sun_quan.rbxmx"
       },
       "bones": 7,
-      "parts": 164,
+      "parts": 246,
       "glb": {
-        "vertices": 5644,
-        "triangles": 2804,
-        "nodes": 178,
-        "meshes": 170,
+        "vertices": 18028,
+        "triangles": 8992,
+        "nodes": 260,
+        "meshes": 252,
         "animations": 3,
         "bounds": {
           "min": [
             -2.1247288441965533,
             0.18000000000000022,
-            -0.999512232880182
+            -1.02
           ],
           "max": [
-            2.1247288441965533,
-            6.0200000000000005,
+            2.252794583546709,
+            6.035060966544099,
             1.0036353433043006
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 164,
+        "decorations": 246,
         "motors": 6,
         "humanoids": 1
       }
@@ -551,29 +551,29 @@
         "rbxmx": "gan_ning.rbxmx"
       },
       "bones": 7,
-      "parts": 107,
+      "parts": 103,
       "glb": {
-        "vertices": 6348,
-        "triangles": 3124,
-        "nodes": 121,
-        "meshes": 113,
+        "vertices": 7968,
+        "triangles": 3920,
+        "nodes": 117,
+        "meshes": 109,
         "animations": 3,
         "bounds": {
           "min": [
             -1.99,
             0.18000000000000022,
-            -0.919
+            -0.95
           ],
           "max": [
-            1.99,
-            5.723713617737978,
-            0.86
+            1.9910672246149317,
+            6.12173980844187,
+            0.9
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 107,
+        "decorations": 103,
         "motors": 6,
         "humanoids": 1
       }
@@ -586,29 +586,29 @@
         "rbxmx": "lu_meng.rbxmx"
       },
       "bones": 7,
-      "parts": 86,
+      "parts": 143,
       "glb": {
-        "vertices": 3784,
-        "triangles": 1876,
-        "nodes": 100,
-        "meshes": 92,
+        "vertices": 10960,
+        "triangles": 5416,
+        "nodes": 157,
+        "meshes": 149,
         "animations": 3,
         "bounds": {
           "min": [
             -2.08,
             0.18000000000000022,
-            -0.919
+            -0.9600000000000001
           ],
           "max": [
             2.08,
             5.88,
-            0.71
+            0.79
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 86,
+        "decorations": 143,
         "motors": 6,
         "humanoids": 1
       }
@@ -621,18 +621,18 @@
         "rbxmx": "huang_gai.rbxmx"
       },
       "bones": 7,
-      "parts": 137,
+      "parts": 200,
       "glb": {
-        "vertices": 5416,
-        "triangles": 2644,
-        "nodes": 151,
-        "meshes": 143,
+        "vertices": 13218,
+        "triangles": 6496,
+        "nodes": 214,
+        "meshes": 206,
         "animations": 3,
         "bounds": {
           "min": [
             -2.1492000000000004,
             0.1853999999999999,
-            -0.97414
+            -1.0575
           ],
           "max": [
             2.292125983059114,
@@ -643,7 +643,7 @@
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 137,
+        "decorations": 200,
         "motors": 6,
         "humanoids": 1
       }
@@ -656,29 +656,29 @@
         "rbxmx": "zhou_yu.rbxmx"
       },
       "bones": 7,
-      "parts": 160,
+      "parts": 233,
       "glb": {
-        "vertices": 6416,
-        "triangles": 3176,
-        "nodes": 174,
-        "meshes": 166,
+        "vertices": 15940,
+        "triangles": 7896,
+        "nodes": 247,
+        "meshes": 239,
         "animations": 3,
         "bounds": {
           "min": [
             -2.1247288441965533,
             0.18000000000000022,
-            -1.03263525191714
+            -1.0429384329026763
           ],
           "max": [
             2.1247288441965533,
             5.95,
-            0.9270951377293355
+            1.1208851153507335
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 160,
+        "decorations": 233,
         "motors": 6,
         "humanoids": 1
       }
@@ -691,29 +691,29 @@
         "rbxmx": "da_qiao.rbxmx"
       },
       "bones": 7,
-      "parts": 140,
+      "parts": 194,
       "glb": {
-        "vertices": 9320,
-        "triangles": 4484,
-        "nodes": 154,
-        "meshes": 146,
+        "vertices": 13408,
+        "triangles": 6496,
+        "nodes": 208,
+        "meshes": 200,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.92,
+            -2.978178969119426,
             0.18000000000000022,
-            -1.01
+            -1.0725
           ],
           "max": [
             2.053199524449644,
             5.94,
-            0.71
+            0.7449865883211242
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 140,
+        "decorations": 194,
         "motors": 6,
         "humanoids": 1
       }
@@ -726,29 +726,29 @@
         "rbxmx": "lu_xun.rbxmx"
       },
       "bones": 7,
-      "parts": 86,
+      "parts": 142,
       "glb": {
-        "vertices": 3920,
-        "triangles": 1928,
-        "nodes": 100,
-        "meshes": 92,
+        "vertices": 10392,
+        "triangles": 5140,
+        "nodes": 156,
+        "meshes": 148,
         "animations": 3,
         "bounds": {
           "min": [
             -2.08,
             0.18000000000000022,
-            -1.0029384329026763
+            -1.05263525191714
           ],
           "max": [
             2.08,
-            5.809106004521264,
+            6.140000000000001,
             0.6900000000000001
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 86,
+        "decorations": 142,
         "motors": 6,
         "humanoids": 1
       }
@@ -761,21 +761,21 @@
         "rbxmx": "sun_shangxiang.rbxmx"
       },
       "bones": 7,
-      "parts": 149,
+      "parts": 177,
       "glb": {
-        "vertices": 7528,
-        "triangles": 3648,
-        "nodes": 163,
-        "meshes": 155,
+        "vertices": 9540,
+        "triangles": 4620,
+        "nodes": 191,
+        "meshes": 183,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.1526976900542967,
+            -2.256428939841099,
             0.18000000000000022,
             -1.28
           ],
           "max": [
-            2.02,
+            2.584163572685064,
             6.229209521757446,
             1.674108643962696
           ]
@@ -783,7 +783,7 @@
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 149,
+        "decorations": 177,
         "motors": 6,
         "humanoids": 1
       }
@@ -796,12 +796,12 @@
         "rbxmx": "hua_tuo.rbxmx"
       },
       "bones": 7,
-      "parts": 112,
+      "parts": 114,
       "glb": {
-        "vertices": 5128,
-        "triangles": 2548,
-        "nodes": 126,
-        "meshes": 118,
+        "vertices": 5944,
+        "triangles": 2908,
+        "nodes": 128,
+        "meshes": 120,
         "animations": 3,
         "bounds": {
           "min": [
@@ -811,14 +811,14 @@
           ],
           "max": [
             2.08,
-            5.935,
-            1.52
+            5.94236237490456,
+            1.5499999999999998
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 112,
+        "decorations": 114,
         "motors": 6,
         "humanoids": 1
       }
@@ -831,29 +831,29 @@
         "rbxmx": "lu_bu.rbxmx"
       },
       "bones": 7,
-      "parts": 173,
+      "parts": 227,
       "glb": {
-        "vertices": 5972,
-        "triangles": 2948,
-        "nodes": 187,
-        "meshes": 179,
+        "vertices": 10490,
+        "triangles": 5204,
+        "nodes": 241,
+        "meshes": 233,
         "animations": 3,
         "bounds": {
           "min": [
             -2.313845748066621,
             0.19080000000000025,
-            -0.9649500000000001
+            -1.0237500000000002
           ],
           "max": [
             2.511,
             7.828100000000001,
-            2.0844695718291155
+            2.8853300800886856
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 173,
+        "decorations": 227,
         "motors": 6,
         "humanoids": 1
       }
@@ -866,21 +866,21 @@
         "rbxmx": "diao_chan.rbxmx"
       },
       "bones": 7,
-      "parts": 89,
+      "parts": 146,
       "glb": {
-        "vertices": 7320,
-        "triangles": 3660,
-        "nodes": 103,
-        "meshes": 95,
+        "vertices": 15168,
+        "triangles": 7584,
+        "nodes": 160,
+        "meshes": 152,
         "animations": 3,
         "bounds": {
           "min": [
-            -2.9250643489215564,
+            -3.0561381375799312,
             0.18000000000000022,
-            -0.935
+            -1.07
           ],
           "max": [
-            2.9250643489215564,
+            3.0561381375799312,
             5.98,
             0.7707039444346693
           ]
@@ -888,7 +888,7 @@
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 89,
+        "decorations": 146,
         "motors": 6,
         "humanoids": 1
       }

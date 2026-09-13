@@ -1,0 +1,167 @@
+{
+  "bow": [
+    {
+      "stringError": 0.0001295414986088872,
+      "sample": 1,
+      "nockFromGrip": 2.382504940032959,
+      "alignment": 1.0000001192092896,
+      "arrowError": 0.00011694480053847656
+    },
+    {
+      "stringError": 0.00022174122568685561,
+      "sample": 2,
+      "nockFromGrip": 2.499800682067871,
+      "alignment": 0.9999998807907104,
+      "arrowError": 0.0001567834842717275
+    },
+    {
+      "stringError": 7.474583981093019e-05,
+      "sample": 3,
+      "nockFromGrip": 2.5638954639434814,
+      "alignment": 1,
+      "arrowError": 0.0001723159512039274
+    },
+    {
+      "stringError": 0.00015061622252687812,
+      "sample": 4,
+      "nockFromGrip": 2.6391115188598633,
+      "alignment": 1,
+      "arrowError": 0.00013954730820842087
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 5,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.538340726867318e-05
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 6,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.538340726867318e-05
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 7,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.538340726867318e-05
+    },
+    {
+      "stringError": 0.00020940808462910354,
+      "sample": 8,
+      "nockFromGrip": 2.6443393230438232,
+      "alignment": 1,
+      "arrowError": 0.00018367690790910274
+    },
+    {
+      "stringError": 7.6258547778707e-05,
+      "sample": 9,
+      "nockFromGrip": 2.4649240970611572,
+      "alignment": 1.0000001192092896,
+      "arrowError": 8.048147719819099e-05
+    },
+    {
+      "stringError": 0.00015893741510808468,
+      "sample": 10,
+      "nockFromGrip": 2.292293071746826,
+      "alignment": 1.000000238418579,
+      "arrowError": 0.00010374584962846711
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 11,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 12,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 13,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 14,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 15,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 16,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 0.0001176752703031525,
+      "sample": 17,
+      "nockFromGrip": 2.2327401638031006,
+      "alignment": 0.9999998807907104,
+      "arrowError": 8.409317524638027e-05
+    },
+    {
+      "stringError": 0.0001982568355742842,
+      "sample": 18,
+      "nockFromGrip": 2.231590747833252,
+      "alignment": 1,
+      "arrowError": 0.00014727553934790194
+    }
+  ],
+  "attachments": [
+    {
+      "hero": "sun_shangxiang",
+      "groups": [
+        {
+          "id": "ribbon-HairRibbonTail-1",
+          "angle": 0.050885237753391266,
+          "pivotError": 3.722356632351875e-05
+        },
+        {
+          "id": "ribbon-HairRibbonTail1",
+          "angle": 0.05090164393186569,
+          "pivotError": 2.6736253857961856e-05
+        },
+        {
+          "id": "ribbon-RibbonJadeTail-1",
+          "angle": 0.05371739715337753,
+          "pivotError": 2.0052069885423407e-05
+        },
+        {
+          "id": "ribbon-RibbonJadeTail1",
+          "angle": 0.053657416254282,
+          "pivotError": 1.917494046210777e-05
+        },
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.01733248122036457,
+          "pivotError": 8.704166248207912e-06
+        },
+        {
+          "id": "ponytail",
+          "angle": 0.03535758703947067,
+          "pivotError": 1.7233809558092616e-05
+        }
+      ]
+    }
+  ]
+}

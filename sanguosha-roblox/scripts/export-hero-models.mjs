@@ -27,6 +27,7 @@ const MOTOR_NAMES = new Map([
 
 const MATERIAL_TOKEN = {
   SmoothPlastic: 272,
+  Neon: 288,
   Fabric: 1312,
   Metal: 1088,
 };
@@ -187,7 +188,7 @@ function validateHeroes(value) {
       if (!part || typeof part.name !== 'string') throw new Error(`Hero ${hero.id} has invalid part.`);
       if (!bones.has(part.bone)) throw new Error(`Hero ${hero.id} part ${part.name} references missing bone ${part.bone}.`);
       if (!['box', 'wedge', 'cylinder', 'sphere'].includes(part.shape)) throw new Error(`Hero ${hero.id} part ${part.name} has invalid shape ${part.shape}.`);
-      if (!['Metal', 'Fabric', 'SmoothPlastic'].includes(part.material)) throw new Error(`Hero ${hero.id} part ${part.name} has invalid material ${part.material}.`);
+      if (!['Metal', 'Fabric', 'SmoothPlastic', 'Neon'].includes(part.material)) throw new Error(`Hero ${hero.id} part ${part.name} has invalid material ${part.material}.`);
       assertVec3(part.position, `${hero.id}.${part.name}.position`);
       assertVec3(part.rotation, `${hero.id}.${part.name}.rotation`);
       assertVec3(part.size, `${hero.id}.${part.name}.size`);
@@ -298,6 +299,7 @@ class GlbWriter {
     const index = this.json.materials.length;
     this.json.materials.push({
       name: `${material}_${rgb.map((n) => Math.round(n * 255).toString(16).padStart(2, '0')).join('')}`,
+      ...(material === 'Neon' ? { emissiveFactor: [...rgb] } : {}),
       pbrMetallicRoughness: {
         baseColorFactor: [rgb[0], rgb[1], rgb[2], 1],
         metallicFactor: material === 'Metal' ? 0.55 : 0,

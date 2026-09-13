@@ -151,6 +151,7 @@ def build(hero):
 
 if __name__ == '__main__':
     from hero_model_designs import wei, wu, shu_qun
+    from hero_model_designs.base_polish import polish_original
     from hero_model_designs.faces import refine_face
     from hero_model_designs.secondary_motion import add_secondary_motion
     catalog=json.loads((ROOT/'data/hero-art-v1.json').read_text())
@@ -164,6 +165,7 @@ if __name__ == '__main__':
         model['faction']=meta['faction']
         model['referenceArt']=meta['artPath']
         model['poseDescription']=meta['pose']
+        polish_original(model)
         refine_face(model)
         add_secondary_motion(model)
     out=ROOT/'data/hero-models-v1.json';out.write_text(json.dumps(models,ensure_ascii=False,indent=2)+'\n')

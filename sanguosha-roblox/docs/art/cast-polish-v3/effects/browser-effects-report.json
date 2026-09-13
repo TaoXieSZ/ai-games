@@ -1,0 +1,161 @@
+{
+  "url": "http://127.0.0.1:4178/preview/hero-models/?hero=sun_shangxiang",
+  "initial": {
+    "hero": "孙尚香",
+    "effectButtons": [
+      "slash",
+      "dodge",
+      "heal",
+      "arrows"
+    ],
+    "effectsLoaded": true,
+    "meshCache": 1706,
+    "gpuUploads": 95,
+    "action": "ready",
+    "stage": "选择技能预览特效",
+    "status": "",
+    "glReady": true,
+    "canvas": {
+      "width": 1048,
+      "height": 665,
+      "rect": {
+        "x": 17,
+        "y": 303.796875,
+        "width": 1048,
+        "height": 665.09375,
+        "top": 303.796875,
+        "right": 1065,
+        "bottom": 968.890625,
+        "left": 17
+      }
+    }
+  },
+  "captures": [
+    {
+      "id": "slash",
+      "active": "slash",
+      "action": "attack",
+      "stage": "杀 · 释放",
+      "meshCache": 1710,
+      "gpuUploads": 99,
+      "pressed": [
+        "slash"
+      ]
+    },
+    {
+      "id": "dodge",
+      "active": "dodge",
+      "action": "ready",
+      "stage": "闪 · 释放",
+      "meshCache": 1713,
+      "gpuUploads": 102,
+      "pressed": [
+        "dodge"
+      ]
+    },
+    {
+      "id": "heal",
+      "active": "heal",
+      "action": "ready",
+      "stage": "桃 · 消散",
+      "meshCache": 1718,
+      "gpuUploads": 107,
+      "pressed": [
+        "heal"
+      ]
+    },
+    {
+      "id": "arrows",
+      "active": "arrows",
+      "action": "attack",
+      "stage": "万箭齐发 · 消散",
+      "meshCache": 1722,
+      "gpuUploads": 111,
+      "pressed": [
+        "arrows"
+      ]
+    }
+  ],
+  "afterFirstPass": {
+    "meshCache": 1722,
+    "gpuUploads": 111,
+    "action": "ready",
+    "active": null
+  },
+  "replayDuring": {
+    "meshCache": 1722,
+    "gpuUploads": 111,
+    "action": "attack",
+    "active": "arrows",
+    "pressedCount": 1
+  },
+  "replayAfter": {
+    "meshCache": 1722,
+    "gpuUploads": 111,
+    "action": "ready",
+    "active": null
+  },
+  "cancel": {
+    "active": null,
+    "action": "ready",
+    "stage": "特效已清理，模型回到动作预览。"
+  },
+  "switchHero": {
+    "active": null,
+    "action": "ready",
+    "hero": "司马懿",
+    "stage": "选择技能预览特效"
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "effectButtonCount": 4,
+    "stageRect": {
+      "x": 10,
+      "y": 274.03125,
+      "width": 370,
+      "height": 500,
+      "top": 274.03125,
+      "right": 380,
+      "bottom": 774.03125,
+      "left": 10
+    },
+    "active": "arrows",
+    "stage": "万箭齐发 · 消散"
+  },
+  "consoleEntries": [],
+  "pageExceptionCount": 0,
+  "logEntries": [
+    {
+      "source": "rendering",
+      "level": "warning",
+      "text": "[.WebGL-0x124000df600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "timestamp": 1789321757027.74,
+      "url": "http://127.0.0.1:4178/preview/hero-models/?hero=sun_shangxiang"
+    },
+    {
+      "source": "rendering",
+      "level": "warning",
+      "text": "[.WebGL-0x124000df600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "timestamp": 1789321757039.712,
+      "url": "http://127.0.0.1:4178/preview/hero-models/?hero=sun_shangxiang"
+    },
+    {
+      "source": "rendering",
+      "level": "warning",
+      "text": "[.WebGL-0x124000df600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "timestamp": 1789321757050.397,
+      "url": "http://127.0.0.1:4178/preview/hero-models/?hero=sun_shangxiang"
+    },
+    {
+      "source": "rendering",
+      "level": "warning",
+      "text": "[.WebGL-0x124000df600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+      "timestamp": 1789321757065.228,
+      "url": "http://127.0.0.1:4178/preview/hero-models/?hero=sun_shangxiang"
+    }
+  ],
+  "pass": true
+}
