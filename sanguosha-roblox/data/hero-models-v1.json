@@ -66815,25 +66815,201 @@
         "material": "Fabric"
       },
       {
-        "name": "HighPonyBase",
+        "name": "ArcherHairCap",
         "bone": "Head",
         "shape": "box",
         "position": [
           0,
           1.3,
-          0.2
+          0
         ],
         "size": [
-          0.66,
-          0.32,
-          0.62
+          1.5,
+          0.3,
+          1.32
         ],
         "rotation": [
           0,
           0,
           0
         ],
-        "color": "#18151C",
+        "color": "#28222C",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherHairBack",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          0,
+          0.76,
+          0.61
+        ],
+        "size": [
+          1.46,
+          1.08,
+          0.22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#211C25",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherFringeLeft",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          -0.38,
+          1.17,
+          -0.64
+        ],
+        "size": [
+          0.68,
+          0.24,
+          0.17
+        ],
+        "rotation": [
+          0,
+          0,
+          -8
+        ],
+        "color": "#28222C",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherFringeRight",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          0.34,
+          1.23,
+          -0.64
+        ],
+        "size": [
+          0.74,
+          0.2,
+          0.17
+        ],
+        "rotation": [
+          0,
+          0,
+          8
+        ],
+        "color": "#302732",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherHairSide-1",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          -0.69,
+          0.9,
+          0.05
+        ],
+        "size": [
+          0.2,
+          0.8,
+          1.16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#28222C",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherTempleLock-1",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          -0.62,
+          0.73,
+          -0.64
+        ],
+        "size": [
+          0.18,
+          0.84,
+          0.17
+        ],
+        "rotation": [
+          0,
+          0,
+          -7
+        ],
+        "color": "#302732",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherHairSide1",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          0.69,
+          0.9,
+          0.05
+        ],
+        "size": [
+          0.2,
+          0.8,
+          1.16
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#28222C",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArcherTempleLock1",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          0.62,
+          0.73,
+          -0.64
+        ],
+        "size": [
+          0.18,
+          0.84,
+          0.17
+        ],
+        "rotation": [
+          0,
+          0,
+          7
+        ],
+        "color": "#302732",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "HighPonyBase",
+        "bone": "Head",
+        "shape": "box",
+        "position": [
+          0,
+          1.58,
+          0.61
+        ],
+        "size": [
+          0.52,
+          0.38,
+          0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#28222C",
         "material": "SmoothPlastic"
       },
       {
@@ -66841,21 +67017,21 @@
         "bone": "Head",
         "shape": "box",
         "position": [
-          -0.44,
-          1.18,
-          0.82
+          -0.2,
+          0.94,
+          1.0
         ],
         "size": [
-          0.3,
-          1.4,
-          0.24
+          0.38,
+          1.52,
+          0.32
         ],
         "rotation": [
-          -24,
+          -16,
           0,
-          -34
+          -18
         ],
-        "color": "#18151C",
+        "color": "#28222C",
         "material": "Fabric"
       },
       {
@@ -66863,21 +67039,21 @@
         "bone": "Head",
         "shape": "box",
         "position": [
-          -0.12,
-          1.08,
-          1.02
+          -0.4,
+          0.36,
+          1.12
         ],
         "size": [
-          0.26,
-          1.22,
-          0.22
+          0.3,
+          1.0,
+          0.24
         ],
         "rotation": [
-          -32,
+          -8,
           0,
-          -10
+          -20
         ],
-        "color": "#18151C",
+        "color": "#211C25",
         "material": "Fabric"
       },
       {
@@ -66885,21 +67061,21 @@
         "bone": "Head",
         "shape": "box",
         "position": [
-          -0.7,
-          0.96,
-          0.7
+          0.1,
+          0.64,
+          1.12
         ],
         "size": [
-          0.22,
-          0.94,
-          0.18
+          0.24,
+          1.22,
+          0.24
         ],
         "rotation": [
-          -12,
+          -16,
           0,
-          -46
+          8
         ],
-        "color": "#18151C",
+        "color": "#352B37",
         "material": "Fabric"
       },
       {
@@ -66907,19 +67083,19 @@
         "bone": "Head",
         "shape": "box",
         "position": [
-          -0.18,
-          1.2,
-          0.66
+          0,
+          1.53,
+          0.88
         ],
         "size": [
-          0.74,
-          0.16,
-          0.1
+          0.58,
+          0.15,
+          0.14
         ],
         "rotation": [
           0,
           0,
-          -16
+          -8
         ],
         "color": "#C92A3A",
         "material": "Fabric"

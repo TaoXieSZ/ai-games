@@ -1,0 +1,46 @@
+{
+  "hero": "sun_shangxiang",
+  "health": 100,
+  "hair": [
+    {
+      "part": "ArcherHairCap",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherHairBack",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherFringeLeft",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherFringeRight",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherHairSide-1",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherTempleLock-1",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherHairSide1",
+      "error": 0,
+      "bone": "Head"
+    },
+    {
+      "part": "ArcherTempleLock1",
+      "error": 0,
+      "bone": "Head"
+    }
+  ]
+}

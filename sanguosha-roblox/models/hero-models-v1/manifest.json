@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-13T16:09:54.558Z",
+  "generatedAt": "2026-09-13T16:21:23.811Z",
   "source": "data/hero-models-v1.json",
   "conventions": {
     "coordinates": "Y-up, heroes face -Z.",
@@ -14,8 +14,8 @@
     "glb": 25,
     "rbxmx": 25,
     "workshopModels": 25,
-    "triangles": 68876,
-    "vertices": 139746
+    "triangles": 68972,
+    "vertices": 139938
   },
   "heroes": [
     {
@@ -761,12 +761,12 @@
         "rbxmx": "sun_shangxiang.rbxmx"
       },
       "bones": 7,
-      "parts": 126,
+      "parts": 134,
       "glb": {
-        "vertices": 5848,
-        "triangles": 2856,
-        "nodes": 140,
-        "meshes": 132,
+        "vertices": 6040,
+        "triangles": 2952,
+        "nodes": 148,
+        "meshes": 140,
         "animations": 3,
         "bounds": {
           "min": [
@@ -776,14 +776,14 @@
           ],
           "max": [
             1.99,
-            6.114497386665876,
-            1.436536041759462
+            6.050000000000001,
+            1.4034901905609678
           ]
         }
       },
       "rbxmx": {
         "bodyParts": 7,
-        "decorations": 126,
+        "decorations": 134,
         "motors": 6,
         "humanoids": 1
       }
