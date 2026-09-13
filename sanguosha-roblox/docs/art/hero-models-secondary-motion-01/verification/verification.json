@@ -20,5 +20,12 @@
     "Workshop generated animation source executed in Studio Server with bounded sampled callback and isolated template clones.",
     "Early navigation success without movement was retried and actual displacement was verified.",
     "Workshop static cylinder comparison tolerance corrected to 0.001 radians for native CFrame float roundoff; final test passed."
-  ]
+  ],
+  "cleanStagedRebuild": {
+    "artifactCount": 55,
+    "match": true,
+    "excludedField": "manifest.generatedAt",
+    "excludedFiles": "untracked Studio .lock files",
+    "siteBuild": true
+  }
 }
