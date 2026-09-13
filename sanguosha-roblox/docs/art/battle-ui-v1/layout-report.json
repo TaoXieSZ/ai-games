@@ -1,0 +1,251 @@
+{
+  "pass": true,
+  "rows": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 960,
+      "labels": [
+        {
+          "id": "sun_shangxiang",
+          "x": 672,
+          "y": 440.390625,
+          "width": 96,
+          "height": 51,
+          "top": 440.390625,
+          "right": 768,
+          "bottom": 491.390625,
+          "left": 672
+        },
+        {
+          "id": "cao_cao",
+          "x": 672,
+          "y": 440.390625,
+          "width": 96,
+          "height": 51,
+          "top": 440.390625,
+          "right": 768,
+          "bottom": 491.390625,
+          "left": 672
+        },
+        {
+          "id": "zhao_yun",
+          "x": 672,
+          "y": 440.390625,
+          "width": 96,
+          "height": 51,
+          "top": 440.390625,
+          "right": 768,
+          "bottom": 491.390625,
+          "left": 672
+        },
+        {
+          "id": "lu_bu",
+          "x": 672,
+          "y": 440.390625,
+          "width": 96,
+          "height": 51,
+          "top": 440.390625,
+          "right": 768,
+          "bottom": 491.390625,
+          "left": 672
+        }
+      ],
+      "confirm": {
+        "x": 1210,
+        "y": 798,
+        "width": 202,
+        "height": 46,
+        "top": 798,
+        "right": 1412,
+        "bottom": 844,
+        "left": 1210
+      }
+    },
+    {
+      "name": "laptop",
+      "width": 1280,
+      "height": 720,
+      "labels": [
+        {
+          "id": "sun_shangxiang",
+          "x": 591.890625,
+          "y": 362.90625,
+          "width": 96,
+          "height": 51,
+          "top": 362.90625,
+          "right": 687.890625,
+          "bottom": 413.90625,
+          "left": 591.890625
+        },
+        {
+          "id": "cao_cao",
+          "x": 591.859375,
+          "y": 181.421875,
+          "width": 96,
+          "height": 51,
+          "top": 181.421875,
+          "right": 687.859375,
+          "bottom": 232.421875,
+          "left": 591.859375
+        },
+        {
+          "id": "zhao_yun",
+          "x": 424.03125,
+          "y": 262.5625,
+          "width": 96,
+          "height": 51,
+          "top": 262.5625,
+          "right": 520.03125,
+          "bottom": 313.5625,
+          "left": 424.03125
+        },
+        {
+          "id": "lu_bu",
+          "x": 759.234375,
+          "y": 258.5625,
+          "width": 96,
+          "height": 51,
+          "top": 258.5625,
+          "right": 855.234375,
+          "bottom": 309.5625,
+          "left": 759.234375
+        }
+      ],
+      "confirm": {
+        "x": 1050,
+        "y": 558,
+        "width": 202,
+        "height": 46,
+        "top": 558,
+        "right": 1252,
+        "bottom": 604,
+        "left": 1050
+      }
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "labels": [
+        {
+          "id": "sun_shangxiang",
+          "x": 157.390625,
+          "y": 340.390625,
+          "width": 75,
+          "height": 43,
+          "top": 340.390625,
+          "right": 232.390625,
+          "bottom": 383.390625,
+          "left": 157.390625
+        },
+        {
+          "id": "cao_cao",
+          "x": 157.34375,
+          "y": 166.8125,
+          "width": 75,
+          "height": 43,
+          "top": 166.8125,
+          "right": 232.34375,
+          "bottom": 209.8125,
+          "left": 157.34375
+        },
+        {
+          "id": "zhao_yun",
+          "x": 35.609375,
+          "y": 244.15625,
+          "width": 75,
+          "height": 43,
+          "top": 244.15625,
+          "right": 110.609375,
+          "bottom": 287.15625,
+          "left": 35.609375
+        },
+        {
+          "id": "lu_bu",
+          "x": 278.390625,
+          "y": 239.8125,
+          "width": 75,
+          "height": 43,
+          "top": 239.8125,
+          "right": 353.390625,
+          "bottom": 282.8125,
+          "left": 278.390625
+        }
+      ],
+      "confirm": {
+        "x": 12,
+        "y": 796,
+        "width": 237,
+        "height": 39,
+        "top": 796,
+        "right": 249,
+        "bottom": 835,
+        "left": 12
+      }
+    },
+    {
+      "name": "landscape",
+      "width": 844,
+      "height": 390,
+      "labels": [
+        {
+          "id": "sun_shangxiang",
+          "x": 385.96875,
+          "y": 193.25,
+          "width": 72,
+          "height": 25,
+          "top": 193.25,
+          "right": 457.96875,
+          "bottom": 218.25,
+          "left": 385.96875
+        },
+        {
+          "id": "cao_cao",
+          "x": 385.9375,
+          "y": 110.5625,
+          "width": 72,
+          "height": 25,
+          "top": 110.5625,
+          "right": 457.9375,
+          "bottom": 135.5625,
+          "left": 385.9375
+        },
+        {
+          "id": "zhao_yun",
+          "x": 309.46875,
+          "y": 147.515625,
+          "width": 72,
+          "height": 25,
+          "top": 147.515625,
+          "right": 381.46875,
+          "bottom": 172.515625,
+          "left": 309.46875
+        },
+        {
+          "id": "lu_bu",
+          "x": 462.1875,
+          "y": 145.703125,
+          "width": 72,
+          "height": 25,
+          "top": 145.703125,
+          "right": 534.1875,
+          "bottom": 170.703125,
+          "left": 462.1875
+        }
+      ],
+      "confirm": {
+        "x": 689,
+        "y": 283,
+        "width": 141,
+        "height": 34,
+        "top": 283,
+        "right": 830,
+        "bottom": 317,
+        "left": 689
+      }
+    }
+  ],
+  "gpuDisposed": true,
+  "loadFailureVisible": "场景加载失败：Unable to load ../../data/hero-models-v1.json"
+}

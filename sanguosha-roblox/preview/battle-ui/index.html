@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#13221f"><title>演武 · Roblox 三国杀</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./style.css"></head>
+<body>
+<main id="battle" aria-label="三国杀对局界面试演">
+  <canvas id="arena" aria-label="3D 演武场，使用 WASD 在自己的活动区内移动"></canvas>
+  <div class="vignette" aria-hidden="true"></div><div class="scene-watermark" aria-hidden="true">演武</div>
+  <header class="topbar"><a class="brand" href="../../../"><span class="brand-seal">杀</span><span>三国演武<small>ROBLOX · 三国杀</small></span></a><div class="round"><span>第 <b>03</b> 轮</span><i></i><span>四人演武场</span><em>界面试演</em></div><div class="top-actions"><button id="helpButton" aria-label="操作帮助">?</button><button id="resetButton" aria-label="重新开始界面试演">↺</button><a href="../hero-models/">美术图鉴 ↗</a></div></header>
+  <section id="roster" class="roster" aria-label="场上武将公开信息"></section>
+  <section class="phase-strip" aria-label="回合阶段"><span>准备</span><span>判定</span><span>摸牌</span><strong id="activePhase">出牌</strong><span>弃牌</span><span>结束</span></section>
+  <div id="worldLabels" class="world-labels" aria-label="场上角色"></div>
+  <aside class="battle-log"><button id="logToggle" aria-expanded="true">战况 <span>−</span></button><ol id="log"></ol></aside>
+  <div class="movement-note"><span class="keyset">W A S D</span><span>在自己的阵位内移动</span></div>
+  <div id="joystick" class="joystick" aria-label="拖动摇杆移动武将"><span></span></div>
+  <div id="announcement" class="announcement" role="status" aria-live="polite"></div>
+  <section id="command" class="command" aria-label="当前操作"><div><span id="commandKicker">轮到你了</span><h1 id="commandTitle">从手牌中选择一张</h1><p id="commandDescription">点击武将可查看公开信息</p></div><div id="targetChips" class="target-chips"></div></section>
+  <section id="selfPanel" class="self-panel" aria-label="我的武将与装备"></section>
+  <section class="hand-area" aria-label="我的手牌"><div class="hand-caption"><span>我的手牌 <b id="handCount">7</b></span><span id="handHint">点击选择 · 再次点击收回</span></div><div id="hand" class="hand" role="group" aria-label="手牌选择"></div></section>
+  <section class="action-panel" aria-label="出牌操作"><button id="confirm" class="primary" disabled><span>选择手牌</span><kbd>↵</kbd></button><button id="cancel" class="secondary" disabled>取消 <kbd>Esc</kbd></button><button id="endTurn" class="end-turn">结束出牌 <span>→</span></button></section>
+  <aside id="inspector" class="inspector" aria-label="武将公开信息详情" hidden><div class="drawer-head"><span id="inspectorEyebrow">公开信息</span><button id="closeInspector" aria-label="关闭武将详情">×</button></div><div id="inspectorContent"></div></aside>
+  <aside id="cardInfo" class="card-info" hidden aria-label="卡牌规则"><div id="cardInfoContent"></div></aside>
+  <dialog id="helpDialog" class="dialog"><button class="close-dialog" data-close="helpDialog" aria-label="关闭操作帮助">×</button><p class="eyebrow">演武手册</p><h2>动起来，再出一张好牌。</h2><p>WASD 或左侧摇杆移动；数字键选手牌，点击人物选目标，回车确认。Esc 关闭详情或取消选择。</p><div class="help-points"><p><b>查看对手</b><span>点击头像旁的「⋯」随时看装备。对手手牌只显示牌背与数量。</span></p><p><b>读懂目标</b><span>可选目标标有「可选」，选中后出现编号和名字。移动圈只限制活动范围。</span></p></div><label class="scenario-label" for="scenario">体验不同界面状态</label><select id="scenario"><option value="play">出牌与选择目标</option><option value="response">响应示例 · 出闪</option><option value="harvest">公开牌池 · 五谷丰登</option></select><p class="prototype-note">美术交互试演。回合、距离与技能结算由正式玩法接入。</p><button id="applyScenario" class="primary">进入所选场景</button></dialog>
+  <dialog id="poolDialog" class="dialog pool-dialog"><p class="eyebrow">五谷丰登 · 公开牌池</p><h2>轮到你选一张牌</h2><p>这些牌对所有人公开，选择后加入你的手牌。</p><div id="poolCards"></div><button data-close="poolDialog" class="secondary">返回演武场</button></dialog>
+  <dialog id="endDialog" class="dialog"><p class="eyebrow">出牌阶段结束</p><h2>让下一位武将出招。</h2><p>这一版用于体验界面流程。你可以进入响应示例，或继续试选手牌。</p><div class="dialog-actions"><button id="nextResponse" class="primary">体验出闪响应</button><button data-close="endDialog" class="secondary">继续试演</button></div></dialog>
+  <div id="loadStatus" class="load-status" role="status">正在布置演武场…</div>
+</main>
+<script src="./scene.js" defer></script><script src="./main.js" defer></script>
+</body></html>

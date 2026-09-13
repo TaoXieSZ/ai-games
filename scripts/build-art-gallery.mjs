@@ -161,7 +161,7 @@ async function build() {
     await copyFile(path.join(sourceRoot, artPath), path.join(siteRoot, "sanguosha-roblox", artPath));
   }
 
-  for (const galleryName of ["hero-pool", "game-cards", "hero-models"]) {
+  for (const galleryName of ["hero-pool", "game-cards", "hero-models", "battle-ui"]) {
     const previewRoot = path.join(sourceRoot, "preview", galleryName);
     const outputRoot = path.join(siteRoot, "sanguosha-roblox/preview", galleryName);
     await copyFile(path.join(previewRoot, "index.html"), path.join(outputRoot, "index.html"));
@@ -169,6 +169,7 @@ async function build() {
     await copyFile(path.join(previewRoot, "main.js"), path.join(outputRoot, "main.js"));
   }
 
+  await copyFile(path.join(sourceRoot, "preview/battle-ui/scene.js"), path.join(siteRoot, "sanguosha-roblox/preview/battle-ui/scene.js"));
   await copyFile(path.join(sourceRoot, "preview/hero-models/card-effects.js"), path.join(siteRoot, "sanguosha-roblox/preview/hero-models/card-effects.js"));
   await copyFile(path.join(dataRoot, "hero-models-v1.json"), path.join(siteRoot, "sanguosha-roblox/data/hero-models-v1.json"));
   await copyFile(path.join(dataRoot, "hero-effects-v1.json"), path.join(siteRoot, "sanguosha-roblox/data/hero-effects-v1.json"));

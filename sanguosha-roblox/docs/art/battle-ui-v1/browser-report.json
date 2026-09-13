@@ -1,0 +1,170 @@
+{
+  "pass": true,
+  "selection": true,
+  "targetRequired": true,
+  "privateHands": true,
+  "equipmentDetails": true,
+  "inspectPreservesSelection": true,
+  "multipleTargets": true,
+  "hiddenRegion": true,
+  "response": true,
+  "publicPool": true,
+  "mobile": true,
+  "before": {
+    "ready": true,
+    "actors": [
+      {
+        "id": "sun_shangxiang",
+        "x": 0,
+        "z": 2.05,
+        "originX": 0,
+        "originZ": 2.05,
+        "action": "ready"
+      },
+      {
+        "id": "cao_cao",
+        "x": 0,
+        "z": -2.45,
+        "originX": 0,
+        "originZ": -2.45,
+        "action": "ready"
+      },
+      {
+        "id": "zhao_yun",
+        "x": -2.72,
+        "z": -0.22,
+        "originX": -2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      },
+      {
+        "id": "lu_bu",
+        "x": 2.72,
+        "z": -0.22,
+        "originX": 2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      }
+    ],
+    "meshCount": 425,
+    "gpuBuffers": 1700
+  },
+  "moved": {
+    "ready": true,
+    "actors": [
+      {
+        "id": "sun_shangxiang",
+        "x": 0.78,
+        "z": 2.05,
+        "originX": 0,
+        "originZ": 2.05,
+        "action": "ready"
+      },
+      {
+        "id": "cao_cao",
+        "x": 0,
+        "z": -2.45,
+        "originX": 0,
+        "originZ": -2.45,
+        "action": "ready"
+      },
+      {
+        "id": "zhao_yun",
+        "x": -2.72,
+        "z": -0.22,
+        "originX": -2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      },
+      {
+        "id": "lu_bu",
+        "x": 2.72,
+        "z": -0.22,
+        "originX": 2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      }
+    ],
+    "meshCount": 425,
+    "gpuBuffers": 1700
+  },
+  "cached": {
+    "ready": true,
+    "actors": [
+      {
+        "id": "sun_shangxiang",
+        "x": 0.78,
+        "z": 2.05,
+        "originX": 0,
+        "originZ": 2.05,
+        "action": "ready"
+      },
+      {
+        "id": "cao_cao",
+        "x": 0,
+        "z": -2.45,
+        "originX": 0,
+        "originZ": -2.45,
+        "action": "ready"
+      },
+      {
+        "id": "zhao_yun",
+        "x": -2.72,
+        "z": -0.22,
+        "originX": -2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      },
+      {
+        "id": "lu_bu",
+        "x": 2.72,
+        "z": -0.22,
+        "originX": 2.72,
+        "originZ": -0.22,
+        "action": "ready"
+      }
+    ],
+    "meshCount": 425,
+    "gpuBuffers": 1700
+  },
+  "touchMove": {
+    "ready": true,
+    "actors": [
+      {
+        "id": "sun_shangxiang",
+        "x": 0.78,
+        "z": 1.72,
+        "originX": 0,
+        "originZ": 1.72,
+        "action": "ready"
+      },
+      {
+        "id": "cao_cao",
+        "x": 0,
+        "z": -2.28,
+        "originX": 0,
+        "originZ": -2.28,
+        "action": "ready"
+      },
+      {
+        "id": "zhao_yun",
+        "x": -1.82,
+        "z": -0.32,
+        "originX": -1.82,
+        "originZ": -0.32,
+        "action": "ready"
+      },
+      {
+        "id": "lu_bu",
+        "x": 1.82,
+        "z": -0.32,
+        "originX": 1.82,
+        "originZ": -0.32,
+        "action": "ready"
+      }
+    ],
+    "meshCount": 425,
+    "gpuBuffers": 1700
+  },
+  "errors": []
+}
