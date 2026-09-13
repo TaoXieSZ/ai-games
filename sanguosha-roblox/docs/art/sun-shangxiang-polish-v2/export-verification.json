@@ -1,0 +1,24 @@
+{
+  "result": "pass",
+  "changedHeroes": [
+    "sun_shangxiang"
+  ],
+  "decorations": 149,
+  "bones": 7,
+  "rigType": "rigid node hierarchy",
+  "nativeMotors": 6,
+  "attachmentGroups": 6,
+  "glbAnimations": [
+    "Idle",
+    "Walk",
+    "Attack"
+  ],
+  "requiredExportParts": [
+    "HighPonyTailA",
+    "QuiverBody",
+    "HairFlowerJewel",
+    "ArcherBracer-1",
+    "WaistFlowerJewel"
+  ],
+  "playgroundModelAndEffectsPresent": true
+}

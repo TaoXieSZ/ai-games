@@ -24,7 +24,7 @@ PROFILES = {
  'zhou_yu': (.125,.18,.285,-3,.060,'smirk'),
  'da_qiao': (.155,.25,.29,-5,.045,'smile'),
  'lu_xun': (.12,.22,.275,6,.052,'neutral'),
- 'sun_shangxiang': (.14,.22,.29,20,.069,'focused'),
+ 'sun_shangxiang': (.15,.235,.29,14,.052,'focused'),
  'hua_tuo': (.15,.105,.30,-12,.085,'smile'),
  'lu_bu': (.14,.16,.31,26,.110,'grim'),
  'diao_chan': (.155,.235,.295,11,.045,'quiet'),

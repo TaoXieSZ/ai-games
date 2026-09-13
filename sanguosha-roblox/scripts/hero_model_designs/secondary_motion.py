@@ -34,6 +34,9 @@ def add_secondary_motion(model):
         if sleeves:
             first=next(p for p in sleeves if p['name'].startswith('WhiteInnerSleeve'));pivot=[*first['position']];pivot[1]+=first['size'][1]/2
             group('sleeve-'+bone,sleeves,pivot,(8,0,9 if bone=='RightArm'else -9),.5+index)
+    if model['id']=='sun_shangxiang':
+        pony=[p for p in model['parts'] if p['name'].startswith('HighPonyTail')]
+        group('ponytail',pony,(-.06,1.60,.61),(7,4,6),.8)
     model['attachmentMotion']=groups
     if model['id']=='sun_shangxiang':add_bow_motion(model)
     return model

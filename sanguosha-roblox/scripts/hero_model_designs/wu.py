@@ -228,37 +228,87 @@ def lu_xun(meta, base):
 
 def sun_shangxiang(meta, base):
     hero = Hero(meta, base, cloth="#C92A3A", armor="#2B6C7A", gold="#F0B35A", hair="#18151C")
-    hero.remove("HairBack", "HairSide", "HairTop", "LeftShoulder", "RightShoulder", "Breastplate", "Chest")
-    hero.add("ArcherVest", "Torso", (0, 0.10, -0.64), (1.52, 1.22, 0.16), "#C92A3A", mat="Fabric")
-    hero.add("TealCrossSashA", "Torso", (-0.30, 0.12, -0.78), (0.18, 1.42, 0.10), "#2B6C7A", rot=(0, 0, -26), mat="Fabric")
-    hero.add("TealCrossSashB", "Torso", (0.30, 0.12, -0.79), (0.18, 1.42, 0.10), "#2B6C7A", rot=(0, 0, 26), mat="Fabric")
-    hero.add("TealWaistWrap", "Torso", (0, -0.60, -0.82), (1.82, 0.24, 0.14), "#2B6C7A", mat="Fabric")
-    hero.add("LightArcherChest", "Torso", (0, 0.34, -0.81), (0.86, 0.42, 0.08), "#F5D7A1", mat="Fabric")
-    # The ponytail needs a full scalp and hairline, visible from the front as well.
-    hero.add("ArcherHairCap", "Head", (0, 1.30, 0), (1.50, 0.30, 1.32), "#28222C")
-    hero.add("ArcherHairBack", "Head", (0, 0.76, 0.61), (1.46, 1.08, 0.22), "#211C25")
-    hero.add("ArcherFringeLeft", "Head", (-0.38, 1.17, -0.64), (0.68, 0.24, 0.17), "#28222C", rot=(0, 0, -8))
-    hero.add("ArcherFringeRight", "Head", (0.34, 1.23, -0.64), (0.74, 0.20, 0.17), "#302732", rot=(0, 0, 8))
-    for sign in (-1, 1):
-        hero.add("ArcherHairSide" + str(sign), "Head", (sign * 0.69, 0.90, 0.05), (0.20, 0.80, 1.16), "#28222C")
-        hero.add("ArcherTempleLock" + str(sign), "Head", (sign * 0.62, 0.73, -0.64), (0.18, 0.84, 0.17), "#302732", rot=(0, 0, sign * 7))
-    hero.add("HighPonyBase", "Head", (0, 1.58, 0.61), (0.52, 0.38, 0.55), "#28222C")
-    hero.add("HighPonyTailA", "Head", (-0.20, 0.94, 1.00), (0.38, 1.52, 0.32), "#28222C", rot=(-16, 0, -18), mat="Fabric")
-    hero.add("HighPonyTailB", "Head", (-0.40, 0.36, 1.12), (0.30, 1.00, 0.24), "#211C25", rot=(-8, 0, -20), mat="Fabric")
-    hero.add("HighPonyTailC", "Head", (0.10, 0.64, 1.12), (0.24, 1.22, 0.24), "#352B37", rot=(-16, 0, 8), mat="Fabric")
-    hero.add("RedPonyRibbon", "Head", (0, 1.53, 0.88), (0.58, 0.15, 0.14), "#C92A3A", rot=(0, 0, -8), mat="Fabric")
-    hero.add("HairFlower", "Head", (0.40, 1.28, -0.32), (0.24, 0.24, 0.12), hero.gold, "sphere", mat="Metal")
-    hero.add("HairJewel", "Head", (0.40, 1.30, -0.42), (0.14, 0.14, 0.06), "#C92A3A", "sphere", mat="Metal")
-    for sign in (-1, 1):
-        leg = "LeftLeg" if sign < 0 else "RightLeg"
+    # Replace inherited heavy infantry armour with a red, gold and jade archer outfit.
+    hero.remove("HairBack", "HairSide", "HairTop", "LeftShoulder", "RightShoulder", "Breastplate", "Chest",
+                "Back", "Waist", "Belt", "LeftBracer", "RightBracer", "LeftCuff", "RightCuff",
+                "LeftSkirt", "RightSkirt", "LeftSideSkirt", "RightSideSkirt", "LeftGreave", "RightGreave", "LeftKnee", "RightKnee")
+    red, shade, teal, gold, hair = "#B92D40", "#6E2437", "#256A6C", "#DDA75B", "#242029"
+    for bone in hero.model['bones']:
+        if bone['name'].endswith('Arm'): bone['color'] = SKIN
+        if bone['name'].endswith('Leg'): bone['color'] = "#25232B"
+    def flower(name, bone, center, radius):
+        x, y, z = center
+        for i in range(5):
+            angle = i * 72
+            rad = math.radians(angle)
+            hero.add(name + "Petal" + str(i), bone, (x + math.sin(rad)*radius*.52, y + math.cos(rad)*radius*.52, z),
+                     (radius*.55, radius*.92, .075), gold, rot=(0, 0, -angle), mat="Metal")
+        hero.add(name + "Jewel", bone, (x, y, z-.06), (radius*.55, radius*.55, .09), red, "sphere", mat="Metal")
+    hero.add("ArcherVest", "Torso", (0, .05, -.59), (1.94, 1.67, .15), red, mat="Fabric")
+    hero.add("ArcherBackVest", "Torso", (0, .05, .56), (1.94, 1.67, .14), shade, mat="Fabric")
+    hero.add("JadeCrossLapel", "Torso", (-.18, .25, -.72), (.36, 1.22, .10), teal, rot=(0, 0, -33), mat="Fabric")
+    hero.add("GoldLapelEdge", "Torso", (-.36, .25, -.78), (.065, 1.25, .055), gold, rot=(0, 0, -33), mat="Metal")
+    hero.add("RedCrossLapel", "Torso", (.20, .25, -.79), (.32, 1.22, .10), "#D44249", rot=(0, 0, 31), mat="Fabric")
+    hero.add("RedLapelEdge", "Torso", (.35, .25, -.85), (.055, 1.20, .04), gold, rot=(0, 0, 31), mat="Metal")
+    hero.add("TealWaistWrap", "Torso", (0, -.70, 0), (2.10, .38, 1.27), teal, mat="Fabric")
+    for y in [-.57, -.82]:
+        hero.add("WaistPiping"+str(y), "Torso", (0, y, -.67), (2.08, .035, .045), gold, mat="Metal")
+    flower("WaistFlower", "Torso", (-.24, -.70, -.78), .25)
+    for sign in [-1, 1]:
+        hero.add("WaistBowLoop"+str(sign), "Torso", (-.24+sign*.30, -.74, -.72), (.43, .22, .12), teal, rot=(0,0,sign*23), mat="Fabric")
+        hero.add("RibbonJadeTail"+str(sign), "Torso", (sign*.49, -1.36, -.82), (.30, 1.14, .10), teal, rot=(-8,0,sign*21), mat="Fabric")
+    # A swept hairline and connected ponytail retain the block silhouette at game scale.
+    hero.add("ArcherHairCap", "Head", (0, 1.29, .04), (1.48, .30, 1.29), hair)
+    hero.add("ArcherHairCrown", "Head", (-.12, 1.48, .18), (1.17, .20, .98), "#302832", rot=(0,0,-7))
+    hero.add("ArcherHairBack", "Head", (0, .79, .60), (1.46, 1.04, .24), "#201D25")
+    hero.add("ArcherFringeLeft", "Head", (-.31, 1.19, -.64), (.79, .29, .18), hair, rot=(0,0,-17))
+    hero.add("ArcherFringeRight", "Head", (.38, 1.27, -.64), (.61, .23, .18), "#302832", rot=(0,0,13))
+    hero.add("ArcherFringeSweep", "Head", (-.49, 1.06, -.70), (.32, .39, .13), "#352C35", rot=(0,0,-25))
+    for sign in [-1,1]:
+        hero.add("ArcherHairSide"+str(sign), "Head", (sign*.69, .94, .04), (.20,.78,1.15), hair)
+        hero.add("ArcherTempleLock"+str(sign), "Head", (sign*.67, .66, -.59), (.18,.85,.22), "#302832", rot=(0,0,sign*12))
+    hero.add("HighPonyBase", "Head", (-.06,1.60,.61), (.61,.40,.61), hair)
+    hero.add("HighPonyTailA", "Head", (-.35,1.42,1.00), (.59,.74,.50), "#302832", rot=(-24,0,-32))
+    hero.add("HighPonyTailB", "Head", (-.83,.94,1.22), (.48,.89,.38), hair, rot=(-12,0,-26))
+    hero.add("HighPonyTailC", "Head", (-1.16,.36,1.27), (.33,.78,.28), "#201D25", rot=(8,0,-20))
+    hero.add("HighPonyTailFacet", "Head", (-.66,1.03,1.05), (.14,1.03,.08), "#44343C", rot=(-16,0,-25))
+    hero.add("RedPonyRibbon", "Head", (-.06,1.60,.94), (.66,.18,.16), red, rot=(0,0,-8), mat="Fabric")
+    for sign in [-1,1]:
+        hero.add("PonyBowLoop"+str(sign), "Head", (-.06+sign*.33,1.63,.94), (.47,.25,.18), "#D44249", rot=(0,0,sign*25), mat="Fabric")
+        hero.add("HairRibbonTail"+str(sign), "Head", (-.12+sign*.41,.82,1.47), (.17,1.54,.09), red, rot=(-12,0,sign*15), mat="Fabric")
+    flower("HairFlower", "Head", (.57,1.37,-.74), .27)
+    # Cuffs cover the real block arms; decoration inside the rig would be invisible.
+    for sign in [-1,1]:
         arm = "LeftArm" if sign < 0 else "RightArm"
-        hero.add("BareUpperArm" + str(sign), arm, (0, 0.05, -0.01), (0.54, 0.62, 0.52), SKIN)
-        hero.add("RedForearmWrap" + str(sign), arm, (0, -0.56, -0.02), (0.54, 0.38, 0.54), "#C92A3A", mat="Fabric")
-        hero.add("GoldBracer" + str(sign), arm, (0, -0.86, -0.02), (0.58, 0.26, 0.56), hero.gold, mat="Metal")
-        hero.add("ArcherSkirt" + str(sign), leg, (0, -0.48, -0.76), (0.76, 0.86, 0.12), "#C92A3A", rot=(0, 0, sign * 10), mat="Fabric")
-        hero.add("DarkShorts" + str(sign), leg, (0, -0.10, -0.02), (0.62, 0.78, 0.54), "#18151C", mat="Fabric")
-        hero.add("KneeGuard" + str(sign), leg, (0, -0.74, -0.40), (0.60, 0.24, 0.12), hero.gold, mat="Metal")
-        hero.add("SkirtGoldTrim" + str(sign), leg, (sign * 0.22, -0.46, -0.84), (0.08, 0.78, 0.08), hero.gold, rot=(0, 0, sign * 8), mat="Metal")
+        leg = "LeftLeg" if sign < 0 else "RightLeg"
+        hero.add("RedShoulderSleeve"+str(sign),arm,(0,.17,0),(.97,.53,1.05),red,mat="Fabric")
+        hero.add("ShoulderGoldEdge"+str(sign),arm,(0,-.04,-.01),(1.00,.065,1.07),gold,mat="Metal")
+        hero.add("ArcherBracer"+str(sign),arm,(0,-.88,-.015),(.96,.75,1.04),shade,mat="Fabric")
+        for y in [-.54,-1.22]:
+            hero.add("BracerRim"+str(sign)+str(y),arm,(0,y,-.015),(.99,.075,1.07),gold,mat="Metal")
+        hero.add("BracerFace"+str(sign),arm,(0,-.88,-.56),(.71,.55,.08),red,mat="Metal")
+        flower("BracerFlower"+str(sign),arm,(0,-.86,-.63),.16)
+        hero.add("ArcherSkirtRim"+str(sign),leg,(0,-.34,-.66),(.94,.95,.15),gold,rot=(0,0,sign*6),mat="Metal")
+        hero.add("ArcherSkirt"+str(sign),leg,(0,-.34,-.75),(.82,.83,.08),red,rot=(0,0,sign*6),mat="Fabric")
+        for row in range(2):
+            for x in [-.24,.24]:
+                hero.add("SkirtStud"+str(sign)+str(row)+str(x),leg,(x,-.10-row*.29,-.81),(.065,.065,.035),gold,rot=(0,0,45),mat="Metal")
+        hero.add("ArcherSideSkirt"+str(sign),leg,(sign*.48,-.31,.05),(.13,.95,1.13),shade,rot=(0,0,sign*8),mat="Fabric")
+        hero.add("ArcherBackSkirt"+str(sign),leg,(0,-.32,.58),(.88,.91,.13),red,mat="Fabric")
+        hero.add("ArcherBackHem"+str(sign),leg,(0,-.75,.67),(.88,.07,.05),gold,mat="Metal")
+        hero.add("ShinGuardRim"+str(sign),leg,(0,-1.21,-.54),(.87,.78,.13),gold,mat="Metal")
+        hero.add("ShinGuard"+str(sign),leg,(0,-1.21,-.62),(.75,.64,.075),shade,mat="Metal")
+        hero.add("ShinGuardInlay"+str(sign),leg,(0,-1.20,-.67),(.20,.25,.04),red,rot=(0,0,45),mat="Metal")
+    hero.add("ArcherShoulderPlate", "LeftArm", (0,.38,-.04), (1.10,.20,1.18), gold, rot=(0,0,7), mat="Metal")
+    hero.add("ArcherShoulderInset", "LeftArm", (0,.49,-.04), (.88,.06,.96), shade, rot=(0,0,7), mat="Metal")
+    # The back gets an offset quiver, leaving the ponytail clear on the opposite side.
+    hero.add("QuiverBody", "Torso", (.76,.20,.85), (.46,1.40,.40), shade, rot=(0,0,-10), mat="Fabric")
+    for y in [-.44,.78]:
+        hero.add("QuiverRim"+str(y),"Torso",(.76,y,.86),(.51,.10,.45),gold,rot=(0,0,-10),mat="Metal")
+    for i in range(3):
+        x=.63+i*.16
+        hero.add("QuiverArrow"+str(i),"Torso",(x,1.01+i*.09,.87),(.045,.91,.045),"#C9AB7C","cylinder")
+        hero.add("QuiverFeather"+str(i),"Torso",(x,1.40+i*.09,.87),(.14,.29,.06),red,rot=(0,0,-12),mat="Fabric")
     hero.add("BowGrip", "LeftArm", (0.0, -0.98, -0.98), (0.34, 0.38, 0.22), hero.gold, mat="Metal")
     hero.add("BowBackbone", "LeftArm", (0.0, -0.98, -1.03), (0.12, 2.72, 0.12), WOOD, "cylinder", mat="Metal")
     hero.add("BowUpperCurve", "LeftArm", (0.22, -0.08, -1.03), (0.12, 1.12, 0.12), WOOD, "cylinder", rot=(0, 0, -14), mat="Metal")
