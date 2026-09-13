@@ -16,32 +16,32 @@ const templateFiles = readdirSync(modelDir)
   .sort();
 const availableIds = new Set(templateFiles.map((name) => name.replace(/\.rbxmx$/, '')));
 
-const explicitActionTypes = new Map([
-  ['cao_cao', 'sword'],
-  ['sima_yi', 'fan-card'],
-  ['xiahou_dun', 'sword'],
-  ['zhang_liao', 'spear'],
-  ['xu_chu', 'hammer'],
-  ['guo_jia', 'fan-card'],
-  ['zhen_ji', 'fan-card'],
-  ['liu_bei', 'sword'],
-  ['guan_yu', 'sword'],
-  ['zhang_fei', 'spear'],
-  ['zhuge_liang', 'fan-card'],
-  ['zhao_yun', 'spear'],
-  ['ma_chao', 'spear'],
-  ['huang_yueying', 'fan-card'],
-  ['sun_quan', 'sword'],
-  ['gan_ning', 'sword'],
-  ['lu_meng', 'fan-card'],
-  ['huang_gai', 'hammer'],
-  ['zhou_yu', 'fan-card'],
-  ['da_qiao', 'fan-card'],
-  ['lu_xun', 'fan-card'],
-  ['sun_shangxiang', 'bow'],
-  ['hua_tuo', 'fan-card'],
-  ['lu_bu', 'spear'],
-  ['diao_chan', 'fan-card'],
+const explicitActionProfiles = new Map([
+  ['cao_cao', { actionType: 'sword', actionHand: 'right' }],
+  ['sima_yi', { actionType: 'fan-card', actionHand: 'left' }],
+  ['xiahou_dun', { actionType: 'sword', actionHand: 'right' }],
+  ['zhang_liao', { actionType: 'spear', actionHand: 'both' }],
+  ['xu_chu', { actionType: 'hammer', actionHand: 'left' }],
+  ['guo_jia', { actionType: 'fan-card', actionHand: 'both' }],
+  ['zhen_ji', { actionType: 'fan-card', actionHand: 'right' }],
+  ['liu_bei', { actionType: 'fan-card', actionHand: 'both' }],
+  ['guan_yu', { actionType: 'sword', actionHand: 'right' }],
+  ['zhang_fei', { actionType: 'spear', actionHand: 'right' }],
+  ['zhuge_liang', { actionType: 'fan-card', actionHand: 'right' }],
+  ['zhao_yun', { actionType: 'spear', actionHand: 'right' }],
+  ['ma_chao', { actionType: 'spear', actionHand: 'right' }],
+  ['huang_yueying', { actionType: 'fan-card', actionHand: 'right' }],
+  ['sun_quan', { actionType: 'sword', actionHand: 'right' }],
+  ['gan_ning', { actionType: 'sword', actionHand: 'right' }],
+  ['lu_meng', { actionType: 'fan-card', actionHand: 'left' }],
+  ['huang_gai', { actionType: 'hammer', actionHand: 'right' }],
+  ['zhou_yu', { actionType: 'fan-card', actionHand: 'left' }],
+  ['da_qiao', { actionType: 'fan-card', actionHand: 'right' }],
+  ['lu_xun', { actionType: 'fan-card', actionHand: 'left' }],
+  ['sun_shangxiang', { actionType: 'bow', actionHand: 'left' }],
+  ['hua_tuo', { actionType: 'fan-card', actionHand: 'left' }],
+  ['lu_bu', { actionType: 'spear', actionHand: 'right' }],
+  ['diao_chan', { actionType: 'fan-card', actionHand: 'left' }],
 ]);
 
 
@@ -57,7 +57,7 @@ const catalog = heroArt.map((hero) => ({
   title: hero.title,
   template: hero.id,
   available: availableIds.has(hero.id),
-  actionType: actionTypeFor(hero.id, modelById.get(hero.id)),
+  ...actionProfileFor(hero.id, modelById.get(hero.id)),
   ready: modelById.get(hero.id)?.poses?.ready || {},
 }));
 
@@ -72,7 +72,7 @@ for (const id of availableIds) {
       title: '3D Template',
       template: id,
       available: true,
-      actionType: actionTypeFor(id, model),
+      ...actionProfileFor(id, model),
       ready: model?.poses?.ready || {},
     });
   }
@@ -108,16 +108,16 @@ function catalogModuleSource() {
   return `local HttpService = game:GetService("HttpService")\nreturn HttpService:JSONDecode(${longBracketLua(json)})\n`;
 }
 
-function actionTypeFor(id, model) {
-  if (explicitActionTypes.has(id)) return explicitActionTypes.get(id);
-  if (!model || !Array.isArray(model.parts)) return 'sword';
+function actionProfileFor(id, model) {
+  if (explicitActionProfiles.has(id)) return explicitActionProfiles.get(id);
+  if (!model || !Array.isArray(model.parts)) return { actionType: 'sword', actionHand: 'right' };
   const names = model.parts.map((part) => String(part.name || '').toLowerCase()).join(' ');
-  if (names.includes('hammer') || names.includes('mallet')) return 'hammer';
-  if (names.includes('bow')) return 'bow';
-  if (names.includes('spear') || names.includes('lance') || names.includes('halberd')) return 'spear';
-  if (names.includes('fan') || names.includes('card') || names.includes('scroll') || names.includes('jadebrace') || names.includes('bamboo')) return 'fan-card';
-  if (names.includes('sword') || names.includes('blade') || names.includes('dao') || names.includes('knife')) return 'sword';
-  return 'fan-card';
+  if (names.includes('hammer') || names.includes('mallet')) return { actionType: 'hammer', actionHand: names.includes('left') ? 'left' : 'right' };
+  if (names.includes('bow')) return { actionType: 'bow', actionHand: 'left' };
+  if (names.includes('spear') || names.includes('lance') || names.includes('halberd')) return { actionType: 'spear', actionHand: 'right' };
+  if (names.includes('fan') || names.includes('card') || names.includes('scroll') || names.includes('jadebrace') || names.includes('bamboo')) return { actionType: 'fan-card', actionHand: 'right' };
+  if (names.includes('sword') || names.includes('blade') || names.includes('dao') || names.includes('knife')) return { actionType: 'sword', actionHand: 'right' };
+  return { actionType: 'fan-card', actionHand: 'right' };
 }
 
 function remapTemplateXml(fileName) {

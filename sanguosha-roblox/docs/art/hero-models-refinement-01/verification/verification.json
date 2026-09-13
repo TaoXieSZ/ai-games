@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-13",
+  "baseline": "6a686ad",
+  "modelCount": 25,
+  "nativePlayHeroesPassed": 25,
+  "motionBrowserSamples": 100,
+  "nativePrimaryHandChecked": true,
+  "playScreenshotsAvailable": false,
+  "nativeImages": "Edit-time renders of final model geometry",
+  "rotationMatrixValidationMaxError": 4.94e-08,
+  "limitations": [
+    "R6 rigid geometry; cloth and bowstring deformation are not implemented.",
+    "No full card-game rules or mobile Roblox device acceptance in this iteration."
+  ],
+  "sha256": {
+    "data/hero-models-v1.json": "08655c092c29d85e769b02b3fb2fb16160ba84c64a2ef3166f5aaec88035deb1",
+    "models/hero-models-v1/hero-playground.rbxlx": "0e5925da7ffb3153cfe150194790d45b4f84933201128e8302a64d085d92dfd6",
+    "models/hero-models-v1/hero-model-workshop.rbxlx": "ac23b0fda12580e32b59945d536204464718733223f675e666727edda2cff9ef",
+    "workshop/HeroPlayground.server.luau": "4c223c5c6750be0ede61579f259eb972c9fc54e51dc3e0883a7a278246d17aa9"
+  },
+  "additionalNativeCheck": {
+    "hero": "zhen_ji",
+    "shoulderPositionError": 1.1920928955078125e-07,
+    "shoulderAngleError": 0,
+    "weldErrors": 0
+  }
+}

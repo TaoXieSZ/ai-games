@@ -44,6 +44,34 @@ const factionNames = {
   qun: "群",
 };
 
+const actionProfiles = new Map([
+  ["cao_cao", { actionType: "sword", actionHand: "right" }],
+  ["sima_yi", { actionType: "fan-card", actionHand: "left" }],
+  ["xiahou_dun", { actionType: "sword", actionHand: "right" }],
+  ["zhang_liao", { actionType: "spear", actionHand: "both" }],
+  ["xu_chu", { actionType: "hammer", actionHand: "left" }],
+  ["guo_jia", { actionType: "fan-card", actionHand: "both" }],
+  ["zhen_ji", { actionType: "fan-card", actionHand: "right" }],
+  ["liu_bei", { actionType: "fan-card", actionHand: "both" }],
+  ["guan_yu", { actionType: "sword", actionHand: "right" }],
+  ["zhang_fei", { actionType: "spear", actionHand: "right" }],
+  ["zhuge_liang", { actionType: "fan-card", actionHand: "right" }],
+  ["zhao_yun", { actionType: "spear", actionHand: "right" }],
+  ["ma_chao", { actionType: "spear", actionHand: "right" }],
+  ["huang_yueying", { actionType: "fan-card", actionHand: "right" }],
+  ["sun_quan", { actionType: "sword", actionHand: "right" }],
+  ["gan_ning", { actionType: "sword", actionHand: "right" }],
+  ["lu_meng", { actionType: "fan-card", actionHand: "left" }],
+  ["huang_gai", { actionType: "hammer", actionHand: "right" }],
+  ["zhou_yu", { actionType: "fan-card", actionHand: "left" }],
+  ["da_qiao", { actionType: "fan-card", actionHand: "right" }],
+  ["lu_xun", { actionType: "fan-card", actionHand: "left" }],
+  ["sun_shangxiang", { actionType: "bow", actionHand: "left" }],
+  ["hua_tuo", { actionType: "fan-card", actionHand: "left" }],
+  ["lu_bu", { actionType: "spear", actionHand: "right" }],
+  ["diao_chan", { actionType: "fan-card", actionHand: "left" }],
+]);
+
 function escapeHtml(value = "") {
   return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 }
@@ -77,6 +105,8 @@ async function loadModels() {
     const data = await response.json();
     if (!Array.isArray(data) || !data.length) throw new Error("模型数据为空");
     state.models = data.map(normalizeModel).map(prepareModelRuntime);
+    const requestedHero = new URLSearchParams(location.search).get("hero");
+    state.modelIndex = Math.max(0, state.models.findIndex((model) => model.id === requestedHero));
     statusEl.textContent = "";
   } catch (error) {
     state.models = [];
@@ -165,6 +195,9 @@ function setupTabs() {
     button.setAttribute("aria-pressed", String(index === state.modelIndex));
     button.addEventListener("click", () => {
       state.modelIndex = index;
+      const url = new URL(location.href);
+      url.searchParams.set("hero", model.id);
+      history.replaceState(null, "", url);
       frameCurrentModel(Math.PI - 0.35);
       refreshUi();
     });
@@ -404,15 +437,18 @@ function bindArray(attribute, buffer, size) {
 function computeBoneMatrices(model, action, time) {
   const boneMap = new Map(model.bones.map((bone) => [bone.name, bone]));
   const matrices = new Map();
-  const pulse = action === "ready" ? Math.sin(time * 2.2) * 3 : action === "walk" ? Math.sin(time * 5.4) * 18 : Math.sin(time * 7.0) * 8;
 
   function resolve(name) {
     if (matrices.has(name)) return matrices.get(name);
     const bone = boneMap.get(name);
     if (!bone) return identityMat4();
     const parent = bone.parent ? resolve(bone.parent) : identityMat4();
-    const pose = poseFor(model, action, bone.name, pulse, time);
-    const local = multiplyMat4(translationMat4(...vec3(bone.position)), rotationMat4(...pose.map(degToRad)));
+    const ready = model.poses?.ready?.[bone.name] || [0, 0, 0];
+    const offset = poseOffsetFor(model, action, bone.name, time);
+    const local = multiplyMat4(
+      multiplyMat4(translationMat4(...vec3(bone.position)), rotationMat4Xyz(...ready.map(degToRad))),
+      rotationMat4Xyz(...offset.map(degToRad)),
+    );
     const world = multiplyMat4(parent, local);
     matrices.set(name, world);
     return world;
@@ -422,21 +458,102 @@ function computeBoneMatrices(model, action, time) {
   return matrices;
 }
 
-function poseFor(model, action, boneName, pulse, time) {
-  const base = model.poses?.[action]?.[boneName] || model.poses?.ready?.[boneName] || [0, 0, 0];
-  const pose = [...base];
-  if (action === "ready") {
-    if (boneName === "Torso") pose[0] += pulse * 0.22;
-    if (boneName === "Head") pose[1] += pulse * 0.18;
-  } else if (action === "walk") {
-    if (boneName === "LeftArm" || boneName === "RightLeg") pose[0] += pulse;
-    if (boneName === "RightArm" || boneName === "LeftLeg") pose[0] -= pulse;
-    if (boneName === "Torso") pose[2] += Math.sin(time * 5.4) * 2.5;
-  } else if (action === "attack") {
-    if (boneName === "RightArm") pose[0] += pulse - 28;
-    if (boneName === "Torso") pose[1] += pulse * 0.7;
+function poseOffsetFor(model, action, boneName, time) {
+  const authored = action !== "ready" ? model.poses?.[action]?.[boneName] : null;
+  const offset = authored || (action === "ready"
+    ? idleOffsetForPreview(boneName, time)
+    : action === "walk"
+      ? walkOffsetForPreview(boneName, time)
+      : action === "attack"
+        ? attackOffsetForPreview(model, boneName, time)
+        : [0, 0, 0]);
+  return offset;
+}
+
+function idleOffsetForPreview(boneName, time) {
+  const pulse = Math.sin(time * 2.2) * 3;
+  if (boneName === "Torso") return [pulse * 0.22, 0, 0];
+  if (boneName === "Head") return [0, pulse * 0.18, 0];
+  return [0, 0, 0];
+}
+
+function walkOffsetForPreview(boneName, time) {
+  const pulse = Math.sin(time * 5.4) * 18;
+  if (boneName === "LeftArm" || boneName === "RightLeg") return [pulse, 0, 0];
+  if (boneName === "RightArm" || boneName === "LeftLeg") return [-pulse, 0, 0];
+  if (boneName === "Torso") return [0, 0, Math.sin(time * 5.4) * 2.5];
+  return [0, 0, 0];
+}
+
+function actionProfileForModel(model) {
+  return actionProfiles.get(model.id) || { actionType: "sword", actionHand: "right" };
+}
+
+function attackPhase(time) {
+  const t = ((time * 1.25) % 1 + 1) % 1;
+  const windup = Math.sin(clamp(t / 0.28, 0, 1) * Math.PI * 0.5);
+  const strike = Math.sin(clamp((t - 0.2) / 0.48, 0, 1) * Math.PI);
+  const recover = clamp((t - 0.64) / 0.36, 0, 1);
+  return { t, windup, strike, recover, power: Math.max(strike, windup * (1 - recover)) };
+}
+
+function attackOffsetForPreview(model, boneName, time) {
+  const profile = actionProfileForModel(model);
+  const phase = attackPhase(time);
+  return attackOffsetByProfile(profile, boneName, phase);
+}
+
+function attackOffsetByProfile(profile, boneName, phase) {
+  const leftPrimary = profile.actionHand === "left";
+  const bothHands = profile.actionHand === "both";
+  if (profile.actionType === "spear") {
+    const thrust = Math.sin(clamp((phase.t - 0.12) / 0.58, 0, 1) * Math.PI);
+    if (boneName === "Torso") return [-7 * thrust, -4 * thrust, 4 * thrust];
+    if (boneName === "Head") return [3 * thrust, -3 * thrust, 0];
+    if (boneName === "RightArm") return [-42 * thrust, 0, -8 * thrust];
+    if (boneName === "LeftArm") return [-30 * thrust, 0, 10 * thrust];
+    if (boneName === "RightLeg") return [-10 * thrust, 0, 0];
+    if (boneName === "LeftLeg") return [8 * thrust, 0, 0];
+  } else if (profile.actionType === "bow") {
+    const draw = phase.t < 0.58 ? phase.windup : 1 - phase.recover;
+    const release = Math.sin(clamp((phase.t - 0.45) / 0.25, 0, 1) * Math.PI);
+    if (boneName === "Torso") return [-2 * draw, -7 * draw, -3 * draw];
+    if (boneName === "Head") return [0, -5 * draw, 0];
+    if (boneName === "LeftArm") return [-24 * draw, 0, -48 * draw];
+    if (boneName === "RightArm") return [-38 * draw + 18 * release, 0, 54 * draw - 22 * release];
+    if (boneName === "RightLeg") return [-4 * draw, 0, 0];
+    if (boneName === "LeftLeg") return [5 * draw, 0, 0];
+  } else if (profile.actionType === "fan-card") {
+    const p = phase.power;
+    if (boneName === "Torso") return [-2 * p, 8 * p, (leftPrimary ? 5 : -5) * p];
+    if (boneName === "Head") return [-3 * p, (leftPrimary ? -8 : 8) * p, 0];
+    if (bothHands && boneName === "LeftArm") return [-28 * p, 0, -30 * p];
+    if (bothHands && boneName === "RightArm") return [-28 * p, 0, 30 * p];
+    if (leftPrimary && boneName === "LeftArm") return [-36 * p, 0, -42 * p];
+    if (leftPrimary && boneName === "RightArm") return [-12 * p, 0, 20 * p];
+    if (boneName === "RightArm") return [-36 * p, 0, 42 * p];
+    if (boneName === "LeftArm") return [-12 * p, 0, -20 * p];
+    if (boneName === "RightLeg") return [3 * p, 0, 0];
+    if (boneName === "LeftLeg") return [-3 * p, 0, 0];
+  } else if (profile.actionType === "hammer") {
+    const slam = Math.sin(clamp((phase.t - 0.08) / 0.68, 0, 1) * Math.PI);
+    if (boneName === "Torso") return [-12 * slam, (leftPrimary ? -7 : 7) * slam, (leftPrimary ? 12 : -12) * slam];
+    if (boneName === "Head") return [5 * slam, 0, 0];
+    if (leftPrimary && boneName === "LeftArm") return [-92 * slam, 0, 24 * slam];
+    if (leftPrimary && boneName === "RightArm") return [16 * slam, 0, -18 * slam];
+    if (boneName === "RightArm") return [-92 * slam, 0, -24 * slam];
+    if (boneName === "LeftArm") return [16 * slam, 0, 18 * slam];
+    if (boneName === "RightLeg") return [-8 * slam, 0, 0];
+    if (boneName === "LeftLeg") return [12 * slam, 0, 0];
+  } else {
+    if (boneName === "Torso") return [0, -8 * phase.power, 10 * phase.strike];
+    if (boneName === "Head") return [0, -5 * phase.power, 0];
+    if (boneName === "RightArm") return [-90 * phase.strike, 0, 18 * phase.strike];
+    if (boneName === "LeftArm") return [20 * phase.strike, 0, -12 * phase.strike];
+    if (boneName === "RightLeg") return [-6 * phase.strike, 0, 0];
+    if (boneName === "LeftLeg") return [6 * phase.strike, 0, 0];
   }
-  return pose;
+  return [0, 0, 0];
 }
 
 function primitiveMesh(shape, size, color) {
@@ -681,6 +798,16 @@ function rotationMat4(rx, ry, rz) {
   const y = [cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1];
   const z = [cz, sz, 0, 0, -sz, cz, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
   return multiplyMat4(multiplyMat4(z, y), x);
+}
+
+function rotationMat4Xyz(rx, ry, rz) {
+  const sx = Math.sin(rx), cx = Math.cos(rx);
+  const sy = Math.sin(ry), cy = Math.cos(ry);
+  const sz = Math.sin(rz), cz = Math.cos(rz);
+  const x = [1, 0, 0, 0, 0, cx, sx, 0, 0, -sx, cx, 0, 0, 0, 0, 1];
+  const y = [cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1];
+  const z = [cz, sz, 0, 0, -sz, cz, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+  return multiplyMat4(multiplyMat4(x, y), z);
 }
 
 function multiplyMat4(a, b) {

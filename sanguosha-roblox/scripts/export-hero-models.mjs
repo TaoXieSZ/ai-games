@@ -37,6 +37,34 @@ const SHAPE_TOKEN = {
   cylinder: 2,
 };
 
+const ACTION_PROFILES = new Map([
+  ['cao_cao', { actionType: 'sword', actionHand: 'right' }],
+  ['sima_yi', { actionType: 'fan-card', actionHand: 'left' }],
+  ['xiahou_dun', { actionType: 'sword', actionHand: 'right' }],
+  ['zhang_liao', { actionType: 'spear', actionHand: 'both' }],
+  ['xu_chu', { actionType: 'hammer', actionHand: 'left' }],
+  ['guo_jia', { actionType: 'fan-card', actionHand: 'both' }],
+  ['zhen_ji', { actionType: 'fan-card', actionHand: 'right' }],
+  ['liu_bei', { actionType: 'fan-card', actionHand: 'both' }],
+  ['guan_yu', { actionType: 'sword', actionHand: 'right' }],
+  ['zhang_fei', { actionType: 'spear', actionHand: 'right' }],
+  ['zhuge_liang', { actionType: 'fan-card', actionHand: 'right' }],
+  ['zhao_yun', { actionType: 'spear', actionHand: 'right' }],
+  ['ma_chao', { actionType: 'spear', actionHand: 'right' }],
+  ['huang_yueying', { actionType: 'fan-card', actionHand: 'right' }],
+  ['sun_quan', { actionType: 'sword', actionHand: 'right' }],
+  ['gan_ning', { actionType: 'sword', actionHand: 'right' }],
+  ['lu_meng', { actionType: 'fan-card', actionHand: 'left' }],
+  ['huang_gai', { actionType: 'hammer', actionHand: 'right' }],
+  ['zhou_yu', { actionType: 'fan-card', actionHand: 'left' }],
+  ['da_qiao', { actionType: 'fan-card', actionHand: 'right' }],
+  ['lu_xun', { actionType: 'fan-card', actionHand: 'left' }],
+  ['sun_shangxiang', { actionType: 'bow', actionHand: 'left' }],
+  ['hua_tuo', { actionType: 'fan-card', actionHand: 'left' }],
+  ['lu_bu', { actionType: 'spear', actionHand: 'right' }],
+  ['diao_chan', { actionType: 'fan-card', actionHand: 'left' }],
+]);
+
 function usage() {
   return [
     'Usage: node scripts/export-hero-models.mjs',
@@ -113,7 +141,7 @@ function main() {
     });
   }
 
-  const workshopXml = buildWorkshop(workshopEntries);
+  const workshopXml = buildWorkshop(workshopEntries, heroes);
   writeFileSync(path.join(outputDir, 'hero-model-workshop.rbxlx'), workshopXml);
   manifest.counts.workshopModels = workshopEntries.length;
   writeFileSync(path.join(outputDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
@@ -216,7 +244,7 @@ function buildGlb(hero) {
       name: part.name,
       mesh,
       translation: part.position,
-      rotation: quatFromEulerDegrees(part.rotation),
+      rotation: quatFromEulerDegreesZyx(part.rotation),
     });
     writer.nodes[boneNodes.get(part.bone)].children.push(visual);
     writer.expandWorldBounds(geometry.positions, addVec3(worldByBone.get(part.bone), part.position), rotation);
@@ -373,17 +401,17 @@ function addAnimations(writer, hero, boneNodes) {
     {
       name: 'Idle',
       times: [0, 1, 2],
-      poseAt: (bone, i) => addVec(ready[bone.name] || [0, 0, 0], idleOffset(bone.name, i)),
+      offsetAt: (bone, i) => idleOffset(bone.name, i),
     },
     {
       name: 'Walk',
       times: [0, 0.25, 0.5, 0.75, 1],
-      poseAt: (bone, i) => addVec(ready[bone.name] || [0, 0, 0], walkOffset(bone.name, i)),
+      offsetAt: (bone, i) => walkOffset(bone.name, i),
     },
     {
       name: 'Attack',
       times: [0, 0.18, 0.38, 0.7],
-      poseAt: (bone, i) => addVec(ready[bone.name] || [0, 0, 0], attackOffset(bone.name, i)),
+      offsetAt: (bone, i) => attackOffset(hero, bone.name, i),
     },
   ];
 
@@ -393,8 +421,10 @@ function addAnimations(writer, hero, boneNodes) {
     const channels = [];
     for (const bone of hero.bones) {
       const rotations = [];
+      const readyRotation = quatFromEulerDegrees(ready[bone.name] || [0, 0, 0]);
       for (let i = 0; i < clip.times.length; i += 1) {
-        rotations.push(...quatFromEulerDegrees(clip.poseAt(bone, i)));
+        const offsetRotation = quatFromEulerDegrees(clip.offsetAt(bone, i));
+        rotations.push(...quatMultiply(readyRotation, offsetRotation));
       }
       const output = writer.accessor('rotation', new Float32Array(rotations), 'VEC4', 5126);
       const samplerIndex = samplers.length;
@@ -424,18 +454,82 @@ function walkOffset(name, i) {
   return [0, 0, 0];
 }
 
-function attackOffset(name, i) {
-  const phases = [0, 0.75, 1, 0];
-  const v = phases[i] || 0;
-  if (name === 'Torso') return [0, v * -8, v * 8];
-  if (name === 'RightArm') return [v * -95, 0, v * 16];
-  if (name === 'LeftArm') return [v * 20, 0, v * -8];
-  if (name === 'Head') return [0, v * -6, 0];
+function actionProfileForHero(hero) {
+  return ACTION_PROFILES.get(hero.id) || { actionType: 'sword', actionHand: 'right' };
+}
+
+function attackOffset(hero, name, i) {
+  const profile = actionProfileForHero(hero);
+  const t = [0, 0.3, 0.62, 1][i] || 0;
+  const windup = Math.sin(clamp(t / 0.28, 0, 1) * Math.PI * 0.5);
+  const strike = Math.sin(clamp((t - 0.2) / 0.48, 0, 1) * Math.PI);
+  const recover = clamp((t - 0.64) / 0.36, 0, 1);
+  const power = Math.max(strike, windup * (1 - recover));
+  const leftPrimary = profile.actionHand === 'left';
+  const bothHands = profile.actionHand === 'both';
+  if (profile.actionType === 'spear') {
+    const thrust = Math.sin(clamp((t - 0.12) / 0.58, 0, 1) * Math.PI);
+    if (name === 'Torso') return [-7 * thrust, -4 * thrust, 4 * thrust];
+    if (name === 'Head') return [3 * thrust, -3 * thrust, 0];
+    if (name === 'RightArm') return [-42 * thrust, 0, -8 * thrust];
+    if (name === 'LeftArm') return [-30 * thrust, 0, 10 * thrust];
+    if (name === 'RightLeg') return [-10 * thrust, 0, 0];
+    if (name === 'LeftLeg') return [8 * thrust, 0, 0];
+  } else if (profile.actionType === 'bow') {
+    const draw = t < 0.58 ? windup : 1 - recover;
+    const release = Math.sin(clamp((t - 0.45) / 0.25, 0, 1) * Math.PI);
+    if (name === 'Torso') return [-2 * draw, -7 * draw, -3 * draw];
+    if (name === 'Head') return [0, -5 * draw, 0];
+    if (name === 'LeftArm') return [-24 * draw, 0, -48 * draw];
+    if (name === 'RightArm') return [-38 * draw + 18 * release, 0, 54 * draw - 22 * release];
+    if (name === 'RightLeg') return [-4 * draw, 0, 0];
+    if (name === 'LeftLeg') return [5 * draw, 0, 0];
+  } else if (profile.actionType === 'fan-card') {
+    if (name === 'Torso') return [-2 * power, 8 * power, (leftPrimary ? 5 : -5) * power];
+    if (name === 'Head') return [-3 * power, (leftPrimary ? -8 : 8) * power, 0];
+    if (bothHands && name === 'LeftArm') return [-28 * power, 0, -30 * power];
+    if (bothHands && name === 'RightArm') return [-28 * power, 0, 30 * power];
+    if (leftPrimary && name === 'LeftArm') return [-36 * power, 0, -42 * power];
+    if (leftPrimary && name === 'RightArm') return [-12 * power, 0, 20 * power];
+    if (name === 'RightArm') return [-36 * power, 0, 42 * power];
+    if (name === 'LeftArm') return [-12 * power, 0, -20 * power];
+    if (name === 'RightLeg') return [3 * power, 0, 0];
+    if (name === 'LeftLeg') return [-3 * power, 0, 0];
+  } else if (profile.actionType === 'hammer') {
+    const slam = Math.sin(clamp((t - 0.08) / 0.68, 0, 1) * Math.PI);
+    if (name === 'Torso') return [-12 * slam, (leftPrimary ? -7 : 7) * slam, (leftPrimary ? 12 : -12) * slam];
+    if (name === 'Head') return [5 * slam, 0, 0];
+    if (leftPrimary && name === 'LeftArm') return [-92 * slam, 0, 24 * slam];
+    if (leftPrimary && name === 'RightArm') return [16 * slam, 0, -18 * slam];
+    if (name === 'RightArm') return [-92 * slam, 0, -24 * slam];
+    if (name === 'LeftArm') return [16 * slam, 0, 18 * slam];
+    if (name === 'RightLeg') return [-8 * slam, 0, 0];
+    if (name === 'LeftLeg') return [12 * slam, 0, 0];
+  } else {
+    if (name === 'Torso') return [0, -8 * power, 10 * strike];
+    if (name === 'Head') return [0, -5 * power, 0];
+    if (name === 'RightArm') return [-90 * strike, 0, 18 * strike];
+    if (name === 'LeftArm') return [20 * strike, 0, -12 * strike];
+    if (name === 'RightLeg') return [-6 * strike, 0, 0];
+    if (name === 'LeftLeg') return [6 * strike, 0, 0];
+  }
   return [0, 0, 0];
 }
 
-function addVec(a, b) {
-  return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+
+function quatMultiply(a, b) {
+  const [ax, ay, az, aw] = a;
+  const [bx, by, bz, bw] = b;
+  return [
+    aw * bx + ax * bw + ay * bz - az * by,
+    aw * by - ax * bz + ay * bw + az * bx,
+    aw * bz + ax * by - ay * bx + az * bw,
+    aw * bw - ax * bx - ay * by - az * bz,
+  ];
 }
 
 function geometryFor(shape, size) {
@@ -673,7 +767,7 @@ function buildRbxmxModel(hero, options = {}) {
   };
 }
 
-function buildWorkshop(entries) {
+function buildWorkshop(entries, heroes) {
   const builder = new RobloxXmlBuilder(900000);
   const stands = entries.map((entry, index) => builder.item('Part', builder.ref(), [
     propString('Name', `DemoStand_${entry.hero.id}`),
@@ -691,7 +785,7 @@ function buildWorkshop(entries) {
   ]));
   const script = builder.item('Script', builder.ref(), [
     propString('Name', 'HeroModelWorkshopDemo'),
-    propProtectedString('Source', demoScriptSource()),
+    propProtectedString('Source', demoScriptSource(heroes)),
   ]);
   const workspace = builder.item('Workspace', builder.ref(), [propString('Name', 'Workspace')], [...stands, ...entries.map((entry) => entry.xmlItem), script]);
   const lighting = builder.item('Lighting', builder.ref(), [
@@ -703,114 +797,229 @@ function buildWorkshop(entries) {
   return `<roblox version="4">\n${workspace}\n${lighting}\n</roblox>\n`;
 }
 
-function demoScriptSource() {
+function demoScriptSource(heroes) {
+  const readyById = Object.fromEntries(heroes.map((hero) => [hero.id, hero.poses?.ready || {}]));
+  const readyLua = luaTable(readyById);
   return `-- Generated hero-model-workshop demo animation.
 -- The standalone .rbxmx exports intentionally do not include this script.
 local RunService = game:GetService("RunService")
 
 local MOTOR_NAMES = {
-\t"RootJoint",
-\t"Neck",
-\t"Right Shoulder",
-\t"Left Shoulder",
-\t"Right Hip",
-\t"Left Hip",
+	"RootJoint",
+	"Neck",
+	"Right Shoulder",
+	"Left Shoulder",
+	"Right Hip",
+	"Left Hip",
 }
 
+local READY_POSES = ${readyLua}
+
+local ACTION_PROFILES = {
+	cao_cao = { actionType = "sword", actionHand = "right" },
+	sima_yi = { actionType = "fan-card", actionHand = "left" },
+	xiahou_dun = { actionType = "sword", actionHand = "right" },
+	zhang_liao = { actionType = "spear", actionHand = "both" },
+	xu_chu = { actionType = "hammer", actionHand = "left" },
+	guo_jia = { actionType = "fan-card", actionHand = "both" },
+	zhen_ji = { actionType = "fan-card", actionHand = "right" },
+	liu_bei = { actionType = "fan-card", actionHand = "both" },
+	guan_yu = { actionType = "sword", actionHand = "right" },
+	zhang_fei = { actionType = "spear", actionHand = "right" },
+	zhuge_liang = { actionType = "fan-card", actionHand = "right" },
+	zhao_yun = { actionType = "spear", actionHand = "right" },
+	ma_chao = { actionType = "spear", actionHand = "right" },
+	huang_yueying = { actionType = "fan-card", actionHand = "right" },
+	sun_quan = { actionType = "sword", actionHand = "right" },
+	gan_ning = { actionType = "sword", actionHand = "right" },
+	lu_meng = { actionType = "fan-card", actionHand = "left" },
+	huang_gai = { actionType = "hammer", actionHand = "right" },
+	zhou_yu = { actionType = "fan-card", actionHand = "left" },
+	da_qiao = { actionType = "fan-card", actionHand = "right" },
+	lu_xun = { actionType = "fan-card", actionHand = "left" },
+	sun_shangxiang = { actionType = "bow", actionHand = "left" },
+	hua_tuo = { actionType = "fan-card", actionHand = "left" },
+	lu_bu = { actionType = "spear", actionHand = "right" },
+	diao_chan = { actionType = "fan-card", actionHand = "left" },
+}
+
+local function modelId(modelName)
+	return modelName:match("([a-z_]+)$") or modelName
+end
+
+local function profileFor(id)
+	return ACTION_PROFILES[id] or { actionType = "sword", actionHand = "right" }
+end
+
+local function readyFor(id)
+	return READY_POSES[id] or {}
+end
+
+local function anglesFromDegrees(value)
+	if type(value) ~= "table" then
+		return CFrame.new()
+	end
+	return CFrame.Angles(math.rad(value[1] or 0), math.rad(value[2] or 0), math.rad(value[3] or 0))
+end
+
 local function collectRig(model)
-\tlocal humanoid = model:FindFirstChildOfClass("Humanoid")
-\tif not humanoid then
-\t\treturn nil
-\tend
-\tlocal root = model:FindFirstChild("HumanoidRootPart")
-\tif root and root:IsA("BasePart") then
-\t\troot.Anchored = true
-\tend
-\tlocal motors = {}
-\tfor _, name in ipairs(MOTOR_NAMES) do
-\t\tlocal motor = model:FindFirstChild(name, true)
-\t\tif motor and motor:IsA("Motor6D") then
-\t\t\tmotors[name] = {
-\t\t\t\tmotor = motor,
-\t\t\t\tbaseC0 = motor.C0,
-\t\t\t}
-\t\tend
-\tend
-\treturn {
-\t\tmodel = model,
-\t\tmotors = motors,
-\t\tphase = (#model.Name % 7) * 0.17,
-\t}
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	if not humanoid then
+		return nil
+	end
+	local root = model:FindFirstChild("HumanoidRootPart")
+	if root and root:IsA("BasePart") then
+		root.Anchored = true
+	end
+	local id = modelId(model.Name)
+	local ready = readyFor(id)
+	local motors = {}
+	for _, name in ipairs(MOTOR_NAMES) do
+		local motor = model:FindFirstChild(name, true)
+		if motor and motor:IsA("Motor6D") then
+			local boneName = ({
+				RootJoint = "Torso",
+				Neck = "Head",
+				["Right Shoulder"] = "RightArm",
+				["Left Shoulder"] = "LeftArm",
+				["Right Hip"] = "RightLeg",
+				["Left Hip"] = "LeftLeg",
+			})[name]
+			motors[name] = {
+				motor = motor,
+				baseC0 = motor.C0,
+				ready = anglesFromDegrees(boneName and ready[boneName]),
+			}
+		end
+	end
+	local profile = profileFor(id)
+	return {
+		model = model,
+		motors = motors,
+		phase = (#model.Name % 7) * 0.17,
+		actionType = profile.actionType,
+		actionHand = profile.actionHand,
+	}
 end
 
 local rigs = {}
 for _, child in ipairs(workspace:GetChildren()) do
-\tif child:IsA("Model") then
-\t\tlocal rig = collectRig(child)
-\t\tif rig then
-\t\t\ttable.insert(rigs, rig)
-\t\tend
-\tend
+	if child:IsA("Model") then
+		local rig = collectRig(child)
+		if rig then
+			table.insert(rigs, rig)
+		end
+	end
 end
 
 local function setMotor(rig, name, transform)
-\tlocal record = rig.motors[name]
-\tif record then
-\t\trecord.motor.Transform = CFrame.new()
-\t\trecord.motor.C0 = record.baseC0 * transform
-\tend
+	local record = rig.motors[name]
+	if record then
+		record.motor.Transform = CFrame.new()
+		record.motor.C0 = record.baseC0 * record.ready * transform
+	end
 end
 
 local function poseIdle(rig, localT)
-\tlocal breathe = math.sin(localT * math.pi * 2) * 0.04
-\tsetMotor(rig, "RootJoint", CFrame.Angles(0, 0, breathe))
-\tsetMotor(rig, "Neck", CFrame.Angles(breathe * 0.7, 0, 0))
-\tsetMotor(rig, "Right Shoulder", CFrame.Angles(-breathe * 0.8, 0, breathe * 0.5))
-\tsetMotor(rig, "Left Shoulder", CFrame.Angles(breathe * 0.8, 0, -breathe * 0.5))
-\tsetMotor(rig, "Right Hip", CFrame.new())
-\tsetMotor(rig, "Left Hip", CFrame.new())
+	local breathe = math.sin(localT * math.pi * 2) * 0.04
+	setMotor(rig, "RootJoint", CFrame.Angles(0, 0, breathe))
+	setMotor(rig, "Neck", CFrame.Angles(breathe * 0.7, 0, 0))
+	setMotor(rig, "Right Shoulder", CFrame.Angles(-breathe * 0.8, 0, breathe * 0.5))
+	setMotor(rig, "Left Shoulder", CFrame.Angles(breathe * 0.8, 0, -breathe * 0.5))
+	setMotor(rig, "Right Hip", CFrame.new())
+	setMotor(rig, "Left Hip", CFrame.new())
 end
 
 local function poseWalk(rig, localT)
-\tlocal swing = math.sin(localT * math.pi * 2)
-\tlocal lift = math.abs(swing) * 0.04
-\tsetMotor(rig, "RootJoint", CFrame.new(0, lift, 0) * CFrame.Angles(math.rad(-2), 0, math.rad(swing * 4)))
-\tsetMotor(rig, "Neck", CFrame.Angles(math.rad(2), 0, 0))
-\tsetMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(swing * 24), 0, 0))
-\tsetMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(swing * -24), 0, 0))
-\tsetMotor(rig, "Right Hip", CFrame.Angles(math.rad(swing * -28), 0, 0))
-\tsetMotor(rig, "Left Hip", CFrame.Angles(math.rad(swing * 28), 0, 0))
+	local swing = math.sin(localT * math.pi * 2)
+	local lift = math.abs(swing) * 0.04
+	setMotor(rig, "RootJoint", CFrame.new(0, lift, 0) * CFrame.Angles(math.rad(-2), 0, math.rad(swing * 4)))
+	setMotor(rig, "Neck", CFrame.Angles(math.rad(2), 0, 0))
+	setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(swing * 24), 0, 0))
+	setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(swing * -24), 0, 0))
+	setMotor(rig, "Right Hip", CFrame.Angles(math.rad(swing * -28), 0, 0))
+	setMotor(rig, "Left Hip", CFrame.Angles(math.rad(swing * 28), 0, 0))
 end
 
 local function poseAttack(rig, localT)
-\tlocal windup = math.clamp(localT / 0.25, 0, 1)
-\tlocal strike = math.clamp((localT - 0.25) / 0.25, 0, 1)
-\tlocal recover = math.clamp((localT - 0.5) / 0.5, 0, 1)
-\tlocal power = if localT < 0.25 then windup * 0.45 else (1 - recover)
-\tlocal snap = math.sin(strike * math.pi) * 0.75
-\tsetMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(-10 * power), math.rad(10 * power)))
-\tsetMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * power), 0))
-\tsetMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-80 * power - 30 * snap), 0, math.rad(18 * power)))
-\tsetMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(18 * power), 0, math.rad(-12 * power)))
-\tsetMotor(rig, "Right Hip", CFrame.Angles(math.rad(-6 * power), 0, 0))
-\tsetMotor(rig, "Left Hip", CFrame.Angles(math.rad(6 * power), 0, 0))
+	local clamped = math.clamp(localT, 0, 1)
+	local windup = math.sin(math.clamp(clamped / 0.28, 0, 1) * math.pi * 0.5)
+	local strike = math.sin(math.clamp((clamped - 0.2) / 0.48, 0, 1) * math.pi)
+	local recover = math.clamp((clamped - 0.64) / 0.36, 0, 1)
+	local power = math.max(strike, windup * (1 - recover))
+	local leftPrimary = rig.actionHand == "left"
+	local bothHands = rig.actionHand == "both"
+	if rig.actionType == "spear" then
+		local thrust = math.sin(math.clamp((clamped - 0.12) / 0.58, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-7 * thrust), math.rad(-4 * thrust), math.rad(4 * thrust)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(3 * thrust), math.rad(-3 * thrust), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-42 * thrust), 0, math.rad(-8 * thrust)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-30 * thrust), 0, math.rad(10 * thrust)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-10 * thrust), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(8 * thrust), 0, 0))
+	elseif rig.actionType == "bow" then
+		local draw = if clamped < 0.58 then windup else 1 - recover
+		local release = math.sin(math.clamp((clamped - 0.45) / 0.25, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * draw), math.rad(-7 * draw), math.rad(-3 * draw)))
+		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * draw), 0))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-24 * draw), 0, math.rad(-48 * draw)))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-38 * draw + 18 * release), 0, math.rad(54 * draw - 22 * release)))
+	elseif rig.actionType == "fan-card" then
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * power), math.rad(8 * power), math.rad(if leftPrimary then 5 * power else -5 * power)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(-3 * power), math.rad(if leftPrimary then -8 * power else 8 * power), 0))
+		if leftPrimary then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-36 * power), 0, math.rad(-42 * power)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-12 * power), 0, math.rad(20 * power)))
+		elseif bothHands then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-28 * power), 0, math.rad(-30 * power)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-28 * power), 0, math.rad(30 * power)))
+		else
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-36 * power), 0, math.rad(42 * power)))
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-12 * power), 0, math.rad(-20 * power)))
+		end
+	elseif rig.actionType == "hammer" then
+		local slam = math.sin(math.clamp((clamped - 0.08) / 0.68, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-12 * slam), math.rad(if leftPrimary then -7 * slam else 7 * slam), math.rad(if leftPrimary then 12 * slam else -12 * slam)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(5 * slam), 0, 0))
+		if leftPrimary then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-92 * slam), 0, math.rad(24 * slam)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(16 * slam), 0, math.rad(-18 * slam)))
+		else
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-92 * slam), 0, math.rad(-24 * slam)))
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(16 * slam), 0, math.rad(18 * slam)))
+		end
+	else
+		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(-8 * power), math.rad(10 * strike)))
+		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * power), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-90 * strike), 0, math.rad(18 * strike)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(20 * strike), 0, math.rad(-12 * strike)))
+	end
 end
 
 RunService.Heartbeat:Connect(function()
-\tlocal now = os.clock()
-\tfor _, rig in ipairs(rigs) do
-\t\tlocal t = (now + rig.phase) % 6
-\t\tif t < 2 then
-\t\t\tposeIdle(rig, t / 2)
-\t\telseif t < 4 then
-\t\t\tposeWalk(rig, (t - 2) / 2)
-\t\telse
-\t\t\tposeAttack(rig, (t - 4) / 2)
-\t\tend
-\tend
+	local now = os.clock()
+	for _, rig in ipairs(rigs) do
+		local t = (now + rig.phase) % 6
+		if t < 2 then
+			poseIdle(rig, t / 2)
+		elseif t < 4 then
+			poseWalk(rig, (t - 2) / 2)
+		else
+			poseAttack(rig, (t - 4) / 2)
+		end
+	end
 end)
 `;
 }
+
+function luaTable(value) {
+  if (Array.isArray(value)) return `{ ${value.map((entry) => luaTable(entry)).join(', ')} }`;
+  if (value && typeof value === 'object') {
+    return `{ ${Object.entries(value).map(([key, entry]) => `[${JSON.stringify(key)}] = ${luaTable(entry)}`).join(', ')} }`;
+  }
+  return JSON.stringify(value);
+}
+
 
 function readmeFor(manifest) {
   return `# Hero Models V1
@@ -915,6 +1124,19 @@ function quatFromEulerDegrees([x, y, z]) {
     cx * cy * sz + sx * sy * cz,
     cx * cy * cz - sx * sy * sz,
   ];
+}
+
+function quatFromEulerDegreesZyx([x, y, z]) {
+  const qx = quatFromAxisAngle([1, 0, 0], x);
+  const qy = quatFromAxisAngle([0, 1, 0], y);
+  const qz = quatFromAxisAngle([0, 0, 1], z);
+  return quatMultiply(quatMultiply(qz, qy), qx);
+}
+
+function quatFromAxisAngle([x, y, z], degrees) {
+  const half = (degrees * Math.PI) / 360;
+  const s = Math.sin(half);
+  return [x * s, y * s, z * s, Math.cos(half)];
 }
 
 function eulerMatrixDegrees([x, y, z]) {

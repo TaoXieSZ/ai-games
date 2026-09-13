@@ -218,25 +218,49 @@ def _guo_jia(meta, base):
 
 
 def _zhen_ji(meta, base):
-    palette = meta["palette"]
-    h = _reset(meta, base, cloth=palette[0], armor=palette[1], gold=palette[3])
-    h.remove("CheekGuard", "CheekEdge", "Plume", "Helm", "HelmTop", "HelmRidge", "HelmBrowBand", "HelmBack")
-    h.scale(0.96, 0.98, 0.98)
-    h.add("WinterCoat", "Torso", (0, 0.03, -0.58), (1.82, 1.60, .16), "#F5F7FD", mat="Fabric")
-    h.add("SplitSkirtL", "LeftLeg", (0, -0.46, -0.71), (.82, 1.48, .12), "#9DC0E1", mat="Fabric")
-    h.add("SplitSkirtR", "RightLeg", (0, -0.46, -0.71), (.82, 1.48, .12), "#9DC0E1", mat="Fabric")
-    h.add("TrimL", "LeftLeg", (0, -0.58, -0.79), (.86, .18, .14), "#DDE9F8", mat="Fabric")
-    h.add("TrimR", "RightLeg", (0, -0.58, -0.79), (.86, .18, .14), "#DDE9F8", mat="Fabric")
-    h.add("WaterSleeveL", "LeftArm", (0, -0.78, -0.04), (1.18, .96, .86), "#7DA0CC", mat="Fabric")
-    h.add("WaterSleeveR", "RightArm", (0, -0.78, -0.04), (1.18, .96, .86), "#7DA0CC", mat="Fabric")
-    h.add("WovenRibL", "Torso", (-0.58, 0.22, -0.16), (0.42, .82, .12), h.gold)
-    h.add("WovenRibR", "Torso", (0.58, 0.22, -0.16), (0.42, .82, .12), h.gold)
-    # 折扇
-    h.card("FoldingFan", bone="RightArm", pos=(0.18, -0.45, -1.02), color="#F0F3F8", rot=(0, 16, 0))
-    h.add("FanStem", "RightArm", (0.18, -1.00, -0.75), (.11, .44, .11), h.gold, shape="cylinder", mat="Metal")
-    h.add("FanPlate", "RightArm", (0.18, -0.42, -1.00), (.02, .53, .54), "#9EC0E7", shape="box", rot=(0, 18, 0))
-    h.bun(height=0.34)
-    h.pose(RightArm=[-16, 16, 34], LeftArm=[18, -44, -20], Head=[3, 8, 0], Torso=[0, -6, 0])
+    h = _reset(meta, base, cloth="#567BAA", armor="#DDE8F3", gold="#C7AA6B")
+    h.remove("Breastplate", "Chest", "LeftShoulder", "RightShoulder", "BackArmor", "BackBand", "BackVertical",
+             "LeftBracer", "RightBracer", "LeftCuff", "RightCuff", "LeftSkirt", "RightSkirt", "LeftSideSkirt",
+             "RightSideSkirt", "LeftGreave", "RightGreave", "LeftKnee", "RightKnee", "BeltDragon", "BeltTrim", "WaistBelt", "Hair")
+    h.robe("#EEF1ED")
+    h.add("CourtBelt", "Torso", (0,-.78,0), (2.04,.24,1.18), "#7399BB", mat="Fabric")
+    h.add("BlueInnerRobe", "Torso", (0,.05,-.73), (.58,1.58,.09), "#527BA9", mat="Fabric")
+    h.add("CourtJewel", "Torso", (0,-.78,-.68), (.31,.31,.12), h.gold, rot=(0,0,45), mat="Metal")
+    h.add("CourtJewelInset", "Torso", (0,-.78,-.76), (.17,.17,.07), "#47799B", rot=(0,0,45))
+    for sign,leg,arm in [(-1,"LeftLeg","LeftArm"),(1,"RightLeg","RightArm")]:
+        h.add("BlueOverSkirt"+str(sign),leg,(sign*.26,-.53,-.84),(.34,1.62,.13),"#719CC5",rot=(0,0,-sign*5),mat="Fabric")
+        h.add("SkirtBack"+str(sign),leg,(0,-.53,.55),(.94,1.61,.12),"#9BB8D3",mat="Fabric")
+        h.add("SkirtSide"+str(sign),leg,(sign*.50,-.53,.02),(.13,1.65,1.10),"#87A8C9",mat="Fabric")
+        for k in range(3):
+            h.add("PlumEmbroidery"+str(sign)+str(k),leg,(sign*.22,-.15-k*.42,-.93),(.13,.13,.026),"#F5F0DF",rot=(0,0,45),mat="Fabric")
+        h.add("BlueSleeveBorder"+str(sign),arm,(0,-1.01,-.02),(1.16,.19,1.15),"#668BB2",mat="Fabric")
+        h.add("SleeveGoldSeam"+str(sign),arm,(0,-.89,-.61),(1.10,.045,.035),h.gold,mat="Fabric")
+        for k in range(3):
+            h.add("WaterSleeveTail"+str(sign)+str(k),arm,(sign*(.35+k*.10),-1.08-k*.21,.32+k*.05),(.56,.36,.12),"#D8E5EB",rot=(0,0,-sign*(12+k*8)),mat="Fabric")
+    # Layered swept hair frames the face; the long rear strands end above the belt.
+    h.add("HairCrown", "Head", (0,1.21,.10), (1.51,.37,1.22), h.hair)
+    h.add("HairBack", "Head", (0,.59,.61), (1.46,1.58,.28), h.hair)
+    h.bun(height=.64)
+    for sign in [-1,1]:
+        for k in range(3):
+            h.add("SweptFringe"+str(sign)+str(k),"Head",(sign*(.16+k*.18),1.17-k*.10,-.51),(.42,.24,.22),"#252830",rot=(0,0,sign*(12+k*9)))
+        h.add("LongSideLock"+str(sign),"Head",(sign*.66,.24,.04),(.23,1.60,.59),h.hair,rot=(-8,0,sign*5))
+        h.add("CrownBranch"+str(sign),"Head",(sign*.48,1.49,-.27),(.75,.085,.09),h.gold,rot=(0,0,sign*12),mat="Metal")
+        h.add("HairPearl"+str(sign),"Head",(sign*.64,1.47,-.34),(.16,.16,.14),"#F4EEDF",shape="sphere")
+        for k in range(3):h.add("BlueHairBead"+str(sign)+str(k),"Head",(sign*.84,1.35-k*.17,-.05),(.10,.13,.10),"#719BBC",shape="sphere")
+        h.add("HairTassel"+str(sign),"Head",(sign*.84,.71,-.05),(.13,.38,.10),"#D5C393",mat="Fabric")
+    # Open fan: connected radial ribs meet the hand, rather than a card-sized plate.
+    import math
+    for i in range(9):
+        angle=-64+i*16; rad=math.radians(angle)
+        x=math.sin(rad); y=math.cos(rad)
+        h.add("FanLeaf"+str(i),"RightArm",(x*.61,-1.25+y*.61,-.82),(.24,.85,.075),"#DBE7EE",rot=(0,0,-angle),mat="Fabric")
+        h.add("FanRib"+str(i),"RightArm",(x*.53,-1.25+y*.53,-.87),(.035,1.05,.025),h.gold,rot=(0,0,-angle),mat="Metal")
+        h.add("FanBlueRim"+str(i),"RightArm",(x*.99,-1.25+y*.99,-.83),(.27,.12,.10),"#5B83AA",rot=(0,0,-angle),mat="Fabric")
+    h.add("FanGrip","RightArm",(0,-1.34,-.82),(.14,.34,.16),h.gold,mat="Metal")
+    h.grip()
+    h.pose(RightArm=[-10,0,-20],LeftArm=[-56,8,34],Head=[1,12,0],Torso=[0,-10,0])
+    h.scale(.96,.98,.98)
     return h.done()
 
 

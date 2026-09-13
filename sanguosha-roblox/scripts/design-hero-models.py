@@ -151,6 +151,7 @@ def build(hero):
 
 if __name__ == '__main__':
     from hero_model_designs import wei, wu, shu_qun
+    from hero_model_designs.faces import refine_face
     catalog=json.loads((ROOT/'data/hero-art-v1.json').read_text())
     models=[build(x) for x in ['guan_yu','zhao_yun']]
     base=models[1]
@@ -162,5 +163,6 @@ if __name__ == '__main__':
         model['faction']=meta['faction']
         model['referenceArt']=meta['artPath']
         model['poseDescription']=meta['pose']
+        refine_face(model)
     out=ROOT/'data/hero-models-v1.json';out.write_text(json.dumps(models,ensure_ascii=False,indent=2)+'\n')
     for m in models:print(m['id'],len(m['bones']),'bones',len(m['parts']),'decorations')

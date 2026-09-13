@@ -80,6 +80,7 @@ local function registerAnimatedRig(model: Model, mode: string, phase: number, he
 		mode = mode,
 		phase = phase,
 		actionType = hero and hero.actionType or "sword",
+		actionHand = hero and hero.actionHand or "right",
 		action = "Idle",
 		actionStart = 0,
 	}
@@ -121,36 +122,57 @@ local function poseWalk(rig, localT: number)
 end
 
 local function poseAttack(rig, localT: number)
-	local strike = math.sin(math.clamp(localT, 0, 1) * math.pi)
-	local power = 1 - math.clamp((localT - 0.25) / 0.75, 0, 1)
+	local clamped = math.clamp(localT, 0, 1)
+	local windup = math.sin(math.clamp(clamped / 0.28, 0, 1) * math.pi * 0.5)
+	local strike = math.sin(math.clamp((clamped - 0.2) / 0.48, 0, 1) * math.pi)
+	local recover = math.clamp((clamped - 0.64) / 0.36, 0, 1)
+	local power = math.max(strike, windup * (1 - recover))
+	local hand = rig.actionHand or "right"
+	local leftPrimary = hand == "left"
+	local bothHands = hand == "both"
 	if rig.actionType == "spear" then
-		local thrust = math.sin(math.clamp(localT * 1.25, 0, 1) * math.pi)
-		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-7 * thrust), 0, math.rad(4 * thrust)))
-		setMotor(rig, "Neck", CFrame.Angles(math.rad(3 * thrust), 0, 0))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-36 * thrust), 0, math.rad(-8 * thrust)))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-22 * thrust), 0, math.rad(10 * thrust)))
+		local thrust = math.sin(math.clamp((clamped - 0.12) / 0.58, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-7 * thrust), math.rad(-4 * thrust), math.rad(4 * thrust)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(3 * thrust), math.rad(-3 * thrust), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-42 * thrust), 0, math.rad(-8 * thrust)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-30 * thrust), 0, math.rad(10 * thrust)))
 		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-10 * thrust), 0, 0))
 		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(8 * thrust), 0, 0))
 	elseif rig.actionType == "bow" then
-		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(-5 * strike), 0))
-		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-4 * strike), 0))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-22 * strike), 0, math.rad(42 * strike)))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-28 * strike), 0, math.rad(-46 * strike)))
-		setMotor(rig, "Right Hip", CFrame.new())
-		setMotor(rig, "Left Hip", CFrame.new())
+		local draw = if clamped < 0.58 then windup else 1 - recover
+		local release = math.sin(math.clamp((clamped - 0.45) / 0.25, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * draw), math.rad(-7 * draw), math.rad(-3 * draw)))
+		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * draw), 0))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-24 * draw), 0, math.rad(-48 * draw)))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-38 * draw + 18 * release), 0, math.rad(54 * draw - 22 * release)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-4 * draw), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(5 * draw), 0, 0))
 	elseif rig.actionType == "fan-card" then
-		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(10 * strike), math.rad(-5 * strike)))
-		setMotor(rig, "Neck", CFrame.Angles(math.rad(-3 * strike), math.rad(8 * strike), 0))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-20 * strike), 0, math.rad(34 * strike)))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-18 * strike), 0, math.rad(-34 * strike)))
-		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(3 * strike), 0, 0))
-		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(-3 * strike), 0, 0))
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * power), math.rad(8 * power), math.rad(if leftPrimary then 5 * power else -5 * power)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(-3 * power), math.rad(if leftPrimary then -8 * power else 8 * power), 0))
+		if leftPrimary then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-36 * power), 0, math.rad(-42 * power)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-12 * power), 0, math.rad(20 * power)))
+		elseif bothHands then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-28 * power), 0, math.rad(-30 * power)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-28 * power), 0, math.rad(30 * power)))
+		else
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-36 * power), 0, math.rad(42 * power)))
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-12 * power), 0, math.rad(-20 * power)))
+		end
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(3 * power), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(-3 * power), 0, 0))
 	elseif rig.actionType == "hammer" then
-		local slam = math.sin(math.clamp((localT - 0.1) / 0.65, 0, 1) * math.pi)
-		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-10 * slam), math.rad(8 * power), math.rad(12 * slam)))
+		local slam = math.sin(math.clamp((clamped - 0.08) / 0.68, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-12 * slam), math.rad(if leftPrimary then -7 * slam else 7 * slam), math.rad(if leftPrimary then 12 * slam else -12 * slam)))
 		setMotor(rig, "Neck", CFrame.Angles(math.rad(5 * slam), 0, 0))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(18 * slam), 0, math.rad(-18 * slam)))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-82 * slam), 0, math.rad(24 * slam)))
+		if leftPrimary then
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-92 * slam), 0, math.rad(24 * slam)))
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(16 * slam), 0, math.rad(-18 * slam)))
+		else
+			setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-92 * slam), 0, math.rad(-24 * slam)))
+			setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(16 * slam), 0, math.rad(18 * slam)))
+		end
 		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-8 * slam), 0, 0))
 		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(12 * slam), 0, 0))
 	else

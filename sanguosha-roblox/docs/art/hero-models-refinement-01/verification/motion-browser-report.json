@@ -1,0 +1,607 @@
+{
+  "heroes": 25,
+  "frames": 100,
+  "errors": [],
+  "results": [
+    {
+      "id": "cao_cao",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 174
+    },
+    {
+      "id": "cao_cao",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 174
+    },
+    {
+      "id": "cao_cao",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 174
+    },
+    {
+      "id": "cao_cao",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 174
+    },
+    {
+      "id": "sima_yi",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 66
+    },
+    {
+      "id": "sima_yi",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 66
+    },
+    {
+      "id": "sima_yi",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 66
+    },
+    {
+      "id": "sima_yi",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 66
+    },
+    {
+      "id": "xiahou_dun",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 152
+    },
+    {
+      "id": "xiahou_dun",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 152
+    },
+    {
+      "id": "xiahou_dun",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 152
+    },
+    {
+      "id": "xiahou_dun",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 152
+    },
+    {
+      "id": "zhang_liao",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 165
+    },
+    {
+      "id": "zhang_liao",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 165
+    },
+    {
+      "id": "zhang_liao",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 165
+    },
+    {
+      "id": "zhang_liao",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 165
+    },
+    {
+      "id": "xu_chu",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 73
+    },
+    {
+      "id": "xu_chu",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 73
+    },
+    {
+      "id": "xu_chu",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 73
+    },
+    {
+      "id": "xu_chu",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 73
+    },
+    {
+      "id": "guo_jia",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 68
+    },
+    {
+      "id": "guo_jia",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 68
+    },
+    {
+      "id": "guo_jia",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 68
+    },
+    {
+      "id": "guo_jia",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 68
+    },
+    {
+      "id": "zhen_ji",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 116
+    },
+    {
+      "id": "zhen_ji",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 116
+    },
+    {
+      "id": "zhen_ji",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 116
+    },
+    {
+      "id": "zhen_ji",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 116
+    },
+    {
+      "id": "liu_bei",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 104
+    },
+    {
+      "id": "liu_bei",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 104
+    },
+    {
+      "id": "liu_bei",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 104
+    },
+    {
+      "id": "liu_bei",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 104
+    },
+    {
+      "id": "guan_yu",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 217
+    },
+    {
+      "id": "guan_yu",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 217
+    },
+    {
+      "id": "guan_yu",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 217
+    },
+    {
+      "id": "guan_yu",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 217
+    },
+    {
+      "id": "zhang_fei",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "zhang_fei",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "zhang_fei",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "zhang_fei",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "zhuge_liang",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 125
+    },
+    {
+      "id": "zhuge_liang",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 125
+    },
+    {
+      "id": "zhuge_liang",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 125
+    },
+    {
+      "id": "zhuge_liang",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 125
+    },
+    {
+      "id": "zhao_yun",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 226
+    },
+    {
+      "id": "zhao_yun",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 226
+    },
+    {
+      "id": "zhao_yun",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 226
+    },
+    {
+      "id": "zhao_yun",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 226
+    },
+    {
+      "id": "ma_chao",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 169
+    },
+    {
+      "id": "ma_chao",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 169
+    },
+    {
+      "id": "ma_chao",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 169
+    },
+    {
+      "id": "ma_chao",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 169
+    },
+    {
+      "id": "huang_yueying",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 136
+    },
+    {
+      "id": "huang_yueying",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 136
+    },
+    {
+      "id": "huang_yueying",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 136
+    },
+    {
+      "id": "huang_yueying",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 136
+    },
+    {
+      "id": "sun_quan",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "sun_quan",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "sun_quan",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "sun_quan",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 170
+    },
+    {
+      "id": "gan_ning",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 113
+    },
+    {
+      "id": "gan_ning",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 113
+    },
+    {
+      "id": "gan_ning",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 113
+    },
+    {
+      "id": "gan_ning",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 113
+    },
+    {
+      "id": "lu_meng",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_meng",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_meng",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_meng",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "huang_gai",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 143
+    },
+    {
+      "id": "huang_gai",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 143
+    },
+    {
+      "id": "huang_gai",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 143
+    },
+    {
+      "id": "huang_gai",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 143
+    },
+    {
+      "id": "zhou_yu",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 166
+    },
+    {
+      "id": "zhou_yu",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 166
+    },
+    {
+      "id": "zhou_yu",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 166
+    },
+    {
+      "id": "zhou_yu",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 166
+    },
+    {
+      "id": "da_qiao",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 146
+    },
+    {
+      "id": "da_qiao",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 146
+    },
+    {
+      "id": "da_qiao",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 146
+    },
+    {
+      "id": "da_qiao",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 146
+    },
+    {
+      "id": "lu_xun",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_xun",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_xun",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "lu_xun",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 92
+    },
+    {
+      "id": "sun_shangxiang",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 131
+    },
+    {
+      "id": "sun_shangxiang",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 131
+    },
+    {
+      "id": "sun_shangxiang",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 131
+    },
+    {
+      "id": "sun_shangxiang",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 131
+    },
+    {
+      "id": "hua_tuo",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 118
+    },
+    {
+      "id": "hua_tuo",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 118
+    },
+    {
+      "id": "hua_tuo",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 118
+    },
+    {
+      "id": "hua_tuo",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 118
+    },
+    {
+      "id": "lu_bu",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 179
+    },
+    {
+      "id": "lu_bu",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 179
+    },
+    {
+      "id": "lu_bu",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 179
+    },
+    {
+      "id": "lu_bu",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 179
+    },
+    {
+      "id": "diao_chan",
+      "phase": 0,
+      "allFinite": true,
+      "draws": 95
+    },
+    {
+      "id": "diao_chan",
+      "phase": 0.3,
+      "allFinite": true,
+      "draws": 95
+    },
+    {
+      "id": "diao_chan",
+      "phase": 0.62,
+      "allFinite": true,
+      "draws": 95
+    },
+    {
+      "id": "diao_chan",
+      "phase": 0.999,
+      "allFinite": true,
+      "draws": 95
+    }
+  ]
+}

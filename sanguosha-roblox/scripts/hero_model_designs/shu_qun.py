@@ -93,6 +93,12 @@ def ma_chao(meta,base):
 
 def huang_yueying(meta,base):
     h=Hero(meta,base,cloth='#39694C',armor='#BC9B67',gold='#BE9956').robe('#426D50').bun(height=.43)
+    h.remove('LeftGreave','RightGreave','LeftKnee','RightKnee','BeltDragon')
+    h.add('WorkshopHeadband','Head',(0,1.21,-.54),(1.31,.16,.12),h.cloth,mat='Fabric')
+    h.add('HeadbandGear','Head',(0,1.25,-.64),(.26,.23,.08),h.gold,rot=(0,0,45),mat='Metal')
+    for sign in [-1,1]:
+        h.add('SideFringe'+str(sign),'Head',(sign*.54,.91,-.54),(.25,.68,.20),h.hair,rot=(0,0,sign*16))
+        h.add('ApronBack'+str(sign),'LeftLeg' if sign<0 else 'RightLeg',(0,-.58,.53),(.92,1.35,.12),h.cloth,mat='Fabric')
     h.add('WorkApron','Torso',(0,-.07,-.77),(1.40,1.34,.09),'#CCB58C',mat='Fabric')
     for sign in [-1,1]:
         h.add('ApronSplit'+str(sign),'LeftLeg' if sign<0 else 'RightLeg',(0,-.39,-.90),(.70,1.09,.08),'#CCB58C',mat='Fabric')
@@ -148,8 +154,13 @@ def lu_bu(meta,base):
 
 def diao_chan(meta,base):
     h=Hero(meta,base,cloth='#78529A',armor='#AA7EAE',gold='#C7AB6D',skin='#EDBC9C').robe('#79559A').bun(height=.54)
-    h.remove('LeftGreave','RightGreave','LeftKnee','RightKnee')
+    h.remove('LeftGreave','RightGreave','LeftKnee','RightKnee','LeftSkirt','RightSkirt','LeftSideSkirt','RightSideSkirt','BeltDragon')
     for sign in [-1,1]:
+        for k in range(3):
+            h.add('DancerSweptFringe'+str(sign)+str(k),'Head',(sign*(.18+k*.16),1.15-k*.10,-.53),(.36,.22,.21),'#302731',rot=(0,0,sign*(8+k*14)))
+        h.add('DancerSideSkirt'+str(sign),'LeftLeg' if sign<0 else 'RightLeg',(sign*.49,-.49,.02),(.13,1.54,1.16),'#80558E',mat='Fabric')
+        h.add('DancerBackSkirt'+str(sign),'LeftLeg' if sign<0 else 'RightLeg',(0,-.49,.59),(.97,1.54,.12),'#946697',mat='Fabric')
+        for k in range(3):h.add('DancerHemPetal'+str(sign)+str(k),'LeftLeg' if sign<0 else 'RightLeg',((k-1)*.24,-1.17,-.91),(.14,.14,.035),'#D9B4C8',rot=(0,0,45),mat='Fabric')
         h.add('LongHair'+str(sign),'Head',(sign*.57,-.04,.54),(.32,1.75,.25),h.hair,rot=(-7,0,sign*8))
         h.add('PinkSkirtPanel'+str(sign),'LeftLeg' if sign<0 else 'RightLeg',(0,-.49,-.89),(.55,1.46,.09),'#D1A1BB',rot=(0,0,sign*6),mat='Fabric')
         for i in range(5):

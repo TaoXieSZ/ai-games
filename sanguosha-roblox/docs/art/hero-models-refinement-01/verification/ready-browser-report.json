@@ -1,0 +1,491 @@
+{
+  "outDir": "/tmp/refinement-ready-qa",
+  "url": "http://127.0.0.1:4178/preview/hero-models/",
+  "heroCount": 25,
+  "heroes": [
+    {
+      "index": 0,
+      "label": "魏 曹操",
+      "title": "曹操 · 魏"
+    },
+    {
+      "index": 1,
+      "label": "魏 司马懿",
+      "title": "司马懿 · 魏"
+    },
+    {
+      "index": 2,
+      "label": "魏 夏侯惇",
+      "title": "夏侯惇 · 魏"
+    },
+    {
+      "index": 3,
+      "label": "魏 张辽",
+      "title": "张辽 · 魏"
+    },
+    {
+      "index": 4,
+      "label": "魏 许褚",
+      "title": "许褚 · 魏"
+    },
+    {
+      "index": 5,
+      "label": "魏 郭嘉",
+      "title": "郭嘉 · 魏"
+    },
+    {
+      "index": 6,
+      "label": "魏 甄姬",
+      "title": "甄姬 · 魏"
+    },
+    {
+      "index": 7,
+      "label": "蜀 刘备",
+      "title": "刘备 · 蜀"
+    },
+    {
+      "index": 8,
+      "label": "蜀 关羽",
+      "title": "关羽 · 蜀"
+    },
+    {
+      "index": 9,
+      "label": "蜀 张飞",
+      "title": "张飞 · 蜀"
+    },
+    {
+      "index": 10,
+      "label": "蜀 诸葛亮",
+      "title": "诸葛亮 · 蜀"
+    },
+    {
+      "index": 11,
+      "label": "蜀 赵云",
+      "title": "赵云 · 蜀"
+    },
+    {
+      "index": 12,
+      "label": "蜀 马超",
+      "title": "马超 · 蜀"
+    },
+    {
+      "index": 13,
+      "label": "蜀 黄月英",
+      "title": "黄月英 · 蜀"
+    },
+    {
+      "index": 14,
+      "label": "吴 孙权",
+      "title": "孙权 · 吴"
+    },
+    {
+      "index": 15,
+      "label": "吴 甘宁",
+      "title": "甘宁 · 吴"
+    },
+    {
+      "index": 16,
+      "label": "吴 吕蒙",
+      "title": "吕蒙 · 吴"
+    },
+    {
+      "index": 17,
+      "label": "吴 黄盖",
+      "title": "黄盖 · 吴"
+    },
+    {
+      "index": 18,
+      "label": "吴 周瑜",
+      "title": "周瑜 · 吴"
+    },
+    {
+      "index": 19,
+      "label": "吴 大乔",
+      "title": "大乔 · 吴"
+    },
+    {
+      "index": 20,
+      "label": "吴 陆逊",
+      "title": "陆逊 · 吴"
+    },
+    {
+      "index": 21,
+      "label": "吴 孙尚香",
+      "title": "孙尚香 · 吴"
+    },
+    {
+      "index": 22,
+      "label": "群 华佗",
+      "title": "华佗 · 群"
+    },
+    {
+      "index": 23,
+      "label": "群 吕布",
+      "title": "吕布 · 群"
+    },
+    {
+      "index": 24,
+      "label": "群 貂蝉",
+      "title": "貂蝉 · 群"
+    }
+  ],
+  "links": [
+    {
+      "hero": "曹操",
+      "glb": "../../models/hero-models-v1/cao_cao.glb",
+      "rbxmx": "../../models/hero-models-v1/cao_cao.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "身体三分之二侧转，左臂抬起向前指挥，右手停在腰间佩剑旁。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "司马懿",
+      "glb": "../../models/hero-models-v1/sima_yi.glb",
+      "rbxmx": "../../models/hero-models-v1/sima_yi.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "身体背向观众，头部越肩回望形成狼顾姿态，一只袖口在身前低处露出判定牌，另一手背在身后。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "夏侯惇",
+      "glb": "../../models/hero-models-v1/xiahou_dun.glb",
+      "rbxmx": "../../models/hero-models-v1/xiahou_dun.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "低重心迎击步，持刀手把大刀横扛肩后蓄力，另一只前臂向前格挡冲击。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "张辽",
+      "glb": "../../models/hero-models-v1/zhang_liao.glb",
+      "rbxmx": "../../models/hero-models-v1/zhang_liao.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "斜向冲刺，身体压低，一把短戟前伸，像要从对手手边夺走牌。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "许褚",
+      "glb": "../../models/hero-models-v1/xu_chu.glb",
+      "rbxmx": "../../models/hero-models-v1/xu_chu.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "双脚大开扎稳，虎首重锤拖在地上，一侧肩膀向前压，准备重砸。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "郭嘉",
+      "glb": "../../models/hero-models-v1/guo_jia.glb",
+      "rbxmx": "../../models/hero-models-v1/guo_jia.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "一膝微弯，一手按胸，另一手把两张牌轻轻分出去。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "甄姬",
+      "glb": "../../models/hero-models-v1/zhen_ji.glb",
+      "rbxmx": "../../models/hero-models-v1/zhen_ji.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "侧步轻移，一条水袖横扫身前形成防守感，折扇低持并避开脸部。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "刘备",
+      "glb": "../../models/hero-models-v1/liu_bei.glb",
+      "rbxmx": "../../models/hero-models-v1/liu_bei.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "正面开放站姿，双手把牌递向前方，双剑可见但不出鞘。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "关羽",
+      "glb": "../../models/hero-models-v1/guan_yu.glb",
+      "rbxmx": "../../models/hero-models-v1/guan_yu.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "沉稳直立，一手扶住长刀，双脚方正落地，重量感强。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "张飞",
+      "glb": "../../models/hero-models-v1/zhang_fei.glb",
+      "rbxmx": "../../models/hero-models-v1/zhang_fei.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "弯膝怒吼，嘴部张开，蛇矛从左到右低位横扫。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "诸葛亮",
+      "glb": "../../models/hero-models-v1/zhuge_liang.glb",
+      "rbxmx": "../../models/hero-models-v1/zhuge_liang.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "一手举羽扇，另一手从容整理空中的牌阵。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "赵云",
+      "glb": "../../models/hero-models-v1/zhao_yun.glb",
+      "rbxmx": "../../models/hero-models-v1/zhao_yun.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "宽步低姿，双手握枪，从腰侧向前斜线突刺。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "马超",
+      "glb": "../../models/hero-models-v1/ma_chao.glb",
+      "rbxmx": "../../models/hero-models-v1/ma_chao.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "回身转体，冲刺后把枪收回，白披风向侧面扬起。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "黄月英",
+      "glb": "../../models/hero-models-v1/huang_yueying.glb",
+      "rbxmx": "../../models/hero-models-v1/huang_yueying.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "低身调试机关扇，一手调整齿轮，另一手放出锦囊卷轴。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "孙权",
+      "glb": "../../models/hero-models-v1/sun_quan.glb",
+      "rbxmx": "../../models/hero-models-v1/sun_quan.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "转身拔剑，右手把剑向前带出，左手把旧牌向身后甩开。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "甘宁",
+      "glb": "../../models/hero-models-v1/gan_ning.glb",
+      "rbxmx": "../../models/hero-models-v1/gan_ning.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "侧向跃起，双膝收起，一手向下探出，像在拆走一张牌。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "吕蒙",
+      "glb": "../../models/hero-models-v1/lu_meng.glb",
+      "rbxmx": "../../models/hero-models-v1/lu_meng.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "收束防守站姿，双手靠近刀鞘，双脚安静居中。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "黄盖",
+      "glb": "../../models/hero-models-v1/huang_gai.glb",
+      "rbxmx": "../../models/hero-models-v1/huang_gai.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "一脚向前，一手拉开甲带，另一手把战鼓槌握在身侧下方。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "周瑜",
+      "glb": "../../models/hero-models-v1/zhou_yu.glb",
+      "rbxmx": "../../models/hero-models-v1/zhou_yu.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "优雅侧步，指挥棒像乐队指挥一样抬起，另一手递出一张背面牌。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "大乔",
+      "glb": "../../models/hero-models-v1/da_qiao.glb",
+      "rbxmx": "../../models/hero-models-v1/da_qiao.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "侧步避让，纸伞向一侧打开，把迎来的斩击轨迹导开。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "陆逊",
+      "glb": "../../models/hero-models-v1/lu_xun.glb",
+      "rbxmx": "../../models/hero-models-v1/lu_xun.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "半步后撤，一只空掌摊开，另一张牌从腰侧袖口亮出。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "孙尚香",
+      "glb": "../../models/hero-models-v1/sun_shangxiang.glb",
+      "rbxmx": "../../models/hero-models-v1/sun_shangxiang.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "单膝转身拉弓，装备坠饰在身后碎成两张牌片。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "华佗",
+      "glb": "../../models/hero-models-v1/hua_tuo.glb",
+      "rbxmx": "../../models/hero-models-v1/hua_tuo.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "温和前倾，一手递出药物，另一手把红牌护在胸前。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "吕布",
+      "glb": "../../models/hero-models-v1/lu_bu.glb",
+      "rbxmx": "../../models/hero-models-v1/lu_bu.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "双手过顶劈斩，一腿踏前，戟刃很高但戟杆不遮住脸。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    },
+    {
+      "hero": "貂蝉",
+      "glb": "../../models/hero-models-v1/diao_chan.glb",
+      "rbxmx": "../../models/hero-models-v1/diao_chan.rbxmx",
+      "playground": "../../models/hero-models-v1/hero-playground.rbxlx",
+      "glbDisabled": "false",
+      "rbxmxDisabled": "false",
+      "fileStatus": "可下载：GLB、RBXMX、Roblox试演场",
+      "poseNotes": "旋身舞步，一条袖带指向左侧，另一条指向右侧，暗示两端对峙但不画其他人。",
+      "glbOk": true,
+      "rbxmxOk": true,
+      "playgroundOk": true
+    }
+  ],
+  "badLinks": [],
+  "technicalPose": [],
+  "errors": [],
+  "pageInfo": {
+    "title": "Roblox 三国杀 · 武将3D模型检视",
+    "summary": "25 位武将 · Roblox积木骨架 · 可预览动作",
+    "stage": {
+      "x": 10,
+      "y": 274.03125,
+      "width": 370,
+      "height": 500,
+      "top": 274.03125,
+      "right": 380,
+      "bottom": 774.03125,
+      "left": 10
+    },
+    "panel": {
+      "x": 10,
+      "y": 792.03125,
+      "width": 370,
+      "height": 1584.578125,
+      "top": 792.03125,
+      "right": 380,
+      "bottom": 2376.609375,
+      "left": 10
+    },
+    "bodyHeight": 2429,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    }
+  }
+}
