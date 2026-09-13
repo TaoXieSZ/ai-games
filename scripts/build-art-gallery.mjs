@@ -170,7 +170,7 @@ async function build() {
   }
 
   await copyFile(path.join(dataRoot, "hero-models-v1.json"), path.join(siteRoot, "sanguosha-roblox/data/hero-models-v1.json"));
-  for (const file of ["guan_yu.glb", "guan_yu.rbxmx", "zhao_yun.glb", "zhao_yun.rbxmx", "hero-model-workshop.rbxlx"]) {
+  for (const file of [...heroes.flatMap(hero => [`${hero.id}.glb`, `${hero.id}.rbxmx`]), "manifest.json", "hero-model-workshop.rbxlx", "hero-playground.rbxlx"]) {
     await copyFile(path.join(sourceRoot, "models/hero-models-v1", file), path.join(siteRoot, "sanguosha-roblox/models/hero-models-v1", file));
   }
 
@@ -188,7 +188,7 @@ async function build() {
   }
   await walk(siteRoot);
 
-  const forbidden = outputFiles.filter((file) => /\.(luau?|rbxlx|md|txt|svg)$/i.test(file) && file !== "sanguosha-roblox/models/hero-models-v1/hero-model-workshop.rbxlx");
+  const forbidden = outputFiles.filter((file) => /\.(luau?|rbxlx|md|txt|svg)$/i.test(file) && !["sanguosha-roblox/models/hero-models-v1/hero-model-workshop.rbxlx", "sanguosha-roblox/models/hero-models-v1/hero-playground.rbxlx"].includes(file));
   assert(forbidden.length === 0, `forbidden files in site output: ${forbidden.join(", ")}`);
 
   console.log(`Built site with ${heroes.length} heroes, ${cards.length} card designs, and ${cards.reduce((total, card) => total + card.copies.length, 0)} physical cards.`);

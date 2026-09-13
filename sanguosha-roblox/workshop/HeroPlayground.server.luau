@@ -1,0 +1,438 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local ServerStorage = game:GetService("ServerStorage")
+local Workspace = game:GetService("Workspace")
+
+local REMOTE_NAME = "HeroPlaygroundRemote"
+local BOUNDS_RADIUS = 12
+local PLAYER_SPAWN = Vector3.new(0, 4.2, 0)
+local NPC_SPAWN = CFrame.new(8, 4.2, -5) * CFrame.Angles(0, math.rad(-35), 0)
+
+local HERO_CATALOG = require(ReplicatedStorage:WaitForChild("HeroPlaygroundCatalog"))
+local HERO_BY_ID = {}
+local AVAILABLE_HEROES = {}
+for _, hero in ipairs(HERO_CATALOG) do
+	HERO_BY_ID[hero.id] = hero
+	if hero.available then
+		table.insert(AVAILABLE_HEROES, hero)
+	end
+end
+
+local COOLDOWNS = {
+	Attack = 0.7,
+	Dodge = 0.85,
+	SwitchHero = 0.45,
+}
+
+local remote = ReplicatedStorage:FindFirstChild(REMOTE_NAME)
+if not remote then
+	remote = Instance.new("RemoteFunction")
+	remote.Name = REMOTE_NAME
+	remote.Parent = ReplicatedStorage
+end
+
+Players.CharacterAutoLoads = false
+
+local templates = ServerStorage:WaitForChild("HeroTemplates")
+local playerState: {[Player]: {heroId: string, last: {[string]: number}, action: string, actionStart: number, origin: Vector3}} = {}
+local animatedRigs = {}
+
+local function anglesFromDegrees(value)
+	if typeof(value) ~= "table" then
+		return CFrame.new()
+	end
+	return CFrame.Angles(math.rad(value[1] or 0), math.rad(value[2] or 0), math.rad(value[3] or 0))
+end
+
+local function findMotor(model: Model, name: string): Motor6D?
+	local found = model:FindFirstChild(name, true)
+	if found and found:IsA("Motor6D") then
+		return found
+	end
+	return nil
+end
+
+local function registerAnimatedRig(model: Model, mode: string, phase: number, hero)
+	local motors = {}
+	local ready = hero and hero.ready or {}
+	for _, name in ipairs({ "RootJoint", "Neck", "Right Shoulder", "Left Shoulder", "Right Hip", "Left Hip" }) do
+		local motor = findMotor(model, name)
+		if motor then
+			local boneName = ({
+				RootJoint = "Torso",
+				Neck = "Head",
+				["Right Shoulder"] = "RightArm",
+				["Left Shoulder"] = "LeftArm",
+				["Right Hip"] = "RightLeg",
+				["Left Hip"] = "LeftLeg",
+			})[name]
+			motors[name] = {
+				motor = motor,
+				baseC0 = motor.C0,
+				ready = anglesFromDegrees(boneName and ready[boneName]),
+			}
+		end
+	end
+	animatedRigs[model] = {
+		model = model,
+		motors = motors,
+		mode = mode,
+		phase = phase,
+		actionType = hero and hero.actionType or "sword",
+		action = "Idle",
+		actionStart = 0,
+	}
+end
+
+local function unregisterAnimatedRig(model: Model?)
+	if model then
+		animatedRigs[model] = nil
+	end
+end
+
+local function setMotor(rig, name: string, transform: CFrame)
+	local record = rig.motors[name]
+	if record then
+		record.motor.Transform = CFrame.new()
+		record.motor.C0 = record.baseC0 * record.ready * transform
+	end
+end
+
+local function poseIdle(rig, localT: number)
+	local breathe = math.sin(localT * math.pi * 2) * 0.045
+	setMotor(rig, "RootJoint", CFrame.Angles(0, 0, breathe))
+	setMotor(rig, "Neck", CFrame.Angles(breathe * 0.7, 0, 0))
+	setMotor(rig, "Right Shoulder", CFrame.Angles(-breathe, 0, breathe * 0.5))
+	setMotor(rig, "Left Shoulder", CFrame.Angles(breathe, 0, -breathe * 0.5))
+	setMotor(rig, "Right Hip", CFrame.new())
+	setMotor(rig, "Left Hip", CFrame.new())
+end
+
+local function poseWalk(rig, localT: number)
+	local swing = math.sin(localT * math.pi * 2)
+	local lift = math.abs(swing) * 0.045
+	setMotor(rig, "RootJoint", CFrame.new(0, lift, 0) * CFrame.Angles(math.rad(-2), 0, math.rad(swing * 4)))
+	setMotor(rig, "Neck", CFrame.Angles(math.rad(2), 0, 0))
+	setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(swing * 24), 0, 0))
+	setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(swing * -24), 0, 0))
+	setMotor(rig, "Right Hip", CFrame.Angles(math.rad(swing * -28), 0, 0))
+	setMotor(rig, "Left Hip", CFrame.Angles(math.rad(swing * 28), 0, 0))
+end
+
+local function poseAttack(rig, localT: number)
+	local strike = math.sin(math.clamp(localT, 0, 1) * math.pi)
+	local power = 1 - math.clamp((localT - 0.25) / 0.75, 0, 1)
+	if rig.actionType == "spear" then
+		local thrust = math.sin(math.clamp(localT * 1.25, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-7 * thrust), 0, math.rad(4 * thrust)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(3 * thrust), 0, 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-36 * thrust), 0, math.rad(-8 * thrust)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-22 * thrust), 0, math.rad(10 * thrust)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-10 * thrust), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(8 * thrust), 0, 0))
+	elseif rig.actionType == "bow" then
+		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(-5 * strike), 0))
+		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-4 * strike), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-22 * strike), 0, math.rad(42 * strike)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-28 * strike), 0, math.rad(-46 * strike)))
+		setMotor(rig, "Right Hip", CFrame.new())
+		setMotor(rig, "Left Hip", CFrame.new())
+	elseif rig.actionType == "fan-card" then
+		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(10 * strike), math.rad(-5 * strike)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(-3 * strike), math.rad(8 * strike), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-20 * strike), 0, math.rad(34 * strike)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-18 * strike), 0, math.rad(-34 * strike)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(3 * strike), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(-3 * strike), 0, 0))
+	elseif rig.actionType == "hammer" then
+		local slam = math.sin(math.clamp((localT - 0.1) / 0.65, 0, 1) * math.pi)
+		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-10 * slam), math.rad(8 * power), math.rad(12 * slam)))
+		setMotor(rig, "Neck", CFrame.Angles(math.rad(5 * slam), 0, 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(18 * slam), 0, math.rad(-18 * slam)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-82 * slam), 0, math.rad(24 * slam)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-8 * slam), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(12 * slam), 0, 0))
+	else
+		setMotor(rig, "RootJoint", CFrame.Angles(0, math.rad(-8 * power), math.rad(10 * strike)))
+		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * power), 0))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-90 * strike), 0, math.rad(18 * strike)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(20 * strike), 0, math.rad(-12 * strike)))
+		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-6 * strike), 0, 0))
+		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(6 * strike), 0, 0))
+	end
+end
+
+local function poseDodge(rig, localT: number)
+	local slip = math.sin(math.clamp(localT, 0, 1) * math.pi)
+	setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-4 * slip), 0, math.rad(-18 * slip)))
+	setMotor(rig, "Neck", CFrame.Angles(0, math.rad(10 * slip), math.rad(8 * slip)))
+	setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(16 * slip), 0, math.rad(12 * slip)))
+	setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-16 * slip), 0, math.rad(-12 * slip)))
+	setMotor(rig, "Right Hip", CFrame.Angles(math.rad(10 * slip), 0, 0))
+	setMotor(rig, "Left Hip", CFrame.Angles(math.rad(-10 * slip), 0, 0))
+end
+
+local function prepCharacter(model: Model, anchoredRoot: boolean)
+	local root = model:FindFirstChild("HumanoidRootPart")
+	model.PrimaryPart = if root and root:IsA("BasePart") then root else model.PrimaryPart
+	for _, descendant in ipairs(model:GetDescendants()) do
+		if descendant:IsA("BasePart") then
+			descendant.Anchored = false
+			descendant.CanCollide = descendant.Name == "Torso" or descendant.Name == "Head"
+			descendant.CanTouch = false
+			descendant.Massless = descendant.Name ~= "HumanoidRootPart"
+		end
+	end
+	if root and root:IsA("BasePart") then
+		root.Anchored = anchoredRoot
+		root.CanCollide = false
+	end
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		humanoid.WalkSpeed = if anchoredRoot then 0 else 14
+		humanoid.JumpPower = if anchoredRoot then 0 else 46
+		humanoid.AutoRotate = not anchoredRoot
+		humanoid.BreakJointsOnDeath = false
+	end
+end
+
+local function defaultHero()
+	if HERO_BY_ID.guan_yu and HERO_BY_ID.guan_yu.available then
+		return HERO_BY_ID.guan_yu
+	end
+	return AVAILABLE_HEROES[1] or HERO_CATALOG[1]
+end
+
+local function nextAvailableHero(currentHeroId: string): string
+	if #AVAILABLE_HEROES == 0 then
+		return defaultHero().id
+	end
+	for index, hero in ipairs(AVAILABLE_HEROES) do
+		if hero.id == currentHeroId then
+			return AVAILABLE_HEROES[(index % #AVAILABLE_HEROES) + 1].id
+		end
+	end
+	return AVAILABLE_HEROES[1].id
+end
+
+local function templateFor(heroId: string): Model
+	local hero = HERO_BY_ID[heroId] or defaultHero()
+	return templates:WaitForChild(hero.template) :: Model
+end
+
+local function placeModel(model: Model, cframe: CFrame)
+	if model.PrimaryPart then
+		model:PivotTo(cframe)
+	end
+end
+
+local function spawnPlayerHero(player: Player, heroId: string)
+	local state = playerState[player]
+	local last = state and state.last or {}
+	if state and player.Character then
+		unregisterAnimatedRig(player.Character)
+		player.Character:Destroy()
+	end
+	local hero = HERO_BY_ID[heroId] or defaultHero()
+	if not hero.available then
+		hero = defaultHero()
+	end
+	local model = templateFor(hero.id):Clone()
+	model.Name = player.Name
+	model:SetAttribute("HeroId", hero.id)
+	model:SetAttribute("HeroName", hero.name)
+	model:SetAttribute("PlaygroundCenter", PLAYER_SPAWN)
+	prepCharacter(model, false)
+	model.Parent = Workspace
+	placeModel(model, CFrame.new(PLAYER_SPAWN))
+	player.Character = model
+	playerState[player] = {
+		heroId = hero.id,
+		last = last,
+		action = "Idle",
+		actionStart = os.clock(),
+		origin = PLAYER_SPAWN,
+	}
+	registerAnimatedRig(model, "player", player.UserId % 9 * 0.11, hero)
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		humanoid.Died:Connect(function()
+			task.delay(1.2, function()
+				if player.Parent then
+					spawnPlayerHero(player, playerState[player] and playerState[player].heroId or defaultHero().id)
+				end
+			end)
+		end)
+	end
+end
+
+local function spawnNpc()
+	local old = Workspace:FindFirstChild("HeroPlaygroundNPC")
+	if old and old:IsA("Model") then
+		unregisterAnimatedRig(old)
+		old:Destroy()
+	end
+	local npcHero = HERO_BY_ID.zhao_yun
+	if not npcHero or not npcHero.available then
+		npcHero = AVAILABLE_HEROES[2] or AVAILABLE_HEROES[1] or defaultHero()
+	end
+	local model = templateFor(npcHero.id):Clone()
+	model.Name = "HeroPlaygroundNPC"
+	model:SetAttribute("HeroId", npcHero.id)
+	model:SetAttribute("HeroName", npcHero.name)
+	prepCharacter(model, true)
+	model.Parent = Workspace
+	placeModel(model, NPC_SPAWN)
+	registerAnimatedRig(model, "npc", 0.35, npcHero)
+end
+
+local function withinBounds(player: Player): boolean
+	local state = playerState[player]
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if not state or not root or not root:IsA("BasePart") then
+		return false
+	end
+	local offset = root.Position - state.origin
+	local flat = Vector3.new(offset.X, 0, offset.Z)
+	if flat.Magnitude > BOUNDS_RADIUS then
+		local clamped = state.origin + flat.Unit * BOUNDS_RADIUS + Vector3.new(0, offset.Y, 0)
+		root.AssemblyLinearVelocity = Vector3.zero
+		character:PivotTo(CFrame.new(clamped, clamped + root.CFrame.LookVector))
+	end
+	return true
+end
+
+local function cooldownReady(player: Player, action: string): boolean
+	local state = playerState[player]
+	if not state then
+		return false
+	end
+	local now = os.clock()
+	local needed = COOLDOWNS[action] or 0.2
+	if now - (state.last[action] or 0) < needed then
+		return false
+	end
+	state.last[action] = now
+	return true
+end
+
+local function setAction(player: Player, action: string)
+	local state = playerState[player]
+	local character = player.Character
+	if not state or not character then
+		return
+	end
+	state.action = action
+	state.actionStart = os.clock()
+	local rig = animatedRigs[character]
+	if rig then
+		rig.action = action
+		rig.actionStart = state.actionStart
+	end
+end
+
+remote.OnServerInvoke = function(player: Player, action: string, payload)
+	if typeof(action) ~= "string" then
+		return { ok = false, error = "bad-action" }
+	end
+	if action == "GetState" then
+		local state = playerState[player]
+		return {
+			ok = true,
+			heroId = state and state.heroId or defaultHero().id,
+			radius = BOUNDS_RADIUS,
+			catalog = HERO_CATALOG,
+		}
+	end
+	if not withinBounds(player) then
+		return { ok = false, error = "no-character" }
+	end
+	local requestedHeroId = nil
+	if action == "SwitchHero" then
+		requestedHeroId = if typeof(payload) == "table" and typeof(payload.heroId) == "string" then payload.heroId else nil
+		if requestedHeroId and (not HERO_BY_ID[requestedHeroId] or not HERO_BY_ID[requestedHeroId].available) then
+			return { ok = false, error = "invalid-hero" }
+		end
+	end
+	if not cooldownReady(player, action) then
+		return { ok = false, error = "cooldown" }
+	end
+	if action == "Attack" then
+		setAction(player, "Attack")
+		return { ok = true, action = action }
+	elseif action == "Dodge" then
+		setAction(player, "Dodge")
+		return { ok = true, action = action }
+	elseif action == "SwitchHero" then
+		local nextHero = requestedHeroId
+		if not nextHero then
+			local current = playerState[player] and playerState[player].heroId or "guan_yu"
+			nextHero = nextAvailableHero(current)
+		end
+		spawnPlayerHero(player, nextHero)
+		return { ok = true, action = action, heroId = nextHero }
+	end
+	return { ok = false, error = "unknown-action" }
+end
+
+local function onPlayerAdded(player: Player)
+	task.defer(function()
+		if player.Parent and not playerState[player] then
+			spawnPlayerHero(player, defaultHero().id)
+		end
+	end)
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+for _, player in ipairs(Players:GetPlayers()) do
+	onPlayerAdded(player)
+end
+
+Players.PlayerRemoving:Connect(function(player)
+	if player.Character then
+		unregisterAnimatedRig(player.Character)
+	end
+	playerState[player] = nil
+end)
+
+spawnNpc()
+
+RunService.Heartbeat:Connect(function()
+	local now = os.clock()
+	for player in pairs(playerState) do
+		withinBounds(player)
+	end
+	for model, rig in pairs(animatedRigs) do
+		if not model.Parent then
+			animatedRigs[model] = nil
+		else
+			local t = now + rig.phase
+			local action = rig.action
+			local root = model:FindFirstChild("HumanoidRootPart")
+			if rig.mode == "npc" then
+				local cycle = t % 6
+				action = if cycle < 2 then "Idle" elseif cycle < 4 then "Walk" else "Attack"
+				rig.actionStart = now - (cycle % 2)
+			elseif action ~= "Idle" and now - rig.actionStart > 0.8 then
+				rig.action = "Idle"
+				action = "Idle"
+			elseif action == "Idle" and root and root:IsA("BasePart") then
+				local speed = Vector3.new(root.AssemblyLinearVelocity.X, 0, root.AssemblyLinearVelocity.Z).Magnitude
+				if speed > 0.75 then
+					action = "Walk"
+				end
+			end
+			if action == "Attack" then
+				poseAttack(rig, math.clamp((now - rig.actionStart) / 0.8, 0, 1))
+			elseif action == "Dodge" then
+				poseDodge(rig, math.clamp((now - rig.actionStart) / 0.7, 0, 1))
+			elseif action == "Walk" then
+				poseWalk(rig, (now - rig.actionStart + rig.phase) % 1)
+			else
+				poseIdle(rig, (now + rig.phase) % 1.8 / 1.8)
+			end
+		end
+	end
+end)

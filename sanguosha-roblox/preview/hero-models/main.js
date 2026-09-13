@@ -1,5 +1,6 @@
 const DATA_URL = "../../data/hero-models-v1.json";
 const MODEL_ROOT = "../../models/hero-models-v1";
+const MANIFEST_URL = `${MODEL_ROOT}/manifest.json`;
 
 const state = {
   models: [],
@@ -17,6 +18,7 @@ const state = {
   meshCache: new Map(),
   gpuMeshCache: new WeakMap(),
   gridMesh: null,
+  fileManifest: null,
 };
 
 const canvas = document.querySelector("#stage");
@@ -28,7 +30,19 @@ const referenceToggle = document.querySelector("#referenceToggle");
 const referenceCard = document.querySelector("#referenceCard");
 const glbLink = document.querySelector("#glbLink");
 const rbxmxLink = document.querySelector("#rbxmxLink");
+const playgroundLink = document.querySelector("#playgroundLink");
 const fileStatus = document.querySelector("#fileStatus");
+const heroName = document.querySelector("#heroName");
+const designNotes = document.querySelector("#designNotes");
+const factionLabel = document.querySelector("#factionLabel");
+const poseNotes = document.querySelector("#poseNotes");
+
+const factionNames = {
+  wei: "魏",
+  shu: "蜀",
+  wu: "吴",
+  qun: "群",
+};
 
 function escapeHtml(value = "") {
   return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
@@ -39,6 +53,9 @@ function normalizeModel(model, index) {
   return {
     id,
     name: model.name || id,
+    faction: model.faction || "",
+    designNotes: model.designNotes || "",
+    poseDescription: model.poseDescription || "",
     referenceArt: resolveProjectAsset(model.referenceArt || `assets/art-design/hero-pool-v1/${id}.png`),
     bones: Array.isArray(model.bones) ? model.bones : [],
     parts: Array.isArray(model.parts) ? model.parts : [],
@@ -141,8 +158,10 @@ function setupTabs() {
   state.models.forEach((model, index) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = model.name;
+    const faction = factionNames[model.faction] || model.faction || "-";
+    button.innerHTML = `<span class="faction-chip">${escapeHtml(faction)}</span><span class="hero-label">${escapeHtml(model.name)}</span>`;
     button.setAttribute("role", "tab");
+    button.setAttribute("title", `${model.name}${model.faction ? ` · ${factionNames[model.faction] || model.faction}` : ""}`);
     button.setAttribute("aria-pressed", String(index === state.modelIndex));
     button.addEventListener("click", () => {
       state.modelIndex = index;
@@ -157,11 +176,19 @@ function refreshUi() {
   const model = currentModel();
   if (!model) return;
   [...heroTabs.children].forEach((button, index) => button.setAttribute("aria-pressed", String(index === state.modelIndex)));
+  heroName.textContent = model.name;
+  designNotes.textContent = model.designNotes || "设计说明待补充。";
+  factionLabel.textContent = factionNames[model.faction] || model.faction || "未标注";
+  poseNotes.textContent = describePose(model);
   referenceCard.innerHTML = `<img src="${escapeHtml(model.referenceArt)}" alt="${escapeHtml(model.name)}原画参考"><figcaption>${escapeHtml(model.name)} · 原画参考</figcaption>`;
   referenceCard.hidden = !referenceToggle.checked;
   setDownload(glbLink, `${MODEL_ROOT}/${model.id}.glb`, `${model.id}.glb`);
   setDownload(rbxmxLink, `${MODEL_ROOT}/${model.id}.rbxmx`, `${model.id}.rbxmx`);
   checkFiles(model);
+}
+
+function describePose(model) {
+  return model.poseDescription || "旋转查看站姿，切换下方动作预览。";
 }
 
 function frameCurrentModel(yaw = state.yaw) {
@@ -197,22 +224,28 @@ function setDownload(anchor, href, name) {
 }
 
 async function checkFiles(model) {
-  const files = [
-    [`${MODEL_ROOT}/${model.id}.glb`, "GLB"],
-    [`${MODEL_ROOT}/${model.id}.rbxmx`, "RBXMX"],
-  ];
-  const checks = await Promise.all(files.map(async ([url, label]) => {
-    try {
-      const response = await fetch(url, { method: "HEAD", cache: "no-store" });
-      return response.ok ? label : null;
-    } catch {
-      return null;
-    }
-  }));
-  const available = checks.filter(Boolean);
-  glbLink.setAttribute("aria-disabled", String(!available.includes("GLB")));
-  rbxmxLink.setAttribute("aria-disabled", String(!available.includes("RBXMX")));
+  const heroFiles = await getHeroFiles(model.id);
+  const available = [];
+  if (heroFiles?.glb) available.push("GLB");
+  if (heroFiles?.rbxmx) available.push("RBXMX");
+  available.push("Roblox试演场");
+  glbLink.setAttribute("aria-disabled", String(!heroFiles?.glb));
+  rbxmxLink.setAttribute("aria-disabled", String(!heroFiles?.rbxmx));
+  playgroundLink.removeAttribute("aria-disabled");
   fileStatus.textContent = available.length ? `可下载：${available.join("、")}` : "模型导出文件待生成，检视器先显示骨架几何。";
+}
+
+async function getHeroFiles(id) {
+  if (!state.fileManifest) {
+    try {
+      const response = await fetch(MANIFEST_URL, { cache: "no-store" });
+      if (!response.ok) throw new Error("manifest missing");
+      state.fileManifest = await response.json();
+    } catch {
+      state.fileManifest = { heroes: [] };
+    }
+  }
+  return state.fileManifest.heroes?.find((hero) => hero.id === id)?.files || null;
 }
 
 function currentModel() {
@@ -579,7 +612,7 @@ function wireControls() {
   });
   canvas.addEventListener("wheel", (event) => {
     event.preventDefault();
-      state.distance = clamp(state.distance + event.deltaY * 0.012, 6, 40);
+    state.distance = clamp(state.distance + event.deltaY * 0.012, 6, 40);
   }, { passive: false });
   window.addEventListener("resize", () => frameCurrentModel(state.yaw));
 }

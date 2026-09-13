@@ -149,6 +149,18 @@ def build(hero):
       'designNotes':'赤面、三绺长髯、青绿头巾、分片甲裙与青龙偃月刀。' if guan else '银盔蓝缨、无髯年轻面孔、分片银甲、蓝披风与银枪。',
       'bones':bones,'parts':parts,'poses':{'ready':{'RightArm':[-8,0,-5],'LeftArm':[0,0,5]} if guan else {'RightArm':[-38,0,-8],'LeftArm':[-28,0,18]}}}
 
-models=[build(x) for x in ['guan_yu','zhao_yun']]
-out=ROOT/'data/hero-models-v1.json';out.write_text(json.dumps(models,ensure_ascii=False,indent=2)+'\n')
-for m in models:print(m['id'],len(m['bones']),'bones',len(m['parts']),'decorations')
+if __name__ == '__main__':
+    from hero_model_designs import wei, wu, shu_qun
+    catalog=json.loads((ROOT/'data/hero-art-v1.json').read_text())
+    models=[build(x) for x in ['guan_yu','zhao_yun']]
+    base=models[1]
+    for group in [wei,wu,shu_qun]:models.extend(group.build_models(catalog,base))
+    by_id={m['id']:m for m in models}
+    assert len(models)==len(by_id)==len(catalog)==25, 'Full cast must have 25 unique models'
+    models=[by_id[m['id']] for m in catalog]
+    for model,meta in zip(models,catalog):
+        model['faction']=meta['faction']
+        model['referenceArt']=meta['artPath']
+        model['poseDescription']=meta['pose']
+    out=ROOT/'data/hero-models-v1.json';out.write_text(json.dumps(models,ensure_ascii=False,indent=2)+'\n')
+    for m in models:print(m['id'],len(m['bones']),'bones',len(m['parts']),'decorations')

@@ -12,7 +12,7 @@
       <header class="masthead">
         <div>
           <p class="eyebrow">Roblox 三国杀美术设定</p>
-          <h1>武将3D模型</h1>
+          <h1>全武将3D模型</h1>
           <p id="modelSummary" class="subtitle">读取骨架模型中</p>
         </div>
         <nav class="page-links" aria-label="图鉴导航">
@@ -34,7 +34,21 @@
         <aside class="control-panel">
           <section class="panel-block">
             <p class="panel-kicker">武将</p>
-            <div id="heroTabs" class="segmented" role="tablist" aria-label="选择武将"></div>
+            <div id="heroTabs" class="hero-list" role="tablist" aria-label="选择武将"></div>
+            <article class="model-notes" aria-label="当前武将设计说明">
+              <h2 id="heroName">武将</h2>
+              <p id="designNotes">读取设计说明中</p>
+              <dl>
+                <div>
+                  <dt>势力</dt>
+                  <dd id="factionLabel">-</dd>
+                </div>
+                <div>
+                  <dt>动作差异</dt>
+                  <dd id="poseNotes">-</dd>
+                </div>
+              </dl>
+            </article>
           </section>
 
           <section class="panel-block">
@@ -68,8 +82,10 @@
             <div class="download-grid">
               <a id="glbLink" href="#" download>GLB</a>
               <a id="rbxmxLink" href="#" download>RBXMX</a>
+              <a id="playgroundLink" class="wide-download" href="../../models/hero-models-v1/hero-playground.rbxlx" download>Roblox试演场</a>
             </div>
             <p id="fileStatus" class="file-status" role="status" aria-live="polite">检查下载文件中</p>
+            <p class="file-status">Roblox可Play试演场用于在Studio里试跑全武将模型与动作。</p>
           </section>
         </aside>
       </section>

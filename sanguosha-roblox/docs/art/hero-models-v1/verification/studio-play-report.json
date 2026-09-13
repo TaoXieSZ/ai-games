@@ -1,0 +1,225 @@
+{
+  "date": "2026-09-13",
+  "environment": "Roblox Studio native Play; Client and Server through Studio MCP",
+  "testedHeroes": 25,
+  "tests": [
+    {
+      "hero": "cao_cao",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 0.9664918780326843,
+      "dodgeAngle": 1.5520458221435547,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "sima_yi",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 0.6279489994049072,
+      "dodgeAngle": 0.5916372537612915,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "xiahou_dun",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 1.7342053651809692,
+      "dodgeAngle": 1.544690489768982,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "zhang_liao",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 0.6703141331672668,
+      "dodgeAngle": 0.8423575162887573,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "xu_chu",
+      "x": 3.3856618404388428,
+      "health": 100,
+      "attackAngle": 0.36075812578201294,
+      "dodgeAngle": 0.43465709686279297,
+      "y": 3.3399996757507324
+    },
+    {
+      "hero": "guo_jia",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 0.5610718131065369,
+      "dodgeAngle": 0.6159465312957764,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "zhen_ji",
+      "x": 3.585078001022339,
+      "health": 100,
+      "attackAngle": 0.536064863204956,
+      "dodgeAngle": 0.587132453918457,
+      "y": 3.0199997425079346
+    },
+    {
+      "hero": "liu_bei",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 1.7320308685302734,
+      "dodgeAngle": 1.5374313592910767,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "guan_yu",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 1.3155401945114136,
+      "dodgeAngle": 1.5388680696487427,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "zhang_fei",
+      "x": 3.380977153778076,
+      "health": 100,
+      "attackAngle": 0.2993216812610626,
+      "dodgeAngle": 0.8877226710319519,
+      "y": 3.2199997901916504
+    },
+    {
+      "hero": "zhuge_liang",
+      "x": 3.7138028144836426,
+      "health": 100,
+      "attackAngle": 0.5014432668685913,
+      "dodgeAngle": 0.616210401058197,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "zhao_yun",
+      "x": 3.4805121421813965,
+      "health": 100,
+      "attackAngle": 0.7099934816360474,
+      "dodgeAngle": 0.8857755064964294,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "ma_chao",
+      "x": 3.5971736907958984,
+      "health": 100,
+      "attackAngle": 0.595596969127655,
+      "dodgeAngle": 0.8858974575996399,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "huang_yueying",
+      "x": 3.4805126190185547,
+      "health": 100,
+      "attackAngle": 0.661442756652832,
+      "dodgeAngle": 0.6164281964302063,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "sun_quan",
+      "x": 3.5971360206604004,
+      "health": 100,
+      "attackAngle": 1.1629483699798584,
+      "dodgeAngle": 1.4895411729812622,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "gan_ning",
+      "x": 3.7138023376464844,
+      "health": 100,
+      "attackAngle": 0.7953965663909912,
+      "dodgeAngle": 1.4112318754196167,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "lu_meng",
+      "x": 3.5971784591674805,
+      "health": 100,
+      "attackAngle": 0.4972904622554779,
+      "dodgeAngle": 0.6153191924095154,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "huang_gai",
+      "x": 3.3845183849334717,
+      "health": 100,
+      "attackAngle": 0.4053773283958435,
+      "dodgeAngle": 0.4497622549533844,
+      "y": 3.249999761581421
+    },
+    {
+      "hero": "zhou_yu",
+      "x": 3.5971360206604004,
+      "health": 100,
+      "attackAngle": 0.8234087824821472,
+      "dodgeAngle": 0.6156357526779175,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "da_qiao",
+      "x": 3.5971360206604004,
+      "health": 100,
+      "attackAngle": 0.5146732926368713,
+      "dodgeAngle": 0.5919304490089417,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "lu_xun",
+      "x": 3.5971789360046387,
+      "health": 100,
+      "attackAngle": 0.5077776908874512,
+      "dodgeAngle": 0.6140965819358826,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "sun_shangxiang",
+      "x": 3.4805068969726562,
+      "health": 100,
+      "attackAngle": 0.6011918187141418,
+      "dodgeAngle": 0.6743919253349304,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "hua_tuo",
+      "x": 3.4805068969726562,
+      "health": 100,
+      "attackAngle": 0.7589619159698486,
+      "dodgeAngle": 0.5921331644058228,
+      "y": 3.0799996852874756
+    },
+    {
+      "hero": "lu_bu",
+      "x": 3.3868067264556885,
+      "health": 100,
+      "attackAngle": 0.5673718452453613,
+      "dodgeAngle": 0.8690546154975891,
+      "y": 3.3399996757507324
+    },
+    {
+      "hero": "diao_chan",
+      "x": 3.7138023376464844,
+      "health": 100,
+      "attackAngle": 0.5170322060585022,
+      "dodgeAngle": 0.5929227471351624,
+      "y": 3.0799996852874756
+    }
+  ],
+  "additionalChecks": {
+    "invalidHeroRejected": true,
+    "switchCooldownPreserved": true,
+    "jumpRiseStuds": 5.909748792648315,
+    "clampedRadiusStuds": 11.996089935302734,
+    "deathRespawnHero": "guan_yu",
+    "deathRespawnHealth": 100,
+    "consoleErrors": 0,
+    "templatesWithSixValidMotor6D": 25,
+    "finalEmbeddedSourcesMatch": true
+  },
+  "visualEvidence": "Studio edit-time screen captures; Play behavior checked through actual Humanoid navigation and Motor6D C0 changes. Play screenshot API returned magenta; no Play screenshot claim.",
+  "artifactsSha256": {
+    "data/hero-models-v1.json": "82f5876a5fb69cc9fbbdbafbe75ef247e991d10030858e505c3a753a133898ce",
+    "models/hero-models-v1/hero-playground.rbxlx": "7ba57dec4d80e37f38a4f7413c40c628ca4d92c88b120a44fabe61445db6248d",
+    "workshop/HeroPlayground.server.luau": "a4c35bfd6e361314f92b052f7d46119cf03d157209b1688f6df2efe1db189f13",
+    "workshop/HeroPlayground.client.luau": "18b396c1dd9cf3cb25eb83930f17a2de9bdb7e21a825fc3c581ea8e5cecf452f"
+  }
+}

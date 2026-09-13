@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-13T06:23:42.233Z",
+  "generatedAt": "2026-09-13T14:43:01.310Z",
   "source": "data/hero-models-v1.json",
   "conventions": {
     "coordinates": "Y-up, heroes face -Z.",
@@ -10,14 +10,294 @@
     "rbxmx": "Humanoid R6 with seven standard body parts, six Motor6D joints, decoration parts welded to their owner body part."
   },
   "counts": {
-    "heroes": 2,
-    "glb": 2,
-    "rbxmx": 2,
-    "workshopModels": 2,
-    "triangles": 6348,
-    "vertices": 13182
+    "heroes": 25,
+    "glb": 25,
+    "rbxmx": 25,
+    "workshopModels": 25,
+    "triangles": 47996,
+    "vertices": 98076
   },
   "heroes": [
+    {
+      "id": "cao_cao",
+      "name": "曹操",
+      "files": {
+        "glb": "cao_cao.glb",
+        "rbxmx": "cao_cao.rbxmx"
+      },
+      "bones": 7,
+      "parts": 163,
+      "glb": {
+        "vertices": 4044,
+        "triangles": 2020,
+        "nodes": 177,
+        "meshes": 169,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.1247288441965533,
+            5.95,
+            0.9532773717808907
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 163,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "sima_yi",
+      "name": "司马懿",
+      "files": {
+        "glb": "sima_yi.glb",
+        "rbxmx": "sima_yi.rbxmx"
+      },
+      "bones": 7,
+      "parts": 55,
+      "glb": {
+        "vertices": 1464,
+        "triangles": 732,
+        "nodes": 69,
+        "meshes": 61,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.06,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.06,
+            5.97,
+            0.8300000000000001
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 55,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "xiahou_dun",
+      "name": "夏侯惇",
+      "files": {
+        "glb": "xiahou_dun.glb",
+        "rbxmx": "xiahou_dun.rbxmx"
+      },
+      "bones": 7,
+      "parts": 146,
+      "glb": {
+        "vertices": 3778,
+        "triangles": 1872,
+        "nodes": 160,
+        "meshes": 152,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -1
+          ],
+          "max": [
+            3.93330110604617,
+            5.665,
+            1.02
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 146,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "zhang_liao",
+      "name": "张辽",
+      "files": {
+        "glb": "zhang_liao.glb",
+        "rbxmx": "zhang_liao.rbxmx"
+      },
+      "bones": 7,
+      "parts": 155,
+      "glb": {
+        "vertices": 4384,
+        "triangles": 2124,
+        "nodes": 169,
+        "meshes": 161,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.265517136678216,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.2424269667344663,
+            6.17,
+            0.715
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 155,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "xu_chu",
+      "name": "许褚",
+      "files": {
+        "glb": "xu_chu.glb",
+        "rbxmx": "xu_chu.rbxmx"
+      },
+      "bones": 7,
+      "parts": 62,
+      "glb": {
+        "vertices": 1892,
+        "triangles": 912,
+        "nodes": 76,
+        "meshes": 68,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.16,
+            0.19080000000000025,
+            -1.3
+          ],
+          "max": [
+            2.16,
+            5.9678,
+            0.7384
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 62,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "guo_jia",
+      "name": "郭嘉",
+      "files": {
+        "glb": "guo_jia.glb",
+        "rbxmx": "guo_jia.rbxmx"
+      },
+      "bones": 7,
+      "parts": 56,
+      "glb": {
+        "vertices": 1488,
+        "triangles": 744,
+        "nodes": 70,
+        "meshes": 62,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.11,
+            0.18000000000000022,
+            -1.3250000000000002
+          ],
+          "max": [
+            2.11,
+            5.630000000000001,
+            0.71
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 56,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "zhen_ji",
+      "name": "甄姬",
+      "files": {
+        "glb": "zhen_ji.glb",
+        "rbxmx": "zhen_ji.rbxmx"
+      },
+      "bones": 7,
+      "parts": 147,
+      "glb": {
+        "vertices": 3808,
+        "triangles": 1888,
+        "nodes": 161,
+        "meshes": 153,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.0492,
+            0.17640000000000028,
+            -1.2598754293434409
+          ],
+          "max": [
+            2.0492,
+            5.7943999999999996,
+            0.7006999999999999
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 147,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "liu_bei",
+      "name": "刘备",
+      "files": {
+        "glb": "liu_bei.glb",
+        "rbxmx": "liu_bei.rbxmx"
+      },
+      "bones": 7,
+      "parts": 92,
+      "glb": {
+        "vertices": 2352,
+        "triangles": 1176,
+        "nodes": 106,
+        "meshes": 98,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.08,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.08,
+            5.945,
+            1.01
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 92,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
     {
       "id": "guan_yu",
       "name": "关羽",
@@ -54,6 +334,76 @@
       }
     },
     {
+      "id": "zhang_fei",
+      "name": "张飞",
+      "files": {
+        "glb": "zhang_fei.glb",
+        "rbxmx": "zhang_fei.rbxmx"
+      },
+      "bones": 7,
+      "parts": 160,
+      "glb": {
+        "vertices": 4244,
+        "triangles": 2088,
+        "nodes": 174,
+        "meshes": 166,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.312340804031814,
+            0.18360000000000037,
+            -0.94657
+          ],
+          "max": [
+            2.312340804031814,
+            7.8081000000000005,
+            0.991461072341532
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 160,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "zhuge_liang",
+      "name": "诸葛亮",
+      "files": {
+        "glb": "zhuge_liang.glb",
+        "rbxmx": "zhuge_liang.rbxmx"
+      },
+      "bones": 7,
+      "parts": 113,
+      "glb": {
+        "vertices": 2814,
+        "triangles": 1400,
+        "nodes": 127,
+        "meshes": 119,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.233169409681007,
+            0.18000000000000022,
+            -0.9515
+          ],
+          "max": [
+            2.421195090021842,
+            6.105,
+            1.0420694185957071
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 113,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
       "id": "zhao_yun",
       "name": "赵云",
       "files": {
@@ -84,6 +434,461 @@
       "rbxmx": {
         "bodyParts": 7,
         "decorations": 216,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "ma_chao",
+      "name": "马超",
+      "files": {
+        "glb": "ma_chao.glb",
+        "rbxmx": "ma_chao.rbxmx"
+      },
+      "bones": 7,
+      "parts": 159,
+      "glb": {
+        "vertices": 4220,
+        "triangles": 2076,
+        "nodes": 173,
+        "meshes": 165,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.1247288441965533,
+            6.9973597695692735,
+            0.9827975619842688
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 159,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "huang_yueying",
+      "name": "黄月英",
+      "files": {
+        "glb": "huang_yueying.glb",
+        "rbxmx": "huang_yueying.rbxmx"
+      },
+      "bones": 7,
+      "parts": 138,
+      "glb": {
+        "vertices": 4584,
+        "triangles": 2244,
+        "nodes": 152,
+        "meshes": 144,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.08,
+            0.18000000000000022,
+            -0.9400000000000001
+          ],
+          "max": [
+            2.3825066481597097,
+            5.925,
+            0.71
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 138,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "sun_quan",
+      "name": "孙权",
+      "files": {
+        "glb": "sun_quan.glb",
+        "rbxmx": "sun_quan.rbxmx"
+      },
+      "bones": 7,
+      "parts": 160,
+      "glb": {
+        "vertices": 4108,
+        "triangles": 2036,
+        "nodes": 174,
+        "meshes": 166,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -0.999512232880182
+          ],
+          "max": [
+            2.1247288441965533,
+            6.0200000000000005,
+            1.0036353433043006
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 160,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "gan_ning",
+      "name": "甘宁",
+      "files": {
+        "glb": "gan_ning.glb",
+        "rbxmx": "gan_ning.rbxmx"
+      },
+      "bones": 7,
+      "parts": 102,
+      "glb": {
+        "vertices": 4788,
+        "triangles": 2344,
+        "nodes": 116,
+        "meshes": 108,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -1.99,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            1.99,
+            5.723713617737978,
+            0.86
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 102,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "lu_meng",
+      "name": "吕蒙",
+      "files": {
+        "glb": "lu_meng.glb",
+        "rbxmx": "lu_meng.rbxmx"
+      },
+      "bones": 7,
+      "parts": 82,
+      "glb": {
+        "vertices": 2248,
+        "triangles": 1108,
+        "nodes": 96,
+        "meshes": 88,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.08,
+            0.18000000000000022,
+            -0.919
+          ],
+          "max": [
+            2.08,
+            5.88,
+            0.71
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 82,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "huang_gai",
+      "name": "黄盖",
+      "files": {
+        "glb": "huang_gai.glb",
+        "rbxmx": "huang_gai.rbxmx"
+      },
+      "bones": 7,
+      "parts": 133,
+      "glb": {
+        "vertices": 3880,
+        "triangles": 1876,
+        "nodes": 147,
+        "meshes": 139,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1492000000000004,
+            0.1853999999999999,
+            -0.97414
+          ],
+          "max": [
+            2.292125983059114,
+            6.0084,
+            0.8400000000000001
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 133,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "zhou_yu",
+      "name": "周瑜",
+      "files": {
+        "glb": "zhou_yu.glb",
+        "rbxmx": "zhou_yu.rbxmx"
+      },
+      "bones": 7,
+      "parts": 155,
+      "glb": {
+        "vertices": 4856,
+        "triangles": 2396,
+        "nodes": 169,
+        "meshes": 161,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -1.03263525191714
+          ],
+          "max": [
+            2.1247288441965533,
+            5.95,
+            0.9270951377293355
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 155,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "da_qiao",
+      "name": "大乔",
+      "files": {
+        "glb": "da_qiao.glb",
+        "rbxmx": "da_qiao.rbxmx"
+      },
+      "bones": 7,
+      "parts": 106,
+      "glb": {
+        "vertices": 4544,
+        "triangles": 2096,
+        "nodes": 120,
+        "meshes": 112,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.92,
+            0.18000000000000022,
+            -0.99
+          ],
+          "max": [
+            2.08,
+            5.87,
+            0.71
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 106,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "lu_xun",
+      "name": "陆逊",
+      "files": {
+        "glb": "lu_xun.glb",
+        "rbxmx": "lu_xun.rbxmx"
+      },
+      "bones": 7,
+      "parts": 82,
+      "glb": {
+        "vertices": 2384,
+        "triangles": 1160,
+        "nodes": 96,
+        "meshes": 88,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.08,
+            0.18000000000000022,
+            -1.0029384329026763
+          ],
+          "max": [
+            2.08,
+            5.809106004521264,
+            0.6900000000000001
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 82,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "sun_shangxiang",
+      "name": "孙尚香",
+      "files": {
+        "glb": "sun_shangxiang.glb",
+        "rbxmx": "sun_shangxiang.rbxmx"
+      },
+      "bones": 7,
+      "parts": 152,
+      "glb": {
+        "vertices": 4962,
+        "triangles": 2384,
+        "nodes": 166,
+        "meshes": 158,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.1247288441965533,
+            0.18000000000000022,
+            -1.28
+          ],
+          "max": [
+            2.680340344243226,
+            6.200591391288973,
+            1.2965547322352862
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 152,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "hua_tuo",
+      "name": "华佗",
+      "files": {
+        "glb": "hua_tuo.glb",
+        "rbxmx": "hua_tuo.rbxmx"
+      },
+      "bones": 7,
+      "parts": 106,
+      "glb": {
+        "vertices": 3544,
+        "triangles": 1756,
+        "nodes": 120,
+        "meshes": 112,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.08,
+            0.18000000000000022,
+            -1.035
+          ],
+          "max": [
+            2.08,
+            5.935,
+            1.52
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 106,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "lu_bu",
+      "name": "吕布",
+      "files": {
+        "glb": "lu_bu.glb",
+        "rbxmx": "lu_bu.rbxmx"
+      },
+      "bones": 7,
+      "parts": 169,
+      "glb": {
+        "vertices": 4436,
+        "triangles": 2180,
+        "nodes": 183,
+        "meshes": 175,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.313845748066621,
+            0.19080000000000025,
+            -0.9649500000000001
+          ],
+          "max": [
+            2.511,
+            7.828100000000001,
+            2.0844695718291155
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 169,
+        "motors": 6,
+        "humanoids": 1
+      }
+    },
+    {
+      "id": "diao_chan",
+      "name": "貂蝉",
+      "files": {
+        "glb": "diao_chan.glb",
+        "rbxmx": "diao_chan.rbxmx"
+      },
+      "bones": 7,
+      "parts": 97,
+      "glb": {
+        "vertices": 6072,
+        "triangles": 3036,
+        "nodes": 111,
+        "meshes": 103,
+        "animations": 3,
+        "bounds": {
+          "min": [
+            -2.9250643489215564,
+            0.18000000000000022,
+            -0.935
+          ],
+          "max": [
+            2.9250643489215564,
+            5.98,
+            0.7707039444346693
+          ]
+        }
+      },
+      "rbxmx": {
+        "bodyParts": 7,
+        "decorations": 97,
         "motors": 6,
         "humanoids": 1
       }
