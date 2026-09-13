@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Roblox 三国杀 · 游戏牌图鉴</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Roblox 三国杀美术设定</p>
+          <h1>游戏牌图鉴</h1>
+          <p id="deckSummary" class="subtitle">43款设计 · 160张牌</p>
+        </div>
+        <nav class="page-links" aria-label="图鉴导航">
+          <a href="../hero-pool/">武将图鉴</a>
+          <a href="../../../">图鉴首页</a>
+        </nav>
+      </header>
+
+      <section class="controls" aria-label="游戏牌筛选">
+        <div class="category-tabs" aria-label="分类">
+          <button class="filter is-active" type="button" data-category="all" aria-pressed="true">全部</button>
+          <button class="filter" type="button" data-category="basic" aria-pressed="false">基本</button>
+          <button class="filter" type="button" data-category="trick" aria-pressed="false">锦囊</button>
+          <button class="filter" type="button" data-category="equipment" aria-pressed="false">装备</button>
+        </div>
+        <label class="search-box">
+          <span>搜索牌名 / 副题 / 规则</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="例如：杀、闪、攻击范围" />
+        </label>
+        <output id="resultCount" class="count" aria-live="polite">载入中</output>
+      </section>
+
+      <section id="status" class="status" role="status" aria-live="polite"></section>
+      <section id="gallery" class="gallery" aria-label="游戏牌图鉴"></section>
+    </main>
+
+    <dialog id="cardDialog" class="card-dialog" aria-labelledby="dialogName">
+      <article class="dialog-panel">
+        <button class="dialog-close" type="button" aria-label="关闭">×</button>
+        <div class="dialog-art">
+          <img id="dialogImage" alt="" />
+          <div id="dialogPlaceholder" class="image-placeholder" hidden></div>
+        </div>
+        <div class="dialog-copy">
+          <div id="dialogCategory" class="dialog-kicker"></div>
+          <div class="dialog-heading">
+            <h2 id="dialogName"></h2>
+            <span id="dialogSuitRank" class="suit-rank"></span>
+          </div>
+          <p id="dialogSubtitle" class="dialog-title"></p>
+          <label class="copy-select">
+            <span>真实实体牌</span>
+            <select id="copySelect"></select>
+          </label>
+          <p id="dialogCopyMeta" class="copy-meta"></p>
+          <div id="dialogDescription" class="rule-box"></div>
+          <dl class="art-notes">
+            <div>
+              <dt>主体</dt>
+              <dd id="dialogSubject"></dd>
+            </div>
+            <div>
+              <dt>构图</dt>
+              <dd id="dialogComposition"></dd>
+            </div>
+            <div>
+              <dt>辨识</dt>
+              <dd id="dialogReadability"></dd>
+            </div>
+          </dl>
+          <a id="dialogLink" class="art-link" href="#" target="_blank" rel="noreferrer">打开原图</a>
+        </div>
+      </article>
+    </dialog>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>

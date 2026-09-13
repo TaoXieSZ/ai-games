@@ -1,0 +1,189 @@
+{
+  "checkedAt": "2026-09-12T22:21:06.896Z",
+  "scope": "25 位武将美术素材、卡面文案及本地图鉴；不包含游戏模型或技能实装",
+  "checks": [
+    "25 个独立 PNG、完整提示词、身份/体力/技能与卡库逐项一致",
+    "25 张卡面全部加载，逐张姓名/体力点数/完整技能 DOM 与卡库匹配",
+    "魏7、蜀7、吴8、群3筛选及全部25恢复",
+    "姓名/技能/空结果搜索、关键词红蓝粗体不拆行、红桃不误高亮、键盘弹窗与焦点恢复",
+    "1440 桌面/390 手机无横向溢出、长技能完整、移动弹窗可关闭、无 JavaScript 异常"
+  ],
+  "assets": [
+    {
+      "id": "cao_cao",
+      "path": "assets/art-design/hero-pool-v1/cao_cao.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "0d7d82fca2db8fc8cd72610187a4ff57d5963296c3b65ea3b9175c8aa9537164"
+    },
+    {
+      "id": "sima_yi",
+      "path": "assets/art-design/hero-pool-v1/sima_yi.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "4734020d25bbb9fa340fd07ad996d3e7cfe48e649216e9aaa2a7babb8a3f06f3"
+    },
+    {
+      "id": "xiahou_dun",
+      "path": "assets/art-design/hero-pool-v1/xiahou_dun.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "a2f6049dff15a2bef9650c85dc4014dd2a954ff9697179bb558a411f5f51cda6"
+    },
+    {
+      "id": "zhang_liao",
+      "path": "assets/art-design/hero-pool-v1/zhang_liao.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "ece0c69ec80a1b246432972d618faf8747b93f7386dfc121dfe865938e6be355"
+    },
+    {
+      "id": "xu_chu",
+      "path": "assets/art-design/hero-pool-v1/xu_chu.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "29f461959f1b950b3ee5be6ad7581a443e815152ab3f41cfeb0cf0ee5410bac9"
+    },
+    {
+      "id": "guo_jia",
+      "path": "assets/art-design/hero-pool-v1/guo_jia.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "59bfdcad3dd93f58538f33be3f736f3191c410637490ed6356585f5255d1f666"
+    },
+    {
+      "id": "zhen_ji",
+      "path": "assets/art-design/hero-pool-v1/zhen_ji.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "b2fe5d8ec3668511f8e7893fce019ba6385fa2665f9fb3a9f79a8462bb32ec69"
+    },
+    {
+      "id": "liu_bei",
+      "path": "assets/art-design/hero-pool-v1/liu_bei.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "338682f63ea96186075608088692e1532fff34c5069f1f3fb4ba2f692b02f3f9"
+    },
+    {
+      "id": "guan_yu",
+      "path": "assets/art-design/hero-pool-v1/guan_yu.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "1375c101f135bd131ea7019c9ed98ca68409731bcb0b3fd37b6bd8b2f441f361"
+    },
+    {
+      "id": "zhang_fei",
+      "path": "assets/art-design/hero-pool-v1/zhang_fei.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "eb3b4b855447490e0b0a282f22a12ee7251bd59dd1b368b3fc70a6d8fd20c1df"
+    },
+    {
+      "id": "zhuge_liang",
+      "path": "assets/art-design/hero-pool-v1/zhuge_liang.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "9388a562906abc96c36bc6350c4d44ef5aafcd77646a556910879475a1c518c0"
+    },
+    {
+      "id": "zhao_yun",
+      "path": "assets/art-design/hero-pool-v1/zhao_yun.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "4e1f26961a3d1e8737c9d6babc15118bb2d9ffe83ecb21e09725c8e7f87d57f7"
+    },
+    {
+      "id": "ma_chao",
+      "path": "assets/art-design/hero-pool-v1/ma_chao.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "2da380da1805eca319e1a807a0b872d985cf083058833d73e617bea47fa212c2"
+    },
+    {
+      "id": "huang_yueying",
+      "path": "assets/art-design/hero-pool-v1/huang_yueying.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "b7aeb7cb1cdc6cbce7f5ead3c6505a7bde44bdb7d3f1dcd0bee5eea24386e121"
+    },
+    {
+      "id": "sun_quan",
+      "path": "assets/art-design/hero-pool-v1/sun_quan.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "91daf9ed9a9ee5a43ace108ea6f0693b7bdc33dbbe94d5fd1e72b8eeff0d837b"
+    },
+    {
+      "id": "gan_ning",
+      "path": "assets/art-design/hero-pool-v1/gan_ning.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "06b7737453cf13409c6f967a1a5991a2e54b9c44da0972320e2dd1f2593f95c4"
+    },
+    {
+      "id": "lu_meng",
+      "path": "assets/art-design/hero-pool-v1/lu_meng.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "c19e9128fcb3f01f2acdbfbafe9d1bcecc29937841db0189c93940d6e6809d9e"
+    },
+    {
+      "id": "huang_gai",
+      "path": "assets/art-design/hero-pool-v1/huang_gai-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "9e26039c7c1d4f5e304815df892397f12a20ab1210d09f1e910abe3b836e5d79"
+    },
+    {
+      "id": "zhou_yu",
+      "path": "assets/art-design/hero-pool-v1/zhou_yu.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "1c3dfeb9d235b39992e3912c2809ab50a0378be9d646f670736127cc776e0514"
+    },
+    {
+      "id": "da_qiao",
+      "path": "assets/art-design/hero-pool-v1/da_qiao.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "009024c217721a07b8602e345c8b3dc2f360cff86bfebe90d0d2a462308556b8"
+    },
+    {
+      "id": "lu_xun",
+      "path": "assets/art-design/hero-pool-v1/lu_xun-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "11ed7359a2e0c7e2ebe740a3b4ff814fe8c185e02d1860f2c37a57dfc0256db1"
+    },
+    {
+      "id": "sun_shangxiang",
+      "path": "assets/art-design/hero-pool-v1/sun_shangxiang.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "bbd9e7a82c4720ad291d31afff371ec755ba8b0584dc38b0e6b7f5207d24517d"
+    },
+    {
+      "id": "hua_tuo",
+      "path": "assets/art-design/hero-pool-v1/hua_tuo.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "02a0c489e36a5bfff57a4fe2449986d450357114cb3a7a8311f70ea35526eb26"
+    },
+    {
+      "id": "lu_bu",
+      "path": "assets/art-design/hero-pool-v1/lu_bu.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "23ca48ce93b84aa01a85724b522c62f68357135ace60ebbff09e931c7e793ed5"
+    },
+    {
+      "id": "diao_chan",
+      "path": "assets/art-design/hero-pool-v1/diao_chan.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "a6614c651ffc947d5d468173d67c02bf0e3601121f348b691d772d6ea054953d"
+    }
+  ],
+  "result": "passed"
+}

@@ -1,0 +1,402 @@
+{
+  "verifiedAt": "2026-09-12T16:12:29.019532-07:00",
+  "designs": 43,
+  "physicalCards": 160,
+  "categories": {
+    "basic": 6,
+    "trick": 15,
+    "equipment": 22
+  },
+  "catalogParity": true,
+  "uniqueImages": 43,
+  "promptsPresent": 43,
+  "assets": [
+    {
+      "id": "sha",
+      "artPath": "assets/art-design/game-cards-v1/sha.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2570336,
+      "sha256": "3baa591efa00db5b657d116d5c24da350276da1103c3d2380cf71e81f1ae0777",
+      "copies": 30
+    },
+    {
+      "id": "shan",
+      "artPath": "assets/art-design/game-cards-v1/shan.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2331877,
+      "sha256": "887ac7ef3cbb7c549815290bbd08c20b645012dc479cdddc517622c7668ee5e6",
+      "copies": 24
+    },
+    {
+      "id": "tao",
+      "artPath": "assets/art-design/game-cards-v1/tao.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2177326,
+      "sha256": "8deff7afde4fcd749cf918bfe81a7cb41a0e051c1615f2fd547c2e2a182ba4fb",
+      "copies": 12
+    },
+    {
+      "id": "fire_sha",
+      "artPath": "assets/art-design/game-cards-v1/fire_sha.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2342732,
+      "sha256": "eb1d390048437977745b45b200a6fc6ad1470a7ad3991a3a1696ffeca55f1052",
+      "copies": 5
+    },
+    {
+      "id": "thunder_sha",
+      "artPath": "assets/art-design/game-cards-v1/thunder_sha.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2921216,
+      "sha256": "a20b359008a015a10a30669f20d958c65cfdbcdce18bc7740f4a6857bed9c318",
+      "copies": 9
+    },
+    {
+      "id": "jiu",
+      "artPath": "assets/art-design/game-cards-v1/jiu.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2255669,
+      "sha256": "5b80124904f0d452d39a1d7ce95db7258a01fcc77fc88e9265cceb3123d7c289",
+      "copies": 5
+    },
+    {
+      "id": "juedou",
+      "artPath": "assets/art-design/game-cards-v1/juedou.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2631188,
+      "sha256": "be5a6b0f65d24b0d6c00ddd5544caf4109535cf48870c0acdcf08a923f837371",
+      "copies": 3
+    },
+    {
+      "id": "wuxie",
+      "artPath": "assets/art-design/game-cards-v1/wuxie.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2272657,
+      "sha256": "227fd0393e6094987fa3ad9d02a8157fb6174632c6cc355a44386e6da226c6da",
+      "copies": 7
+    },
+    {
+      "id": "shunshou",
+      "artPath": "assets/art-design/game-cards-v1/shunshou.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2109363,
+      "sha256": "c8dfa88bcc5dcf653db70508659eba3929f42416518e7dfcb0d4d53e2872c453",
+      "copies": 5
+    },
+    {
+      "id": "guohe",
+      "artPath": "assets/art-design/game-cards-v1/guohe.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2251227,
+      "sha256": "7f014c123f18889ca639bbdb7016c5a92477d3bd2cd83e20f2d4e4306c371625",
+      "copies": 6
+    },
+    {
+      "id": "lebusishu",
+      "artPath": "assets/art-design/game-cards-v1/lebusishu.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2117795,
+      "sha256": "d5a91b68d3447cc149963f106ba7efb341f65c9b082bca91c4e7e300bb8f24aa",
+      "copies": 3
+    },
+    {
+      "id": "bingliang",
+      "artPath": "assets/art-design/game-cards-v1/bingliang.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2595919,
+      "sha256": "29a4e59ec058b83d66cba04555b00edb76f5ed59868db2226216d9b1049efa14",
+      "copies": 2
+    },
+    {
+      "id": "tiesuo",
+      "artPath": "assets/art-design/game-cards-v1/tiesuo.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2729117,
+      "sha256": "480110ad537c27c0fce0bf2ecf201340ec49f8554407bb005c7dadd3db729632",
+      "copies": 6
+    },
+    {
+      "id": "nanman",
+      "artPath": "assets/art-design/game-cards-v1/nanman.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2560932,
+      "sha256": "405fad93d23a064e62b9af6433e08a449afda82d1ceca232994474cec3063365",
+      "copies": 3
+    },
+    {
+      "id": "wanjian",
+      "artPath": "assets/art-design/game-cards-v1/wanjian.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2486445,
+      "sha256": "d00fda504db87a630ccb04b190357df0fd1913f720f1cfac96178f4e717e8344",
+      "copies": 1
+    },
+    {
+      "id": "taoyuan",
+      "artPath": "assets/art-design/game-cards-v1/taoyuan.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2652581,
+      "sha256": "6c188c6db6550bc7b70efc230c5d545638df3165ac185e1fd40773279b21ecc7",
+      "copies": 1
+    },
+    {
+      "id": "wugu",
+      "artPath": "assets/art-design/game-cards-v1/wugu.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2544227,
+      "sha256": "ef903d215fa311555ad6bdf904a556ac78130fb8e6655da6b1846d7cd019d965",
+      "copies": 2
+    },
+    {
+      "id": "wuzhong",
+      "artPath": "assets/art-design/game-cards-v1/wuzhong.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2460817,
+      "sha256": "ccff6d36286a6059ae359cb14cd908604b5e10b0909abae4b6213045739e5204",
+      "copies": 4
+    },
+    {
+      "id": "jiedao",
+      "artPath": "assets/art-design/game-cards-v1/jiedao.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2261646,
+      "sha256": "dfb777c474d5bb556732d714b3cbb63a805e06b8ff6a48984a52beae95e69c7a",
+      "copies": 2
+    },
+    {
+      "id": "huogong",
+      "artPath": "assets/art-design/game-cards-v1/huogong.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2044467,
+      "sha256": "5a0988be9406494870fd76d85e29eea30b23cf69950020f9b58dfdff7358ebdd",
+      "copies": 3
+    },
+    {
+      "id": "shandian",
+      "artPath": "assets/art-design/game-cards-v1/shandian-v2.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2384031,
+      "sha256": "8df10cfc049ed052bab32e5ee899e7f0baf75306f41544e1feadd1bbf14ff71a",
+      "copies": 2
+    },
+    {
+      "id": "zhuge_crossbow",
+      "artPath": "assets/art-design/game-cards-v1/zhuge_crossbow.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2265347,
+      "sha256": "eee70b36daf715b8b197bd189e28d8a4607f7201fff86a5e55be7793332a43c3",
+      "copies": 2
+    },
+    {
+      "id": "double_swords",
+      "artPath": "assets/art-design/game-cards-v1/double_swords.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2295402,
+      "sha256": "31ce19378817c6527a0c676fb596eaf59de369d1309f3c41884fb0cdc6f91b15",
+      "copies": 1
+    },
+    {
+      "id": "green_dragon_blade",
+      "artPath": "assets/art-design/game-cards-v1/green_dragon_blade.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2514062,
+      "sha256": "f5cdf9cc61107ea2abd3b89fd77e1d3f7ef48986116ab541ecc4a534bdcbc0fb",
+      "copies": 1
+    },
+    {
+      "id": "qinggang_sword",
+      "artPath": "assets/art-design/game-cards-v1/qinggang_sword.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2305742,
+      "sha256": "1929acb99121016802233e264733d13f2c455706e87fc40474a916e3d20f2e25",
+      "copies": 1
+    },
+    {
+      "id": "serpent_spear",
+      "artPath": "assets/art-design/game-cards-v1/serpent_spear.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2357478,
+      "sha256": "1a95af43a3ed498cb337d13763457fe22e7c1b58ed6ba23188342541fbee1663",
+      "copies": 1
+    },
+    {
+      "id": "stone_axe",
+      "artPath": "assets/art-design/game-cards-v1/stone_axe.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2824094,
+      "sha256": "b3f44a51be5d09902baf09110c3b390167337fce9e153f41c05660ccb514ffb1",
+      "copies": 1
+    },
+    {
+      "id": "halberd",
+      "artPath": "assets/art-design/game-cards-v1/halberd.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2261493,
+      "sha256": "b3abea51ff63699c897f62695d19eb6f6f8f728eb58aebdebca099a1d3f06857",
+      "copies": 1
+    },
+    {
+      "id": "kylin_bow",
+      "artPath": "assets/art-design/game-cards-v1/kylin_bow.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2539261,
+      "sha256": "70f9ecbdf3bef9d967ce563cdbb4c6f9bc95d4d6956b097236053a40b7489f4a",
+      "copies": 1
+    },
+    {
+      "id": "ice_sword",
+      "artPath": "assets/art-design/game-cards-v1/ice_sword.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2654066,
+      "sha256": "e93020dc88df02fb79249e1296ab519442e27f942b4c5079bdb14e8d4a85eb99",
+      "copies": 1
+    },
+    {
+      "id": "fire_fan",
+      "artPath": "assets/art-design/game-cards-v1/fire_fan.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2255643,
+      "sha256": "236d055ab1d4eb1eeb697cb0d90b52825b37a68594e6b7c94a4f5b5096f70ddc",
+      "copies": 1
+    },
+    {
+      "id": "ancient_scimitar",
+      "artPath": "assets/art-design/game-cards-v1/ancient_scimitar.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2245789,
+      "sha256": "bb5f88922cb7b08f057a51e71a436abb9741f0366afcced9b23703fc98f58c7a",
+      "copies": 1
+    },
+    {
+      "id": "eight_trigrams",
+      "artPath": "assets/art-design/game-cards-v1/eight_trigrams.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2600789,
+      "sha256": "65990a7c208b05ac84ffcd8660aee7d8eb49e4ff4c788e8c752ca71a92e08a6f",
+      "copies": 2
+    },
+    {
+      "id": "renwang_shield",
+      "artPath": "assets/art-design/game-cards-v1/renwang_shield.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2638328,
+      "sha256": "084f381753e635b05328bcf1c812ae7694a9bad6bdbac8a98d28c0dc3080b761",
+      "copies": 1
+    },
+    {
+      "id": "vine_armor",
+      "artPath": "assets/art-design/game-cards-v1/vine_armor.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2440175,
+      "sha256": "c3ca8488ef2ae37f20ad7b60985a26d8d7fc65ad57375ba634cdf45f48668212",
+      "copies": 2
+    },
+    {
+      "id": "silver_lion",
+      "artPath": "assets/art-design/game-cards-v1/silver_lion.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2313173,
+      "sha256": "56e94744afd0d9307e15701b6d4577e59936051edeab7892a037fc1d4344fafb",
+      "copies": 1
+    },
+    {
+      "id": "red_hare",
+      "artPath": "assets/art-design/game-cards-v1/red_hare.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2469525,
+      "sha256": "232bc96cdca69f918bcbbf28bb82518c537760edf59dc10150cf6223a949b037",
+      "copies": 1
+    },
+    {
+      "id": "dayuan",
+      "artPath": "assets/art-design/game-cards-v1/dayuan.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2403015,
+      "sha256": "d69b8447077d08718113350301eeda0c6bec8e571da1206699136d07f5f8c3ff",
+      "copies": 1
+    },
+    {
+      "id": "zixing",
+      "artPath": "assets/art-design/game-cards-v1/zixing.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2301637,
+      "sha256": "9817897d31377766ed3938af587cd05100a2ae3d5e1f217c77b99da4511cc672",
+      "copies": 1
+    },
+    {
+      "id": "dilu",
+      "artPath": "assets/art-design/game-cards-v1/dilu.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2446925,
+      "sha256": "e5e8bf7266d8ec6ec36eb8813c413ae82a5fcd6c76762e7444fdfebb983cc213",
+      "copies": 1
+    },
+    {
+      "id": "jueying",
+      "artPath": "assets/art-design/game-cards-v1/jueying.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2395590,
+      "sha256": "8400550e0aff04b69c4d31e145d72c880fcc5cc415dead973ddc09d5df190915",
+      "copies": 1
+    },
+    {
+      "id": "zhuahuang_feidian",
+      "artPath": "assets/art-design/game-cards-v1/zhuahuang_feidian.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2468663,
+      "sha256": "091df6754461de601c90ae153e508b3a6b76642f6e6eb0b52ed9838a99d35297",
+      "copies": 1
+    },
+    {
+      "id": "hualiu",
+      "artPath": "assets/art-design/game-cards-v1/hualiu.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2318935,
+      "sha256": "9d545dae6f75bb6237d511fdbe5c3ef6a7120a811f8b806d7d99454e2c68c1e6",
+      "copies": 1
+    }
+  ]
+}

@@ -1,0 +1,3866 @@
+{
+  "edition": "sanguosha-roblox-standard-ex-maneuver-v0.1",
+  "locale": "zh-CN",
+  "sourcePolicy": "Contains only structured card metadata and original Roblox-style art direction; no original card illustrations are embedded.",
+  "cards": [
+    {
+      "id": "identity_lord",
+      "name": "主公",
+      "category": "identity",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "消灭所有反贼和内奸。",
+      "flavor": "身份牌数量：1",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "blocky red helmet crown identity card"
+      },
+      "copies": []
+    },
+    {
+      "id": "identity_loyalist",
+      "name": "忠臣",
+      "category": "identity",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "保护主公并协助消灭反贼和内奸。",
+      "flavor": "身份牌数量：3",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "gold flower shield identity card"
+      },
+      "copies": []
+    },
+    {
+      "id": "identity_rebel",
+      "name": "反贼",
+      "category": "identity",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "击败主公。",
+      "flavor": "身份牌数量：4",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "green flame rebel identity card"
+      },
+      "copies": []
+    },
+    {
+      "id": "identity_renegade",
+      "name": "内奸",
+      "category": "identity",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "先清除其他角色，最后单独击败主公。",
+      "flavor": "身份牌数量：2",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "blue eye mask identity card"
+      },
+      "copies": []
+    },
+    {
+      "id": "cao_cao",
+      "name": "曹操",
+      "category": "general",
+      "faction": "wei",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "奸雄",
+          "description": "受到伤害后可获得造成伤害的牌。"
+        },
+        {
+          "name": "护驾",
+          "description": "主公技；需要使用或打出闪时，可令魏势力角色替你打出闪。"
+        }
+      ],
+      "description": "魏武帝",
+      "flavor": "魏武帝。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "曹操 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "blocky emperor armor with red cape",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "sima_yi",
+      "name": "司马懿",
+      "category": "general",
+      "faction": "wei",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "反馈",
+          "description": "受到伤害后可获得伤害来源一张牌。"
+        },
+        {
+          "name": "鬼才",
+          "description": "一名角色判定牌生效前，可打出一张手牌替换之。"
+        }
+      ],
+      "description": "狼顾之鬼",
+      "flavor": "狼顾之鬼。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "司马懿 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "shadow strategist robe",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "xiahou_dun",
+      "name": "夏侯惇",
+      "category": "general",
+      "faction": "wei",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "刚烈",
+          "description": "受到伤害后可判定，若结果不为红桃，伤害来源需弃两张手牌或受到1点伤害。"
+        }
+      ],
+      "description": "独眼的罗刹",
+      "flavor": "独眼的罗刹。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "夏侯惇 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "one-eyed armored warrior",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhang_liao",
+      "name": "张辽",
+      "category": "general",
+      "faction": "wei",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "突袭",
+          "description": "摸牌阶段可少摸至多两张牌，改为获得等量其他角色各一张手牌。"
+        }
+      ],
+      "description": "前将军",
+      "flavor": "前将军。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "张辽 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "swift blue-gray cavalry general",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "xu_chu",
+      "name": "许褚",
+      "category": "general",
+      "faction": "wei",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "裸衣",
+          "description": "摸牌阶段可少摸一张；本回合杀或决斗造成的伤害+1。"
+        }
+      ],
+      "description": "虎痴",
+      "flavor": "虎痴。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "许褚 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "massive block warrior with tiger belt",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "guo_jia",
+      "name": "郭嘉",
+      "category": "general",
+      "faction": "wei",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "天妒",
+          "description": "判定牌生效后可获得之。"
+        },
+        {
+          "name": "遗计",
+          "description": "受到1点伤害后可观看牌堆顶两张牌并分配给任意角色。"
+        }
+      ],
+      "description": "早终的先知",
+      "flavor": "早终的先知。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "郭嘉 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "pale adviser with jade scroll",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhen_ji",
+      "name": "甄姬",
+      "category": "general",
+      "faction": "wei",
+      "hp": 3,
+      "gender": "female",
+      "skills": [
+        {
+          "name": "倾国",
+          "description": "可将一张黑色手牌当闪使用或打出。"
+        },
+        {
+          "name": "洛神",
+          "description": "准备阶段可判定，若为黑色则获得之并可继续判定。"
+        }
+      ],
+      "description": "薄幸的美人",
+      "flavor": "薄幸的美人。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "甄姬 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "elegant river goddess silhouette",
+        "palette": [
+          "wei",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "liu_bei",
+      "name": "刘备",
+      "category": "general",
+      "faction": "shu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "仁德",
+          "description": "出牌阶段可将任意手牌交给其他角色；本阶段累计给出至少两张后可回复1点体力，每阶段限一次。"
+        },
+        {
+          "name": "激将",
+          "description": "主公技；需要使用或打出杀时，可令蜀势力角色替你打出杀。"
+        }
+      ],
+      "description": "乱世的枭雄",
+      "flavor": "乱世的枭雄。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "刘备 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "kind monarch with twin swords",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "guan_yu",
+      "name": "关羽",
+      "category": "general",
+      "faction": "shu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "武圣",
+          "description": "可将一张红色牌当杀使用或打出。"
+        }
+      ],
+      "description": "美髯公",
+      "flavor": "美髯公。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "关羽 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "green-robed block hero with crescent blade",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhang_fei",
+      "name": "张飞",
+      "category": "general",
+      "faction": "shu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "咆哮",
+          "description": "锁定技；出牌阶段使用杀无次数限制。"
+        }
+      ],
+      "description": "万夫不当",
+      "flavor": "万夫不当。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "张飞 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "black-bearded shout pose",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhuge_liang",
+      "name": "诸葛亮",
+      "category": "general",
+      "faction": "shu",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "观星",
+          "description": "准备阶段可观看牌堆顶若干张牌并调整到牌堆顶或底。"
+        },
+        {
+          "name": "空城",
+          "description": "锁定技；无手牌时不能成为杀或决斗的目标。"
+        }
+      ],
+      "description": "迟暮的丞相",
+      "flavor": "迟暮的丞相。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "诸葛亮 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "feather fan strategist under stars",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhao_yun",
+      "name": "赵云",
+      "category": "general",
+      "faction": "shu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "龙胆",
+          "description": "可将杀当闪、闪当杀使用或打出。"
+        }
+      ],
+      "description": "少年将军",
+      "flavor": "少年将军。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "赵云 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "white armor spear hero",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "ma_chao",
+      "name": "马超",
+      "category": "general",
+      "faction": "shu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "马术",
+          "description": "锁定技；你计算与其他角色距离-1。"
+        },
+        {
+          "name": "铁骑",
+          "description": "使用杀指定目标后可判定，若为红色则目标不能使用闪。"
+        }
+      ],
+      "description": "一骑当千",
+      "flavor": "一骑当千。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "马超 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "silver cavalry lancer",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "huang_yueying",
+      "name": "黄月英",
+      "category": "general",
+      "faction": "shu",
+      "hp": 3,
+      "gender": "female",
+      "skills": [
+        {
+          "name": "集智",
+          "description": "使用非延时锦囊牌时可摸一张牌。"
+        },
+        {
+          "name": "奇才",
+          "description": "使用锦囊牌无距离限制。"
+        }
+      ],
+      "description": "归隐的杰女",
+      "flavor": "归隐的杰女。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "黄月英 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "inventor with wooden mechanism",
+        "palette": [
+          "shu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "sun_quan",
+      "name": "孙权",
+      "category": "general",
+      "faction": "wu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "制衡",
+          "description": "出牌阶段限一次，弃置任意张牌并摸等量牌。"
+        },
+        {
+          "name": "救援",
+          "description": "主公技；其他吴势力角色在你濒死时对你使用桃，回复量+1。"
+        }
+      ],
+      "description": "年轻的贤君",
+      "flavor": "年轻的贤君。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "孙权 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "young ruler with jade seal",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "gan_ning",
+      "name": "甘宁",
+      "category": "general",
+      "faction": "wu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "奇袭",
+          "description": "可将一张黑色牌当过河拆桥使用。"
+        }
+      ],
+      "description": "锦帆游侠",
+      "flavor": "锦帆游侠。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "甘宁 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "bell-wearing river raider",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "lu_meng",
+      "name": "吕蒙",
+      "category": "general",
+      "faction": "wu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "克己",
+          "description": "若本回合未使用或打出过杀，可跳过弃牌阶段。"
+        }
+      ],
+      "description": "白衣渡江",
+      "flavor": "白衣渡江。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "吕蒙 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "white-cloaked tactician",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "huang_gai",
+      "name": "黄盖",
+      "category": "general",
+      "faction": "wu",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "苦肉",
+          "description": "出牌阶段可失去1点体力并摸两张牌。"
+        }
+      ],
+      "description": "轻身为国",
+      "flavor": "轻身为国。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "黄盖 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "scarred veteran with naval armor",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "zhou_yu",
+      "name": "周瑜",
+      "category": "general",
+      "faction": "wu",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "英姿",
+          "description": "摸牌阶段可额外摸一张牌。"
+        },
+        {
+          "name": "反间",
+          "description": "出牌阶段限一次，令一名角色选择一种花色后获得你一张手牌并展示，若花色不符其受到1点伤害。"
+        }
+      ],
+      "description": "大都督",
+      "flavor": "大都督。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "周瑜 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "handsome commander with red plume",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "da_qiao",
+      "name": "大乔",
+      "category": "general",
+      "faction": "wu",
+      "hp": 3,
+      "gender": "female",
+      "skills": [
+        {
+          "name": "国色",
+          "description": "可将一张方块牌当乐不思蜀使用。"
+        },
+        {
+          "name": "流离",
+          "description": "成为杀的目标时，可弃一张牌将此杀转移给你攻击范围内另一名其他角色，不能转移给此杀的使用者。"
+        }
+      ],
+      "description": "矜持之花",
+      "flavor": "矜持之花。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "大乔 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "graceful noblewoman with river fan",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "lu_xun",
+      "name": "陆逊",
+      "category": "general",
+      "faction": "wu",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "谦逊",
+          "description": "锁定技；不能成为顺手牵羊和乐不思蜀的目标。"
+        },
+        {
+          "name": "连营",
+          "description": "失去最后手牌后可摸一张牌。"
+        }
+      ],
+      "description": "儒生雄才",
+      "flavor": "儒生雄才。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "陆逊 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "young scholar commander",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "sun_shangxiang",
+      "name": "孙尚香",
+      "category": "general",
+      "faction": "wu",
+      "hp": 3,
+      "gender": "female",
+      "skills": [
+        {
+          "name": "结姻",
+          "description": "出牌阶段限一次，弃两张手牌并选择一名受伤男性角色，你与其各回复1点体力。"
+        },
+        {
+          "name": "枭姬",
+          "description": "失去装备区一张牌后可摸两张牌。"
+        }
+      ],
+      "description": "弓腰姬",
+      "flavor": "弓腰姬。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "孙尚香 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "archer princess with twin rings",
+        "palette": [
+          "wu",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "hua_tuo",
+      "name": "华佗",
+      "category": "general",
+      "faction": "qun",
+      "hp": 3,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "急救",
+          "description": "回合外可将一张红色牌当桃使用。"
+        },
+        {
+          "name": "青囊",
+          "description": "出牌阶段限一次，弃一张手牌令一名角色回复1点体力。"
+        }
+      ],
+      "description": "神医",
+      "flavor": "神医。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "华佗 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "traveling healer with medicine gourd",
+        "palette": [
+          "qun",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "lu_bu",
+      "name": "吕布",
+      "category": "general",
+      "faction": "qun",
+      "hp": 4,
+      "gender": "male",
+      "skills": [
+        {
+          "name": "无双",
+          "description": "锁定技；杀需要目标连续使用两张闪响应，决斗对手需连续打出两张杀。"
+        }
+      ],
+      "description": "武的化身",
+      "flavor": "武的化身。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "吕布 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "towering warrior with halberd",
+        "palette": [
+          "qun",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "diao_chan",
+      "name": "貂蝉",
+      "category": "general",
+      "faction": "qun",
+      "hp": 3,
+      "gender": "female",
+      "skills": [
+        {
+          "name": "离间",
+          "description": "出牌阶段限一次，弃一张牌令两名男性角色视为其中一方对另一方使用决斗。"
+        },
+        {
+          "name": "闭月",
+          "description": "结束阶段可摸一张牌。"
+        }
+      ],
+      "description": "绝世的舞姬",
+      "flavor": "绝世的舞姬。标准身份局首批 25 武将之一。",
+      "art": {
+        "kind": "roblox_character_card_art",
+        "primary": "貂蝉 as a Roblox Three Kingdoms minifigure portrait",
+        "secondary": "large square head, chunky hands, stylized armor, expressive readable face, original-composition replacement art",
+        "motif": "moonlit dancer in block style",
+        "palette": [
+          "qun",
+          "ink",
+          "gold accent"
+        ]
+      },
+      "copies": []
+    },
+    {
+      "id": "sha",
+      "name": "杀",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "普通杀：出牌阶段通常限一次，对攻击范围内一名角色使用；目标需使用闪，否则受到1点伤害。诸葛连弩等效果可突破次数限制。",
+      "flavor": "杀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "杀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "blocky bronze strike icon",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 5,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 13,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 10,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "shan",
+      "name": "闪",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "响应杀或部分效果使用，抵消一次杀。",
+      "flavor": "闪 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "闪 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "angular dodge burst",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 5,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 6,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 7,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 8,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 10,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 10,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 11,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 8,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 9,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 11,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 12,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "tao",
+      "name": "桃",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "出牌阶段可对自己使用并回复1点体力；一名角色濒死时，可对该角色使用并令其回复1点体力。",
+      "flavor": "桃 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "桃 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "pixel peach with warm healing glow",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 2,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 3,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 12,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 5,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 6,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 12,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "fire_sha",
+      "name": "火杀",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "使用规则同杀；命中后造成火焰属性伤害。",
+      "flavor": "火杀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "火杀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "blocky flame blade",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 4,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 5,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 4,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 7,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 10,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "thunder_sha",
+      "name": "雷杀",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "使用规则同杀；命中后造成雷电属性伤害。",
+      "flavor": "雷杀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "雷杀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "voxel lightning blade",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 5,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 6,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 7,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 8,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 4,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 5,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 6,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 7,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 8,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "jiu",
+      "name": "酒",
+      "category": "basic",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "出牌阶段对自己使用，每阶段限一次，使本回合下一张杀伤害+1；自己濒死时也可使用并回复1点体力。",
+      "flavor": "酒 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "酒 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "square wine jar with red seal",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 3,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 9,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "diamond",
+          "rank": 9,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 3,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 9,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "juedou",
+      "name": "决斗",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "指定一名角色轮流打出杀，先不出杀者受到对方1点伤害。",
+      "flavor": "决斗 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "决斗 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "duel banner with crossed weapons",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 1,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 1,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 1,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "wuxie",
+      "name": "无懈可击",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "在一张锦囊牌对一名角色生效前使用，抵消该效果；可用于普通锦囊，也可抵消延时锦囊判定后的生效。",
+      "flavor": "无懈可击 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "无懈可击 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "blue block shield sigil",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 12,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 13,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 12,
+          "pack": "ex"
+        },
+        {
+          "suit": "heart",
+          "rank": 1,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 13,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 11,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 13,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "shunshou",
+      "name": "顺手牵羊",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "对距离为1的一名角色使用，获得其一张牌。",
+      "flavor": "顺手牵羊 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "顺手牵羊 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "blocky hook hand reaching for card",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 11,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "guohe",
+      "name": "过河拆桥",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "弃置一名角色区域里的一张牌。",
+      "flavor": "过河拆桥 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "过河拆桥 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "cracked bridge tile",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 12,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 4,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 12,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "lebusishu",
+      "name": "乐不思蜀",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "延时锦囊；判定不为红桃则跳过出牌阶段。",
+      "flavor": "乐不思蜀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "乐不思蜀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "gray music note lock",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 6,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 6,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "bingliang",
+      "name": "兵粮寸断",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "延时锦囊；判定不为梅花则跳过摸牌阶段。",
+      "flavor": "兵粮寸断 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "兵粮寸断 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "grain sack with chain lock",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 4,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 10,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "tiesuo",
+      "name": "铁索连环",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "横置或重置至多两名角色；可重铸摸一张牌。",
+      "flavor": "铁索连环 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "铁索连环 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "iron chain links in voxel style",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 10,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 11,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 12,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "club",
+          "rank": 13,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 11,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 12,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "nanman",
+      "name": "南蛮入侵",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "除使用者外，每名角色需打出杀，否则受到1点伤害。",
+      "flavor": "南蛮入侵 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "南蛮入侵 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "southern war drum",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "wanjian",
+      "name": "万箭齐发",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "除使用者外，每名角色需打出闪，否则受到1点伤害。",
+      "flavor": "万箭齐发 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "万箭齐发 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "rain of block arrows",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 1,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "taoyuan",
+      "name": "桃园结义",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "所有受伤角色各回复1点体力。",
+      "flavor": "桃园结义 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "桃园结义 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "peach garden gate",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 1,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "wugu",
+      "name": "五谷丰登",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "展示等同存活人数的牌，按行动顺序每人获得一张。",
+      "flavor": "五谷丰登 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "五谷丰登 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "harvest table with cards",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 3,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 4,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "wuzhong",
+      "name": "无中生有",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "出牌阶段使用，摸两张牌。",
+      "flavor": "无中生有 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "无中生有 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "empty block hand creating cards",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 7,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 8,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 9,
+          "pack": "standard"
+        },
+        {
+          "suit": "heart",
+          "rank": 11,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "jiedao",
+      "name": "借刀杀人",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "令一名装备武器的角色对另一名角色使用杀，否则交出武器。",
+      "flavor": "借刀杀人 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "借刀杀人 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "borrowed blade token",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 12,
+          "pack": "standard"
+        },
+        {
+          "suit": "club",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "huogong",
+      "name": "火攻",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "目标展示一张手牌，使用者弃置同花色牌则对其造成1点火焰伤害。",
+      "flavor": "火攻 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "火攻 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "fire tactic scroll",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 12,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 2,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "heart",
+          "rank": 3,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "shandian",
+      "name": "闪电",
+      "category": "trick",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "延时锦囊；判定为黑桃2至9时受到3点雷电伤害，否则传给下家。",
+      "flavor": "闪电 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "闪电 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "storm cloud card",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 12,
+          "pack": "ex"
+        },
+        {
+          "suit": "spade",
+          "rank": 1,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "zhuge_crossbow",
+      "name": "诸葛连弩",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围1；出牌阶段使用杀无次数限制。",
+      "flavor": "诸葛连弩 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "诸葛连弩 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "blocky repeating crossbow",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 1,
+          "pack": "standard"
+        },
+        {
+          "suit": "diamond",
+          "rank": 1,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "double_swords",
+      "name": "雌雄双股剑",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围2；对异性角色使用杀时可令其弃一张手牌或令你摸一张。",
+      "flavor": "雌雄双股剑 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "雌雄双股剑 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "paired voxel swords",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 2,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "green_dragon_blade",
+      "name": "青龙偃月刀",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围3；杀被闪抵消后可继续对同目标使用杀。",
+      "flavor": "青龙偃月刀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "青龙偃月刀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "green dragon crescent blade",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "qinggang_sword",
+      "name": "青釭剑",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围2；使用杀指定目标后无视其防具。",
+      "flavor": "青釭剑 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "青釭剑 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "dark blue straight sword",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 6,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "serpent_spear",
+      "name": "丈八蛇矛",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围3；可将两张手牌当杀使用或打出。",
+      "flavor": "丈八蛇矛 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "丈八蛇矛 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "serpent-headed spear",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 12,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "stone_axe",
+      "name": "贯石斧",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围3；杀被闪抵消后可弃两张牌令此杀仍造成伤害。",
+      "flavor": "贯石斧 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "贯石斧 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "heavy block axe",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "halberd",
+      "name": "方天画戟",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围4；若使用最后手牌杀，可额外指定至多两名目标。",
+      "flavor": "方天画戟 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "方天画戟 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "square sky halberd",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 12,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "kylin_bow",
+      "name": "麒麟弓",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围5；杀造成伤害后可弃目标装备区一张坐骑。",
+      "flavor": "麒麟弓 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "麒麟弓 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "long voxel bow",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "ice_sword",
+      "name": "寒冰剑",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围2；杀造成伤害时可防止伤害并弃置目标两张牌。",
+      "flavor": "寒冰剑 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "寒冰剑 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "icy translucent sword",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 2,
+          "pack": "ex"
+        }
+      ]
+    },
+    {
+      "id": "fire_fan",
+      "name": "朱雀羽扇",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围4；普通杀可改为火杀。",
+      "flavor": "朱雀羽扇 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "朱雀羽扇 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "red feather fan",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 1,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "ancient_scimitar",
+      "name": "古锭刀",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "武器，攻击范围2；对无手牌角色造成杀伤害时伤害+1。",
+      "flavor": "古锭刀 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "古锭刀 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "ancient curved blade",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 1,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "eight_trigrams",
+      "name": "八卦阵",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "防具；需要使用或打出闪时可判定，红色视为使用或打出闪。",
+      "flavor": "八卦阵 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "八卦阵 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "octagon trigrams shield",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 2,
+          "pack": "standard"
+        },
+        {
+          "suit": "spade",
+          "rank": 2,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "renwang_shield",
+      "name": "仁王盾",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "防具；黑色杀对你无效。",
+      "flavor": "仁王盾 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "仁王盾 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "black square tower shield",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 2,
+          "pack": "ex"
+        }
+      ]
+    },
+    {
+      "id": "vine_armor",
+      "name": "藤甲",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "防具；南蛮入侵、万箭齐发和普通杀无效，受到火焰伤害+1。",
+      "flavor": "藤甲 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "藤甲 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "woven vine block armor",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 2,
+          "pack": "maneuver"
+        },
+        {
+          "suit": "spade",
+          "rank": 2,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "silver_lion",
+      "name": "白银狮子",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "防具；受到多于1点伤害时防止至1点；失去装备区此牌时回复1点体力。",
+      "flavor": "白银狮子 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "白银狮子 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "silver lion helmet",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 1,
+          "pack": "maneuver"
+        }
+      ]
+    },
+    {
+      "id": "red_hare",
+      "name": "赤兔",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "-1坐骑；你计算与其他角色距离-1。",
+      "flavor": "赤兔 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "赤兔 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "red block horse mount",
+        "palette": [
+          "vermillion",
+          "charcoal",
+          "gold"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "dayuan",
+      "name": "大宛",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "-1坐骑；你计算与其他角色距离-1。",
+      "flavor": "大宛 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "大宛 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "dark war horse mount",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "zixing",
+      "name": "紫骍",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "-1坐骑；你计算与其他角色距离-1。",
+      "flavor": "紫骍 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "紫骍 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "purple block horse mount",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "dilu",
+      "name": "的卢",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "+1坐骑；其他角色计算与你距离+1。",
+      "flavor": "的卢 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "的卢 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "white block horse mount",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "club",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "jueying",
+      "name": "绝影",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "+1坐骑；其他角色计算与你距离+1。",
+      "flavor": "绝影 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "绝影 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "shadow black block horse",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "spade",
+          "rank": 5,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "zhuahuang_feidian",
+      "name": "爪黄飞电",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "+1坐骑；其他角色计算与你距离+1。",
+      "flavor": "爪黄飞电 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "爪黄飞电 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "golden block horse",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "heart",
+          "rank": 13,
+          "pack": "standard"
+        }
+      ]
+    },
+    {
+      "id": "hualiu",
+      "name": "骅骝",
+      "category": "equipment",
+      "faction": null,
+      "hp": null,
+      "gender": null,
+      "skills": [],
+      "description": "+1坐骑；其他角色计算与你距离+1。",
+      "flavor": "骅骝 should read instantly on a small Roblox hand card.",
+      "art": {
+        "kind": "roblox_card_art",
+        "primary": "骅骝 rendered as Roblox-ready chunky low-poly Three Kingdoms card art",
+        "secondary": "square-headed minifigure proportions, readable silhouette, toy-like materials, no direct reuse of original illustrations",
+        "motif": "brown-gold block horse",
+        "palette": [
+          "jade",
+          "ink",
+          "gold",
+          "faction accent"
+        ]
+      },
+      "copies": [
+        {
+          "suit": "diamond",
+          "rank": 13,
+          "pack": "maneuver"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "deck_001",
+      "cardId": "zhuge_crossbow",
+      "suit": "club",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_002",
+      "cardId": "juedou",
+      "suit": "club",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_003",
+      "cardId": "silver_lion",
+      "suit": "club",
+      "rank": 1,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_004",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_005",
+      "cardId": "eight_trigrams",
+      "suit": "club",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_006",
+      "cardId": "renwang_shield",
+      "suit": "club",
+      "rank": 2,
+      "pack": "ex"
+    },
+    {
+      "id": "deck_007",
+      "cardId": "vine_armor",
+      "suit": "club",
+      "rank": 2,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_008",
+      "cardId": "jiu",
+      "suit": "club",
+      "rank": 3,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_009",
+      "cardId": "guohe",
+      "suit": "club",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_010",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_011",
+      "cardId": "bingliang",
+      "suit": "club",
+      "rank": 4,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_012",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_013",
+      "cardId": "guohe",
+      "suit": "club",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_014",
+      "cardId": "dilu",
+      "suit": "club",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_015",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_016",
+      "cardId": "thunder_sha",
+      "suit": "club",
+      "rank": 5,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_017",
+      "cardId": "lebusishu",
+      "suit": "club",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_018",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_019",
+      "cardId": "thunder_sha",
+      "suit": "club",
+      "rank": 6,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_020",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_021",
+      "cardId": "nanman",
+      "suit": "club",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_022",
+      "cardId": "thunder_sha",
+      "suit": "club",
+      "rank": 7,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_023",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_024",
+      "cardId": "thunder_sha",
+      "suit": "club",
+      "rank": 8,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_025",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_026",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_027",
+      "cardId": "jiu",
+      "suit": "club",
+      "rank": 9,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_028",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_029",
+      "cardId": "tiesuo",
+      "suit": "club",
+      "rank": 10,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_030",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_031",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_032",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_033",
+      "cardId": "sha",
+      "suit": "club",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_034",
+      "cardId": "tiesuo",
+      "suit": "club",
+      "rank": 11,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_035",
+      "cardId": "jiedao",
+      "suit": "club",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_036",
+      "cardId": "tiesuo",
+      "suit": "club",
+      "rank": 12,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_037",
+      "cardId": "wuxie",
+      "suit": "club",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_038",
+      "cardId": "jiedao",
+      "suit": "club",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_039",
+      "cardId": "wuxie",
+      "suit": "club",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_040",
+      "cardId": "tiesuo",
+      "suit": "club",
+      "rank": 13,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_041",
+      "cardId": "zhuge_crossbow",
+      "suit": "diamond",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_042",
+      "cardId": "juedou",
+      "suit": "diamond",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_043",
+      "cardId": "fire_fan",
+      "suit": "diamond",
+      "rank": 1,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_044",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_045",
+      "cardId": "tao",
+      "suit": "diamond",
+      "rank": 2,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_046",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_047",
+      "cardId": "shunshou",
+      "suit": "diamond",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_048",
+      "cardId": "tao",
+      "suit": "diamond",
+      "rank": 3,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_049",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_050",
+      "cardId": "shunshou",
+      "suit": "diamond",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_051",
+      "cardId": "fire_sha",
+      "suit": "diamond",
+      "rank": 4,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_052",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_053",
+      "cardId": "fire_sha",
+      "suit": "diamond",
+      "rank": 5,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_054",
+      "cardId": "stone_axe",
+      "suit": "diamond",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_055",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_056",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_057",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_058",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 6,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_059",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_060",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_061",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 7,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_062",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_063",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 8,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_064",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_065",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_066",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_067",
+      "cardId": "jiu",
+      "suit": "diamond",
+      "rank": 9,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_068",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_069",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 10,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_070",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_071",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_072",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_073",
+      "cardId": "shan",
+      "suit": "diamond",
+      "rank": 11,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_074",
+      "cardId": "huogong",
+      "suit": "diamond",
+      "rank": 12,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_075",
+      "cardId": "wuxie",
+      "suit": "diamond",
+      "rank": 12,
+      "pack": "ex"
+    },
+    {
+      "id": "deck_076",
+      "cardId": "tao",
+      "suit": "diamond",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_077",
+      "cardId": "halberd",
+      "suit": "diamond",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_078",
+      "cardId": "hualiu",
+      "suit": "diamond",
+      "rank": 13,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_079",
+      "cardId": "sha",
+      "suit": "diamond",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_080",
+      "cardId": "zixing",
+      "suit": "diamond",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_081",
+      "cardId": "wuxie",
+      "suit": "heart",
+      "rank": 1,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_082",
+      "cardId": "wanjian",
+      "suit": "heart",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_083",
+      "cardId": "taoyuan",
+      "suit": "heart",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_084",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_085",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_086",
+      "cardId": "huogong",
+      "suit": "heart",
+      "rank": 2,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_087",
+      "cardId": "huogong",
+      "suit": "heart",
+      "rank": 3,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_088",
+      "cardId": "wugu",
+      "suit": "heart",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_089",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_090",
+      "cardId": "wugu",
+      "suit": "heart",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_091",
+      "cardId": "fire_sha",
+      "suit": "heart",
+      "rank": 4,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_092",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_093",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 5,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_094",
+      "cardId": "kylin_bow",
+      "suit": "heart",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_095",
+      "cardId": "red_hare",
+      "suit": "heart",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_096",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_097",
+      "cardId": "lebusishu",
+      "suit": "heart",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_098",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 6,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_099",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_100",
+      "cardId": "wuzhong",
+      "suit": "heart",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_101",
+      "cardId": "fire_sha",
+      "suit": "heart",
+      "rank": 7,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_102",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 8,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_103",
+      "cardId": "wuzhong",
+      "suit": "heart",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_104",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_105",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_106",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 9,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_107",
+      "cardId": "wuzhong",
+      "suit": "heart",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_108",
+      "cardId": "sha",
+      "suit": "heart",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_109",
+      "cardId": "sha",
+      "suit": "heart",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_110",
+      "cardId": "fire_sha",
+      "suit": "heart",
+      "rank": 10,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_111",
+      "cardId": "sha",
+      "suit": "heart",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_112",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 11,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_113",
+      "cardId": "wuzhong",
+      "suit": "heart",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_114",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 12,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_115",
+      "cardId": "tao",
+      "suit": "heart",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_116",
+      "cardId": "shandian",
+      "suit": "heart",
+      "rank": 12,
+      "pack": "ex"
+    },
+    {
+      "id": "deck_117",
+      "cardId": "guohe",
+      "suit": "heart",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_118",
+      "cardId": "shan",
+      "suit": "heart",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_119",
+      "cardId": "wuxie",
+      "suit": "heart",
+      "rank": 13,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_120",
+      "cardId": "zhuahuang_feidian",
+      "suit": "heart",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_121",
+      "cardId": "ancient_scimitar",
+      "suit": "spade",
+      "rank": 1,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_122",
+      "cardId": "juedou",
+      "suit": "spade",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_123",
+      "cardId": "shandian",
+      "suit": "spade",
+      "rank": 1,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_124",
+      "cardId": "ice_sword",
+      "suit": "spade",
+      "rank": 2,
+      "pack": "ex"
+    },
+    {
+      "id": "deck_125",
+      "cardId": "double_swords",
+      "suit": "spade",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_126",
+      "cardId": "eight_trigrams",
+      "suit": "spade",
+      "rank": 2,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_127",
+      "cardId": "vine_armor",
+      "suit": "spade",
+      "rank": 2,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_128",
+      "cardId": "jiu",
+      "suit": "spade",
+      "rank": 3,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_129",
+      "cardId": "guohe",
+      "suit": "spade",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_130",
+      "cardId": "shunshou",
+      "suit": "spade",
+      "rank": 3,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_131",
+      "cardId": "guohe",
+      "suit": "spade",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_132",
+      "cardId": "thunder_sha",
+      "suit": "spade",
+      "rank": 4,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_133",
+      "cardId": "shunshou",
+      "suit": "spade",
+      "rank": 4,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_134",
+      "cardId": "jueying",
+      "suit": "spade",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_135",
+      "cardId": "thunder_sha",
+      "suit": "spade",
+      "rank": 5,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_136",
+      "cardId": "green_dragon_blade",
+      "suit": "spade",
+      "rank": 5,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_137",
+      "cardId": "qinggang_sword",
+      "suit": "spade",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_138",
+      "cardId": "lebusishu",
+      "suit": "spade",
+      "rank": 6,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_139",
+      "cardId": "thunder_sha",
+      "suit": "spade",
+      "rank": 6,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_140",
+      "cardId": "nanman",
+      "suit": "spade",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_141",
+      "cardId": "thunder_sha",
+      "suit": "spade",
+      "rank": 7,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_142",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 7,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_143",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_144",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 8,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_145",
+      "cardId": "thunder_sha",
+      "suit": "spade",
+      "rank": 8,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_146",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_147",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 9,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_148",
+      "cardId": "jiu",
+      "suit": "spade",
+      "rank": 9,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_149",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_150",
+      "cardId": "sha",
+      "suit": "spade",
+      "rank": 10,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_151",
+      "cardId": "bingliang",
+      "suit": "spade",
+      "rank": 10,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_152",
+      "cardId": "tiesuo",
+      "suit": "spade",
+      "rank": 11,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_153",
+      "cardId": "shunshou",
+      "suit": "spade",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_154",
+      "cardId": "wuxie",
+      "suit": "spade",
+      "rank": 11,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_155",
+      "cardId": "serpent_spear",
+      "suit": "spade",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_156",
+      "cardId": "tiesuo",
+      "suit": "spade",
+      "rank": 12,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_157",
+      "cardId": "guohe",
+      "suit": "spade",
+      "rank": 12,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_158",
+      "cardId": "dayuan",
+      "suit": "spade",
+      "rank": 13,
+      "pack": "standard"
+    },
+    {
+      "id": "deck_159",
+      "cardId": "wuxie",
+      "suit": "spade",
+      "rank": 13,
+      "pack": "maneuver"
+    },
+    {
+      "id": "deck_160",
+      "cardId": "nanman",
+      "suit": "spade",
+      "rank": 13,
+      "pack": "standard"
+    }
+  ],
+  "identities": [
+    {
+      "id": "lord",
+      "name": "主公",
+      "count": 1,
+      "color": "red",
+      "goal": "消灭所有反贼和内奸。",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "blocky red helmet crown identity card"
+      }
+    },
+    {
+      "id": "loyalist",
+      "name": "忠臣",
+      "count": 3,
+      "color": "gold",
+      "goal": "保护主公并协助消灭反贼和内奸。",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "gold flower shield identity card"
+      }
+    },
+    {
+      "id": "rebel",
+      "name": "反贼",
+      "count": 4,
+      "color": "green",
+      "goal": "击败主公。",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "green flame rebel identity card"
+      }
+    },
+    {
+      "id": "renegade",
+      "name": "内奸",
+      "count": 2,
+      "color": "blue",
+      "goal": "先清除其他角色，最后单独击败主公。",
+      "art": {
+        "kind": "roblox_identity_icon",
+        "primary": "blue eye mask identity card"
+      }
+    }
+  ]
+}

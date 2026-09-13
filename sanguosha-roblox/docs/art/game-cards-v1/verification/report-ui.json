@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-09-12T23:08:15.783Z",
+  "url": "http://127.0.0.1:4178/preview/game-cards/",
+  "screenshots": {
+    "desktop": "sanguosha-roblox/docs/art/game-cards-v1/verification/desktop.png",
+    "mobile": "sanguosha-roblox/docs/art/game-cards-v1/verification/mobile.png",
+    "dialog": "sanguosha-roblox/docs/art/game-cards-v1/verification/dialog.png"
+  },
+  "checks": {
+    "loaded": {
+      "designs": 43,
+      "physicalTotal": 160,
+      "summary": "43款设计 · 160张牌",
+      "count": "43 / 43 款 · 160 张"
+    },
+    "categoryCounts": {
+      "basic": {
+        "cards": 6,
+        "label": "6 / 43 款 · 85 张"
+      },
+      "trick": {
+        "cards": 15,
+        "label": "15 / 43 款 · 50 张"
+      },
+      "equipment": {
+        "cards": 22,
+        "label": "22 / 43 款 · 25 张"
+      }
+    },
+    "searchSubtitle": {
+      "count": "1 / 43 款 · 30 张",
+      "firstTitle": "【杀】"
+    },
+    "searchDoesNotUseArtSubject": {
+      "count": "0 / 43 款 · 0 张",
+      "empty": true
+    },
+    "copySwitching": {
+      "redCopy": {
+        "index": 2,
+        "badge": "♦Q",
+        "meta": "当前示例：方片Q · EX。本设计共有 7 张实体牌。",
+        "colorClass": "suit-red"
+      },
+      "blackCopy": {
+        "index": 0,
+        "badge": "♣Q",
+        "meta": "当前示例：梅花Q · 标准。本设计共有 7 张实体牌。",
+        "colorClass": "suit-black"
+      },
+      "packCopy": {
+        "index": 3,
+        "meta": "当前示例：红桃A · 军争。本设计共有 7 张实体牌。"
+      }
+    },
+    "fullRule": {
+      "title": "【杀】",
+      "text": "普通【杀】：出牌阶段通常限一次，对攻击范围内一名角色使用；目标需使用【闪】，否则受到1点伤害。【诸葛连弩】等效果可突破次数限制。",
+      "matchesData": true
+    },
+    "aria": {
+      "labelledBy": "dialogName",
+      "closePosition": "sticky"
+    },
+    "keywordBoundary": {
+      "noRedPeachSplit": true,
+      "noBlackPeachSplit": true,
+      "shaColored": true,
+      "shanColored": true,
+      "titleContrastGround": "rgb(248, 239, 217)",
+      "longTitleClasses": {
+        "qinglong": "title-extra-long",
+        "zhaohuang": "title-long"
+      }
+    },
+    "desktopOverflowX": false,
+    "generatedImagesStillOptional": 0,
+    "focusAfterEscape": {
+      "dialogOpen": false,
+      "activeId": "sha"
+    },
+    "mobile": {
+      "overflowX": false,
+      "count": "1 / 43 款 · 1 张",
+      "titleText": "【青龙偃月刀】",
+      "titleClass": "title-extra-long",
+      "titleFitsCard": true
+    },
+    "dialogLongTitle": {
+      "open": true,
+      "titleText": "【青龙偃月刀】",
+      "titleClass": "title-extra-long",
+      "titleFitsHeading": true,
+      "overflowX": false
+    }
+  }
+}

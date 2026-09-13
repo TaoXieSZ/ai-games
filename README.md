@@ -1,40 +1,35 @@
-# ai-games
+# Roblox 三国杀 · 美术图鉴
 
-AI 打造的游戏实验合集。每个子目录是一个独立游戏，推送后由 GitHub Actions 自动构建并发布到 GitHub Pages。
+25 位武将、43 款游戏牌，以 Roblox 方块风格呈现角色、兵器与卡面。
 
-**在线游玩**：<https://taoxiesz.github.io/ai-games/>
+**在线图鉴：[taoxiesz.github.io/ai-games](https://taoxiesz.github.io/ai-games/)**
 
-## 游戏列表
+- [武将图鉴](https://taoxiesz.github.io/ai-games/sanguosha-roblox/preview/hero-pool/)：按魏、蜀、吴、群筛选，查看造型、动作与技能。
+- [游戏牌图鉴](https://taoxiesz.github.io/ai-games/sanguosha-roblox/preview/game-cards/)：6 款基本牌、15 款锦囊、22 款装备，覆盖 160 张实体牌，保留花色、点数、牌包与规则。
 
-| 游戏 | 目录 | 简介 |
-| --- | --- | --- |
-| 🔥 [热搜人生 Hype Life](https://taoxiesz.github.io/ai-games/hype-life/) | [`hype-life/`](hype-life/) | 以孙宇晨为原型（虚构影射）的像素风人生抉择模拟器，从高三三本线玩到纳斯达克敲钟 |
-| 🔥 热搜人生 · 微信小游戏版 | [`hype-life-minigame/`](hype-life-minigame/) | 同一款游戏的微信小游戏移植版（个人主体可发布免费小游戏），见其 README 的上传指南 |
-| 🎮 热搜人生 · Roblox 版 | [`hype-life-roblox/`](hype-life-roblox/) | 同款游戏的 Roblox 移植版（Luau + ScreenGui），免费发布触达海外社区 |
+卡面可以点击放大。【杀】【闪】等规则名词使用独立颜色与括号强调。插画是独立 PNG，规则由网页排版，方便逐张精修。
 
-## 结构
+## 本地预览
 
-```
-ai-games/
-├── index.html              # 落地页（游戏列表）
-├── hype-life/              # 游戏：热搜人生（Vite + React + TS，网页版）
-├── hype-life-minigame/     # 同款微信小游戏版（Canvas 渲染，引擎/内容复用网页版）
-├── hype-life-roblox/       # 同款 Roblox 版（Luau + ScreenGui，引擎/内容复用网页版）
-└── .github/workflows/
-    └── deploy.yml          # 推送 main 自动构建部署 Pages
-```
-
-## 新增一个游戏
-
-1. 在根目录新建游戏子目录（Vite 项目即可）
-2. 构建产物需支持子路径部署：`vite build --base=/<游戏目录名>/`
-3. 在根 `index.html` 落地页加一张卡片
-4. 在 `.github/workflows/deploy.yml` 的构建步骤里加一段 build & copy
-
-## 本地开发
+无需安装依赖，Node.js 20 或以上：
 
 ```bash
-cd hype-life
-npm install
-npm run dev
+node scripts/build-art-gallery.mjs
+python3 -m http.server 4178 --directory site
 ```
+
+打开 `http://localhost:4178/`。
+
+## 美术文件
+
+- [`sanguosha-roblox/assets/art-design/`](sanguosha-roblox/assets/art-design/)：原图、造型设定与迭代版本。
+- [`hero-art-v1.json`](sanguosha-roblox/data/hero-art-v1.json)：25 位武将的数据与选用图片。
+- [`game-card-art-v1.json`](sanguosha-roblox/data/game-card-art-v1.json)：43 款游戏牌的数据、规则、实体副本与选用图片。
+- [`docs/art/`](sanguosha-roblox/docs/art/)：美术规格、生成提示词与验证记录。
+- [`preview/hero-pool/`](sanguosha-roblox/preview/hero-pool/) / [`preview/game-cards/`](sanguosha-roblox/preview/game-cards/)：两个静态图鉴页面。
+
+## 发布
+
+推送到 `main` 后，GitHub Actions 自动组装并部署到 GitHub Pages。网站只发布图鉴页面、数据和选用插画。旧热搜人生网站已撤下，旧网址跳转到图鉴首页；历史游戏源码保留在原目录。
+
+这是美术设计展示，Roblox 内的模型、动画与技能接入属于后续游戏开发。

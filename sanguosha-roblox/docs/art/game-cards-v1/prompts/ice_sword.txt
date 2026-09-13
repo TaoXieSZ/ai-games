@@ -1,0 +1,11 @@
+Use case: stylized-concept. Make one finished 1024x1536 portrait illustration for a Roblox Three Kingdoms PLAYING CARD. The supplied Guan Yu and Zhao Yun sheets are references for the polished block-toy render language ONLY. Follow the specific playing-card brief; do not copy either general or their pose, do not produce another general portrait or a concept sheet.
+
+Polished chunky Roblox game art: beveled square geometry, toy-like plastic/metal/cloth, warm antique-gold trim used selectively, richly lit yet readable. When people occur, use cuboid heads, broad rectangular torsos, thick block limbs and solid cuboid hands, simple expressive brows and eyes. No realistic human anatomy, no slender anime bodies, no LEGO studs or C-claw hands. Equipment/objects/animals follow equally chunky block construction. Historical Chinese atmosphere, original art rather than tracing commercial Sanguosha compositions.
+
+Design for immediate recognition at small hand-card size: one dominant action or object, strong light-dark silhouette, broad intentional theme colors, subdued background, restrained detail around the focal motif. Do not fill every image with gold dragons or the same mountain/castle backdrop. Vary camera angle, action direction, subject count and environment according to the brief. Protect face and grip readability. Battle scenes have no gore, blood or injured bodies. Prop illustrations have no extra heroes. Horses appear only for mount cards; no rider unless explicitly described.
+
+Image contains illustration ONLY: no text, no characters/letters/numerals, no suit/rank corner marks, no title, no card frame, no information panel, no palette or turnaround studies, no logo or watermark. The web card component separately displays exact Chinese rules, name, physical suit and rank. Fill the whole portrait. This is art design, not gameplay footage or a new rule definition.
+
+
+CARD-SPECIFIC ART BRIEF:
+Ice Sword floating in Roblox Three Kingdoms equipment card art, translucent blue blade, frost mist, two glowing blank cards trapped in ice crystals near the blade tip, clean cold palette and readable item silhouette, no wielder, no text, no numbers, no suit icons, no UI frame

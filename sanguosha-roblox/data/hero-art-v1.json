@@ -1,0 +1,787 @@
+[
+  {
+    "id": "cao_cao",
+    "name": "曹操",
+    "faction": "wei",
+    "hp": 4,
+    "title": "魏武帝",
+    "skills": [
+      {
+        "name": "奸雄",
+        "description": "受到伤害后可获得造成伤害的牌。"
+      },
+      {
+        "name": "护驾",
+        "description": "主公技；需要使用或打出闪时，可令魏势力角色替你打出闪。"
+      }
+    ],
+    "role": "控场君主，读法是受击后反夺资源并号令魏阵。",
+    "silhouette": "矮阔帝王肩线，方冠外扩，披风短而不拖地，腰侧佩剑形成斜线。",
+    "palette": [
+      "#1E3F73",
+      "#C5A24A",
+      "#111827",
+      "#8C2F28"
+    ],
+    "outfit": "深蓝战甲配酒红短披风，方形金冠、黑色短须和冷静的君主表情，披风收在肘部以上方便动作。",
+    "prop": "腰间佩一把短宽帝王剑，另有玉质令牌作为身份点缀；这些只是视觉道具，不增加新规则。",
+    "pose": "身体三分之二侧转，左臂抬起向前指挥，右手停在腰间佩剑旁。",
+    "cardComposition": "低角度君主构图，曹操横向占据画面，背后是魏阵战旗和深蓝号令光，脸部清楚。",
+    "effect": "蓝金号令环从左手扩散，少量回收的卡片碎片暗示“奸雄”的反夺感，不表现成实际范围技能。",
+    "movementNotes": "行走时短披风贴背摆动；指挥动作以左臂抬手和右手按剑为核心，控制在个人活动半径内。",
+    "promptEnglish": "Cao Cao as a classic Roblox R6 Three Kingdoms warlord, deep navy armor, wine-red short cape fixed above elbows, antique gold square crown, black block beard, side-facing command pose with left block arm raised forward to command and right hand resting near a broad short sword at the waist, stern strategist expression, blue gold command rings and subtle returning card shard motifs, no text, no other characters, no horse, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/cao_cao.png"
+  },
+  {
+    "id": "sima_yi",
+    "name": "司马懿",
+    "faction": "wei",
+    "hp": 3,
+    "title": "狼顾之鬼",
+    "skills": [
+      {
+        "name": "反馈",
+        "description": "受到伤害后可获得伤害来源一张牌。"
+      },
+      {
+        "name": "鬼才",
+        "description": "一名角色判定牌生效前，可打出一张手牌替换之。"
+      }
+    ],
+    "role": "判定操盘者，读法是冷静替换命运并回收代价。",
+    "silhouette": "窄长谋士轮廓，高领、长袖方块垂片，头部后仰回望形成狼顾姿态。",
+    "palette": [
+      "#243B63",
+      "#596579",
+      "#D8C27A",
+      "#15151A"
+    ],
+    "outfit": "深靛谋士甲配石板灰长袖，高方领、细金边、苍白方脸和锋利眉眼，整体瘦长阴冷。",
+    "prop": "袖中低低夹着一张判定牌；不使用羽扇，另一只手藏在背后；这些只是视觉道具，不增加新规则。",
+    "pose": "身体背向观众，头部越肩回望形成狼顾姿态，一只袖口在身前低处露出判定牌，另一手背在身后。",
+    "cardComposition": "从背后肩线切入的斜向构图，判定牌在下方袖口发光，脸从肩后回望且不被遮挡。",
+    "effect": "深蓝烟雾方块和倒置判定牌光环表现改判的命运感，不表现成实际范围技能。",
+    "movementNotes": "待机时以轻微回头和袖口亮牌为主；动作克制，强调背手、转头和低位换牌。",
+    "promptEnglish": "Sima Yi as a classic Roblox R6 strategist, narrow blocky silhouette, deep navy scholar armor, slate long square sleeves, high collar, thin antique gold trim, pale cuboid face with sharp brows, body turned away and head looking back over shoulder in wolf-gaze posture, one sleeve held low in front revealing a glowing judgment card, other hand hidden behind his back, no fan, smoky navy square fate spirals, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/sima_yi.png"
+  },
+  {
+    "id": "xiahou_dun",
+    "name": "夏侯惇",
+    "faction": "wei",
+    "hp": 4,
+    "title": "独眼的罗刹",
+    "skills": [
+      {
+        "name": "刚烈",
+        "description": "受到伤害后可判定，若结果不为红桃，伤害来源需弃两张手牌或受到1点伤害。"
+      }
+    ],
+    "role": "反伤斗将，读法是越被打越逼近。",
+    "silhouette": "厚重独眼武将，单侧肩甲更大，刀横扛在肩后，身体前压，另一只前臂向前格挡迎击。",
+    "palette": [
+      "#203B5F",
+      "#6B7280",
+      "#B45309",
+      "#7F1D1D"
+    ],
+    "outfit": "深蓝魏甲配单侧加大的肩甲，黑色眼罩、粗犷方下巴、铜色伤痕和暗红腰带。",
+    "prop": "一把厚重单刃大刀横扛在肩后；不使用盾牌；这些只是视觉道具，不增加新规则。",
+    "pose": "低重心迎击步，持刀手把大刀横扛肩后蓄力，另一只前臂向前格挡冲击。",
+    "cardComposition": "近景三分之二迎击构图，眼罩和脸部露出，前臂格挡在画面前侧，大刀从肩后形成横向压迫。",
+    "effect": "铜红反震火星从前臂与肩甲外侧炸开，表现“刚烈”的反击气势，不表现成实际范围技能。",
+    "movementNotes": "受击后快速进入前臂格挡和肩后横刀的反击姿态；大肩甲不能挡住手臂摆动。",
+    "promptEnglish": "Xiahou Dun as a classic Roblox R6 Wei bruiser, dark blue armor, one oversized shoulder plate, black eyepatch, rugged square jaw, bronze scar marks, red waist sash, low braced counter stance, heavy single-edged saber carried horizontally behind the shoulder, other forearm thrust forward to block an incoming strike, no shield, bronze red recoil sparks, no text, no other characters, no horse, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/xiahou_dun.png"
+  },
+  {
+    "id": "zhang_liao",
+    "name": "张辽",
+    "faction": "wei",
+    "hp": 4,
+    "title": "前将军",
+    "skills": [
+      {
+        "name": "突袭",
+        "description": "摸牌阶段可少摸至多两张牌，改为获得等量其他角色各一张手牌。"
+      }
+    ],
+    "role": "突袭刺客将，读法是突然切入并夺走关键牌。",
+    "silhouette": "轻甲长腿冲刺型，双短戟向后拖出速度线，头盔尖脊前探。",
+    "palette": [
+      "#1D4E89",
+      "#A7B0BD",
+      "#0F172A",
+      "#D4AF37"
+    ],
+    "outfit": "精瘦蓝色魏军轻甲，银色护臂、前探脊盔、深色内衬和少量金色军阶结。",
+    "prop": "一对适合钩取和突袭的短戟；这些只是视觉道具，不增加新规则。",
+    "pose": "斜向冲刺，身体压低，一把短戟前伸，像要从对手手边夺走牌。",
+    "cardComposition": "宽斜线动势横穿画面，奔跑路径后方留出空白，突出突然切入。",
+    "effect": "蓝色方块残影和两张被夺的卡影向手边飞来，不表现成实际范围技能。",
+    "movementNotes": "动作识别点是短距离急起急停；双短戟贴近身体，避免碰到旁边角色。",
+    "promptEnglish": "Zhang Liao as a classic Roblox R6 fast Wei raider, lean cobalt scout armor, silver forearm guards, pointed ridge helmet, dark undersuit, paired short hook halberds, mid-run diagonal lunge with low torso and one hook reaching forward to snatch card silhouettes, blue square afterimages, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhang_liao.png"
+  },
+  {
+    "id": "xu_chu",
+    "name": "许褚",
+    "faction": "wei",
+    "hp": 4,
+    "title": "虎痴",
+    "skills": [
+      {
+        "name": "裸衣",
+        "description": "摸牌阶段可少摸一张；本回合杀或决斗造成的伤害+1。"
+      }
+    ],
+    "role": "爆发重击，读法是牺牲防备换强伤害。",
+    "silhouette": "最大块头，裸臂方块躯体，虎皮腰围，方头重锤低垂。",
+    "palette": [
+      "#2F3E5C",
+      "#D97706",
+      "#F2C078",
+      "#6B1D1D"
+    ],
+    "outfit": "裸露粗壮方块手臂，深色魏军开襟战背心，虎纹腰围、厚铜腰带和重靴。",
+    "prop": "方形虎首重锤；只是视觉道具，不增加装备或技能规则。",
+    "pose": "双脚大开扎稳，虎首重锤拖在地上，一侧肩膀向前压，准备重砸。",
+    "cardComposition": "从重锤附近仰视，许褚占据画面上半部，形成沉重的压迫感。",
+    "effect": "橙色地裂和虎纹光聚在锤头附近，作为重击的视觉意向。",
+    "movementNotes": "步伐慢而重，攻击前摇明显；体块要大，但动作边界仍保持清楚。",
+    "promptEnglish": "Xu Chu as a classic Roblox R6 huge Wei powerhouse, bare chunky block arms, open dark blue vest, tiger patterned waist pelt, bronze belt, heavy boots, oversized blunt war axe with square tiger-head weight dragged on ground, wide planted pre-smash stance, orange impact cracks and tiger stripe square flares, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/xu_chu.png"
+  },
+  {
+    "id": "guo_jia",
+    "name": "郭嘉",
+    "faction": "wei",
+    "hp": 3,
+    "title": "早终的先知",
+    "skills": [
+      {
+        "name": "天妒",
+        "description": "判定牌生效后可获得之。"
+      },
+      {
+        "name": "遗计",
+        "description": "受到1点伤害后可观看牌堆顶两张牌并分配给任意角色。"
+      }
+    ],
+    "role": "病弱先知，读法是用受伤换情报与分配。",
+    "silhouette": "瘦小文士，披着大袖披肩，微弯腰，一叠牌绕身悬浮。",
+    "palette": [
+      "#2E4A7D",
+      "#C9D6E8",
+      "#9CA3AF",
+      "#BFA46A"
+    ],
+    "outfit": "浅蓝魏式文士袍，宽大的方形披肩、银色发饰和带疲态的温和面孔。",
+    "prop": "细竹简筒和两张发光的牌堆顶牌；这些只是视觉道具，不增加新规则。",
+    "pose": "一膝微弯，一手按胸，另一手把两张牌轻轻分出去。",
+    "cardComposition": "安静居中的留白构图，两张牌停在脸侧高度，突出先知感。",
+    "effect": "冰蓝方块微尘缓慢落下，像预兆一样围绕牌面，不表现成实际范围技能。",
+    "movementNotes": "动作轻、慢、偏支援；分牌手势要比攻击动作更醒目。",
+    "promptEnglish": "Guo Jia as a classic Roblox R6 fragile Wei oracle, slim blocky body, pale blue scholar robe, oversized square shawl, silver hair ornament, gentle tired cuboid face, one hand on chest and other spreading two glowing card tiles, bamboo scroll case, soft icy blue omen motes, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/guo_jia.png"
+  },
+  {
+    "id": "zhen_ji",
+    "name": "甄姬",
+    "faction": "wei",
+    "hp": 3,
+    "title": "薄幸的美人",
+    "skills": [
+      {
+        "name": "倾国",
+        "description": "可将一张黑色手牌当闪使用或打出。"
+      },
+      {
+        "name": "洛神",
+        "description": "准备阶段可判定，若为黑色则获得之并可继续判定。"
+      }
+    ],
+    "role": "闪避与连判，读法是黑牌化防守并连续获得判定。",
+    "silhouette": "端庄女性方块比例，长袖水袖呈弧线，细长头冠和轻转身体形成柔和轮廓。",
+    "palette": [
+      "#7C9CCB",
+      "#E9EEF8",
+      "#1F2937",
+      "#B7A36B"
+    ],
+    "outfit": "冰蓝与白色宫装转成方块比例，裙片分层但不过长，黑发配小型金色发饰。",
+    "prop": "折扇和黑色花色牌瓣；这些只是视觉道具，不增加新规则。",
+    "pose": "侧步轻移，一条水袖横扫身前形成防守感，折扇低持并避开脸部。",
+    "cardComposition": "竖向水莲构图，脸位于上三分之一，黑色牌瓣绕在轮廓外侧。",
+    "effect": "蓝白水纹方块和黑色牌瓣环绕，表现闪避与洛神连判的节奏，不表现成实际范围技能。",
+    "movementNotes": "以短距离滑步和水袖护身为主；裙片分开，保留腿部行走空间。",
+    "promptEnglish": "Zhen Ji as a classic Roblox R6 noble Wei lady, blocky modest proportions, ice blue and white court dress with layered skirt panels, dark hair and delicate gold hairpiece, elegant sidestep pose, one long square sleeve sweeping like a shield, folded silk fan held low away from face, black-suit card petals and blue-white water squares, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhen_ji.png"
+  },
+  {
+    "id": "liu_bei",
+    "name": "刘备",
+    "faction": "shu",
+    "hp": 4,
+    "title": "乱世的枭雄",
+    "skills": [
+      {
+        "name": "仁德",
+        "description": "出牌阶段可将任意手牌交给其他角色；本阶段累计给出至少两张后可回复1点体力，每阶段限一次。"
+      },
+      {
+        "name": "激将",
+        "description": "主公技；需要使用或打出杀时，可令蜀势力角色替你打出杀。"
+      }
+    ],
+    "role": "支援君主，读法是递牌、回血、号召蜀将出击。",
+    "silhouette": "温和君主轮廓，双股剑交叉挂背，双手前伸递牌。",
+    "palette": [
+      "#2F7D57",
+      "#D6B25E",
+      "#F3E6C8",
+      "#7A1F1F"
+    ],
+    "outfit": "绿色蜀国王袍配米色袖口，小型金色肩扣、方形小冠和短须，气质温和。",
+    "prop": "背上交叉挂着双股剑，手中递出两张牌；这些只是视觉道具，不增加新规则。",
+    "pose": "正面开放站姿，双手把牌递向前方，双剑可见但不出鞘。",
+    "cardComposition": "温暖的正面构图，绿金友方光从递出的牌后方扩散。",
+    "effect": "柔和绿色回复脉冲和少量红色号召火花靠近牌面，不表现成实际范围技能。",
+    "movementNotes": "支援动作以递牌和号召为主；背剑贴近身体，保证移动时不外扩。",
+    "promptEnglish": "Liu Bei as a classic Roblox R6 benevolent Shu lord, green royal robe, cream sleeves, compact gold shoulder clasps, small square crown, short trimmed beard, paired short swords sheathed on back, open forward stance with both block hands offering two card tiles, green healing pulse and small red rally sparks, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/liu_bei.png"
+  },
+  {
+    "id": "guan_yu",
+    "name": "关羽",
+    "faction": "shu",
+    "hp": 4,
+    "title": "美髯公",
+    "skills": [
+      {
+        "name": "武圣",
+        "description": "可将一张红色牌当杀使用或打出。"
+      }
+    ],
+    "role": "稳定进攻武圣，读法是红牌化为【杀】。",
+    "silhouette": "赤面长髯、绿甲、青龙偃月刀立起，沉稳高大但关节清晰。",
+    "palette": [
+      "#0F7A4F",
+      "#B9984D",
+      "#231F20",
+      "#A52A22"
+    ],
+    "outfit": "翡翠绿甲配古金边，绿色头巾、赤色方脸，三绺厚重方块长髯垂在胸前。",
+    "prop": "青龙偃月刀直立在身侧；这些只是视觉道具，不增加新规则。",
+    "pose": "沉稳直立，一手扶住长刀，双脚方正落地，重量感强。",
+    "cardComposition": "深玉色背景配古金框方向，关羽直立入画，刀锋形成强竖线，脸和长髯不被遮挡。",
+    "effect": "克制的深朱红斩击符号围绕刀身，表现红牌化【杀】的武圣气势，不表现成实际范围技能。",
+    "movementNotes": "行动像重装守将；挥刀弧线控制在个人半径内，长髯不穿过胸甲。",
+    "promptEnglish": "Guan Yu as an unmistakable classic Roblox R6 Shu warrior, red cuboid face, long angular black beard split into three blocky tapered sections, green wrapped headdress, emerald armor with antique gold trim, calm upright stance with one hand holding a green dragon crescent glaive vertically, dark jade background, restrained cinnabar slash glyphs, no text, no other characters, no horse, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/guan_yu.png"
+  },
+  {
+    "id": "zhang_fei",
+    "name": "张飞",
+    "faction": "shu",
+    "hp": 4,
+    "title": "万夫不当",
+    "skills": [
+      {
+        "name": "咆哮",
+        "description": "锁定技；出牌阶段使用杀无次数限制。"
+      }
+    ],
+    "role": "连续攻击，读法是怒吼后多次出【杀】。",
+    "silhouette": "黑须环眼、短粗爆发体型，蛇矛横扫形成大弧线。",
+    "palette": [
+      "#164E35",
+      "#111111",
+      "#8B1E1E",
+      "#D4A84F"
+    ],
+    "outfit": "深绿蜀军战背心，炸开的黑色方块胡须、红围巾、铜腰带和粗壮前臂。",
+    "prop": "丈八蛇矛，矛头做成清楚的蛇形双刃；这些只是视觉道具，不增加新规则。",
+    "pose": "弯膝怒吼，嘴部张开，蛇矛从左到右低位横扫。",
+    "cardComposition": "斜向咆哮构图，蛇矛弧线压在下半部，脸部居中清楚。",
+    "effect": "红色声波方块和连续斩痕从口部与矛身散开，不表现成实际范围技能。",
+    "movementNotes": "动作是大幅弹跳和连续短刺；姿势要避开赵云的双手正面突刺。",
+    "promptEnglish": "Zhang Fei as a classic Roblox R6 Shu berserker, dark green battle vest, black bristling block beard, large round eyes, red scarf, bronze belt, bare chunky forearms, knees bent roaring with mouth open, wavy serpent spear sweeping low left to right, red square sound waves and repeated slash ticks, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhang_fei.png"
+  },
+  {
+    "id": "zhuge_liang",
+    "name": "诸葛亮",
+    "faction": "shu",
+    "hp": 3,
+    "title": "迟暮的丞相",
+    "skills": [
+      {
+        "name": "观星",
+        "description": "准备阶段可观看牌堆顶若干张牌并调整到牌堆顶或底。"
+      },
+      {
+        "name": "空城",
+        "description": "锁定技；无手牌时不能成为杀或决斗的目标。"
+      }
+    ],
+    "role": "牌序控制与空城防守，读法是预排命运后制造不可攻窗口。",
+    "silhouette": "羽扇纶巾，宽袖文官身形，身体端坐或半步后撤形成静态空城感。",
+    "palette": [
+      "#DDE7D6",
+      "#2E6F4E",
+      "#B6A56A",
+      "#263238"
+    ],
+    "outfit": "浅色文官袍配绿色内襟，方形纶巾、长袖和细金腰绳，整体清雅。",
+    "prop": "白色羽扇和五张小星牌；这些只是视觉道具，不增加新规则。",
+    "pose": "一手举羽扇，另一手从容整理空中的牌阵。",
+    "cardComposition": "安静对称构图，身后有空城门影，星牌停在羽扇上方。",
+    "effect": "柔和绿色星盘线和半透明城门护影，表现观星与空城的读法，不表现成实际范围技能。",
+    "movementNotes": "小步移动，动作由羽扇带出；宽袖保留肘部活动空间，衣摆不拖地。",
+    "promptEnglish": "Zhuge Liang as a classic Roblox R6 Shu strategist, pale robe with green inner panels, square scholar cap, modest long sleeves, subtle gold cord, calm pose with one block hand lifting a large white feather fan and the other arranging five floating star-card tiles, empty city gate silhouette shield behind him, green star-grid lines, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhuge_liang.png"
+  },
+  {
+    "id": "zhao_yun",
+    "name": "赵云",
+    "faction": "shu",
+    "hp": 4,
+    "title": "少年将军",
+    "skills": [
+      {
+        "name": "龙胆",
+        "description": "可将杀当闪、闪当杀使用或打出。"
+      }
+    ],
+    "role": "攻防转换，读法是【杀】与【闪】互换的机动武将。",
+    "silhouette": "年轻清瘦银甲，蓝袍飘带，双手横枪低姿突刺，与关羽直立立刀区分。",
+    "palette": [
+      "#D8DEE9",
+      "#2563A6",
+      "#F4F7FB",
+      "#A8B4C4"
+    ],
+    "outfit": "银白甲配 正蓝色 布片，银盔与蓝色盔缨，年轻干净的暖色方脸。",
+    "prop": "细长银枪配蓝色枪缨和小龙纹枪箍；这些只是视觉道具，不增加新规则。",
+    "pose": "宽步低姿，双手握枪，从腰侧向前斜线突刺。",
+    "cardComposition": "前冲透视构图，枪身贴脸旁穿出但不遮眼，蓝色衣片向后飞。",
+    "effect": "红色斩击和蓝色闪避方块轨迹在枪尖附近交错，不表现成实际范围技能。",
+    "movementNotes": "脚步轻快，限制在武将活动半径内；枪刺是短促前冲后迅速回防。",
+    "promptEnglish": "Zhao Yun as a classic Roblox R6 young Shu lancer, clean-shaven warm cuboid face, white silver armor, royal blue cloth panels, silver helmet with blue plume, long slim silver spear with blue tassel, wide low stance with both block hands gripping the spear for a diagonal forward thrust from hip height, red slash and blue dodge square trails near the spear tip, no text, no other characters, no horse, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhao_yun.png"
+  },
+  {
+    "id": "ma_chao",
+    "name": "马超",
+    "faction": "shu",
+    "hp": 4,
+    "title": "一骑当千",
+    "skills": [
+      {
+        "name": "马术",
+        "description": "锁定技；你计算与其他角色距离-1。"
+      },
+      {
+        "name": "铁骑",
+        "description": "使用杀指定目标后可判定，若为红色则目标不能使用闪。"
+      }
+    ],
+    "role": "距离压迫骑将，读法是贴近后用红判定封住【闪】。",
+    "silhouette": "沙金甲、白短披风、双羽盔，身体回旋收枪；无马匹。",
+    "palette": [
+      "#C9A24A",
+      "#F2F2E8",
+      "#2F6F58",
+      "#8B2E1D"
+    ],
+    "outfit": "沙金甲叠在低饱和蜀绿内衬上，白色短披风、双浅色羽盔和年轻凌厉的脸。",
+    "prop": "较短的骑将枪横收在身体后方；这是无马的骑将视觉道具，不增加新规则。",
+    "pose": "回身转体，冲刺后把枪收回，白披风向侧面扬起。",
+    "cardComposition": "旋身三分之二视角，脚下有圆形尘环，明确不出现马，脸在双羽之间清楚可见。",
+    "effect": "沙金冲锋方块和一个红色判定火花落在枪尾附近，不表现成实际范围技能。",
+    "movementNotes": "用短跑、转身和回收枪势表现骑将速度；不需要马匹，也不扩大实际活动范围。",
+    "promptEnglish": "Ma Chao as a classic Roblox R6 Shu cavalry-style warrior with no horse, sand-gold armor, muted green undercloth, white short cape, helmet with twin pale feather plumes, fierce young face, turning over rear shoulder while drawing a shorter cavalry spear back across the body, cape flaring sideways, dust ring under feet and red judgment spark, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/ma_chao.png"
+  },
+  {
+    "id": "huang_yueying",
+    "name": "黄月英",
+    "faction": "shu",
+    "hp": 3,
+    "title": "归隐的杰女",
+    "skills": [
+      {
+        "name": "集智",
+        "description": "使用非延时锦囊牌时可摸一张牌。"
+      },
+      {
+        "name": "奇才",
+        "description": "使用锦囊牌无距离限制。"
+      }
+    ],
+    "role": "机关锦囊专家，读法是打锦囊时抽牌且无距离限制。",
+    "silhouette": "端庄工匠女性，短披肩、工具腰带、机关羽扇展开成齿轮轮廓。",
+    "palette": [
+      "#4F8A5B",
+      "#E0B85A",
+      "#6B4E2E",
+      "#E8D9B5"
+    ],
+    "outfit": "端庄绿色蜀国工坊袍，浅棕前襟像工作围裙，束发简洁，黄铜方扣和工具腰带清楚可见。",
+    "prop": "带黄铜齿轮的折叠机关扇和锦囊卷轴；这些只是视觉道具，不增加新规则。",
+    "pose": "低身调试机关扇，一手调整齿轮，另一手放出锦囊卷轴。",
+    "cardComposition": "三分之二工匠视角，画面不堆桌面杂物，机关扇在肩后展开成光环。",
+    "effect": "绿金蓝图线和方形齿轮微光表现锦囊智慧，不表现成实际范围技能。",
+    "movementNotes": "低姿动作要能自然回到站立；裙片和工具不能卡住腿部。",
+    "promptEnglish": "Huang Yueying as a classic Roblox R6 Shu inventor lady, modest green workshop robe, tan front apron panel, compact hair wrap, brass square fittings, tool belt, low crouched tinkering pose with one hand adjusting a folding mechanical fan with blocky brass gears and the other releasing a tactic scroll card, green gold blueprint lines and cog motes, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/huang_yueying.png"
+  },
+  {
+    "id": "sun_quan",
+    "name": "孙权",
+    "faction": "wu",
+    "hp": 4,
+    "title": "年轻的贤君",
+    "skills": [
+      {
+        "name": "制衡",
+        "description": "出牌阶段限一次，弃置任意张牌并摸等量牌。"
+      },
+      {
+        "name": "救援",
+        "description": "主公技；其他吴势力角色在你濒死时对你使用桃，回复量+1。"
+      }
+    ],
+    "role": "换牌君主，读法是重整手牌并接受吴阵救援。",
+    "silhouette": "年轻王者，红甲金冠，身体侧转拔剑，另一手抛出旧牌。",
+    "palette": [
+      "#B6322A",
+      "#E0B84E",
+      "#1F4E5F",
+      "#F1D7A8"
+    ],
+    "outfit": "朱红吴甲配青绿色内袍，小型金冠、年轻清爽的君主脸和短方鬓。",
+    "prop": "直身王剑和三张用于制衡的换牌牌片；这些只是视觉道具，不增加新规则。",
+    "pose": "转身拔剑，右手把剑向前带出，左手把旧牌向身后甩开。",
+    "cardComposition": "红金斜分构图，一侧是换出的牌，一侧是出鞘的剑，脸部保持开阔。",
+    "effect": "红青换牌方块绕腰旋转，低处有柔和桃色救援光，不表现成实际范围技能。",
+    "movementNotes": "拔剑动作短促清楚；金冠和剑身在奔跑时不应穿模。",
+    "promptEnglish": "Sun Quan as a classic Roblox R6 young Wu ruler, vermilion armor, teal inner robe, compact gold crown, clean young face with short square sideburns, turning draw-sword pose with one hand pulling a straight ruler sword forward and the other fanning discarded card tiles backward, red teal card-swap square effects and soft peach rescue glow, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/sun_quan.png"
+  },
+  {
+    "id": "gan_ning",
+    "name": "甘宁",
+    "faction": "wu",
+    "hp": 4,
+    "title": "锦帆游侠",
+    "skills": [
+      {
+        "name": "奇袭",
+        "description": "可将一张黑色牌当过河拆桥使用。"
+      }
+    ],
+    "role": "拆牌游侠，读法是黑牌化拆除。",
+    "silhouette": "轻快水盗，铃铛腰带、锦帆背旗、短刀反握。",
+    "palette": [
+      "#C0262D",
+      "#F4C430",
+      "#0E7490",
+      "#111827"
+    ],
+    "outfit": "红色吴军无袖短衣，青绿色腰带、金铃腰饰、深色裤装，头带后方有短帆布尾。",
+    "prop": "反手短刀和小型方帆背旗；这些只是视觉道具，不增加新规则。",
+    "pose": "侧向跃起，双膝收起，一手向下探出，像在拆走一张牌。",
+    "cardComposition": "轻快斜跃穿过水波方块，铃铛清楚可见，脸转向观众。",
+    "effect": "黑色牌片碎开成红黄火花方块，不表现成实际范围技能。",
+    "movementNotes": "动作重点是短跳和翻身；背旗短而硬，适合方块角色移动。",
+    "promptEnglish": "Gan Ning as a classic Roblox R6 Wu river raider, red sleeveless jacket, turquoise sash, gold bell belt, dark trousers, headband with small sail cloth tail, reverse-grip short dao, tiny square sail banner on back, sideways leap with knees tucked and one hand reaching down to dismantle black card shards, wave squares and red yellow sparks, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/gan_ning.png"
+  },
+  {
+    "id": "lu_meng",
+    "name": "吕蒙",
+    "faction": "wu",
+    "hp": 4,
+    "title": "白衣渡江",
+    "skills": [
+      {
+        "name": "克己",
+        "description": "若本回合未使用或打出过杀，可跳过弃牌阶段。"
+      }
+    ],
+    "role": "蓄牌忍耐，读法是不出【杀】来保留手牌。",
+    "silhouette": "白衣低调将，刀入鞘，双手收拢，安静站在红吴底色里。",
+    "palette": [
+      "#F2F2EA",
+      "#A52A2A",
+      "#2D5D66",
+      "#6B7280"
+    ],
+    "outfit": "白衣覆盖轻甲，暗红吴军肩结、青绿色腰带、简单束发和沉稳表情。",
+    "prop": "贴身入鞘的刀和封住的手牌叠；这些只是视觉道具，不增加新规则。",
+    "pose": "收束防守站姿，双手靠近刀鞘，双脚安静居中。",
+    "cardComposition": "安静竖向构图，白衣在深红江雾中一眼可辨。",
+    "effect": "青色锁牌方块围住手牌叠，不出现主动攻击斩痕，不表现成实际范围技能。",
+    "movementNotes": "待机动作沉稳克制；攻击动作收小，突出“克己”的忍耐感。",
+    "promptEnglish": "Lu Meng as a classic Roblox R6 Wu general in plain white robe over light armor, muted red shoulder knot, teal belt, simple tied hair, composed face, closed defensive stance with both block hands near a sheathed saber, sealed card stack at his side, muted teal lock squares and dark red river mist, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/lu_meng.png"
+  },
+  {
+    "id": "huang_gai",
+    "name": "黄盖",
+    "faction": "wu",
+    "hp": 4,
+    "title": "轻身为国",
+    "skills": [
+      {
+        "name": "苦肉",
+        "description": "出牌阶段可失去1点体力并摸两张牌。"
+      }
+    ],
+    "role": "自损换牌，读法是主动承受代价换爆发资源。",
+    "silhouette": "老将厚肩，脱下一侧肩甲，战鼓槌与火船旗形成牺牲意象。",
+    "palette": [
+      "#9B2C2C",
+      "#5B2B1D",
+      "#E0A84F",
+      "#F3D6A3"
+    ],
+    "outfit": "旧红吴甲，一侧肩部露出绷带，灰色方块胡须、铜胸甲和短战裙。",
+    "prop": "木质战鼓槌和小火船旗；这些只是视觉道具，不增加新规则。",
+    "pose": "一脚向前，一手拉开甲带，另一手把战鼓槌握在身侧下方。",
+    "cardComposition": "下方火光照亮老将面孔，药烟或火烟后方升起牌片。",
+    "effect": "红色受伤方块转成两张金色牌片，表现苦肉换牌，不表现成实际范围技能。",
+    "movementNotes": "自损动作以拉甲带和胸口亮光为核心；绷带只做贴图，不做飘带。",
+    "promptEnglish": "Huang Gai as a classic Roblox R6 veteran Wu general, weathered red armor, one shoulder bare with bandage, grey block mustache, bronze chest plates, short rugged skirt armor, one foot forward pulling an armor strap open while gripping a wooden war-drum club downward, small burning boat banner, red damage squares turning into two golden card tiles, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/huang_gai-v2.png"
+  },
+  {
+    "id": "zhou_yu",
+    "name": "周瑜",
+    "faction": "wu",
+    "hp": 3,
+    "title": "大都督",
+    "skills": [
+      {
+        "name": "英姿",
+        "description": "摸牌阶段可额外摸一张牌。"
+      },
+      {
+        "name": "反间",
+        "description": "出牌阶段限一次，令一名角色选择一种花色后获得你一张手牌并展示，若花色不符其受到1点伤害。"
+      }
+    ],
+    "role": "优雅控牌，读法是多摸并用花色制造误判。",
+    "silhouette": "修长都督，红白披风短摆，琴弦/指挥棒形成横向优雅线。",
+    "palette": [
+      "#C7322B",
+      "#F5F0E6",
+      "#25364F",
+      "#D8B35A"
+    ],
+    "outfit": "精致红色吴军都督甲，白色短披肩、深蓝内袍、金扣和俊朗干净的方脸。",
+    "prop": "细长指挥棒和四枚花色牌片；这些只是视觉道具，不增加新规则。",
+    "pose": "优雅侧步，指挥棒像乐队指挥一样抬起，另一手递出一张背面牌。",
+    "cardComposition": "红色披肩形成流畅弧线，牌片像音符一样围绕指挥棒排列。",
+    "effect": "金色节拍线和四种花色微光表现反间的猜花色，不表现成实际范围技能。",
+    "movementNotes": "动作像从容指挥，披肩长度停在膝上，方便走动。",
+    "promptEnglish": "Zhou Yu as a classic Roblox R6 elegant Wu commander, refined red armor, white short mantle, navy underrobe, gold clasp, handsome clean cuboid face, graceful side step with slender command baton held like a conductor cue and other hand offering one face-down card, suit-mark card tiles like musical notes, gold line effects, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/zhou_yu.png"
+  },
+  {
+    "id": "da_qiao",
+    "name": "大乔",
+    "faction": "wu",
+    "hp": 3,
+    "title": "矜持之花",
+    "skills": [
+      {
+        "name": "国色",
+        "description": "可将一张方块牌当乐不思蜀使用。"
+      },
+      {
+        "name": "流离",
+        "description": "成为杀的目标时，可弃一张牌将此杀转移给你攻击范围内另一名其他角色，不能转移给此杀的使用者。"
+      }
+    ],
+    "role": "控制与转移，读法是用方块延迟敌人并把【杀】导走。",
+    "silhouette": "端庄长袖女性，吴红裙摆分片，纸伞侧开形成圆形防线。",
+    "palette": [
+      "#D14A61",
+      "#F7C6D0",
+      "#8E2F3F",
+      "#D9B56B"
+    ],
+    "outfit": "玫红吴式端庄长裙，裙片分开，浅色腰带和小巧发饰，保持方块角色比例。",
+    "prop": "方骨纸伞和方块牌坠；这些只是视觉道具，不增加新规则。",
+    "pose": "侧步避让，纸伞向一侧打开，把迎来的斩击轨迹导开。",
+    "cardComposition": "纸伞圆形框住上半身，转移感的丝带曲线绕过画面下方。",
+    "effect": "粉色方块牌光亮起，红色斩击线在伞边弯折，不表现成实际范围技能。",
+    "movementNotes": "纸伞开合用于动作识别；裙片保留腿部间隙，适合行走。",
+    "promptEnglish": "Da Qiao as a classic Roblox R6 noble Wu lady, modest rose red dress with separated skirt panels, pale sash, compact hair ornaments, sideways step away with a small square-ribbed paper parasol opened to one side, diamond card charm glowing, red slash line bending around her parasol, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/da_qiao.png"
+  },
+  {
+    "id": "lu_xun",
+    "name": "陆逊",
+    "faction": "wu",
+    "hp": 3,
+    "title": "儒生雄才",
+    "skills": [
+      {
+        "name": "谦逊",
+        "description": "锁定技；不能成为顺手牵羊和乐不思蜀的目标。"
+      },
+      {
+        "name": "连营",
+        "description": "失去最后手牌后可摸一张牌。"
+      }
+    ],
+    "role": "防控制与续牌，读法是不给敌人拿走节奏，空手后再接牌。",
+    "silhouette": "年轻儒将，轻甲与书卷并存，后撤半步，空手袖口亮起。",
+    "palette": [
+      "#B91C1C",
+      "#EAD7B7",
+      "#334155",
+      "#D6A84F"
+    ],
+    "outfit": "红色吴军轻甲外罩浅棕儒生外衣，整齐方帽、清瘦冷静的脸和小金书扣。",
+    "prop": "竹简书卷和一张新抽出的牌；这些只是视觉道具，不增加新规则。",
+    "pose": "半步后撤，一只空掌摊开，另一张牌从腰侧袖口亮出。",
+    "cardComposition": "干净的儒将竖构图，先强调空手留白，再让新牌光从袖口出现。",
+    "effect": "暖红方块牌链从袖口重新连接，表现连营续牌，不表现成实际范围技能。",
+    "movementNotes": "动作精准安静；袖口亮牌是失去最后手牌后的视觉识别点。",
+    "promptEnglish": "Lu Xun as a classic Roblox R6 young Wu scholar-general, red light armor under tan scholar coat, neat square hair cap, slim calm face, bamboo book clasp, half-step back pose with one open empty palm and one new glowing card tile appearing from a sleeve near the hip, warm red chain of square cards reconnecting, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/lu_xun-v2.png"
+  },
+  {
+    "id": "sun_shangxiang",
+    "name": "孙尚香",
+    "faction": "wu",
+    "hp": 3,
+    "title": "弓腰姬",
+    "skills": [
+      {
+        "name": "结姻",
+        "description": "出牌阶段限一次，弃两张手牌并选择一名受伤男性角色，你与其各回复1点体力。"
+      },
+      {
+        "name": "枭姬",
+        "description": "失去装备区一张牌后可摸两张牌。"
+      }
+    ],
+    "role": "装备联动与回复，读法是丢装备后补牌，也能结姻回血。",
+    "silhouette": "英武女性弓手，双短弓或轮刃背挂，单膝转身拉弓。",
+    "palette": [
+      "#C92A3A",
+      "#F0B35A",
+      "#2B6C7A",
+      "#F5D7A1"
+    ],
+    "outfit": "英武红色吴国弓手服，青绿色腰带、金色护腕、分片甲裙和高马尾。",
+    "prop": "短反曲弓和可拆的装备坠饰；这些只是视觉道具，不增加新规则。",
+    "pose": "单膝转身拉弓，装备坠饰在身后碎成两张牌片。",
+    "cardComposition": "三角形弓手构图，弓弦形成斜线，脸位于弓上方且不被遮挡。",
+    "effect": "金色装备碎片变成两张亮牌，旁边只有轻微成对回复光，不表现成实际范围技能。",
+    "movementNotes": "拉弓动作控制在角色半径内；裙片和马尾都要短，便于跳跃和转身。",
+    "promptEnglish": "Sun Shangxiang as a classic Roblox R6 heroic Wu archer lady, martial red outfit, teal sash, gold bracers, separated armored skirt panels, high ponytail, one-knee twisting pose with compact recurve bow drawn across body, gear charms breaking into two glowing card tiles behind her, subtle paired-heart heal glow, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/sun_shangxiang.png"
+  },
+  {
+    "id": "hua_tuo",
+    "name": "华佗",
+    "faction": "qun",
+    "hp": 3,
+    "title": "神医",
+    "skills": [
+      {
+        "name": "急救",
+        "description": "回合外可将一张红色牌当桃使用。"
+      },
+      {
+        "name": "青囊",
+        "description": "出牌阶段限一次，弃一张手牌令一名角色回复1点体力。"
+      }
+    ],
+    "role": "治疗辅助，读法是红牌应急救人并主动回血。",
+    "silhouette": "白袍老医，药箱大方块背包，葫芦和银针形成医疗识别。",
+    "palette": [
+      "#E8E3D5",
+      "#2F855A",
+      "#8B5E34",
+      "#C2412D"
+    ],
+    "outfit": "素白医者袍、绿色腰带、灰眉灰须，背着有方格抽屉的木药箱。",
+    "prop": "小葫芦药瓶、针匣和桃红色急救牌光；这些只是视觉道具，不增加新规则。",
+    "pose": "温和前倾，一手递出药物，另一手把红牌护在胸前。",
+    "cardComposition": "柔和居中的医者构图，药箱从肩后露出，绿色回复光环绕身体。",
+    "effect": "绿色医疗方块和桃红急救光围绕手部，不表现成实际范围技能。",
+    "movementNotes": "支援动作要远看能懂：伸手、绿光、药箱稳定跟随。",
+    "promptEnglish": "Hua Tuo as a classic Roblox R6 elderly healer, plain off-white robe, green sash, grey brows and beard, wooden medicine-box backpack with square compartments, gentle forward lean with one block hand offering medicine and the other holding a peach-red card glow near chest, gourd bottle and needle case, green square healing motes, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/hua_tuo.png"
+  },
+  {
+    "id": "lu_bu",
+    "name": "吕布",
+    "faction": "qun",
+    "hp": 4,
+    "title": "武的化身",
+    "skills": [
+      {
+        "name": "无双",
+        "description": "锁定技；杀需要目标连续使用两张闪响应，决斗对手需连续打出两张杀。"
+      }
+    ],
+    "role": "压迫型最强武力，读法是让对手连续交【闪】或【杀】。",
+    "silhouette": "最高压迫感，紫黑甲、双长翎，方天画戟过顶劈斩。",
+    "palette": [
+      "#5B21B6",
+      "#111827",
+      "#C49A3C",
+      "#B91C1C"
+    ],
+    "outfit": "紫黑重甲配古金胸甲，凶狠方脸，头盔上两根极长红翎向上张开。",
+    "prop": "巨大的方天画戟高举过顶；这些只是视觉道具，不增加新规则。",
+    "pose": "双手过顶劈斩，一腿踏前，戟刃很高但戟杆不遮住脸。",
+    "cardComposition": "极低角度，双长翎和方天画戟形成大开口形，身后是深色战场空景。",
+    "effect": "成对的红蓝响应回声表现“需要两次响应”的压迫感，不表现成实际范围技能。",
+    "movementNotes": "攻击幅度大但中心稳定；长翎用简化硬弧处理，待机时不能挡脸。",
+    "promptEnglish": "Lu Bu as a classic Roblox R6 ultimate warrior, dark purple black heavy armor, antique gold chest plates, fierce cuboid face, helmet with two very long red feather plumes arcing upward, massive Fangtian halberd held overhead in a two-hand chop, one leg forward, halberd shaft not covering face, paired red-blue square echoes for double response pressure, no text, no other characters, no horse.",
+    "artPath": "assets/art-design/hero-pool-v1/lu_bu.png"
+  },
+  {
+    "id": "diao_chan",
+    "name": "貂蝉",
+    "faction": "qun",
+    "hp": 3,
+    "title": "绝世的舞姬",
+    "skills": [
+      {
+        "name": "离间",
+        "description": "出牌阶段限一次，弃一张牌令两名男性角色视为其中一方对另一方使用决斗。"
+      },
+      {
+        "name": "闭月",
+        "description": "结束阶段可摸一张牌。"
+      }
+    ],
+    "role": "离间控制，读法是弃牌挑起决斗并在回合末补牌。",
+    "silhouette": "优雅舞姬，紫粉长袖环绕成月弧，身体旋转但方块比例清楚。",
+    "palette": [
+      "#7E3AF2",
+      "#F0A6C8",
+      "#D6B45A",
+      "#1F1B2E"
+    ],
+    "outfit": "紫色与玫粉舞衣保持端庄比例，裙片分开，金色腰饰和高发髻配小花饰。",
+    "prop": "丝带水袖和指间的一张弃牌；这些只是视觉道具，不增加新规则。",
+    "pose": "旋身舞步，一条袖带指向左侧，另一条指向右侧，暗示两端对峙但不画其他人。",
+    "cardComposition": "月色紫调构图，脸位于月弧袖带中央，弃牌落在手边低处。",
+    "effect": "紫色月弧方块和袖带两端的红色决斗火花表现离间，不表现成实际范围技能。",
+    "movementNotes": "待机用转身、袖弧和抛牌动作；裙片与袖带保持在脚面以上，方便行走。",
+    "promptEnglish": "Diao Chan as a classic Roblox R6 elegant dancer, modest violet and rose robe with separated skirt panels, gold waist ornaments, high hair bun with compact floral pins, spinning dance step with one silk ribbon sleeve pointing left and the other right, one discarded card held near fingers, violet crescent moon square effects and two opposing red duel sparks at ribbon ends, no text, no other characters, face unobstructed.",
+    "artPath": "assets/art-design/hero-pool-v1/diao_chan.png"
+  }
+]

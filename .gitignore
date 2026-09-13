@@ -3,3 +3,6 @@ dist
 *.local
 .DS_Store
 .zcode/
+
+# Generated GitHub Pages art gallery
+/site/

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Roblox 三国杀 · 第一版英雄池</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Roblox 三国杀美术设定</p>
+          <h1>第一版英雄池</h1>
+          <p class="subtitle">25 位武将的第一版造型与卡面设计，按四势力整理服装、武器、动作、特效与构图。</p>
+        </div>
+        <div class="mast-actions">
+          <nav class="page-links" aria-label="图鉴导航">
+            <a href="../game-cards/">游戏牌图鉴</a>
+            <a href="../../../">图鉴首页</a>
+          </nav>
+          <div class="seal" aria-label="25 位武将">
+            <strong>25</strong>
+            <span>武将</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="英雄池筛选">
+        <div class="faction-tabs" aria-label="势力">
+          <button class="filter is-active" type="button" data-faction="all" aria-pressed="true">全部</button>
+          <button class="filter" type="button" data-faction="wei" aria-pressed="false">魏</button>
+          <button class="filter" type="button" data-faction="shu" aria-pressed="false">蜀</button>
+          <button class="filter" type="button" data-faction="wu" aria-pressed="false">吴</button>
+          <button class="filter" type="button" data-faction="qun" aria-pressed="false">群</button>
+        </div>
+        <label class="search-box">
+          <span>搜索姓名 / 技能</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="例如：赵云、龙胆、【杀】" />
+        </label>
+        <output id="resultCount" class="count" aria-live="polite">载入中</output>
+      </section>
+
+      <section id="status" class="status" role="status" aria-live="polite"></section>
+      <section id="gallery" class="gallery" aria-label="武将图鉴"></section>
+    </main>
+
+    <dialog id="heroDialog" class="hero-dialog" aria-labelledby="dialogName">
+      <article class="dialog-panel">
+        <button class="dialog-close" type="button" aria-label="关闭">×</button>
+        <div class="dialog-art">
+          <img id="dialogImage" alt="" />
+          <div id="dialogPlaceholder" class="image-placeholder" hidden></div>
+        </div>
+        <div class="dialog-copy">
+          <div class="dialog-kicker" id="dialogFaction"></div>
+          <h2 id="dialogName"></h2>
+          <p id="dialogTitle" class="dialog-title"></p>
+          <div id="dialogHp" class="hp-row" aria-label="体力"></div>
+          <div id="dialogSkills" class="skill-list"></div>
+          <dl class="art-notes">
+            <div>
+              <dt>造型</dt>
+              <dd id="dialogOutfit"></dd>
+            </div>
+            <div>
+              <dt>动作</dt>
+              <dd id="dialogPose"></dd>
+            </div>
+            <div>
+              <dt>表现</dt>
+              <dd id="dialogEffect"></dd>
+            </div>
+            <div>
+              <dt>移动</dt>
+              <dd id="dialogMovement"></dd>
+            </div>
+          </dl>
+          <a id="dialogLink" class="art-link" href="#" target="_blank" rel="noreferrer">打开原图</a>
+        </div>
+      </article>
+    </dialog>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
