@@ -1,0 +1,10 @@
+{
+  "data/hero-effects-v1.json": "abad6596a42d2efd752277b84642dee32a7bef0e11e9d49a72f068fb8915d4ad",
+  "preview/hero-models/main.js": "c8e32a028a74a12af43a73e2cb3490d7a4ed68a40bd34c1361a415d73dfa794e",
+  "preview/hero-models/index.html": "c11c6cd71483b9f57c169963320d6d594379a9a2ee8fa322ee0ebfc366ecd2c1",
+  "preview/hero-models/style.css": "17057694b7f46d2beefedb364c5bf6d572d05daeb47e181959969130f1228a6b",
+  "workshop/HeroPlayground.client.luau": "16cb71504932ca7c3a596e1de888a87a2a2dd24ef8c3cbe867b2dca469b68326",
+  "workshop/HeroPlayground.server.luau": "7a859acf8e32bb6ed63f84135f31487b36281708895584580e53412ddaaab3b5",
+  "scripts/build-hero-playground.mjs": "1c74a20569cc2e88a20a207a69556a87f07a1f206bed35a52aaa7baf6298ba5f",
+  "models/hero-models-v1/hero-playground.rbxlx": "ae6af59e6b2007ca61afc6c4dfab8d5f378c27d5ee16d3509dc26626739b1636"
+}

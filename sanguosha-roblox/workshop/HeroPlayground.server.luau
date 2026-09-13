@@ -10,6 +10,7 @@ local PLAYER_SPAWN = Vector3.new(0, 4.2, 0)
 local NPC_SPAWN = CFrame.new(8, 4.2, -5) * CFrame.Angles(0, math.rad(-35), 0)
 
 local HERO_CATALOG = require(ReplicatedStorage:WaitForChild("HeroPlaygroundCatalog"))
+local EFFECT_CATALOG = require(ReplicatedStorage:WaitForChild("HeroEffects"))
 local HERO_BY_ID = {}
 local AVAILABLE_HEROES = {}
 for _, hero in ipairs(HERO_CATALOG) do
@@ -19,10 +20,28 @@ for _, hero in ipairs(HERO_CATALOG) do
 	end
 end
 
+local EFFECT_LIST = EFFECT_CATALOG.effects or EFFECT_CATALOG
+local EFFECT_BY_ID = {}
+for _, effect in ipairs(EFFECT_LIST) do
+	if typeof(effect.id) == "string" then
+		EFFECT_BY_ID[effect.id] = effect
+	end
+end
+
 local COOLDOWNS = {
 	Attack = 0.7,
 	Dodge = 0.85,
 	SwitchHero = 0.45,
+	PreviewEffect = 0.1,
+	CancelEffect = 0.05,
+}
+
+local ALLOWED_ACTIONS = {
+	Attack = true,
+	Dodge = true,
+	SwitchHero = true,
+	PreviewEffect = true,
+	CancelEffect = true,
 }
 
 local remote = ReplicatedStorage:FindFirstChild(REMOTE_NAME)
@@ -32,10 +51,28 @@ if not remote then
 	remote.Parent = ReplicatedStorage
 end
 
+local effectsRemote = ReplicatedStorage:FindFirstChild("HeroPlaygroundEffects")
+if not effectsRemote then
+	effectsRemote = Instance.new("RemoteEvent")
+	effectsRemote.Name = "HeroPlaygroundEffects"
+	effectsRemote.Parent = ReplicatedStorage
+end
+
+local effectStateFolder = Workspace:FindFirstChild("HeroPlaygroundEffectState")
+if not effectStateFolder then
+	effectStateFolder = Instance.new("Folder")
+	effectStateFolder.Name = "HeroPlaygroundEffectState"
+	effectStateFolder.Parent = Workspace
+end
+effectStateFolder:SetAttribute("ActiveCount", 0)
+effectStateFolder:SetAttribute("LastEffectId", "")
+effectStateFolder:SetAttribute("LastOwnerUserId", 0)
+effectStateFolder:SetAttribute("LastPhase", "idle")
+
 Players.CharacterAutoLoads = false
 
 local templates = ServerStorage:WaitForChild("HeroTemplates")
-local playerState: {[Player]: {heroId: string, last: {[string]: number}, action: string, actionStart: number, origin: Vector3}} = {}
+local playerState: {[Player]: {heroId: string, last: {[string]: number}, action: string, actionStart: number, origin: Vector3, effectUntil: number?, effectSeq: number?}} = {}
 local animatedRigs = {}
 
 local function anglesFromDegrees(value)
@@ -323,9 +360,16 @@ local function placeModel(model: Model, cframe: CFrame)
 	end
 end
 
+local clearEffect: ((Player, string) -> ())?
+
 local function spawnPlayerHero(player: Player, heroId: string)
 	local state = playerState[player]
 	local last = state and state.last or {}
+	if state then
+		if clearEffect then
+			clearEffect(player, "switch")
+		end
+	end
 	if state and player.Character then
 		unregisterAnimatedRig(player.Character)
 		player.Character:Destroy()
@@ -349,11 +393,16 @@ local function spawnPlayerHero(player: Player, heroId: string)
 		action = "Idle",
 		actionStart = os.clock(),
 		origin = PLAYER_SPAWN,
+		effectUntil = 0,
+		effectSeq = state and state.effectSeq or 0,
 	}
 	registerAnimatedRig(model, "player", player.UserId % 9 * 0.11, hero)
 	local humanoid = model:FindFirstChildOfClass("Humanoid")
 	if humanoid then
 		humanoid.Died:Connect(function()
+			if clearEffect then
+				clearEffect(player, "death")
+			end
 			task.delay(1.2, function()
 				if player.Parent then
 					spawnPlayerHero(player, playerState[player] and playerState[player].heroId or defaultHero().id)
@@ -429,6 +478,139 @@ local function setAction(player: Player, action: string)
 	end
 end
 
+local function flatForwardFrom(root: BasePart): Vector3
+	local forward = Vector3.new(root.CFrame.LookVector.X, 0, root.CFrame.LookVector.Z)
+	if forward.Magnitude < 0.05 then
+		return Vector3.new(0, 0, -1)
+	end
+	return forward.Unit
+end
+
+local function clampPointToArena(state, point: Vector3, radius: number?): Vector3
+	local offset = point - state.origin
+	local flat = Vector3.new(offset.X, 0, offset.Z)
+	local maxRadius = math.max(0, BOUNDS_RADIUS - (radius or 0))
+	if flat.Magnitude > maxRadius then
+		return state.origin + flat.Unit * maxRadius + Vector3.new(0, offset.Y, 0)
+	end
+	return point
+end
+
+local function activeEffectCount(now: number): number
+	local count = 0
+	for _, state in pairs(playerState) do
+		if state.effectUntil and state.effectUntil > now then
+			count += 1
+		end
+	end
+	return count
+end
+
+local function updateActiveEffectCount()
+	effectStateFolder:SetAttribute("ActiveCount", activeEffectCount(os.clock()))
+end
+
+clearEffect = function(player: Player, reason: string)
+	local state = playerState[player]
+	if state then
+		state.effectUntil = 0
+	end
+	updateActiveEffectCount()
+	effectStateFolder:SetAttribute("LastPhase", reason)
+	effectsRemote:FireAllClients({ kind = "clear", ownerUserId = player.UserId, reason = reason })
+end
+
+local function effectActionFor(effectId: string): string?
+	if effectId == "slash" or effectId == "arrows" then
+		return "Attack"
+	elseif effectId == "dodge" then
+		return "Dodge"
+	end
+	return nil
+end
+
+local function groundYAt(point: Vector3, ignore: Instance?): number
+	local params = RaycastParams.new()
+	params.FilterType = Enum.RaycastFilterType.Exclude
+	local excluded = {}
+	if ignore then
+		table.insert(excluded, ignore)
+	end
+	for _, otherPlayer in ipairs(Players:GetPlayers()) do
+		if otherPlayer.Character then
+			table.insert(excluded, otherPlayer.Character)
+		end
+	end
+	local npc = Workspace:FindFirstChild("HeroPlaygroundNPC")
+	if npc then
+		table.insert(excluded, npc)
+	end
+	table.insert(excluded, effectStateFolder)
+	params.FilterDescendantsInstances = excluded
+	params.IgnoreWater = true
+	local result = Workspace:Raycast(point + Vector3.new(0, 24, 0), Vector3.new(0, -80, 0), params)
+	if result then
+		return result.Position.Y + 0.08
+	end
+	return 0.46
+end
+
+local function previewEffect(player: Player, effectId: string, automatic: boolean)
+	local effect = EFFECT_BY_ID[effectId]
+	local state = playerState[player]
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if not effect or not state or not root or not root:IsA("BasePart") then
+		return false, "bad-effect"
+	end
+	local now = os.clock()
+	if state.effectUntil and now < state.effectUntil and clearEffect then
+		clearEffect(player, "replace")
+	end
+	local forward = flatForwardFrom(root)
+	local origin = root.Position
+	local radius = tonumber(effect.radius) or 0
+	local reach = if radius > 0 then 6.4 else 5.8
+	local target = clampPointToArena(state, origin + forward * reach, radius)
+	local originGroundY = groundYAt(origin, character)
+	local targetGroundY = groundYAt(target, character)
+	state.effectSeq = (state.effectSeq or 0) + 1
+	state.effectUntil = now + (tonumber(effect.duration) or 1)
+	updateActiveEffectCount()
+	effectStateFolder:SetAttribute("LastEffectId", effectId)
+	effectStateFolder:SetAttribute("LastOwnerUserId", player.UserId)
+	effectStateFolder:SetAttribute("LastHeroId", state.heroId)
+	effectStateFolder:SetAttribute("LastPhase", "start")
+	effectStateFolder:SetAttribute("LastSequence", state.effectSeq)
+	effectsRemote:FireAllClients({
+		kind = "play",
+		effectId = effectId,
+		effect = effect,
+		ownerUserId = player.UserId,
+		heroId = state.heroId,
+		heroName = (HERO_BY_ID[state.heroId] and HERO_BY_ID[state.heroId].name) or state.heroId,
+		actionType = (HERO_BY_ID[state.heroId] and HERO_BY_ID[state.heroId].actionType) or "sword",
+		actionHand = (HERO_BY_ID[state.heroId] and HERO_BY_ID[state.heroId].actionHand) or "right",
+		origin = origin,
+		forward = forward,
+		target = target,
+		originGroundY = originGroundY,
+		targetGroundY = targetGroundY,
+		radius = radius,
+		sequence = state.effectSeq,
+		automatic = automatic,
+	})
+	local sequence = state.effectSeq
+	task.delay(tonumber(effect.duration) or 1, function()
+		if player.Parent and playerState[player] == state and state.effectSeq == sequence then
+			state.effectUntil = 0
+			updateActiveEffectCount()
+			effectStateFolder:SetAttribute("LastPhase", "ended")
+		end
+	end)
+	return true, nil, effect
+end
+
 remote.OnServerInvoke = function(player: Player, action: string, payload)
 	if typeof(action) ~= "string" then
 		return { ok = false, error = "bad-action" }
@@ -440,10 +622,21 @@ remote.OnServerInvoke = function(player: Player, action: string, payload)
 			heroId = state and state.heroId or defaultHero().id,
 			radius = BOUNDS_RADIUS,
 			catalog = HERO_CATALOG,
+			effects = EFFECT_LIST,
 		}
+	end
+	if not ALLOWED_ACTIONS[action] then
+		return { ok = false, error = "unknown-action" }
 	end
 	if not withinBounds(player) then
 		return { ok = false, error = "no-character" }
+	end
+	local requestedEffectId = nil
+	if action == "PreviewEffect" then
+		requestedEffectId = if typeof(payload) == "table" and typeof(payload.effectId) == "string" then payload.effectId else nil
+		if not requestedEffectId or not EFFECT_BY_ID[requestedEffectId] then
+			return { ok = false, error = "invalid-effect" }
+		end
 	end
 	local requestedHeroId = nil
 	if action == "SwitchHero" then
@@ -455,12 +648,30 @@ remote.OnServerInvoke = function(player: Player, action: string, payload)
 	if not cooldownReady(player, action) then
 		return { ok = false, error = "cooldown" }
 	end
-	if action == "Attack" then
-		setAction(player, "Attack")
+	if action == "CancelEffect" then
+		if clearEffect then
+			clearEffect(player, "cancel")
+		end
+		setAction(player, "Idle")
 		return { ok = true, action = action }
+	elseif action == "Attack" then
+		setAction(player, "Attack")
+		previewEffect(player, "slash", true)
+		return { ok = true, action = action, effectId = "slash" }
 	elseif action == "Dodge" then
 		setAction(player, "Dodge")
-		return { ok = true, action = action }
+		previewEffect(player, "dodge", true)
+		return { ok = true, action = action, effectId = "dodge" }
+	elseif action == "PreviewEffect" then
+		local played, effectError, effect = previewEffect(player, requestedEffectId, false)
+		if not played then
+			return { ok = false, error = effectError or "effect-failed" }
+		end
+		local poseAction = effectActionFor(requestedEffectId)
+		if poseAction then
+			setAction(player, poseAction)
+		end
+		return { ok = true, action = action, effectId = requestedEffectId, effectLabel = effect.label }
 	elseif action == "SwitchHero" then
 		local nextHero = requestedHeroId
 		if not nextHero then
@@ -487,6 +698,9 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerRemoving:Connect(function(player)
+	if clearEffect then
+		clearEffect(player, "remove")
+	end
 	if player.Character then
 		unregisterAnimatedRig(player.Character)
 	end
@@ -520,15 +734,15 @@ RunService.Heartbeat:Connect(function()
 					action = "Walk"
 				end
 			end
-			if action == "Attack" then
-				poseAttack(rig, math.clamp((now - rig.actionStart) / 0.8, 0, 1))
-			elseif action == "Dodge" then
-				poseDodge(rig, math.clamp((now - rig.actionStart) / 0.7, 0, 1))
-			elseif action == "Walk" then
-				poseWalk(rig, (now - rig.actionStart + rig.phase) % 1)
-			else
-				poseIdle(rig, (now + rig.phase) % 1.8 / 1.8)
-			end
+				if action == "Attack" then
+					poseAttack(rig, math.clamp((now - rig.actionStart) / 0.8, 0, 1))
+				elseif action == "Dodge" then
+					poseDodge(rig, math.clamp((now - rig.actionStart) / 0.7, 0, 1))
+				elseif action == "Walk" then
+					poseWalk(rig, (now - rig.actionStart + rig.phase) % 1)
+				else
+					poseIdle(rig, (now + rig.phase) % 1.8 / 1.8)
+				end
 			applySecondary(rig, action, if action == "Attack" then math.clamp(now-rig.actionStart,0,.8) else now+rig.phase)
 		end
 	end

@@ -1,0 +1,13 @@
+import sys,pathlib,json
+sys.path.insert(0,str(pathlib.Path(__file__).parent));from studio_call import call,SID
+root=pathlib.Path(__file__).resolve().parents[1]
+call('execute_luau',{'studio_id':SID,'datamodel_type':'Server','code':'local c=game.Players:GetPlayers()[1].Character;c:PivotTo(CFrame.lookAt(Vector3.new(11,3.4,0),Vector3.new(12,3.4,0)));c.Humanoid.Health=67;return true'})
+code='''local p=game.Players.LocalPlayer;local r=game.ReplicatedStorage.HeroPlaygroundRemote;local packet
+local connection=game.ReplicatedStorage.HeroPlaygroundEffects.OnClientEvent:Connect(function(data)if data.kind=="play"then packet=data end end)
+task.wait(.15);assert(r:InvokeServer("PreviewEffect",{effectId="arrows",target=Vector3.new(999,999,999)}).ok);task.wait(.2);connection:Disconnect();assert(packet)
+local distance=Vector3.new(packet.target.X,0,packet.target.Z).Magnitude;assert(distance+packet.radius<=12.001,"range escaped arena")
+assert(packet.targetGroundY<.6,"ground circle above floor")
+assert(r:InvokeServer("CancelEffect").ok);task.wait(.15);local h=p.Character.Humanoid;local before=h.Health;assert(r:InvokeServer("PreviewEffect",{effectId="heal"}).ok);task.wait(.7);assert(before==67 and h.Health==67,"heal changed health");assert(r:InvokeServer("CancelEffect").ok)
+return game.HttpService:JSONEncode({centerDistance=distance,radius=packet.radius,outerRadius=distance+packet.radius,groundY=packet.targetGroundY,ignoredTarget=true,healthBefore=before,healthAfter=h.Health})'''
+r=call('execute_luau',{'studio_id':SID,'datamodel_type':'Client','code':code});x=json.loads([c['text']for c in r['content']if c['type']=='text'][-1]);(root/'docs/art/hero-effects-v1/verification/studio-boundaries-report.json').write_text(json.dumps(x,ensure_ascii=False,indent=2))
+call('execute_luau',{'studio_id':SID,'datamodel_type':'Server','code':'local c=game.Players:GetPlayers()[1].Character;c.Humanoid.Health=100;c:PivotTo(CFrame.new(0,4.2,0));return true'})

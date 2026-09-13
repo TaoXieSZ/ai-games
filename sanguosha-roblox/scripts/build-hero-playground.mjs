@@ -10,6 +10,11 @@ const outputPath = path.join(modelDir, 'hero-playground.rbxlx');
 const heroArt = JSON.parse(readFileSync(path.join(root, 'data/hero-art-v1.json'), 'utf8'));
 const modelDataPath = path.join(root, 'data/hero-models-v1.json');
 const modelData = existsSync(modelDataPath) ? JSON.parse(readFileSync(modelDataPath, 'utf8')) : [];
+const effectsDataPath = path.join(root, 'data/hero-effects-v1.json');
+if (!existsSync(effectsDataPath)) {
+  throw new Error(`Missing required effect catalog ${path.relative(root, effectsDataPath)}.`);
+}
+const heroEffects = JSON.parse(readFileSync(effectsDataPath, 'utf8'));
 const modelById = new Map(modelData.map((model) => [model.id, model]));
 const templateFiles = readdirSync(modelDir)
   .filter((name) => name.endsWith('.rbxmx'))
@@ -114,6 +119,11 @@ function catalogModuleSource() {
   return `local HttpService = game:GetService("HttpService")\nreturn HttpService:JSONDecode(${longBracketLua(json)})\n`;
 }
 
+function effectsModuleSource() {
+  const json = JSON.stringify(heroEffects);
+  return `local HttpService = game:GetService("HttpService")\nreturn HttpService:JSONDecode(${longBracketLua(json)})\n`;
+}
+
 function actionProfileFor(id, model) {
   if (explicitActionProfiles.has(id)) return explicitActionProfiles.get(id);
   if (!model || !Array.isArray(model.parts)) return { actionType: 'sword', actionHand: 'right' };
@@ -175,7 +185,9 @@ const templateItems = templateFiles.map(remapTemplateXml).join('\n');
 const serverScript = item('Script', 'HeroPlayground', '', prop.protectedString('Source', readScript('HeroPlayground.server.luau')));
 const clientScript = item('LocalScript', 'HeroPlayground', '', prop.protectedString('Source', readScript('HeroPlayground.client.luau')));
 const catalogScript = item('ModuleScript', 'HeroPlaygroundCatalog', '', prop.protectedString('Source', catalogModuleSource()));
+const effectsScript = item('ModuleScript', 'HeroEffects', '', prop.protectedString('Source', effectsModuleSource()));
 const remote = item('RemoteFunction', 'HeroPlaygroundRemote');
+const effectsRemote = item('RemoteEvent', 'HeroPlaygroundEffects');
 
 const workspace = item('Workspace', 'Workspace', [
   part('HeroPlaygroundFloor', [36, 1, 36], [0, -0.5, 0], [0.16, 0.15, 0.13], 512, true),
@@ -184,7 +196,7 @@ const workspace = item('Workspace', 'Workspace', [
   boundaryRing(),
 ].join('\n'));
 const serverStorage = item('ServerStorage', 'ServerStorage', item('Folder', 'HeroTemplates', templateItems));
-const replicatedStorage = item('ReplicatedStorage', 'ReplicatedStorage', `${remote}\n${catalogScript}`);
+const replicatedStorage = item('ReplicatedStorage', 'ReplicatedStorage', `${remote}\n${effectsRemote}\n${catalogScript}\n${effectsScript}`);
 const serverScriptService = item('ServerScriptService', 'ServerScriptService', serverScript);
 const starterPlayerScripts = item('StarterPlayerScripts', 'StarterPlayerScripts', clientScript);
 const starterPlayer = item('StarterPlayer', 'StarterPlayer', starterPlayerScripts, [

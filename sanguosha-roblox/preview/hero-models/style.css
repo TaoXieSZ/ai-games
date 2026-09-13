@@ -342,6 +342,121 @@ h1 {
   accent-color: var(--gold);
 }
 
+.effect-panel {
+  margin-top: 14px;
+  border-top: 1px solid rgba(241, 213, 142, 0.22);
+  padding-top: 14px;
+}
+
+.effect-title {
+  margin: 0 0 10px;
+  color: #fff4cd;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.effect-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.effect-grid button {
+  position: relative;
+  min-height: 58px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--effect-color, var(--gold-bright)) 72%, transparent);
+  padding: 8px 10px;
+  color: #fff8df;
+  background:
+    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--effect-accent, var(--gold)) 38%, transparent), transparent 34px),
+    linear-gradient(145deg, rgba(239, 227, 200, 0.12), rgba(0, 0, 0, 0.28));
+  text-align: left;
+}
+
+.effect-grid button::before {
+  position: absolute;
+  inset: 7px auto 7px 7px;
+  width: 7px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--effect-color, var(--gold-bright)), var(--effect-accent, var(--red)));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--effect-color, var(--gold-bright)) 78%, transparent);
+  content: "";
+}
+
+.effect-grid button:hover,
+.effect-grid button:focus-visible,
+.effect-grid button[aria-pressed="true"] {
+  border-color: var(--effect-color, var(--gold-bright));
+  color: #18110a;
+  background:
+    radial-gradient(circle at 22% 20%, var(--effect-accent, #fff4cd), transparent 42px),
+    linear-gradient(180deg, var(--effect-color, #f2d88e), color-mix(in srgb, var(--effect-accent, #b98638) 72%, #26150b));
+  outline: none;
+}
+
+.effect-label {
+  display: block;
+  padding-left: 12px;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.effect-kind {
+  display: block;
+  margin-top: 5px;
+  padding-left: 12px;
+  color: rgba(248, 239, 217, 0.72);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+}
+
+.effect-grid button:hover .effect-kind,
+.effect-grid button:focus-visible .effect-kind,
+.effect-grid button[aria-pressed="true"] .effect-kind {
+  color: rgba(24, 17, 10, 0.7);
+}
+
+.effect-status-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#effectStage {
+  min-height: 38px;
+  border: 1px solid rgba(241, 213, 142, 0.24);
+  padding: 8px 10px;
+  color: #ead9b7;
+  background: rgba(5, 10, 8, 0.48);
+  line-height: 1.35;
+}
+
+#effectCancel {
+  min-height: 38px;
+  border: 1px solid rgba(120, 221, 235, 0.36);
+  padding: 7px 11px;
+  color: #d8fbff;
+  background: rgba(120, 221, 235, 0.08);
+}
+
+#effectCancel:hover,
+#effectCancel:focus-visible {
+  border-color: #d8fbff;
+  outline: none;
+}
+
+.effect-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 .reference-card {
   margin: 14px 0 0;
 }
@@ -421,6 +536,10 @@ h1 {
   .reference-block {
     grid-column: 1 / -1;
   }
+  .effect-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
 
   .hero-list {
     max-height: 190px;
@@ -460,4 +579,12 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-height: 156px;
   }
+  .effect-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .effect-label {
+    font-size: 1.18rem;
+  }
+
 }

@@ -1,0 +1,45 @@
+import sys,pathlib,json
+sys.path.insert(0,str(pathlib.Path(__file__).parent));from studio_call import call,SID
+root=pathlib.Path(__file__).resolve().parents[1]
+code='''local player=game.Players.LocalPlayer
+local ui=player.PlayerGui:WaitForChild("HeroPlaygroundGui"):WaitForChild("HeroPlaygroundClientAction")
+local remote=game.ReplicatedStorage.HeroPlaygroundRemote
+local fx=workspace:WaitForChild("HeroPlaygroundClientEffects")
+local specs=remote:InvokeServer("GetState").effects
+local function checkParts()
+ local n=0
+ for _,part in fx:GetDescendants() do if part:IsA("BasePart")then
+  n+=1;assert(part.Anchored and not part.CanCollide and not part.CanTouch and not part.CanQuery,"physical effect")
+  for _,x in {part.CFrame:GetComponents()}do assert(x==x and math.abs(x)<1000,"invalid transform")end
+  assert(part.Size.Magnitude<30,"excessive geometry")
+ end end
+ assert(n<200,"part budget exceeded");assert(#fx:GetChildren()<=1,"effect accumulation")
+ return n
+end
+assert(ui:Invoke({action="CancelEffect"}).ok);task.wait(.15)
+local results={}
+for _,spec in specs do
+ local c=player.Character;local health=c.Humanoid.Health;local position=c.PrimaryPart.Position
+ local result=ui:Invoke({action="PreviewEffect",effectId=spec.id});assert(result.ok,result.error)
+ task.wait(.10);local startParts=checkParts();assert(startParts>0,"no effect")
+ assert(fx:GetAttribute("LastEffectId")==spec.id)
+ task.wait(spec.telegraph+.12);local releaseParts=checkParts()
+ local phase=fx:GetAttribute("LastPhase")
+ task.wait(math.max(0,spec.duration-spec.telegraph)+.25)
+ assert(#fx:GetChildren()==0,"effect did not expire")
+ assert(c.Humanoid.Health==health,"visual effect changed health")
+ assert((position-c.PrimaryPart.Position).Magnitude<.8,"visual effect moved character")
+ table.insert(results,{id=spec.id,startParts=startParts,releaseParts=releaseParts,phase=phase,endedParts=#fx:GetDescendants(),health=health})
+end
+local counts={}
+for i=1,12 do
+ local result=ui:Invoke({action="PreviewEffect",effectId=(i%2==0 and "arrows"or"heal")});assert(result.ok,result.error);task.wait(.15);table.insert(counts,checkParts())
+end
+assert(ui:Invoke({action="CancelEffect"}).ok);task.wait(.15);assert(#fx:GetChildren()==0,"cancel retained geometry")
+local bad=remote:InvokeServer("PreviewEffect",{effectId="invalid"});assert(not bad.ok and bad.error=="invalid-effect")
+local unknown=remote:InvokeServer("MadeUpAction");assert(not unknown.ok and unknown.error=="unknown-action")
+task.wait(.15);assert(ui:Invoke({action="PreviewEffect",effectId="arrows"}).ok);task.wait(.15)
+assert(ui:Invoke({action="SwitchHero",heroId="zhao_yun"}).ok);task.wait(.6);assert(#fx:GetChildren()==0,"switch retained geometry")
+return game.HttpService:JSONEncode({effects=results,replays=counts,cancel=true,invalidRejected=true,switchCleanup=true})'''
+r=call('execute_luau',{'studio_id':SID,'datamodel_type':'Client','code':code},timeout=60)
+x=json.loads([c['text']for c in r['content']if c['type']=='text'][-1]);(root/'docs/art/hero-effects-v1/verification/studio-effects-report.json').write_text(json.dumps(x,ensure_ascii=False,indent=2));print('PASS native effects lifecycle')

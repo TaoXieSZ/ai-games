@@ -1,0 +1,17 @@
+import sys,pathlib,json
+sys.path.insert(0,str(pathlib.Path(__file__).parent));from studio_call import call,SID
+code='''local ui=game.Players.LocalPlayer.PlayerGui.HeroPlaygroundGui.HeroPlaygroundClientAction
+local fx=workspace.HeroPlaygroundClientEffects
+local results={}
+for _,pair in {{"guan_yu","SlashArc_"},{"zhao_yun","SpearThrust_"},{"sun_shangxiang","BowArrowStreak"},{"xu_chu","HammerImpact"},{"zhen_ji","EnergyCard_"}} do
+ assert(ui:Invoke({action="SwitchHero",heroId=pair[1]}).ok);task.wait(.5)
+ assert(ui:Invoke({action="PreviewEffect",effectId="slash"}).ok);task.wait(.26)
+ local count=0
+ for _,p in fx:GetDescendants() do if p:IsA("BasePart") and string.find(p.Name,pair[2],1,true) then count+=1 end end
+ assert(count>0,"missing weapon effect "..pair[1]);table.insert(results,{hero=pair[1],prefix=pair[2],parts=count})
+ assert(ui:Invoke({action="CancelEffect"}).ok);task.wait(.15)
+end
+assert(ui:Invoke({action="SwitchHero",heroId="sun_shangxiang"}).ok)
+return game.HttpService:JSONEncode(results)'''
+r=call('execute_luau',{'studio_id':SID,'datamodel_type':'Client','code':code})
+x=json.loads([c['text']for c in r['content']if c['type']=='text'][-1]);(pathlib.Path(__file__).resolve().parents[1]/'docs/art/hero-effects-v1/verification/studio-weapons-report.json').write_text(json.dumps(x,ensure_ascii=False,indent=2))

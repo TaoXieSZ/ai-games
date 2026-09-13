@@ -1,0 +1,27 @@
+[
+  {
+    "hero": "guan_yu",
+    "prefix": "SlashArc_",
+    "parts": 7
+  },
+  {
+    "hero": "zhao_yun",
+    "prefix": "SpearThrust_",
+    "parts": 3
+  },
+  {
+    "hero": "sun_shangxiang",
+    "prefix": "BowArrowStreak",
+    "parts": 1
+  },
+  {
+    "hero": "xu_chu",
+    "prefix": "HammerImpact",
+    "parts": 18
+  },
+  {
+    "hero": "zhen_ji",
+    "prefix": "EnergyCard_",
+    "parts": 3
+  }
+]

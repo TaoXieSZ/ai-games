@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "activityRadius": 12,
+  "maxActivePerHero": 1,
+  "effects": [
+    { "id": "slash", "label": "杀", "duration": 1.15, "telegraph": 0.22, "impact": 0.42, "color": "#F4B45F", "accent": "#F66D58", "radius": 0 },
+    { "id": "dodge", "label": "闪", "duration": 1, "telegraph": 0.08, "impact": 0.25, "color": "#78DDEB", "accent": "#D8FBFF", "radius": 0 },
+    { "id": "heal", "label": "桃", "duration": 1.6, "telegraph": 0.15, "impact": 0.55, "color": "#75E3A1", "accent": "#F6BCBD", "radius": 0 },
+    { "id": "arrows", "label": "万箭齐发", "duration": 2, "telegraph": 0.55, "impact": 0.85, "color": "#F4B45F", "accent": "#F66D58", "radius": 2.6 }
+  ]
+}
