@@ -65,6 +65,12 @@ const ACTION_PROFILES = new Map([
   ['diao_chan', { actionType: 'fan-card', actionHand: 'left' }],
 ]);
 
+const ANIMATION_TIMES = {
+  Idle: sampleRange(0, 2, 17),
+  Walk: sampleRange(0, 1, 25),
+  Attack: sampleRange(0, 0.8, 25),
+};
+
 function usage() {
   return [
     'Usage: node scripts/export-hero-models.mjs',
@@ -235,6 +241,10 @@ function buildGlb(hero) {
     writer.expandWorldBounds(geometry.positions, addVec3(worldByBone.get(bone.name), bone.center), IDENTITY_MAT3);
   }
 
+  const partNodes = new Map();
+  const partByName = new Map(hero.parts.map((part) => [part.name, part]));
+  const bowArrowNames = new Set(hero.bowMotion?.arrows?.map((entry) => entry.part) || []);
+
   for (const part of hero.parts) {
     const material = writer.material(hexToRgb(part.color), part.material);
     const geometry = geometryFor(part.shape, part.size);
@@ -246,11 +256,13 @@ function buildGlb(hero) {
       translation: part.position,
       rotation: quatFromEulerDegreesZyx(part.rotation),
     });
-    writer.nodes[boneNodes.get(part.bone)].children.push(visual);
+    partNodes.set(part.name, visual);
+    const parentBone = bowArrowNames.has(part.name) ? hero.bowMotion.bone : part.bone;
+    writer.nodes[boneNodes.get(parentBone)].children.push(visual);
     writer.expandWorldBounds(geometry.positions, addVec3(worldByBone.get(part.bone), part.position), rotation);
   }
 
-  addAnimations(writer, hero, boneNodes);
+  addAnimations(writer, hero, boneNodes, partNodes, partByName);
   return writer.finish();
 }
 
@@ -395,23 +407,23 @@ function minMaxForAccessor(typed, type) {
   return { min, max };
 }
 
-function addAnimations(writer, hero, boneNodes) {
+function addAnimations(writer, hero, boneNodes, partNodes, partByName) {
   const ready = hero.poses?.ready || {};
   const clips = [
     {
       name: 'Idle',
-      times: [0, 1, 2],
-      offsetAt: (bone, i) => idleOffset(bone.name, i),
+      times: ANIMATION_TIMES.Idle,
+      offsetAt: (bone, time) => idleOffset(bone.name, time),
     },
     {
       name: 'Walk',
-      times: [0, 0.25, 0.5, 0.75, 1],
-      offsetAt: (bone, i) => walkOffset(bone.name, i),
+      times: ANIMATION_TIMES.Walk,
+      offsetAt: (bone, time) => walkOffset(bone.name, time),
     },
     {
       name: 'Attack',
-      times: [0, 0.18, 0.38, 0.7],
-      offsetAt: (bone, i) => attackOffset(hero, bone.name, i),
+      times: ANIMATION_TIMES.Attack,
+      offsetAt: (bone, time) => attackOffset(hero, bone.name, time),
     },
   ];
 
@@ -422,8 +434,8 @@ function addAnimations(writer, hero, boneNodes) {
     for (const bone of hero.bones) {
       const rotations = [];
       const readyRotation = quatFromEulerDegrees(ready[bone.name] || [0, 0, 0]);
-      for (let i = 0; i < clip.times.length; i += 1) {
-        const offsetRotation = quatFromEulerDegrees(clip.offsetAt(bone, i));
+      for (const time of clip.times) {
+        const offsetRotation = quatFromEulerDegrees(clip.offsetAt(bone, time));
         rotations.push(...quatMultiply(readyRotation, offsetRotation));
       }
       const output = writer.accessor('rotation', new Float32Array(rotations), 'VEC4', 5126);
@@ -431,12 +443,35 @@ function addAnimations(writer, hero, boneNodes) {
       samplers.push({ input: timeAccessor, output, interpolation: 'LINEAR' });
       channels.push({ sampler: samplerIndex, target: { node: boneNodes.get(bone.name), path: 'rotation' } });
     }
+    for (const [partName, node] of partNodes) {
+      const part = partByName.get(partName);
+      const transforms = clip.times.map((time) => animatedPartTransform(hero, part, clip.name, time));
+      if (!transforms.some(Boolean)) continue;
+      const filled = transforms.map((transform) => transform || basePartTransform(part));
+      const translations = [];
+      const rotations = [];
+      const scales = [];
+      for (const transform of filled) {
+        translations.push(...transform.translation);
+        rotations.push(...transform.rotation);
+        scales.push(...transform.scale);
+      }
+      const translationAccessor = writer.accessor('translation', new Float32Array(translations), 'VEC3', 5126);
+      const rotationAccessor = writer.accessor('rotation', new Float32Array(rotations), 'VEC4', 5126);
+      const scaleAccessor = writer.accessor('scale', new Float32Array(scales), 'VEC3', 5126);
+      for (const [path, output] of [['translation', translationAccessor], ['rotation', rotationAccessor], ['scale', scaleAccessor]]) {
+        const samplerIndex = samplers.length;
+        samplers.push({ input: timeAccessor, output, interpolation: 'LINEAR' });
+        channels.push({ sampler: samplerIndex, target: { node, path } });
+      }
+    }
+
     writer.json.animations.push({ name: clip.name, samplers, channels });
   }
 }
 
-function idleOffset(name, i) {
-  const wave = [0, 1, 0][i] || 0;
+function idleOffset(name, time) {
+  const wave = Math.sin(time * Math.PI);
   if (name === 'Torso') return [0, 0, wave * 1.5];
   if (name === 'Head') return [wave * 1.2, 0, 0];
   if (name === 'RightArm') return [wave * -2, 0, 0];
@@ -444,8 +479,8 @@ function idleOffset(name, i) {
   return [0, 0, 0];
 }
 
-function walkOffset(name, i) {
-  const wave = Math.sin((i / 4) * Math.PI * 2);
+function walkOffset(name, time) {
+  const wave = Math.sin(time * Math.PI * 2);
   if (name === 'RightArm') return [wave * 22, 0, 0];
   if (name === 'LeftArm') return [wave * -22, 0, 0];
   if (name === 'RightLeg') return [wave * -24, 0, 0];
@@ -454,13 +489,14 @@ function walkOffset(name, i) {
   return [0, 0, 0];
 }
 
+
 function actionProfileForHero(hero) {
   return ACTION_PROFILES.get(hero.id) || { actionType: 'sword', actionHand: 'right' };
 }
 
-function attackOffset(hero, name, i) {
+function attackOffset(hero, name, time) {
   const profile = actionProfileForHero(hero);
-  const t = [0, 0.3, 0.62, 1][i] || 0;
+  const t = clamp(time / 0.8, 0, 1);
   const windup = Math.sin(clamp(t / 0.28, 0, 1) * Math.PI * 0.5);
   const strike = Math.sin(clamp((t - 0.2) / 0.48, 0, 1) * Math.PI);
   const recover = clamp((t - 0.64) / 0.36, 0, 1);
@@ -476,12 +512,11 @@ function attackOffset(hero, name, i) {
     if (name === 'RightLeg') return [-10 * thrust, 0, 0];
     if (name === 'LeftLeg') return [8 * thrust, 0, 0];
   } else if (profile.actionType === 'bow') {
-    const draw = t < 0.58 ? windup : 1 - recover;
-    const release = Math.sin(clamp((t - 0.45) / 0.25, 0, 1) * Math.PI);
+    const draw = t < 0.5 ? Math.sin(clamp(t / 0.28, 0, 1) * Math.PI * 0.5) : Math.max(0, 1 - (t - 0.5) / 0.14);
     if (name === 'Torso') return [-2 * draw, -7 * draw, -3 * draw];
     if (name === 'Head') return [0, -5 * draw, 0];
-    if (name === 'LeftArm') return [-24 * draw, 0, -48 * draw];
-    if (name === 'RightArm') return [-38 * draw + 18 * release, 0, 54 * draw - 22 * release];
+    if (name === 'LeftArm') return [-2 * draw, 0, 3 * draw];
+    if (name === 'RightArm') return [6 * draw, 0, 20 * draw];
     if (name === 'RightLeg') return [-4 * draw, 0, 0];
     if (name === 'LeftLeg') return [5 * draw, 0, 0];
   } else if (profile.actionType === 'fan-card') {
@@ -518,6 +553,210 @@ function attackOffset(hero, name, i) {
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+
+function sampleRange(start, end, count) {
+  return Array.from({ length: count }, (_, index) => start + ((end - start) * index) / (count - 1));
+}
+
+function basePartTransform(part) {
+  return {
+    translation: part.position,
+    rotation: quatFromEulerDegreesZyx(part.rotation),
+    scale: [1, 1, 1],
+  };
+}
+
+function animatedPartTransform(hero, part, clipName, time) {
+  if (!part) return null;
+  const bow = bowPartTransform(hero, part, clipName, time);
+  if (bow) return bow;
+  const motion = (hero.attachmentMotion || []).find((entry) => Array.isArray(entry.parts) && entry.parts.includes(part.name));
+  if (!motion) return null;
+  const wave = attachmentWave(clipName, time, motion.phase || 0);
+  const deltaRotation = quatFromEulerDegrees((motion.amplitude || [0, 0, 0]).map((value) => value * wave));
+  const deltaMatrix = mat3FromQuat(deltaRotation);
+  const pivot = motion.pivot || [0, 0, 0];
+  return {
+    translation: addVec3(pivot, transformVec3(deltaMatrix, subtractVec3(part.position, pivot))),
+    rotation: quatMultiply(deltaRotation, quatFromEulerDegreesZyx(part.rotation)),
+    scale: [1, 1, 1],
+  };
+}
+
+function attachmentWave(clipName, time, phase) {
+  if (clipName === 'Idle') return 0.22 * Math.sin(Math.PI * time + phase);
+  if (clipName === 'Walk') return Math.sin(Math.PI * 2 * time + phase);
+  return 1.25 * Math.sin(Math.PI * clamp(time / 0.8, 0, 1)) * Math.sin(8 * time + phase);
+}
+
+function bowPartTransform(hero, part, clipName, time) {
+  const bow = hero.bowMotion;
+  if (!bow) return null;
+  const stringIndex = (bow.strings || []).indexOf(part.name);
+  const arrow = (bow.arrows || []).find((entry) => entry.part === part.name);
+  if (stringIndex === -1 && !arrow) return null;
+  const boneWorld = animatedBoneWorldMatrices(hero, clipName, time);
+  const leftWorld = boneWorld.get(bow.bone);
+  const rightWorld = boneWorld.get(bow.drawBone);
+  if (!leftWorld || !rightWorld) return null;
+  const nock = transformPointMat4(invertRigidMat4(leftWorld), transformPointMat4(rightWorld, bow.drawPoint));
+  if (stringIndex !== -1) {
+    const tip = (bow.tips || [])[Math.min(stringIndex, (bow.tips || []).length - 1)];
+    if (!tip) return null;
+    const frame = alignYFrame(tip, nock);
+    return {
+      translation: frame.translation,
+      rotation: frame.rotation,
+      scale: [1, Math.max(0.001, distance(tip, nock) / Math.max(0.001, part.size[1])), 1],
+    };
+  }
+  const arrowFrame = yFrameAt(nock, bow.grip || [0, -1, -1]);
+  const localOffset = transformVec3(mat3FromQuat(arrowFrame.rotation), arrow.offset || [0, 0, 0]);
+  return {
+    translation: addVec3(arrowFrame.translation, localOffset),
+    rotation: quatMultiply(arrowFrame.rotation, quatFromEulerDegreesZyx(arrow.rotation || [0, 0, 0])),
+    scale: [1, 1, 1],
+  };
+}
+
+function animatedBoneWorldMatrices(hero, clipName, time) {
+  const ready = hero.poses?.ready || {};
+  const boneByName = new Map(hero.bones.map((bone) => [bone.name, bone]));
+  const matrices = new Map();
+  function resolve(name) {
+    if (matrices.has(name)) return matrices.get(name);
+    const bone = boneByName.get(name);
+    if (!bone) return identityMat4();
+    const parent = bone.parent ? resolve(bone.parent) : identityMat4();
+    const offset = clipName === 'Idle' ? idleOffset(name, time) : clipName === 'Walk' ? walkOffset(name, time) : attackOffset(hero, name, time);
+    const local = multiplyMat4(
+      multiplyMat4(translationMat4(...bone.position), mat4FromQuat(quatFromEulerDegrees(ready[name] || [0, 0, 0]))),
+      mat4FromQuat(quatFromEulerDegrees(offset)),
+    );
+    const world = multiplyMat4(parent, local);
+    matrices.set(name, world);
+    return world;
+  }
+  for (const bone of hero.bones) resolve(bone.name);
+  return matrices;
+}
+
+function alignYFrame(from, to) {
+  const frame = yFrameAt(scaleVec3(addVec3(from, to), 0.5), to);
+  return frame;
+}
+
+function yFrameAt(origin, target) {
+  const up = normalizeVec3(subtractVec3(target, origin));
+  const helper = Math.abs(up[1]) < 0.95 ? [0, 1, 0] : [1, 0, 0];
+  let right = normalizeVec3(crossVec3(helper, up));
+  if (lengthVec3(right) < 0.001) right = [1, 0, 0];
+  const back = normalizeVec3(crossVec3(right, up));
+  right = normalizeVec3(crossVec3(up, back));
+  return {
+    translation: origin,
+    rotation: quatFromMat3([
+      [right[0], up[0], back[0]],
+      [right[1], up[1], back[1]],
+      [right[2], up[2], back[2]],
+    ]),
+  };
+}
+
+function mat3FromQuat([x, y, z, w]) {
+  return [
+    [1 - 2 * (y * y + z * z), 2 * (x * y - w * z), 2 * (x * z + w * y)],
+    [2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2 * (y * z - w * x)],
+    [2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y)],
+  ];
+}
+
+function quatFromMat3(m) {
+  const trace = m[0][0] + m[1][1] + m[2][2];
+  if (trace > 0) {
+    const s = Math.sqrt(trace + 1) * 2;
+    return [(m[2][1] - m[1][2]) / s, (m[0][2] - m[2][0]) / s, (m[1][0] - m[0][1]) / s, 0.25 * s];
+  }
+  if (m[0][0] > m[1][1] && m[0][0] > m[2][2]) {
+    const s = Math.sqrt(1 + m[0][0] - m[1][1] - m[2][2]) * 2;
+    return [0.25 * s, (m[0][1] + m[1][0]) / s, (m[0][2] + m[2][0]) / s, (m[2][1] - m[1][2]) / s];
+  }
+  if (m[1][1] > m[2][2]) {
+    const s = Math.sqrt(1 + m[1][1] - m[0][0] - m[2][2]) * 2;
+    return [(m[0][1] + m[1][0]) / s, 0.25 * s, (m[1][2] + m[2][1]) / s, (m[0][2] - m[2][0]) / s];
+  }
+  const s = Math.sqrt(1 + m[2][2] - m[0][0] - m[1][1]) * 2;
+  return [(m[0][2] + m[2][0]) / s, (m[1][2] + m[2][1]) / s, 0.25 * s, (m[1][0] - m[0][1]) / s];
+}
+
+function transformVec3(m, v) {
+  return [
+    m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2],
+    m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2],
+    m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2],
+  ];
+}
+
+function identityMat4() {
+  return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+}
+
+function translationMat4(x, y, z) {
+  return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1];
+}
+
+function mat4FromQuat(q) {
+  const m = mat3FromQuat(q);
+  return [m[0][0], m[1][0], m[2][0], 0, m[0][1], m[1][1], m[2][1], 0, m[0][2], m[1][2], m[2][2], 0, 0, 0, 0, 1];
+}
+
+function multiplyMat4(a, b) {
+  const out = new Array(16).fill(0);
+  for (let col = 0; col < 4; col += 1) {
+    for (let row = 0; row < 4; row += 1) {
+      for (let i = 0; i < 4; i += 1) out[col * 4 + row] += a[i * 4 + row] * b[col * 4 + i];
+    }
+  }
+  return out;
+}
+
+function transformPointMat4(m, p) {
+  return [
+    m[0] * p[0] + m[4] * p[1] + m[8] * p[2] + m[12],
+    m[1] * p[0] + m[5] * p[1] + m[9] * p[2] + m[13],
+    m[2] * p[0] + m[6] * p[1] + m[10] * p[2] + m[14],
+  ];
+}
+
+function invertRigidMat4(m) {
+  const r = [[m[0], m[4], m[8]], [m[1], m[5], m[9]], [m[2], m[6], m[10]]];
+  const t = [m[12], m[13], m[14]];
+  const rt = [[r[0][0], r[1][0], r[2][0]], [r[0][1], r[1][1], r[2][1]], [r[0][2], r[1][2], r[2][2]]];
+  const invT = transformVec3(rt, scaleVec3(t, -1));
+  return [rt[0][0], rt[1][0], rt[2][0], 0, rt[0][1], rt[1][1], rt[2][1], 0, rt[0][2], rt[1][2], rt[2][2], 0, invT[0], invT[1], invT[2], 1];
+}
+
+function subtractVec3(a, b) {
+  return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+}
+
+function distance(a, b) {
+  return lengthVec3(subtractVec3(a, b));
+}
+
+function lengthVec3(v) {
+  return Math.hypot(v[0], v[1], v[2]);
+}
+
+function normalizeVec3(v) {
+  const len = lengthVec3(v);
+  return len > 0.000001 ? [v[0] / len, v[1] / len, v[2] / len] : [0, 1, 0];
+}
+
+function crossVec3(a, b) {
+  return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 }
 
 
@@ -799,7 +1038,15 @@ function buildWorkshop(entries, heroes) {
 
 function demoScriptSource(heroes) {
   const readyById = Object.fromEntries(heroes.map((hero) => [hero.id, hero.poses?.ready || {}]));
+  const boneCentersById = Object.fromEntries(heroes.map((hero) => [hero.id, Object.fromEntries(hero.bones.map((bone) => [bone.name, bone.center]))]));
+  const partInfoById = Object.fromEntries(heroes.map((hero) => [hero.id, Object.fromEntries(hero.parts.map((part) => [part.name, { bone: part.bone, shape: part.shape, position: part.position, rotation: part.rotation, size: part.size }]))]));
+  const attachmentMotionsById = Object.fromEntries(heroes.map((hero) => [hero.id, hero.attachmentMotion || []]));
+  const bowMotionsById = Object.fromEntries(heroes.filter((hero) => hero.bowMotion).map((hero) => [hero.id, hero.bowMotion]));
   const readyLua = luaTable(readyById);
+  const boneCentersLua = luaTable(boneCentersById);
+  const partInfoLua = luaTable(partInfoById);
+  const attachmentMotionsLua = luaTable(attachmentMotionsById);
+  const bowMotionsLua = luaTable(bowMotionsById);
   return `-- Generated hero-model-workshop demo animation.
 -- The standalone .rbxmx exports intentionally do not include this script.
 local RunService = game:GetService("RunService")
@@ -814,6 +1061,38 @@ local MOTOR_NAMES = {
 }
 
 local READY_POSES = ${readyLua}
+local BONE_CENTERS = ${boneCentersLua}
+local PART_INFO = ${partInfoLua}
+local ATTACHMENT_MOTIONS = ${attachmentMotionsLua}
+local BOW_MOTIONS = ${bowMotionsLua}
+
+local BONE_PART_NAMES = {
+	Root = "HumanoidRootPart",
+	Torso = "Torso",
+	Head = "Head",
+	LeftArm = "Left Arm",
+	RightArm = "Right Arm",
+	LeftLeg = "Left Leg",
+	RightLeg = "Right Leg",
+}
+
+local MOTOR_TO_BONE = {
+	RootJoint = "Torso",
+	Neck = "Head",
+	["Right Shoulder"] = "RightArm",
+	["Left Shoulder"] = "LeftArm",
+	["Right Hip"] = "RightLeg",
+	["Left Hip"] = "LeftLeg",
+}
+
+local BONE_TO_MOTOR = {
+	Torso = "RootJoint",
+	Head = "Neck",
+	RightArm = "Right Shoulder",
+	LeftArm = "Left Shoulder",
+	RightLeg = "Right Hip",
+	LeftLeg = "Left Hip",
+}
 
 local ACTION_PROFILES = {
 	cao_cao = { actionType = "sword", actionHand = "right" },
@@ -877,25 +1156,35 @@ local function collectRig(model)
 	for _, name in ipairs(MOTOR_NAMES) do
 		local motor = model:FindFirstChild(name, true)
 		if motor and motor:IsA("Motor6D") then
-			local boneName = ({
-				RootJoint = "Torso",
-				Neck = "Head",
-				["Right Shoulder"] = "RightArm",
-				["Left Shoulder"] = "LeftArm",
-				["Right Hip"] = "RightLeg",
-				["Left Hip"] = "LeftLeg",
-			})[name]
+			local boneName = MOTOR_TO_BONE[name]
 			motors[name] = {
 				motor = motor,
 				baseC0 = motor.C0,
+				baseC1 = motor.C1,
 				ready = anglesFromDegrees(boneName and ready[boneName]),
+				currentC0 = motor.C0 * anglesFromDegrees(boneName and ready[boneName]),
 			}
+		end
+	end
+	local parts = {}
+	for partName, info in pairs(PART_INFO[id] or {}) do
+		local part = model:FindFirstChild(partName, true)
+		if part and part:IsA("BasePart") then
+			local weld = part:FindFirstChild(partName .. "Weld") or part:FindFirstChildOfClass("Weld")
+			if weld and weld:IsA("Weld") then
+				parts[partName] = { part = part, weld = weld, baseC0 = weld.C0, baseSize = part.Size, info = info }
+			end
 		end
 	end
 	local profile = profileFor(id)
 	return {
+		id = id,
 		model = model,
 		motors = motors,
+		parts = parts,
+		boneCenters = BONE_CENTERS[id] or {},
+		attachmentMotions = ATTACHMENT_MOTIONS[id] or {},
+		bowMotion = BOW_MOTIONS[id],
 		phase = (#model.Name % 7) * 0.17,
 		actionType = profile.actionType,
 		actionHand = profile.actionHand,
@@ -916,8 +1205,161 @@ local function setMotor(rig, name, transform)
 	local record = rig.motors[name]
 	if record then
 		record.motor.Transform = CFrame.new()
-		record.motor.C0 = record.baseC0 * record.ready * transform
+		record.currentC0 = record.baseC0 * record.ready * transform
+		record.motor.C0 = record.currentC0
 	end
+end
+
+
+local function v3(value)
+	if type(value) ~= "table" then
+		return Vector3.zero
+	end
+	return Vector3.new(value[1] or 0, value[2] or 0, value[3] or 0)
+end
+
+local function cframeFromZyx(value)
+	if type(value) ~= "table" then
+		return CFrame.new()
+	end
+	return CFrame.Angles(0, 0, math.rad(value[3] or 0)) * CFrame.Angles(0, math.rad(value[2] or 0), 0) * CFrame.Angles(math.rad(value[1] or 0), 0, 0)
+end
+
+local function shapeCorrection(info)
+	if info.shape == "cylinder" then
+		return CFrame.Angles(0, 0, math.rad(90))
+	end
+	return CFrame.new()
+end
+
+local function localPartFrame(info)
+	return CFrame.new(v3(info.position)) * cframeFromZyx(info.rotation) * shapeCorrection(info)
+end
+
+local function boneCenter(rig, boneName)
+	return v3(rig.boneCenters[boneName])
+end
+
+local function attachmentWave(clipName, clipTime, phase)
+	if clipName == "Idle" then
+		return 0.22 * math.sin(math.pi * clipTime + phase)
+	elseif clipName == "Walk" then
+		return math.sin(math.pi * 2 * clipTime + phase)
+	end
+	return 1.25 * math.sin(math.pi * math.clamp(clipTime / 0.8, 0, 1)) * math.sin(8 * clipTime + phase)
+end
+
+local function setWeldLocalFrame(rig, record, localFrame)
+	local center = boneCenter(rig, record.info.bone)
+	record.weld.C0 = CFrame.new(-center) * localFrame * shapeCorrection(record.info)
+end
+
+local function applyAttachmentMotion(rig, clipName, clipTime)
+	for _, motion in ipairs(rig.attachmentMotions) do
+		local wave = attachmentWave(clipName, clipTime, motion.phase or 0)
+		local amplitude = v3(motion.amplitude)
+		local deltaRotation = CFrame.Angles(math.rad(amplitude.X * wave), math.rad(amplitude.Y * wave), math.rad(amplitude.Z * wave))
+		local pivot = v3(motion.pivot)
+		for _, partName in ipairs(motion.parts or {}) do
+			local record = rig.parts[partName]
+			if record then
+				local localFrame = CFrame.new(pivot) * deltaRotation * CFrame.new(-pivot) * localPartFrame(record.info)
+				setWeldLocalFrame(rig, record, localFrame)
+				record.part.Size = record.baseSize
+			end
+		end
+	end
+end
+
+local function predictedPartFrame(rig, boneName)
+	local partName = BONE_PART_NAMES[boneName]
+	local part = partName and rig.model:FindFirstChild(partName)
+	if not part or not part:IsA("BasePart") then
+		return nil
+	end
+	local motorName = BONE_TO_MOTOR[boneName]
+	local record = motorName and rig.motors[motorName]
+	if not record then
+		return part.CFrame
+	end
+	local parentPart = record.motor.Part0
+	if not parentPart or not parentPart:IsA("BasePart") then
+		return part.CFrame
+	end
+	return parentPart.CFrame * record.currentC0 * record.baseC1:Inverse()
+end
+
+local function frameYAt(origin, target)
+	local up = target - origin
+	if up.Magnitude < 0.0001 then
+		up = Vector3.yAxis
+	else
+		up = up.Unit
+	end
+	local helper = if math.abs(up.Y) < 0.95 then Vector3.yAxis else Vector3.xAxis
+	local right = helper:Cross(up)
+	if right.Magnitude < 0.0001 then
+		right = Vector3.xAxis
+	else
+		right = right.Unit
+	end
+	local back = right:Cross(up).Unit
+	right = up:Cross(back).Unit
+	return CFrame.fromMatrix(origin, right, up, back)
+end
+
+local function applyBowMotion(rig)
+	local bow = rig.bowMotion
+	if not bow then
+		return
+	end
+	local leftPartFrame = predictedPartFrame(rig, bow.bone)
+	local rightPartFrame = predictedPartFrame(rig, bow.drawBone)
+	if not leftPartFrame or not rightPartFrame then
+		return
+	end
+	local leftCenter = boneCenter(rig, bow.bone)
+	local rightCenter = boneCenter(rig, bow.drawBone)
+	local leftPartName = BONE_PART_NAMES[bow.bone]
+	local leftPart = leftPartName and rig.model:FindFirstChild(leftPartName)
+	local leftPivotFrame = leftPartFrame * CFrame.new(-leftCenter)
+	local rightPivotFrame = rightPartFrame * CFrame.new(-rightCenter)
+	local nock = leftPivotFrame:PointToObjectSpace(rightPivotFrame:PointToWorldSpace(v3(bow.drawPoint)))
+	for index, partName in ipairs(bow.strings or {}) do
+		local record = rig.parts[partName]
+		local tipValue = bow.tips and bow.tips[index]
+		if record and tipValue then
+			if leftPart and leftPart:IsA("BasePart") then
+				record.weld.Part0 = leftPart
+			end
+			local tip = v3(tipValue)
+			local midpoint = (tip + nock) * 0.5
+			local localFrame = frameYAt(midpoint, nock)
+			local length = (nock - tip).Magnitude
+			record.part.Size = Vector3.new(record.baseSize.X, math.max(0.001, length), record.baseSize.Z)
+			record.weld.C0 = CFrame.new(-leftCenter) * localFrame * shapeCorrection(record.info)
+		end
+	end
+	local arrowFrame = frameYAt(nock, v3(bow.grip))
+	for _, arrow in ipairs(bow.arrows or {}) do
+		local record = rig.parts[arrow.part]
+		if record then
+			if leftPart and leftPart:IsA("BasePart") then
+				record.weld.Part0 = leftPart
+			end
+			record.part.Size = record.baseSize
+			record.weld.C0 = CFrame.new(-leftCenter) * arrowFrame * CFrame.new(v3(arrow.offset)) * cframeFromZyx(arrow.rotation) * shapeCorrection(record.info)
+		end
+	end
+end
+
+local function applyPartMotion(rig, clipName, clipTime)
+	for _, record in pairs(rig.parts) do
+		record.weld.C0 = record.baseC0
+		record.part.Size = record.baseSize
+	end
+	applyAttachmentMotion(rig, clipName, clipTime)
+	applyBowMotion(rig)
 end
 
 local function poseIdle(rig, localT)
@@ -958,12 +1400,11 @@ local function poseAttack(rig, localT)
 		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-10 * thrust), 0, 0))
 		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(8 * thrust), 0, 0))
 	elseif rig.actionType == "bow" then
-		local draw = if clamped < 0.58 then windup else 1 - recover
-		local release = math.sin(math.clamp((clamped - 0.45) / 0.25, 0, 1) * math.pi)
+		local draw = if clamped < 0.5 then math.sin(math.clamp(clamped / 0.28, 0, 1) * math.pi * 0.5) else math.max(0, 1 - (clamped - 0.5) / 0.14)
 		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * draw), math.rad(-7 * draw), math.rad(-3 * draw)))
 		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * draw), 0))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-24 * draw), 0, math.rad(-48 * draw)))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-38 * draw + 18 * release), 0, math.rad(54 * draw - 22 * release)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-2 * draw), 0, math.rad(3 * draw)))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(6 * draw), 0, math.rad(20 * draw)))
 	elseif rig.actionType == "fan-card" then
 		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * power), math.rad(8 * power), math.rad(if leftPrimary then 5 * power else -5 * power)))
 		setMotor(rig, "Neck", CFrame.Angles(math.rad(-3 * power), math.rad(if leftPrimary then -8 * power else 8 * power), 0))
@@ -1002,10 +1443,15 @@ RunService.Heartbeat:Connect(function()
 		local t = (now + rig.phase) % 6
 		if t < 2 then
 			poseIdle(rig, t / 2)
+			applyPartMotion(rig, "Idle", t)
 		elseif t < 4 then
-			poseWalk(rig, (t - 2) / 2)
+			local walkT = (t - 2) / 2
+			poseWalk(rig, walkT)
+			applyPartMotion(rig, "Walk", walkT)
 		else
-			poseAttack(rig, (t - 4) / 2)
+			local attackT = ((t - 4) / 2) * 0.8
+			poseAttack(rig, attackT / 0.8)
+			applyPartMotion(rig, "Attack", attackT)
 		end
 	end
 end)

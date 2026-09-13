@@ -1,0 +1,486 @@
+{
+  "generatedAt": "2026-09-13T16:09:55.954Z",
+  "modelDirectory": "models/hero-models-v1",
+  "glbCount": 25,
+  "allGlbFinite": true,
+  "finiteSummary": [
+    {
+      "file": "cao_cao.glb",
+      "nodeCount": 182,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "da_qiao.glb",
+      "nodeCount": 154,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "diao_chan.glb",
+      "nodeCount": 103,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "gan_ning.glb",
+      "nodeCount": 121,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "guan_yu.glb",
+      "nodeCount": 225,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "guo_jia.glb",
+      "nodeCount": 76,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "hua_tuo.glb",
+      "nodeCount": 126,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "huang_gai.glb",
+      "nodeCount": 151,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "huang_yueying.glb",
+      "nodeCount": 144,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "liu_bei.glb",
+      "nodeCount": 112,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "lu_bu.glb",
+      "nodeCount": 187,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "lu_meng.glb",
+      "nodeCount": 100,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "lu_xun.glb",
+      "nodeCount": 100,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "ma_chao.glb",
+      "nodeCount": 177,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "sima_yi.glb",
+      "nodeCount": 74,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "sun_quan.glb",
+      "nodeCount": 178,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "sun_shangxiang.glb",
+      "nodeCount": 140,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "xiahou_dun.glb",
+      "nodeCount": 160,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "xu_chu.glb",
+      "nodeCount": 81,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhang_fei.glb",
+      "nodeCount": 178,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhang_liao.glb",
+      "nodeCount": 173,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhao_yun.glb",
+      "nodeCount": 234,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhen_ji.glb",
+      "nodeCount": 124,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhou_yu.glb",
+      "nodeCount": 174,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    },
+    {
+      "file": "zhuge_liang.glb",
+      "nodeCount": 133,
+      "animationCount": 3,
+      "animationNames": [
+        "Idle",
+        "Walk",
+        "Attack"
+      ],
+      "finite": true,
+      "failureCount": 0,
+      "firstFailures": []
+    }
+  ],
+  "sunShangxiang": {
+    "samples": [
+      0.037,
+      0.111,
+      0.183,
+      0.333,
+      0.457,
+      0.573,
+      0.721
+    ],
+    "maxStringEndpointError": 0.0018895092715544763,
+    "maxArrowDirectionError": 0.0006928667015086042,
+    "rows": [
+      {
+        "time": 0.037,
+        "nockLocal": [
+          2.286343609314389,
+          -1.5051612032453292,
+          -1.22491937579708
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 0.0003651809657970187
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 0.0004894078049575262
+          }
+        ],
+        "arrowDirectionError": 0.00019132575960104434
+      },
+      {
+        "time": 0.111,
+        "nockLocal": [
+          2.4384789803604354,
+          -1.5966993399410698,
+          -1.299822760202194
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 0.00042946468989572584
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 0.000576830652075535
+          }
+        ],
+        "arrowDirectionError": 0.00020016605909568355
+      },
+      {
+        "time": 0.183,
+        "nockLocal": [
+          2.531788379495034,
+          -1.6418237211109332,
+          -1.3369290072518618
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 0.000081728489065786
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 0.00010834242006148247
+          }
+        ],
+        "arrowDirectionError": 0.00003502865608215665
+      },
+      {
+        "time": 0.333,
+        "nockLocal": [
+          2.5496270408022603,
+          -1.6496596217060537,
+          -1.3432747725114447
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 1.7583211635046984e-7
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 2.438070310439646e-7
+          }
+        ],
+        "arrowDirectionError": 9.013302491073056e-8
+      },
+      {
+        "time": 0.457,
+        "nockLocal": [
+          2.3658135318241302,
+          -1.5561627537032785,
+          -1.2661915802774728
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 0.0014023667597198228
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 0.0018895092715544763
+          }
+        ],
+        "arrowDirectionError": 0.0006928667015086042
+      },
+      {
+        "time": 0.573,
+        "nockLocal": [
+          2.20496459942469,
+          -1.4444464813646427,
+          -1.177155529468172
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 1.977661548626068e-7
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 1.5776045636058022e-7
+          }
+        ],
+        "arrowDirectionError": 6.620093673264879e-8
+      },
+      {
+        "time": 0.721,
+        "nockLocal": [
+          2.20496459942469,
+          -1.4444464813646427,
+          -1.177155529468172
+        ],
+        "stringEndpointErrors": [
+          {
+            "name": "BowStringUpper",
+            "endpointError": 1.977661548626068e-7
+          },
+          {
+            "name": "BowStringLower",
+            "endpointError": 1.5776045636058022e-7
+          }
+        ],
+        "arrowDirectionError": 6.620093673264879e-8
+      }
+    ]
+  },
+  "thresholds": {
+    "maxStringEndpointErrorStuds": 0.03,
+    "maxArrowDirectionVectorError": 0.03
+  },
+  "pass": true
+}

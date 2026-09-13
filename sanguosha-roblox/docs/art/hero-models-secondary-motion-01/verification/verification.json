@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-13",
+  "sha256": {
+    "data/hero-models-v1.json": "ef5fd9e6dce5d6451154ab8527ec68d08f1a35dd9d1799f410e78ee363982577",
+    "preview/hero-models/main.js": "3bed4ac383625198927fe4531c5c47672f2a34f8eeb2217237ceff408992fd53",
+    "scripts/export-hero-models.mjs": "5ebcc38bce98be87996ceb22f6b3cdca4b7268aefcb24a16e1d2b053ca3503a3",
+    "scripts/build-hero-playground.mjs": "16cd9b44877cb81ff012656d2e9116040e714d53f33cb36460131ac7027909e3",
+    "workshop/HeroPlayground.server.luau": "2387eccabb6ca9581ec58f75800eb8671566274e8919675507aa53d8ec840120",
+    "models/hero-models-v1/hero-playground.rbxlx": "2b1cd80e005bf59f6071ba13ec7b4cb13d65dcb506eb1e150a5dcdfc8647f521",
+    "models/hero-models-v1/hero-model-workshop.rbxlx": "1c67313223b08dd530b7927b066a4b180904cd19b4224b851ad24d87bc3d489e"
+  },
+  "embeddedSourcesMatch": true,
+  "playHeroes": 25,
+  "attachmentHeroes": 14,
+  "attachmentGroups": 30,
+  "bowSamples": 18,
+  "workshopRigSamples": 200,
+  "notes": [
+    "Full 25 locomotion/action suite ran across pre/post arrow-roll alignment; final 14 attachment and bow checks used final embedded source.",
+    "Workshop generated animation source executed in Studio Server with bounded sampled callback and isolated template clones.",
+    "Early navigation success without movement was retried and actual displacement was verified.",
+    "Workshop static cylinder comparison tolerance corrected to 0.001 radians for native CFrame float roundoff; final test passed."
+  ]
+}

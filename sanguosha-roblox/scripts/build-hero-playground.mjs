@@ -59,6 +59,9 @@ const catalog = heroArt.map((hero) => ({
   available: availableIds.has(hero.id),
   ...actionProfileFor(hero.id, modelById.get(hero.id)),
   ready: modelById.get(hero.id)?.poses?.ready || {},
+  attachmentMotion: modelById.get(hero.id)?.attachmentMotion || [],
+  bowMotion: modelById.get(hero.id)?.bowMotion || null,
+  boneCenters: Object.fromEntries((modelById.get(hero.id)?.bones || []).map(bone => [bone.name, bone.center || [0, 0, 0]])),
 }));
 
 for (const id of availableIds) {
@@ -74,6 +77,9 @@ for (const id of availableIds) {
       available: true,
       ...actionProfileFor(id, model),
       ready: model?.poses?.ready || {},
+      attachmentMotion: model?.attachmentMotion || [],
+      bowMotion: model?.bowMotion || null,
+      boneCenters: Object.fromEntries((model?.bones || []).map(bone => [bone.name, bone.center || [0, 0, 0]])),
     });
   }
 }

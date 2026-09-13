@@ -1,0 +1,352 @@
+{
+  "bow": [
+    {
+      "stringError": 0.00019454784342087805,
+      "sample": 1,
+      "nockFromGrip": 2.38234281539917,
+      "alignment": 0.9999998807907104,
+      "arrowError": 0.00012138836609665304
+    },
+    {
+      "stringError": 0.0002008306182688102,
+      "sample": 2,
+      "nockFromGrip": 2.534841299057007,
+      "alignment": 1,
+      "arrowError": 0.0002241751499241218
+    },
+    {
+      "stringError": 0.00012363291170913726,
+      "sample": 3,
+      "nockFromGrip": 2.5915420055389404,
+      "alignment": 0.9999999403953552,
+      "arrowError": 0.00012675716425292194
+    },
+    {
+      "stringError": 8.429268200416118e-05,
+      "sample": 4,
+      "nockFromGrip": 2.6448652744293213,
+      "alignment": 1,
+      "arrowError": 0.00011486456787679344
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 5,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.536586857284419e-05
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 6,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.538340726867318e-05
+    },
+    {
+      "stringError": 0.00010705100430641323,
+      "sample": 7,
+      "nockFromGrip": 2.645585536956787,
+      "alignment": 1,
+      "arrowError": 4.538340726867318e-05
+    },
+    {
+      "stringError": 0.00023645609326194972,
+      "sample": 8,
+      "nockFromGrip": 2.5831117630004883,
+      "alignment": 1,
+      "arrowError": 0.00023650945513509214
+    },
+    {
+      "stringError": 0.00010429527173982933,
+      "sample": 9,
+      "nockFromGrip": 2.4627413749694824,
+      "alignment": 0.9999999403953552,
+      "arrowError": 2.9699385777348652e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 10,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.1225910536013544e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 11,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.1225910536013544e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 12,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.1225910536013544e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 13,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 14,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 15,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 6.665366527158767e-05,
+      "sample": 16,
+      "nockFromGrip": 2.2541067600250244,
+      "alignment": 1.0000001192092896,
+      "arrowError": 4.147061554249376e-05
+    },
+    {
+      "stringError": 9.491365199210122e-05,
+      "sample": 17,
+      "nockFromGrip": 2.247408866882324,
+      "alignment": 1,
+      "arrowError": 5.8749865274876356e-05
+    },
+    {
+      "stringError": 0.00010692435171222314,
+      "sample": 18,
+      "nockFromGrip": 2.2445068359375,
+      "alignment": 0.9999999403953552,
+      "arrowError": 0.00010016907617682591
+    }
+  ],
+  "attachments": [
+    {
+      "hero": "cao_cao",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.009442945010960102,
+          "pivotError": 2.456778565829154e-05
+        }
+      ]
+    },
+    {
+      "hero": "sima_yi",
+      "groups": [
+        {
+          "id": "ribbon-JudgeRibbon",
+          "angle": 0.010885550640523434,
+          "pivotError": 1.8493039988243254e-06
+        }
+      ]
+    },
+    {
+      "hero": "zhen_ji",
+      "groups": [
+        {
+          "id": "tassel-HairTassel-1",
+          "angle": 0.003164425492286682,
+          "pivotError": 6.449315606005257e-06
+        },
+        {
+          "id": "tassel-HairTassel1",
+          "angle": 0.003164425492286682,
+          "pivotError": 6.494035915238783e-06
+        },
+        {
+          "id": "ribbon-LeftArm",
+          "angle": 0.02215680293738842,
+          "pivotError": 5.679043624695623e-06
+        },
+        {
+          "id": "ribbon-RightArm",
+          "angle": 0.046685561537742615,
+          "pivotError": 6.021544322720729e-06
+        }
+      ]
+    },
+    {
+      "hero": "guan_yu",
+      "groups": [
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.04891837760806084,
+          "pivotError": 3.340680996188894e-05
+        }
+      ]
+    },
+    {
+      "hero": "zhang_fei",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.011698453687131405,
+          "pivotError": 6.308585579972714e-05
+        }
+      ]
+    },
+    {
+      "hero": "zhao_yun",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.009874917566776276,
+          "pivotError": 4.274123966752086e-06
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.04416538402438164,
+          "pivotError": 1.92683710338315e-05
+        }
+      ]
+    },
+    {
+      "hero": "ma_chao",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.008155927062034607,
+          "pivotError": 3.0878170946380123e-05
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.04381297156214714,
+          "pivotError": 2.0526947992038913e-05
+        }
+      ]
+    },
+    {
+      "hero": "sun_quan",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.008843177929520607,
+          "pivotError": 4.883552901446819e-05
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.048089802265167236,
+          "pivotError": 1.8909802292910172e-06
+        }
+      ]
+    },
+    {
+      "hero": "zhou_yu",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.00993509404361248,
+          "pivotError": 1.879523006209638e-05
+        },
+        {
+          "id": "tassel-RightArm",
+          "angle": 0.04415187984704971,
+          "pivotError": 1.139820960815996e-05
+        }
+      ]
+    },
+    {
+      "hero": "da_qiao",
+      "groups": [
+        {
+          "id": "ribbon-HairRibbonL",
+          "angle": 0.03652860224246979,
+          "pivotError": 2.5038278181455098e-05
+        },
+        {
+          "id": "ribbon-HairRibbonR",
+          "angle": 0.03651554137468338,
+          "pivotError": 1.6546489860047586e-05
+        },
+        {
+          "id": "ribbon-WhiteSashTail-1",
+          "angle": 0.007192847318947315,
+          "pivotError": 7.282751084858319e-06
+        },
+        {
+          "id": "ribbon-RoseRibbonTail-1",
+          "angle": 0.007176254875957966,
+          "pivotError": 8.888842785381712e-06
+        },
+        {
+          "id": "ribbon-WhiteSashTail1",
+          "angle": 0.007176254875957966,
+          "pivotError": 4.5380824303720146e-05
+        },
+        {
+          "id": "ribbon-RoseRibbonTail1",
+          "angle": 0.007209402043372393,
+          "pivotError": 1.952361526491586e-05
+        },
+        {
+          "id": "sleeve-LeftArm",
+          "angle": 0.04532469063997269,
+          "pivotError": 1.568817788211163e-05
+        },
+        {
+          "id": "sleeve-RightArm",
+          "angle": 0.016801614314317703,
+          "pivotError": 3.536949952831492e-05
+        }
+      ]
+    },
+    {
+      "hero": "lu_xun",
+      "groups": [
+        {
+          "id": "ribbon-HatRibbonL",
+          "angle": 0.03706006333231926,
+          "pivotError": 2.902158666984178e-05
+        },
+        {
+          "id": "ribbon-HatRibbonR",
+          "angle": 0.03706327825784683,
+          "pivotError": 2.9637716579600237e-05
+        }
+      ]
+    },
+    {
+      "hero": "sun_shangxiang",
+      "groups": [
+        {
+          "id": "tassel-LeftArm",
+          "angle": 0.03408703953027725,
+          "pivotError": 1.4787065993004944e-05
+        }
+      ]
+    },
+    {
+      "hero": "lu_bu",
+      "groups": [
+        {
+          "id": "cape",
+          "angle": 0.01692884974181652,
+          "pivotError": 7.1128444687929e-05
+        }
+      ]
+    },
+    {
+      "hero": "diao_chan",
+      "groups": [
+        {
+          "id": "ribbon-LeftArm",
+          "angle": 0.016231399029493332,
+          "pivotError": 6.464807484007906e-06
+        },
+        {
+          "id": "ribbon-RightArm",
+          "angle": 0.04441846162080765,
+          "pivotError": 6.305603619694011e-06
+        }
+      ]
+    }
+  ]
+}

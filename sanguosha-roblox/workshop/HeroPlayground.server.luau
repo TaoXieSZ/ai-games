@@ -53,6 +53,80 @@ local function findMotor(model: Model, name: string): Motor6D?
 	return nil
 end
 
+local function vector(values)
+	return Vector3.new(values[1], values[2], values[3])
+end
+local function secondaryBindings(model, hero)
+	local byPart = {}
+	for _, weld in model:GetDescendants() do
+		if weld:IsA("Weld") and weld.Part1 then byPart[weld.Part1.Name] = {weld=weld,base=weld.C0,size=weld.Part1.Size} end
+	end
+	local groups = {}
+	for _, spec in hero.attachmentMotion or {} do
+		local center = vector((hero.boneCenters or {})[spec.bone] or {0,0,0})
+		local bindings = {}
+		for _, name in spec.parts do if byPart[name] then table.insert(bindings, byPart[name]) end end
+		table.insert(groups, {spec=spec,pivot=vector(spec.pivot)-center,bindings=bindings})
+	end
+	return {groups=groups,byPart=byPart,bow=hero.bowMotion,centers=hero.boneCenters or {}}
+end
+local function motionWave(action, time, phase)
+	if action == "Attack" then
+		local t = math.clamp(time / .8, 0, 1)
+		return 1.25 * math.sin(math.pi*t) * math.sin(8*time+phase)
+	elseif action == "Walk" then
+		return math.sin(2*math.pi*time+phase)
+	end
+	return .22*math.sin(math.pi*time+phase)
+end
+local function lineFrame(a, b)
+	local direction = b-a
+	local length = math.max(direction.Magnitude, .001)
+	local y = if direction.Magnitude > .0001 then direction.Unit else Vector3.yAxis
+	local reference = if math.abs(y.Y) < .95 then Vector3.yAxis else Vector3.xAxis
+	local x = reference:Cross(y).Unit
+	local z = x:Cross(y).Unit
+	return CFrame.fromMatrix((a+b)/2,x,y,z),length
+end
+local function geometryRotation(values)
+	return CFrame.Angles(0,0,math.rad(values[3]))*CFrame.Angles(0,math.rad(values[2]),0)*CFrame.Angles(math.rad(values[1]),0,0)
+end
+local function applySecondary(rig, action, time)
+	local secondary = rig.secondary
+	for _, group in secondary.groups do
+		local spec = group.spec
+		local value = motionWave(action,time,spec.phase or 0)
+		local amplitude = vector(spec.amplitude)*math.rad(value)
+		local delta = CFrame.new(group.pivot)*CFrame.Angles(amplitude.X,amplitude.Y,amplitude.Z)*CFrame.new(-group.pivot)
+		for _, binding in group.bindings do binding.weld.C0 = delta*binding.base end
+	end
+	local bow = secondary.bow
+	if typeof(bow) ~= "table" then return end
+	local left = rig.motors["Left Shoulder"].motor
+	local right = rig.motors["Right Shoulder"].motor
+	local center = vector(secondary.centers[bow.bone] or {0,0,0})
+	local drawCenter = vector(secondary.centers[bow.drawBone] or {0,0,0})
+	-- Siblings share the torso frame. Predict their poses from the new C0 values
+	-- so bow strings do not lag one physics frame behind the drawing hand.
+	local leftPivot = left.C0*left.C1:Inverse()*CFrame.new(-center)
+	local rightPivot = right.C0*right.C1:Inverse()*CFrame.new(-drawCenter)
+	local nock = leftPivot:PointToObjectSpace(rightPivot:PointToWorldSpace(vector(bow.drawPoint)))
+	local toPart = CFrame.new(-center)
+	for index,name in bow.strings do
+		local binding = secondary.byPart[name]
+		local frame,length = lineFrame(vector(bow.tips[index]),nock)
+		binding.weld.C0 = toPart*frame
+		binding.weld.Part1.Size = Vector3.new(binding.size.X,length,binding.size.Z)
+	end
+	local grip = vector(bow.grip)
+	local line = lineFrame(nock,grip)
+	local arrowFrame = CFrame.fromMatrix(nock,line.XVector,line.YVector,line.ZVector)
+	for _, arrow in bow.arrows do
+		local binding = secondary.byPart[arrow.part]
+		binding.weld.C0 = toPart*arrowFrame*CFrame.new(vector(arrow.offset))*geometryRotation(arrow.rotation)
+	end
+end
+
 local function registerAnimatedRig(model: Model, mode: string, phase: number, hero)
 	local motors = {}
 	local ready = hero and hero.ready or {}
@@ -79,6 +153,7 @@ local function registerAnimatedRig(model: Model, mode: string, phase: number, he
 		motors = motors,
 		mode = mode,
 		phase = phase,
+		secondary = secondaryBindings(model, hero or {}),
 		actionType = hero and hero.actionType or "sword",
 		actionHand = hero and hero.actionHand or "right",
 		action = "Idle",
@@ -139,12 +214,11 @@ local function poseAttack(rig, localT: number)
 		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-10 * thrust), 0, 0))
 		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(8 * thrust), 0, 0))
 	elseif rig.actionType == "bow" then
-		local draw = if clamped < 0.58 then windup else 1 - recover
-		local release = math.sin(math.clamp((clamped - 0.45) / 0.25, 0, 1) * math.pi)
+		local draw = if clamped < .5 then windup else math.max(0,1-(clamped-.5)/.14)
 		setMotor(rig, "RootJoint", CFrame.Angles(math.rad(-2 * draw), math.rad(-7 * draw), math.rad(-3 * draw)))
 		setMotor(rig, "Neck", CFrame.Angles(0, math.rad(-5 * draw), 0))
-		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-24 * draw), 0, math.rad(-48 * draw)))
-		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(-38 * draw + 18 * release), 0, math.rad(54 * draw - 22 * release)))
+		setMotor(rig, "Left Shoulder", CFrame.Angles(math.rad(-2 * draw), 0, math.rad(3 * draw)))
+		setMotor(rig, "Right Shoulder", CFrame.Angles(math.rad(6 * draw), 0, math.rad(20 * draw)))
 		setMotor(rig, "Right Hip", CFrame.Angles(math.rad(-4 * draw), 0, 0))
 		setMotor(rig, "Left Hip", CFrame.Angles(math.rad(5 * draw), 0, 0))
 	elseif rig.actionType == "fan-card" then
@@ -455,6 +529,7 @@ RunService.Heartbeat:Connect(function()
 			else
 				poseIdle(rig, (now + rig.phase) % 1.8 / 1.8)
 			end
+			applySecondary(rig, action, if action == "Attack" then math.clamp(now-rig.actionStart,0,.8) else now+rig.phase)
 		end
 	end
 end)

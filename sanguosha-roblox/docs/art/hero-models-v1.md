@@ -50,3 +50,5 @@ node scripts/build-art-gallery.mjs
 证据：[Studio Play 数据](hero-models-v1/verification/studio-play-report.json)、[浏览器检查](hero-models-v1/verification/browser-report.json)、[全员正面](hero-models-v1/verification/contactsheet-front.png)、[Studio 关羽](hero-models-v1/verification/studio-guan_yu.png)、[Studio 大乔](hero-models-v1/verification/studio-da_qiao.png)。
 
 手机网页布局已经检查；Roblox 真机触屏、多人压力和正式对局规则尚未验收。造型为首版可动模型，材质、面部与动画穿插仍可继续精修。
+
+后续精修：[衣饰摆动与孙尚香弓手动作](hero-models-secondary-motion-01.md)。

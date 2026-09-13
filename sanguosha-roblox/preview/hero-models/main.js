@@ -88,6 +88,8 @@ function normalizeModel(model, index) {
     bones: Array.isArray(model.bones) ? model.bones : [],
     parts: Array.isArray(model.parts) ? model.parts : [],
     poses: model.poses || {},
+    attachmentMotion: Array.isArray(model.attachmentMotion) ? model.attachmentMotion : [],
+    bowMotion: model.bowMotion || null,
   };
 }
 
@@ -118,24 +120,58 @@ async function loadModels() {
 function prepareModelRuntime(model) {
   const draws = [];
   let vertexCount = 0;
+  const attachmentMotion = prepareAttachmentMotion(model.attachmentMotion);
+  const bowMotion = prepareBowMotion(model.bowMotion);
   model.bones.forEach((bone) => {
     if (!bone.visible || bone.name === "Root") return;
     const mesh = primitiveMesh("box", vec3(bone.size), materialColor(bone.color || "#ffffff", "SmoothPlastic"));
     const local = translationMat4(...vec3(bone.center));
-    draws.push({ bone: bone.name, mesh, local });
+    draws.push({ name: bone.name, bone: bone.name, mesh, local, size: vec3(bone.size), kind: "bone" });
     vertexCount += mesh.positions.length / 3;
   });
 
   model.parts.forEach((part) => {
-    const mesh = primitiveMesh(part.shape || "box", vec3(part.size), materialColor(part.color, part.material));
+    const size = vec3(part.size);
+    const mesh = primitiveMesh(part.shape || "box", size, materialColor(part.color, part.material));
     const local = multiplyMat4(translationMat4(...vec3(part.position)), rotationMat4(...vec3(part.rotation).map(degToRad)));
-    draws.push({ bone: part.bone, mesh, local });
+    draws.push({ name: part.name || "", bone: part.bone, mesh, local, size, kind: "part" });
     vertexCount += mesh.positions.length / 3;
   });
 
-  const prepared = { ...model, runtime: { draws, vertexCount, bounds: null } };
+  const prepared = { ...model, runtime: { draws, vertexCount, bounds: null, attachmentMotion, bowMotion } };
   prepared.runtime.bounds = computeModelBounds(prepared);
   return prepared;
+}
+
+function prepareAttachmentMotion(motions) {
+  const byPart = new Map();
+  motions.forEach((motion) => {
+    const prepared = {
+      bone: motion.bone || "",
+      pivot: vec3(motion.pivot),
+      amplitude: vec3(motion.amplitude),
+      phase: Number(motion.phase) || 0,
+    };
+    (Array.isArray(motion.parts) ? motion.parts : []).forEach((name) => byPart.set(name, prepared));
+  });
+  return byPart;
+}
+
+function prepareBowMotion(motion) {
+  if (!motion) return null;
+  return {
+    bone: motion.bone || "LeftArm",
+    drawBone: motion.drawBone || "RightArm",
+    drawPoint: vec3(motion.drawPoint),
+    tips: Array.isArray(motion.tips) ? motion.tips.map(vec3) : [],
+    grip: vec3(motion.grip),
+    strings: Array.isArray(motion.strings) ? motion.strings : [],
+    arrows: Array.isArray(motion.arrows) ? motion.arrows.map((arrow) => ({
+      part: arrow.part || "",
+      offset: vec3(arrow.offset),
+      rotation: vec3(arrow.rotation),
+    })) : [],
+  };
 }
 
 function computeModelBounds(model) {
@@ -147,7 +183,7 @@ function computeModelBounds(model) {
     [0, 0.25, 0.5, 0.75, 1].forEach((time) => {
       const boneMatrices = computeBoneMatrices(model, action, time);
       model.runtime.draws.forEach((item) => {
-        const matrix = multiplyMat4(boneMatrices.get(item.bone) || identityMat4(), item.local);
+        const matrix = drawMatrixForItem(model, item, boneMatrices, action, time);
         for (let index = 0; index < item.mesh.positions.length; index += 3) {
           includePoint(bounds, transformPoint(matrix, [item.mesh.positions[index], item.mesh.positions[index + 1], item.mesh.positions[index + 2]]));
         }
@@ -384,8 +420,80 @@ function render(now = 0) {
   statsEl.textContent = `几何 ${model.runtime.draws.length} · 顶点 ${model.runtime.vertexCount} · 骨骼 ${model.bones.length}`;
 
   drawMesh(state.gridMesh, identityMat4(), viewProj);
-  model.runtime.draws.forEach((item) => drawMesh(item.mesh, multiplyMat4(boneMatrices.get(item.bone) || identityMat4(), item.local), viewProj));
+  model.runtime.draws.forEach((item) => drawMesh(item.mesh, drawMatrixForItem(model, item, boneMatrices, state.action, state.time), viewProj));
   requestAnimationFrame(render);
+}
+
+function drawMatrixForItem(model, item, boneMatrices, action, time) {
+  const bowMatrix = bowMatrixForItem(model, item, boneMatrices);
+  if (bowMatrix) return bowMatrix;
+  const boneWorld = boneMatrices.get(item.bone) || identityMat4();
+  const attachment = attachmentMatrixForItem(model, item, action, time);
+  if (attachment) return multiplyMat4(multiplyMat4(boneWorld, attachment), item.local);
+  return multiplyMat4(boneWorld, item.local);
+}
+
+function attachmentMatrixForItem(model, item, action, time) {
+  if (item.kind !== "part") return null;
+  const motion = model.runtime.attachmentMotion.get(item.name);
+  if (!motion) return null;
+  const wave = attachmentWave(action, time, motion.phase);
+  const rotation = rotationMat4Xyz(...motion.amplitude.map((degrees) => degToRad(degrees * wave)));
+  return multiplyMat4(
+    multiplyMat4(translationMat4(...motion.pivot), rotation),
+    translationMat4(...motion.pivot.map((value) => -value)),
+  );
+}
+
+function attachmentWave(action, time, phase = 0) {
+  if (action === "walk") return Math.sin(Math.PI * 2 * time + phase);
+  if (action === "attack") {
+    const t = ((time % 0.8) + 0.8) % 0.8;
+    return 1.25 * Math.sin(Math.PI * clamp(t / 0.8, 0, 1)) * Math.sin(8 * t + phase);
+  }
+  return 0.22 * Math.sin(Math.PI * time + phase);
+}
+
+function bowMatrixForItem(model, item, boneMatrices) {
+  if (item.kind !== "part" || !model.runtime.bowMotion) return null;
+  const motion = model.runtime.bowMotion;
+  const leftWorld = boneMatrices.get(motion.bone) || identityMat4();
+  const rightWorld = boneMatrices.get(motion.drawBone) || identityMat4();
+  const nockWorld = transformPoint(rightWorld, motion.drawPoint);
+  const nock = transformPoint(invertRigidMat4(leftWorld), nockWorld);
+  const stringIndex = motion.strings.indexOf(item.name);
+  if (stringIndex >= 0) {
+    const tip = motion.tips[stringIndex];
+    if (!tip) return null;
+    return multiplyMat4(leftWorld, lineMatrixBetween(tip, nock, item.size[1]));
+  }
+  const arrow = motion.arrows.find((entry) => entry.part === item.name);
+  if (arrow) {
+    const frame = arrowFrameMatrix(nock, motion.grip);
+    return multiplyMat4(
+      leftWorld,
+      multiplyMat4(
+        frame,
+        multiplyMat4(translationMat4(...arrow.offset), rotationMat4(...arrow.rotation.map(degToRad))),
+      ),
+    );
+  }
+  return null;
+}
+
+function lineMatrixBetween(from, to, baseLength = 1) {
+  const delta = subtractVec3(to, from);
+  const length = Math.max(0.001, Math.hypot(...delta));
+  const mid = scaleVec3(addVec3(from, to), 0.5);
+  return multiplyMat4(
+    multiplyMat4(translationMat4(...mid), alignYMat4(delta)),
+    scaleMat4(1, length / Math.max(0.001, baseLength || 1), 1),
+  );
+}
+
+function arrowFrameMatrix(origin, grip) {
+  const towardGrip = subtractVec3(grip, origin);
+  return multiplyMat4(translationMat4(...origin), alignYMat4(towardGrip));
 }
 
 function drawMesh(mesh, matrix, viewProj) {
@@ -515,12 +623,13 @@ function attackOffsetByProfile(profile, boneName, phase) {
     if (boneName === "RightLeg") return [-10 * thrust, 0, 0];
     if (boneName === "LeftLeg") return [8 * thrust, 0, 0];
   } else if (profile.actionType === "bow") {
-    const draw = phase.t < 0.58 ? phase.windup : 1 - phase.recover;
-    const release = Math.sin(clamp((phase.t - 0.45) / 0.25, 0, 1) * Math.PI);
+    const draw = phase.t < 0.5
+      ? Math.sin(clamp(phase.t / 0.28, 0, 1) * Math.PI * 0.5)
+      : Math.max(0, 1 - (phase.t - 0.5) / 0.14);
     if (boneName === "Torso") return [-2 * draw, -7 * draw, -3 * draw];
     if (boneName === "Head") return [0, -5 * draw, 0];
-    if (boneName === "LeftArm") return [-24 * draw, 0, -48 * draw];
-    if (boneName === "RightArm") return [-38 * draw + 18 * release, 0, 54 * draw - 22 * release];
+    if (boneName === "LeftArm") return [-2 * draw, 0, 3 * draw];
+    if (boneName === "RightArm") return [6 * draw, 0, 20 * draw];
     if (boneName === "RightLeg") return [-4 * draw, 0, 0];
     if (boneName === "LeftLeg") return [5 * draw, 0, 0];
   } else if (profile.actionType === "fan-card") {
@@ -788,6 +897,37 @@ function identityMat4() {
 
 function translationMat4(x, y, z) {
   return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1];
+}
+
+function scaleMat4(x, y, z) {
+  return [x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1];
+}
+
+function alignYMat4(direction) {
+  const length = Math.hypot(...direction);
+  const y = length > 0.0001 ? direction.map((value) => value / length) : [0, 1, 0];
+  const helper = Math.abs(dot(y, [0, 1, 0])) < 0.95 ? [0, 1, 0] : [1, 0, 0];
+  const x = normalize(cross(helper, y));
+  const z = cross(x, y);
+  return [
+    x[0], x[1], x[2], 0,
+    y[0], y[1], y[2], 0,
+    z[0], z[1], z[2], 0,
+    0, 0, 0, 1,
+  ];
+}
+
+function invertRigidMat4(matrix) {
+  const tx = matrix[12], ty = matrix[13], tz = matrix[14];
+  return [
+    matrix[0], matrix[4], matrix[8], 0,
+    matrix[1], matrix[5], matrix[9], 0,
+    matrix[2], matrix[6], matrix[10], 0,
+    -(matrix[0] * tx + matrix[1] * ty + matrix[2] * tz),
+    -(matrix[4] * tx + matrix[5] * ty + matrix[6] * tz),
+    -(matrix[8] * tx + matrix[9] * ty + matrix[10] * tz),
+    1,
+  ];
 }
 
 function rotationMat4(rx, ry, rz) {

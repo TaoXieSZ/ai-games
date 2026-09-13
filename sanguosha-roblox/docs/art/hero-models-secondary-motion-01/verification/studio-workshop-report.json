@@ -1,0 +1,156 @@
+{
+  "samples": 8,
+  "pass": true,
+  "rigs": [
+    {
+      "hero": "cao_cao",
+      "parts": 168,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "da_qiao",
+      "parts": 140,
+      "cylinders": 11,
+      "maxStaticCylinderError": 0.000845727976411581
+    },
+    {
+      "hero": "diao_chan",
+      "parts": 89,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "gan_ning",
+      "parts": 107,
+      "cylinders": 3,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "guan_yu",
+      "parts": 211,
+      "cylinders": 7,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "guo_jia",
+      "parts": 62,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "hua_tuo",
+      "parts": 112,
+      "cylinders": 1,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "huang_gai",
+      "parts": 137,
+      "cylinders": 4,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "huang_yueying",
+      "parts": 130,
+      "cylinders": 3,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "liu_bei",
+      "parts": 98,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "lu_bu",
+      "parts": 173,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "lu_meng",
+      "parts": 86,
+      "cylinders": 1,
+      "maxStaticCylinderError": 0.0009765625
+    },
+    {
+      "hero": "lu_xun",
+      "parts": 86,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "ma_chao",
+      "parts": 163,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "sima_yi",
+      "parts": 60,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "sun_quan",
+      "parts": 164,
+      "cylinders": 1,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "sun_shangxiang",
+      "parts": 126,
+      "cylinders": 4,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "xiahou_dun",
+      "parts": 146,
+      "cylinders": 1,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "xu_chu",
+      "parts": 67,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "zhang_fei",
+      "parts": 164,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "zhang_liao",
+      "parts": 159,
+      "cylinders": 4,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "zhao_yun",
+      "parts": 220,
+      "cylinders": 8,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "zhen_ji",
+      "parts": 110,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    },
+    {
+      "hero": "zhou_yu",
+      "parts": 160,
+      "cylinders": 2,
+      "maxStaticCylinderError": 0.0009765625
+    },
+    {
+      "hero": "zhuge_liang",
+      "parts": 119,
+      "cylinders": 0,
+      "maxStaticCylinderError": 0
+    }
+  ]
+}

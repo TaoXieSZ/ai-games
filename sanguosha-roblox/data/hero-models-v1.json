@@ -3880,7 +3880,29 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "身体三分之二侧转，左臂抬起向前指挥，右手停在腰间佩剑旁。"
+    "poseDescription": "身体三分之二侧转，左臂抬起向前指挥，右手停在腰间佩剑旁。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "Cape-1",
+          "Cape0",
+          "Cape1"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      }
+    ]
   },
   {
     "id": "sima_yi",
@@ -5387,7 +5409,27 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "身体背向观众，头部越肩回望形成狼顾姿态，一只袖口在身前低处露出判定牌，另一手背在身后。"
+    "poseDescription": "身体背向观众，头部越肩回望形成狼顾姿态，一只袖口在身前低处露出判定牌，另一手背在身后。",
+    "attachmentMotion": [
+      {
+        "id": "ribbon-JudgeRibbon",
+        "bone": "Torso",
+        "parts": [
+          "JudgeRibbon"
+        ],
+        "pivot": [
+          0,
+          -0.13,
+          -0.79
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.6
+      }
+    ]
   },
   {
     "id": "xiahou_dun",
@@ -8786,7 +8828,8 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "低重心迎击步，持刀手把大刀横扛肩后蓄力，另一只前臂向前格挡冲击。"
+    "poseDescription": "低重心迎击步，持刀手把大刀横扛肩后蓄力，另一只前臂向前格挡冲击。",
+    "attachmentMotion": []
   },
   {
     "id": "zhang_liao",
@@ -12471,7 +12514,8 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "斜向冲刺，身体压低，一把短戟前伸，像要从对手手边夺走牌。"
+    "poseDescription": "斜向冲刺，身体压低，一把短戟前伸，像要从对手手边夺走牌。",
+    "attachmentMotion": []
   },
   {
     "id": "xu_chu",
@@ -14132,7 +14176,8 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "双脚大开扎稳，虎首重锤拖在地上，一侧肩膀向前压，准备重砸。"
+    "poseDescription": "双脚大开扎稳，虎首重锤拖在地上，一侧肩膀向前压，准备重砸。",
+    "attachmentMotion": []
   },
   {
     "id": "guo_jia",
@@ -15683,7 +15728,8 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "一膝微弯，一手按胸，另一手把两张牌轻轻分出去。"
+    "poseDescription": "一膝微弯，一手按胸，另一手把两张牌轻轻分出去。",
+    "attachmentMotion": []
   },
   {
     "id": "zhen_ji",
@@ -18290,7 +18336,85 @@
       }
     },
     "faction": "wei",
-    "poseDescription": "侧步轻移，一条水袖横扫身前形成防守感，折扇低持并避开脸部。"
+    "poseDescription": "侧步轻移，一条水袖横扫身前形成防守感，折扇低持并避开脸部。",
+    "attachmentMotion": [
+      {
+        "id": "tassel-HairTassel-1",
+        "bone": "Head",
+        "parts": [
+          "HairTassel-1"
+        ],
+        "pivot": [
+          -0.8063999999999999,
+          0.882,
+          -0.049
+        ],
+        "amplitude": [
+          8,
+          0,
+          8
+        ],
+        "phase": 0.7
+      },
+      {
+        "id": "tassel-HairTassel1",
+        "bone": "Head",
+        "parts": [
+          "HairTassel1"
+        ],
+        "pivot": [
+          0.8063999999999999,
+          0.882,
+          -0.049
+        ],
+        "amplitude": [
+          8,
+          0,
+          8
+        ],
+        "phase": 0.7
+      },
+      {
+        "id": "ribbon-LeftArm",
+        "bone": "LeftArm",
+        "parts": [
+          "WaterSleeveTail-10",
+          "WaterSleeveTail-11",
+          "WaterSleeveTail-12"
+        ],
+        "pivot": [
+          -0.33599999999999997,
+          -0.9084,
+          0.3136
+        ],
+        "amplitude": [
+          10,
+          2,
+          -12
+        ],
+        "phase": 1.2
+      },
+      {
+        "id": "ribbon-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "WaterSleeveTail10",
+          "WaterSleeveTail11",
+          "WaterSleeveTail12"
+        ],
+        "pivot": [
+          0.33599999999999997,
+          -0.9084,
+          0.3136
+        ],
+        "amplitude": [
+          10,
+          2,
+          12
+        ],
+        "phase": 1.7999999999999998
+      }
+    ]
   },
   {
     "id": "liu_bei",
@@ -20628,7 +20752,8 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "正面开放站姿，双手把牌递向前方，双剑可见但不出鞘。"
+    "poseDescription": "正面开放站姿，双手把牌递向前方，双剑可见但不出鞘。",
+    "attachmentMotion": []
   },
   {
     "id": "guan_yu",
@@ -25447,7 +25572,30 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "沉稳直立，一手扶住长刀，双脚方正落地，重量感强。"
+    "poseDescription": "沉稳直立，一手扶住长刀，双脚方正落地，重量感强。",
+    "attachmentMotion": [
+      {
+        "id": "tassel-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "WeaponTassel0",
+          "WeaponTassel1",
+          "WeaponTassel2",
+          "WeaponTassel3"
+        ],
+        "pivot": [
+          0.28,
+          2.37,
+          -0.7375
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 2.4000000000000004
+      }
+    ]
   },
   {
     "id": "zhang_fei",
@@ -29237,7 +29385,29 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "弯膝怒吼，嘴部张开，蛇矛从左到右低位横扫。"
+    "poseDescription": "弯膝怒吼，嘴部张开，蛇矛从左到右低位横扫。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "Cape-1",
+          "Cape0",
+          "Cape1"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      }
+    ]
   },
   {
     "id": "zhuge_liang",
@@ -32037,7 +32207,8 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "一手举羽扇，另一手从容整理空中的牌阵。"
+    "poseDescription": "一手举羽扇，另一手从容整理空中的牌阵。",
+    "attachmentMotion": []
   },
   {
     "id": "zhao_yun",
@@ -37054,7 +37225,67 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "宽步低姿，双手握枪，从腰侧向前斜线突刺。"
+    "poseDescription": "宽步低姿，双手握枪，从腰侧向前斜线突刺。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "CapeTop",
+          "CapePanel-1",
+          "CapePanel0",
+          "CapePanel1",
+          "CapeDragonBrow",
+          "CapeDragonMuzzle",
+          "CapeDragonHorn-1",
+          "CapeDragonEye-1",
+          "CapeDragonHorn1",
+          "CapeDragonEye1",
+          "CapeDragonRing0",
+          "CapeDragonRing1",
+          "CapeDragonRing2",
+          "CapeDragonRing3",
+          "CapeDragonRing4",
+          "CapeDragonRing5",
+          "CapeDragonRing6",
+          "CapeDragonRing7",
+          "CapeDragonRing8",
+          "CapeDragonRing9"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      },
+      {
+        "id": "tassel-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "WeaponTassel0",
+          "WeaponTassel1",
+          "WeaponTassel2",
+          "WeaponTassel3"
+        ],
+        "pivot": [
+          0.28,
+          2.37,
+          -0.7375
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 2.4000000000000004
+      }
+    ]
   },
   {
     "id": "ma_chao",
@@ -40827,7 +41058,50 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "回身转体，冲刺后把枪收回，白披风向侧面扬起。"
+    "poseDescription": "回身转体，冲刺后把枪收回，白披风向侧面扬起。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "Cape-1",
+          "Cape0",
+          "Cape1"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      },
+      {
+        "id": "tassel-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "WhiteTassel0",
+          "WhiteTassel1",
+          "WhiteTassel2",
+          "WhiteTassel3"
+        ],
+        "pivot": [
+          0.18,
+          1.815,
+          -0.69
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 2.4000000000000004
+      }
+    ]
   },
   {
     "id": "huang_yueying",
@@ -43869,7 +44143,8 @@
       }
     },
     "faction": "shu",
-    "poseDescription": "低身调试机关扇，一手调整齿轮，另一手放出锦囊卷轴。"
+    "poseDescription": "低身调试机关扇，一手调整齿轮，另一手放出锦囊卷轴。",
+    "attachmentMotion": []
   },
   {
     "id": "sun_quan",
@@ -47674,7 +47949,50 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "转身拔剑，右手把剑向前带出，左手把旧牌向身后甩开。"
+    "poseDescription": "转身拔剑，右手把剑向前带出，左手把旧牌向身后甩开。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "Cape-1",
+          "Cape0",
+          "Cape1"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      },
+      {
+        "id": "tassel-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "SwordTasselCord0",
+          "SwordTasselCord1",
+          "SwordTasselCord2",
+          "SwordTasselCord3"
+        ],
+        "pivot": [
+          -0.32999999999999996,
+          -0.96,
+          -0.78
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 2.4000000000000004
+      }
+    ]
   },
   {
     "id": "gan_ning",
@@ -50225,7 +50543,8 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "侧向跃起，双膝收起，一手向下探出，像在拆走一张牌。"
+    "poseDescription": "侧向跃起，双膝收起，一手向下探出，像在拆走一张牌。",
+    "attachmentMotion": []
   },
   {
     "id": "lu_meng",
@@ -52314,7 +52633,8 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "收束防守站姿，双手靠近刀鞘，双脚安静居中。"
+    "poseDescription": "收束防守站姿，双手靠近刀鞘，双脚安静居中。",
+    "attachmentMotion": []
   },
   {
     "id": "huang_gai",
@@ -55525,7 +55845,8 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "一脚向前，一手拉开甲带，另一手把战鼓槌握在身侧下方。"
+    "poseDescription": "一脚向前，一手拉开甲带，另一手把战鼓槌握在身侧下方。",
+    "attachmentMotion": []
   },
   {
     "id": "zhou_yu",
@@ -59242,7 +59563,49 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "优雅侧步，指挥棒像乐队指挥一样抬起，另一手递出一张背面牌。"
+    "poseDescription": "优雅侧步，指挥棒像乐队指挥一样抬起，另一手递出一张背面牌。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "WhiteShortCapeL",
+          "WhiteShortCapeR"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      },
+      {
+        "id": "tassel-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "BatonTasselCord0",
+          "BatonTasselCord1",
+          "BatonTasselCord2",
+          "BatonTasselCord3"
+        ],
+        "pivot": [
+          -0.57,
+          -0.24000000000000002,
+          -0.72
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 2.4000000000000004
+      }
+    ]
   },
   {
     "id": "da_qiao",
@@ -62519,7 +62882,155 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "侧步避让，纸伞向一侧打开，把迎来的斩击轨迹导开。"
+    "poseDescription": "侧步避让，纸伞向一侧打开，把迎来的斩击轨迹导开。",
+    "attachmentMotion": [
+      {
+        "id": "ribbon-HairRibbonL",
+        "bone": "Head",
+        "parts": [
+          "HairRibbonL"
+        ],
+        "pivot": [
+          -0.52,
+          1.44,
+          0.44
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.0
+      },
+      {
+        "id": "ribbon-HairRibbonR",
+        "bone": "Head",
+        "parts": [
+          "HairRibbonR"
+        ],
+        "pivot": [
+          0.52,
+          1.44,
+          0.44
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.0
+      },
+      {
+        "id": "ribbon-WhiteSashTail-1",
+        "bone": "Torso",
+        "parts": [
+          "WhiteSashTail-1"
+        ],
+        "pivot": [
+          -0.56,
+          0.29,
+          -0.8
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.6
+      },
+      {
+        "id": "ribbon-RoseRibbonTail-1",
+        "bone": "Torso",
+        "parts": [
+          "RoseRibbonTail-1"
+        ],
+        "pivot": [
+          -0.7,
+          -0.020000000000000018,
+          -0.76
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.6
+      },
+      {
+        "id": "ribbon-WhiteSashTail1",
+        "bone": "Torso",
+        "parts": [
+          "WhiteSashTail1"
+        ],
+        "pivot": [
+          0.56,
+          0.29,
+          -0.8
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.6
+      },
+      {
+        "id": "ribbon-RoseRibbonTail1",
+        "bone": "Torso",
+        "parts": [
+          "RoseRibbonTail1"
+        ],
+        "pivot": [
+          0.7,
+          -0.020000000000000018,
+          -0.76
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.6
+      },
+      {
+        "id": "sleeve-LeftArm",
+        "bone": "LeftArm",
+        "parts": [
+          "WhiteInnerSleeve-1",
+          "SleeveGoldEdge-1"
+        ],
+        "pivot": [
+          -0.12,
+          -0.45999999999999996,
+          -0.16
+        ],
+        "amplitude": [
+          8,
+          0,
+          -9
+        ],
+        "phase": 2.5
+      },
+      {
+        "id": "sleeve-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "WhiteInnerSleeve1",
+          "SleeveGoldEdge1"
+        ],
+        "pivot": [
+          0.12,
+          -0.45999999999999996,
+          -0.16
+        ],
+        "amplitude": [
+          8,
+          0,
+          9
+        ],
+        "phase": 3.5
+      }
+    ]
   },
   {
     "id": "lu_xun",
@@ -64608,7 +65119,45 @@
       }
     },
     "faction": "wu",
-    "poseDescription": "半步后撤，一只空掌摊开，另一张牌从腰侧袖口亮出。"
+    "poseDescription": "半步后撤，一只空掌摊开，另一张牌从腰侧袖口亮出。",
+    "attachmentMotion": [
+      {
+        "id": "ribbon-HatRibbonL",
+        "bone": "Head",
+        "parts": [
+          "HatRibbonL"
+        ],
+        "pivot": [
+          -0.48,
+          1.53,
+          0.58
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.0
+      },
+      {
+        "id": "ribbon-HatRibbonR",
+        "bone": "Head",
+        "parts": [
+          "HatRibbonR"
+        ],
+        "pivot": [
+          0.48,
+          1.53,
+          0.58
+        ],
+        "amplitude": [
+          10,
+          2,
+          10
+        ],
+        "phase": 0.0
+      }
+    ]
   },
   {
     "id": "sun_shangxiang",
@@ -66904,50 +67453,6 @@
         "material": "Metal"
       },
       {
-        "name": "BowStringFull",
-        "bone": "LeftArm",
-        "shape": "cylinder",
-        "position": [
-          0.0,
-          -0.98,
-          -1.25
-        ],
-        "size": [
-          0.035,
-          2.86,
-          0.035
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "color": "#EAD7B7",
-        "material": "Fabric"
-      },
-      {
-        "name": "BowStringGripTie",
-        "bone": "LeftArm",
-        "shape": "cylinder",
-        "position": [
-          0.0,
-          -0.98,
-          -1.12
-        ],
-        "size": [
-          0.34,
-          0.035,
-          0.035
-        ],
-        "rotation": [
-          0,
-          0,
-          90
-        ],
-        "color": "#EAD7B7",
-        "material": "Fabric"
-      },
-      {
         "name": "LeftHandOnBow",
         "bone": "LeftArm",
         "shape": "box",
@@ -66990,50 +67495,6 @@
         ],
         "color": "#E8B184",
         "material": "SmoothPlastic"
-      },
-      {
-        "name": "ArrowShaft",
-        "bone": "RightArm",
-        "shape": "cylinder",
-        "position": [
-          0.0,
-          -1.12,
-          -0.9
-        ],
-        "size": [
-          0.06,
-          2.32,
-          0.06
-        ],
-        "rotation": [
-          0,
-          0,
-          88
-        ],
-        "color": "#EAD7B7",
-        "material": "Metal"
-      },
-      {
-        "name": "ArrowHead",
-        "bone": "RightArm",
-        "shape": "wedge",
-        "position": [
-          -1.14,
-          -1.1,
-          -0.9
-        ],
-        "size": [
-          0.26,
-          0.42,
-          0.16
-        ],
-        "rotation": [
-          0,
-          0,
-          88
-        ],
-        "color": "#E7EDF2",
-        "material": "Metal"
       },
       {
         "name": "BowTasselRing",
@@ -67518,44 +67979,248 @@
         ],
         "color": "#89564F",
         "material": "SmoothPlastic"
+      },
+      {
+        "name": "BowStringUpper",
+        "bone": "LeftArm",
+        "shape": "box",
+        "position": [
+          1.7,
+          -0.35,
+          -1.005
+        ],
+        "rotation": [
+          0.8989559653847089,
+          0,
+          -121.39547113536793
+        ],
+        "size": [
+          0.035,
+          3.1869264189811477,
+          0.035
+        ],
+        "color": "#EAD7B7",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "BowStringLower",
+        "bone": "LeftArm",
+        "shape": "box",
+        "position": [
+          1.36,
+          -1.81,
+          -1.005
+        ],
+        "rotation": [
+          0.7900268850068447,
+          0,
+          -69.66588696749947
+        ],
+        "size": [
+          0.035,
+          3.626306661053364,
+          0.035
+        ],
+        "color": "#EAD7B7",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArrowShaft",
+        "bone": "LeftArm",
+        "shape": "box",
+        "position": [
+          1.465067878339124,
+          -1.0757560704796814,
+          -1.052970750664223
+        ],
+        "rotation": [
+          -2.6139792278303893,
+          0,
+          86.26049663706894
+        ],
+        "size": [
+          0.065,
+          3.2000000000000006,
+          0.065
+        ],
+        "color": "#EAD7B7",
+        "material": "SmoothPlastic"
+      },
+      {
+        "name": "ArrowPointL",
+        "bone": "LeftArm",
+        "shape": "wedge",
+        "position": [
+          -0.2793891297274591,
+          -1.0067392725668327,
+          -1.132782509203217
+        ],
+        "rotation": [
+          0,
+          90,
+          90
+        ],
+        "size": [
+          0.09,
+          0.3,
+          0.16
+        ],
+        "color": "#DCE7EC",
+        "material": "Metal"
+      },
+      {
+        "name": "ArrowPointR",
+        "bone": "LeftArm",
+        "shape": "wedge",
+        "position": [
+          -0.2793891297274591,
+          -0.9167392725668327,
+          -1.132782509203217
+        ],
+        "rotation": [
+          0,
+          -90,
+          90
+        ],
+        "size": [
+          0.09,
+          0.3,
+          0.16
+        ],
+        "color": "#DCE7EC",
+        "material": "Metal"
       }
     ],
     "poses": {
       "ready": {
         "RightArm": [
-          -42,
+          52,
           0,
-          58
+          -28
         ],
         "LeftArm": [
-          -42,
+          40,
           0,
-          -56
+          15
         ],
         "Torso": [
-          -7,
-          -26,
-          -2
+          -3,
+          -18,
+          0
         ],
         "LeftLeg": [
-          -42,
+          -20,
           0,
-          -14
+          -8
         ],
         "RightLeg": [
-          20,
+          10,
           0,
-          14
+          8
         ],
         "Head": [
           0,
-          -20,
+          -16,
           0
         ]
       }
     },
     "faction": "wu",
-    "poseDescription": "单膝转身拉弓，装备坠饰在身后碎成两张牌片。"
+    "poseDescription": "单膝转身拉弓，装备坠饰在身后碎成两张牌片。",
+    "attachmentMotion": [
+      {
+        "id": "tassel-LeftArm",
+        "bone": "LeftArm",
+        "parts": [
+          "BowTasselCord0",
+          "BowTasselCord1",
+          "BowTasselCord2",
+          "BowTasselCord3"
+        ],
+        "pivot": [
+          0.25,
+          -0.13999999999999999,
+          -1.02
+        ],
+        "amplitude": [
+          8,
+          0,
+          10
+        ],
+        "phase": 1.6
+      }
+    ],
+    "bowMotion": {
+      "bone": "LeftArm",
+      "drawBone": "RightArm",
+      "drawPoint": [
+        0.02,
+        -1.18,
+        -0.98
+      ],
+      "tips": [
+        [
+          0.34,
+          0.48,
+          -1.03
+        ],
+        [
+          -0.34,
+          -2.44,
+          -1.03
+        ]
+      ],
+      "grip": [
+        0,
+        -0.98,
+        -1.12
+      ],
+      "strings": [
+        "BowStringUpper",
+        "BowStringLower"
+      ],
+      "arrows": [
+        {
+          "part": "ArrowShaft",
+          "offset": [
+            0,
+            1.6,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "part": "ArrowPointL",
+          "offset": [
+            -0.045,
+            3.35,
+            0
+          ],
+          "rotation": [
+            0,
+            90,
+            0
+          ]
+        },
+        {
+          "part": "ArrowPointR",
+          "offset": [
+            0.045,
+            3.35,
+            0
+          ],
+          "rotation": [
+            0,
+            -90,
+            0
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "hua_tuo",
@@ -70206,7 +70871,8 @@
       }
     },
     "faction": "qun",
-    "poseDescription": "温和前倾，一手递出药物，另一手把红牌护在胸前。"
+    "poseDescription": "温和前倾，一手递出药物，另一手把红牌护在胸前。",
+    "attachmentMotion": []
   },
   {
     "id": "lu_bu",
@@ -74199,7 +74865,29 @@
       }
     },
     "faction": "qun",
-    "poseDescription": "双手过顶劈斩，一腿踏前，戟刃很高但戟杆不遮住脸。"
+    "poseDescription": "双手过顶劈斩，一腿踏前，戟刃很高但戟杆不遮住脸。",
+    "attachmentMotion": [
+      {
+        "id": "cape",
+        "bone": "Torso",
+        "parts": [
+          "Cape-1",
+          "Cape0",
+          "Cape1"
+        ],
+        "pivot": [
+          0,
+          0.65,
+          0.79
+        ],
+        "amplitude": [
+          9,
+          3,
+          4
+        ],
+        "phase": 0.4
+      }
+    ]
   },
   {
     "id": "diao_chan",
@@ -76344,6 +77032,52 @@
       }
     },
     "faction": "qun",
-    "poseDescription": "旋身舞步，一条袖带指向左侧，另一条指向右侧，暗示两端对峙但不画其他人。"
+    "poseDescription": "旋身舞步，一条袖带指向左侧，另一条指向右侧，暗示两端对峙但不画其他人。",
+    "attachmentMotion": [
+      {
+        "id": "ribbon-LeftArm",
+        "bone": "LeftArm",
+        "parts": [
+          "Ribbon-10",
+          "Ribbon-11",
+          "Ribbon-12",
+          "Ribbon-13",
+          "Ribbon-14"
+        ],
+        "pivot": [
+          -0.39,
+          -0.64,
+          0.13
+        ],
+        "amplitude": [
+          10,
+          2,
+          -12
+        ],
+        "phase": 1.2
+      },
+      {
+        "id": "ribbon-RightArm",
+        "bone": "RightArm",
+        "parts": [
+          "Ribbon10",
+          "Ribbon11",
+          "Ribbon12",
+          "Ribbon13",
+          "Ribbon14"
+        ],
+        "pivot": [
+          0.39,
+          -0.64,
+          0.13
+        ],
+        "amplitude": [
+          10,
+          2,
+          12
+        ],
+        "phase": 1.7999999999999998
+      }
+    ]
   }
 ]
