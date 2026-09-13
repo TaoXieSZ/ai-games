@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "rows": [
+    {
+      "id": "slash",
+      "samples": 24,
+      "maxTipError": 0.009120103903114796
+    },
+    {
+      "id": "arrows",
+      "samples": 384,
+      "maxTipError": 0.010087760165333748
+    }
+  ]
+}

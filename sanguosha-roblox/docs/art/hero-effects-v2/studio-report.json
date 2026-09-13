@@ -1,0 +1,40 @@
+{
+  "cancel": true,
+  "switch": true,
+  "replacement": true,
+  "pass": true,
+  "effects": [
+    {
+      "peakParts": 60,
+      "headBound": true,
+      "initialHeight": 2.169523239135742,
+      "label": "杀",
+      "id": "slash",
+      "expired": true
+    },
+    {
+      "peakParts": 36,
+      "headBound": true,
+      "initialHeight": 2.1692054271698,
+      "label": "闪",
+      "id": "dodge",
+      "expired": true
+    },
+    {
+      "peakParts": 56,
+      "headBound": true,
+      "initialHeight": 2.169154167175293,
+      "label": "桃",
+      "id": "heal",
+      "expired": true
+    },
+    {
+      "peakParts": 92,
+      "headBound": true,
+      "initialHeight": 2.1541688442230225,
+      "label": "万箭齐发",
+      "id": "arrows",
+      "expired": true
+    }
+  ]
+}

@@ -1,0 +1,505 @@
+{
+  "pass": true,
+  "rows": [
+    {
+      "id": "slash",
+      "label": "杀",
+      "rect": {
+        "x": 448.140625,
+        "y": 460.203125,
+        "width": 180,
+        "height": 108,
+        "top": 460.203125,
+        "right": 628.140625,
+        "bottom": 568.203125,
+        "left": 448.140625
+      },
+      "opacity": "1",
+      "meshCache": 1716,
+      "gpu": 105
+    },
+    {
+      "id": "dodge",
+      "label": "闪",
+      "rect": {
+        "x": 437.796875,
+        "y": 461.109375,
+        "width": 180,
+        "height": 108,
+        "top": 461.109375,
+        "right": 617.796875,
+        "bottom": 569.109375,
+        "left": 437.796875
+      },
+      "opacity": "1",
+      "meshCache": 1722,
+      "gpu": 111
+    },
+    {
+      "id": "heal",
+      "label": "桃",
+      "rect": {
+        "x": 455.078125,
+        "y": 454.8125,
+        "width": 180,
+        "height": 108,
+        "top": 454.8125,
+        "right": 635.078125,
+        "bottom": 562.8125,
+        "left": 455.078125
+      },
+      "opacity": "1",
+      "meshCache": 1730,
+      "gpu": 119
+    },
+    {
+      "id": "arrows",
+      "label": "万箭齐发",
+      "rect": {
+        "x": 399.5,
+        "y": 465.859375,
+        "width": 235,
+        "height": 108,
+        "top": 465.859375,
+        "right": 634.5,
+        "bottom": 573.859375,
+        "left": 399.5
+      },
+      "opacity": "0.917143",
+      "meshCache": 1735,
+      "gpu": 124
+    }
+  ],
+  "all": [
+    {
+      "hero": "cao_cao",
+      "effect": "slash"
+    },
+    {
+      "hero": "cao_cao",
+      "effect": "dodge"
+    },
+    {
+      "hero": "cao_cao",
+      "effect": "heal"
+    },
+    {
+      "hero": "cao_cao",
+      "effect": "arrows"
+    },
+    {
+      "hero": "sima_yi",
+      "effect": "slash"
+    },
+    {
+      "hero": "sima_yi",
+      "effect": "dodge"
+    },
+    {
+      "hero": "sima_yi",
+      "effect": "heal"
+    },
+    {
+      "hero": "sima_yi",
+      "effect": "arrows"
+    },
+    {
+      "hero": "xiahou_dun",
+      "effect": "slash"
+    },
+    {
+      "hero": "xiahou_dun",
+      "effect": "dodge"
+    },
+    {
+      "hero": "xiahou_dun",
+      "effect": "heal"
+    },
+    {
+      "hero": "xiahou_dun",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhang_liao",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhang_liao",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhang_liao",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhang_liao",
+      "effect": "arrows"
+    },
+    {
+      "hero": "xu_chu",
+      "effect": "slash"
+    },
+    {
+      "hero": "xu_chu",
+      "effect": "dodge"
+    },
+    {
+      "hero": "xu_chu",
+      "effect": "heal"
+    },
+    {
+      "hero": "xu_chu",
+      "effect": "arrows"
+    },
+    {
+      "hero": "guo_jia",
+      "effect": "slash"
+    },
+    {
+      "hero": "guo_jia",
+      "effect": "dodge"
+    },
+    {
+      "hero": "guo_jia",
+      "effect": "heal"
+    },
+    {
+      "hero": "guo_jia",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhen_ji",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhen_ji",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhen_ji",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhen_ji",
+      "effect": "arrows"
+    },
+    {
+      "hero": "liu_bei",
+      "effect": "slash"
+    },
+    {
+      "hero": "liu_bei",
+      "effect": "dodge"
+    },
+    {
+      "hero": "liu_bei",
+      "effect": "heal"
+    },
+    {
+      "hero": "liu_bei",
+      "effect": "arrows"
+    },
+    {
+      "hero": "guan_yu",
+      "effect": "slash"
+    },
+    {
+      "hero": "guan_yu",
+      "effect": "dodge"
+    },
+    {
+      "hero": "guan_yu",
+      "effect": "heal"
+    },
+    {
+      "hero": "guan_yu",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhang_fei",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhang_fei",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhang_fei",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhang_fei",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhuge_liang",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhuge_liang",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhuge_liang",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhuge_liang",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhao_yun",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhao_yun",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhao_yun",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhao_yun",
+      "effect": "arrows"
+    },
+    {
+      "hero": "ma_chao",
+      "effect": "slash"
+    },
+    {
+      "hero": "ma_chao",
+      "effect": "dodge"
+    },
+    {
+      "hero": "ma_chao",
+      "effect": "heal"
+    },
+    {
+      "hero": "ma_chao",
+      "effect": "arrows"
+    },
+    {
+      "hero": "huang_yueying",
+      "effect": "slash"
+    },
+    {
+      "hero": "huang_yueying",
+      "effect": "dodge"
+    },
+    {
+      "hero": "huang_yueying",
+      "effect": "heal"
+    },
+    {
+      "hero": "huang_yueying",
+      "effect": "arrows"
+    },
+    {
+      "hero": "sun_quan",
+      "effect": "slash"
+    },
+    {
+      "hero": "sun_quan",
+      "effect": "dodge"
+    },
+    {
+      "hero": "sun_quan",
+      "effect": "heal"
+    },
+    {
+      "hero": "sun_quan",
+      "effect": "arrows"
+    },
+    {
+      "hero": "gan_ning",
+      "effect": "slash"
+    },
+    {
+      "hero": "gan_ning",
+      "effect": "dodge"
+    },
+    {
+      "hero": "gan_ning",
+      "effect": "heal"
+    },
+    {
+      "hero": "gan_ning",
+      "effect": "arrows"
+    },
+    {
+      "hero": "lu_meng",
+      "effect": "slash"
+    },
+    {
+      "hero": "lu_meng",
+      "effect": "dodge"
+    },
+    {
+      "hero": "lu_meng",
+      "effect": "heal"
+    },
+    {
+      "hero": "lu_meng",
+      "effect": "arrows"
+    },
+    {
+      "hero": "huang_gai",
+      "effect": "slash"
+    },
+    {
+      "hero": "huang_gai",
+      "effect": "dodge"
+    },
+    {
+      "hero": "huang_gai",
+      "effect": "heal"
+    },
+    {
+      "hero": "huang_gai",
+      "effect": "arrows"
+    },
+    {
+      "hero": "zhou_yu",
+      "effect": "slash"
+    },
+    {
+      "hero": "zhou_yu",
+      "effect": "dodge"
+    },
+    {
+      "hero": "zhou_yu",
+      "effect": "heal"
+    },
+    {
+      "hero": "zhou_yu",
+      "effect": "arrows"
+    },
+    {
+      "hero": "da_qiao",
+      "effect": "slash"
+    },
+    {
+      "hero": "da_qiao",
+      "effect": "dodge"
+    },
+    {
+      "hero": "da_qiao",
+      "effect": "heal"
+    },
+    {
+      "hero": "da_qiao",
+      "effect": "arrows"
+    },
+    {
+      "hero": "lu_xun",
+      "effect": "slash"
+    },
+    {
+      "hero": "lu_xun",
+      "effect": "dodge"
+    },
+    {
+      "hero": "lu_xun",
+      "effect": "heal"
+    },
+    {
+      "hero": "lu_xun",
+      "effect": "arrows"
+    },
+    {
+      "hero": "sun_shangxiang",
+      "effect": "slash"
+    },
+    {
+      "hero": "sun_shangxiang",
+      "effect": "dodge"
+    },
+    {
+      "hero": "sun_shangxiang",
+      "effect": "heal"
+    },
+    {
+      "hero": "sun_shangxiang",
+      "effect": "arrows"
+    },
+    {
+      "hero": "hua_tuo",
+      "effect": "slash"
+    },
+    {
+      "hero": "hua_tuo",
+      "effect": "dodge"
+    },
+    {
+      "hero": "hua_tuo",
+      "effect": "heal"
+    },
+    {
+      "hero": "hua_tuo",
+      "effect": "arrows"
+    },
+    {
+      "hero": "lu_bu",
+      "effect": "slash"
+    },
+    {
+      "hero": "lu_bu",
+      "effect": "dodge"
+    },
+    {
+      "hero": "lu_bu",
+      "effect": "heal"
+    },
+    {
+      "hero": "lu_bu",
+      "effect": "arrows"
+    },
+    {
+      "hero": "diao_chan",
+      "effect": "slash"
+    },
+    {
+      "hero": "diao_chan",
+      "effect": "dodge"
+    },
+    {
+      "hero": "diao_chan",
+      "effect": "heal"
+    },
+    {
+      "hero": "diao_chan",
+      "effect": "arrows"
+    }
+  ],
+  "cleanup": {
+    "cancel": true,
+    "end": true,
+    "cacheStable": true,
+    "first": 1745,
+    "warmed": 1745
+  },
+  "mobile": {
+    "cue": {
+      "x": 62.59375,
+      "y": 378.765625,
+      "width": 235,
+      "height": 108,
+      "top": 378.765625,
+      "right": 297.59375,
+      "bottom": 486.765625,
+      "left": 62.59375
+    },
+    "canvas": {
+      "x": 11,
+      "y": 275.03125,
+      "width": 368,
+      "height": 498,
+      "top": 275.03125,
+      "right": 379,
+      "bottom": 773.03125,
+      "left": 11
+    }
+  },
+  "errors": []
+}

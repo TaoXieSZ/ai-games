@@ -1,0 +1,27 @@
+{
+  "pass": true,
+  "sourceCommit": "16b640a",
+  "deployment": 34780420635,
+  "files": [
+    {
+      "path": "preview/hero-models/main.js",
+      "sha256": "8535b47f7476b98a71f88940718ee3aff1441809fb179c45042f0b0700c95dbf"
+    },
+    {
+      "path": "preview/hero-models/index.html",
+      "sha256": "91f01fb9f5a5d89537c3b13bc01542dddf71162ef672225a698cf8c0f580f3d3"
+    },
+    {
+      "path": "preview/hero-models/style.css",
+      "sha256": "454b7839cd9c2d75b557088ed623d6ae559b4da35f24e0ad973b1cf647323a9a"
+    },
+    {
+      "path": "data/hero-effects-v1.json",
+      "sha256": "7d696562920ab72ea8a6fd76421e5cd185eef5b567efeacb33323784d578aec4"
+    },
+    {
+      "path": "models/hero-models-v1/hero-playground.rbxlx",
+      "sha256": "9d09ea413217d6d98a0c944516feaf5fa9a6c08381617506c297a6dbffbaf28a"
+    }
+  ]
+}
