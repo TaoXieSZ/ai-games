@@ -1,0 +1,274 @@
+{
+  "pass": true,
+  "desktop": {
+    "afterSha": {
+      "count": 6,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 曹操：使用【杀】。\n孙尚香摸牌完毕，进入出牌阶段。\n曹操装备【青釭剑】。",
+      "scrollLeft": 0
+    },
+    "invalidTao": {
+      "count": 6,
+      "selected": "shan",
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 曹操：使用【杀】。\n孙尚香摸牌完毕，进入出牌阶段。\n曹操装备【青釭剑】。",
+      "scrollLeft": 0
+    },
+    "afterGuohe": {
+      "count": 6,
+      "selected": "guohe",
+      "targets": [
+        {
+          "id": "cao_cao",
+          "name": "魏曹操▱ 4"
+        }
+      ],
+      "targetText": "1 · 曹操",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": true,
+      "choosingRegion": true,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 曹操：使用【杀】。\n孙尚香摸牌完毕，进入出牌阶段。\n曹操装备【青釭剑】。",
+      "scrollLeft": 0
+    },
+    "afterRegion": {
+      "count": 5,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 曹操：使用【过河拆桥】 · 选择了一张未知手牌。\n孙尚香 → 曹操：使用【杀】。\n孙尚香摸牌完毕，进入出牌阶段。\n曹操装备【青釭剑】。",
+      "scrollLeft": 0
+    },
+    "tiesuoOne": {
+      "count": 7,
+      "selected": "tiesuo",
+      "targets": [
+        {
+          "id": "zhao_yun",
+          "name": "蜀赵云▱ 3"
+        }
+      ],
+      "targetText": "1 · 赵云×2 · 第二位（可选）",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 0
+    },
+    "tiesuoTwo": {
+      "count": 7,
+      "selected": "tiesuo",
+      "targets": [
+        {
+          "id": "zhao_yun",
+          "name": "蜀赵云▱ 3"
+        },
+        {
+          "id": "cao_cao",
+          "name": "魏曹操▱ 4"
+        }
+      ],
+      "targetText": "1 · 赵云×2 · 曹操×",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 0
+    },
+    "tiesuoReplace": {
+      "count": 7,
+      "selected": "tiesuo",
+      "targets": [
+        {
+          "id": "zhao_yun",
+          "name": "蜀赵云▱ 3"
+        },
+        {
+          "id": "lu_bu",
+          "name": "群吕布▱ 2"
+        }
+      ],
+      "targetText": "1 · 赵云×2 · 吕布×",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 0
+    },
+    "afterTiesuo": {
+      "count": 6,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 赵云、吕布：使用【铁索连环】。\n曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 0
+    },
+    "afterWanjian": {
+      "count": 6,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香 → 曹操、赵云、吕布：使用【万箭齐发】。\n曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 0
+    }
+  },
+  "mobile": {
+    "badShan": {
+      "count": 7,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香摸牌完毕，进入出牌阶段。\n曹操装备【青釭剑】。",
+      "scrollLeft": 0
+    },
+    "responseShan": {
+      "count": 6,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "孙尚香使用【闪】，响应曹操的【杀】。\n曹操向你使用【杀】，等待你的响应。",
+      "scrollLeft": 0
+    },
+    "afterPan": {
+      "count": 7,
+      "selected": null,
+      "targets": [],
+      "targetText": "",
+      "confirm": false,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 192
+    },
+    "mobileFirst": {
+      "count": 7,
+      "selected": "tiesuo",
+      "targets": [
+        {
+          "id": "cao_cao",
+          "name": "魏曹操▱ 4"
+        }
+      ],
+      "targetText": "1 · 曹操×2 · 第二位（可选）",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 192
+    },
+    "mobileTwo": {
+      "count": 7,
+      "selected": "tiesuo",
+      "targets": [
+        {
+          "id": "cao_cao",
+          "name": "魏曹操▱ 4"
+        },
+        {
+          "id": "zhao_yun",
+          "name": "蜀赵云▱ 3"
+        }
+      ],
+      "targetText": "1 · 曹操×2 · 赵云×",
+      "confirm": true,
+      "ghost": false,
+      "hover": [],
+      "allowed": [],
+      "inspector": false,
+      "choosingRegion": false,
+      "mode": "play",
+      "phase": "出牌",
+      "log": "曹操装备【青釭剑】。\n孙尚香摸牌完毕，进入出牌阶段。",
+      "scrollLeft": 192
+    }
+  },
+  "errors": []
+}

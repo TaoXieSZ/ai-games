@@ -10,7 +10,7 @@ const players = [
   { id: 'lu_bu', name: '吕布', faction: 'qun', hp: 4, maxHp: 4, handCount: 2, equipment: ['halberd'] },
 ];
 const factionNames = {wu:'吴',wei:'魏',shu:'蜀',qun:'群'};
-const state = {cards: new Map(), heroes:new Map(), hand:[], selected:null, targets:[], mode:'play', inspect:null, choosingRegion:false, logs:[], serial:0, stage:null, toastTimer:null, castTimers:[]};
+const state = {cards: new Map(), heroes:new Map(), hand:[], selected:null, targets:[], mode:'play', inspect:null, choosingRegion:false, logs:[], serial:0, stage:null, toastTimer:null, castTimers:[], drag:null};
 const html = (value='') => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function terms(text) { return html(text).replace(/【?([杀闪桃])】?/g,'<span class="term" data-term="$1">【$1】</span>'); }
 function health(p) { return `<span class="health" aria-label="体力 ${p.hp}/${p.maxHp}">${Array.from({length:p.maxHp},(_,i)=>`<i class="${i>=p.hp?'empty':''}" aria-hidden="true"></i>`).join('')}</span>`; }
@@ -76,26 +76,27 @@ function selectHero(id) {
  if(id===SELF){notify('本演示请从其他武将中选择目标');return;}
  closeInspector();
  if(state.targets.includes(id))state.targets=state.targets.filter(t=>t!==id);
- else if(spec.id==='tiesuo'){if(state.targets.length===2)state.targets.shift();state.targets.push(id);}
+ else if(spec.id==='tiesuo'){if(state.targets.length===2)state.targets[1]=id;else state.targets.push(id);}
  else state.targets=[id];
  state.stage?.setSelected(state.targets.at(-1)||null);renderCommand();updateLabels();
 }
 function canConfirm() {const spec=cardSpec();if(!spec)return false;if(state.mode==='response')return spec.id==='shan';if(spec.id==='shan')return false;return !['sha','guohe','tiesuo'].includes(spec.id)||state.targets.length>0;}
 function renderCommand() {
  const spec=cardSpec(),response=state.mode==='response';
- let title=response?'曹操对你使用了【杀】':'从手牌中选择一张',desc=response?'使用一张【闪】，或选择放弃响应。':'点击武将可查看公开信息';
+ let title=response?'曹操对你使用了【杀】':'从手牌中选择一张',desc=response?'使用一张【闪】，或选择放弃响应。':'点击武将查看 · 拖动手牌到头顶使用';
  if(spec){
   title=`已选择【${spec.name}】`;
-  desc=spec.id==='tiesuo'?`选择 1–2 名武将 · 已选 ${state.targets.length}/2`:['sha','guohe'].includes(spec.id)?(state.targets.length?'目标已选，确认后使用':'点击场上人物，选择一名目标'):spec.id==='shan'?(response?'确认出闪，响应这次攻击':'闪在受到攻击时使用；点右上角 ? 体验响应'):spec.id==='wanjian'?'作用于其他 3 名武将，已逐个标出':spec.category==='equipment'?'查看装备入场的界面反馈':'确认后播放使用反馈';
+  desc=spec.id==='tiesuo'?(state.targets.length===0?'选择第一位武将，再补选第二位':state.targets.length===1?'点击或再拖向第二位；也可确认只连一人':'两位武将已选好 · 确认后一起使用'):['sha','guohe'].includes(spec.id)?(state.targets.length?'目标已选，确认后使用':'点击场上人物，选择一名目标'):spec.id==='shan'?(response?'确认出闪，响应这次攻击':'闪在受到攻击时使用；点右上角 ? 体验响应'):spec.id==='wanjian'?'作用于其他 3 名武将，已逐个标出':spec.category==='equipment'?'查看装备入场的界面反馈':'确认后播放使用反馈';
  }
  $('#commandKicker').textContent=response?'等待你的响应':'你的出牌阶段';$('#commandTitle').innerHTML=terms(title);$('#commandDescription').textContent=desc;
  $('#activePhase').textContent=response?'响应':'出牌';
- $('#targetChips').innerHTML=state.targets.map((id,i)=>`<span>${i+1} · ${playerById(id).name}</span>`).join('');
- $('#confirm').disabled=!canConfirm();$('#confirm span').textContent=!spec?'选择手牌':response?'使用【闪】':spec.id==='guohe'&&state.targets.length?'选择区域牌':canConfirm()?'确认使用':'选择目标';
+ $('#targetChips').innerHTML=spec?.id==='tiesuo'?[0,1].map(i=>state.targets[i]?`<button data-unlink="${state.targets[i]}" aria-label="取消目标 ${playerById(state.targets[i]).name}">${i+1} · ${playerById(state.targets[i]).name}<b aria-hidden="true">×</b></button>`:`<span class="target-empty">${i+1} · ${i===0?'选择武将':'第二位（可选）'}</span>`).join(''):state.targets.map((id,i)=>`<span>${i+1} · ${playerById(id).name}</span>`).join('');
+ $('#confirm').disabled=!canConfirm();$('#confirm span').textContent=!spec?'选择手牌':response?'使用【闪】':spec.id==='tiesuo'&&state.targets.length?`确认连环 · ${state.targets.length} 人`:spec.id==='guohe'&&state.targets.length?'选择区域牌':canConfirm()?'确认使用':'选择目标';
  $('#cancel').disabled=!spec;$('#endTurn').innerHTML=response?'放弃响应 <span>→</span>':'结束出牌 <span>→</span>';
- $('#handHint').textContent=response?'仅【闪】可以用于此次响应':'点击选择 · 再次点击收回';
+ $('#handHint').textContent=response?'仅【闪】可以用于此次响应':'点击选择 · 拖到武将头顶使用';
 }
 function cancel() {
+ clearCardDrag();
  state.selected=null;state.targets=[];closeInspector();$('#cardInfo').hidden=true;state.stage?.setSelected(null);state.stage?.setRange(false);renderHand();renderCommand();updateLabels();
 }
 function cast(id,name) {const label=document.querySelector(`.world-label[data-hero="${id}"]`);if(!label)return;label.querySelector('.cast-name')?.remove();const text=document.createElement('strong');text.className='cast-name';text.textContent=name;label.append(text);state.castTimers.push(setTimeout(()=>text.remove(),1550));}
@@ -122,10 +123,117 @@ function reset() {
  for(const dialog of document.querySelectorAll('dialog[open]'))dialog.close();state.castTimers.forEach(clearTimeout);state.castTimers=[];document.querySelectorAll('.cast-name').forEach(el=>el.remove());state.hand=[];state.serial=0;initialHand.forEach(addHand);state.mode='play';state.logs=[];state.stage?.reset();cancel();log('孙尚香摸牌完毕，进入出牌阶段。');log('曹操装备【青釭剑】。');$('#scenario').value='play';renderSelf();notify('演武场已重置');
 }
 function showSkill(name) {const skill=state.heroes.get(SELF).skills.find(s=>s.name===name);$('#cardInfoContent').innerHTML=`<p class="eyebrow">孙尚香 · 武将技能</p><h3>${name}</h3><p>${terms(skill.description)}</p><p class="private-note">当前展示技能说明。</p>`;$('#cardInfo').hidden=false;}
+// Dragging is a separate draft: invalid drops never change the click selection.
+function dragTargets(entry) {
+ if(!entry)return [];
+ if(state.mode==='response')return entry.id==='shan'?[SELF]:[];
+ if(['sha','guohe','tiesuo','wanjian'].includes(entry.id))return players.filter(p=>p.id!==SELF).map(p=>p.id);
+ if(['tao','jiu'].includes(entry.id)||state.cards.get(entry.id)?.category==='equipment')return [SELF];
+ return [];
+}
+function clearCardDrag() {
+ const drag=state.drag;if(!drag)return;
+ state.drag=null;
+ drag.ghost?.remove();drag.hint?.remove();drag.source.classList.remove('drag-source');
+ document.body.classList.remove('dragging-card');
+ document.querySelectorAll('.drop-allowed,.drop-hover').forEach(el=>el.classList.remove('drop-allowed','drop-hover'));
+ state.stage?.setSelected(state.targets.at(-1)||null);
+ if($('#hand').hasPointerCapture(drag.pointerId))$('#hand').releasePointerCapture(drag.pointerId);
+}
+function dropHeroAt(x,y,allowed) {
+ if(document.querySelector('dialog[open]'))return null;
+ const hit=document.elementFromPoint(x,y);
+ if(!hit||!hit.matches('#arena,.world-label,.world-label *,.world-labels'))return null;
+ let nearest=null,distance=Infinity;
+ for(const label of document.querySelectorAll('.world-label')) {
+  if(label.hidden||!allowed.includes(label.dataset.hero))continue;
+  const r=label.getBoundingClientRect();
+  // Include the space between the nameplate and the model's head.
+  if(x<r.left-18||x>r.right+18||y<r.top-18||y>r.bottom+36)continue;
+  const d=Math.hypot(x-(r.left+r.right)/2,y-(r.top+r.bottom)/2);
+  if(d<distance){distance=d;nearest=label.dataset.hero;}
+ }
+ return nearest;
+}
+function connectCardDragging() {
+ const hand=$('#hand');let blockedClick=null;
+ // A fresh press is intentional; only suppress the click synthesized by a drop.
+ document.addEventListener('pointerdown',()=>{blockedClick=null;},true);
+ const blockClick=drag=>{if(drag.active)blockedClick={pointerId:drag.pointerId,until:performance.now()+500};};
+ document.addEventListener('click',e=>{
+  if(blockedClick&&performance.now()<blockedClick.until&&e.detail!==0&&(!('pointerId' in e)||e.pointerId===blockedClick.pointerId)){
+   blockedClick=null;e.preventDefault();e.stopImmediatePropagation();
+  }
+ },true);
+ hand.addEventListener('pointerdown',e=>{
+  if(!e.isPrimary||e.button!==0||state.drag||document.querySelector('dialog[open]')||state.choosingRegion)return;
+  const source=e.target.closest('[data-hand]');if(!source||source.disabled)return;
+  const entry=state.hand.find(c=>c.key===source.dataset.hand);
+  state.drag={source,entry,pointerId:e.pointerId,type:e.pointerType,startX:e.clientX,startY:e.clientY,active:false,allowed:dragTargets(entry),hover:null};
+ });
+ document.addEventListener('pointermove',e=>{
+  const drag=state.drag;if(!drag||drag.pointerId!==e.pointerId)return;
+  const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;
+  if(!drag.active){
+   if(e.pointerType==='touch'){
+    if(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)){clearCardDrag();return;}
+    if(dy>-12||Math.abs(dy)<Math.abs(dx))return;
+   }else if(Math.hypot(dx,dy)<8)return;
+   drag.active=true;hand.setPointerCapture(e.pointerId);drag.source.classList.add('drag-source');
+   document.body.classList.add('dragging-card');$('#cardInfo').hidden=true;
+   const rect=drag.source.getBoundingClientRect();
+   drag.ghost=document.createElement('div');drag.ghost.className='hand-card card-drag-ghost';
+   drag.ghost.dataset.card=drag.entry.id;drag.ghost.setAttribute('aria-hidden','true');
+   drag.ghost.innerHTML=drag.source.innerHTML;drag.ghost.style.width=`${Math.min(118,rect.width)}px`;drag.ghost.style.height=`${Math.min(164,rect.height)}px`;
+   drag.hint=document.createElement('div');drag.hint.className='card-drop-hint';drag.hint.setAttribute('role','status');
+   const commandRect=$('#command').getBoundingClientRect();
+   drag.hint.style.left=`${commandRect.left+commandRect.width/2}px`;drag.hint.style.top=`${commandRect.top}px`;drag.hint.style.maxWidth=`${commandRect.width}px`;
+   document.body.append(drag.ghost,drag.hint);
+   for(const label of document.querySelectorAll('.world-label'))label.classList.toggle('drop-allowed',drag.allowed.includes(label.dataset.hero));
+  }
+  e.preventDefault();
+  drag.ghost.style.left=`${e.clientX}px`;drag.ghost.style.top=`${e.clientY-14}px`;
+  const hover=dropHeroAt(e.clientX,e.clientY,drag.allowed);
+  if(hover!==drag.hover){drag.hover=hover;state.stage?.setSelected(hover);}
+  for(const label of document.querySelectorAll('.world-label'))label.classList.toggle('drop-hover',label.dataset.hero===hover);
+  const spec=state.cards.get(drag.entry.id);
+  drag.ghost.classList.toggle('drop-ready',Boolean(hover));
+  const text=hover?(spec.id==='tiesuo'?(state.selected===drag.entry.key&&state.targets.includes(hover)?'该武将已选 · 松手保留选择':`松手 · ${state.selected===drag.entry.key&&state.targets.length?'补选':'选择'}${playerById(hover).name}，确认后连环`):spec.id==='guohe'?`松手 · 选择${playerById(hover).name}的区域牌`:spec.id==='wanjian'?'松手 · 对所有其他武将使用【万箭齐发】':`松手 · 对${playerById(hover).name}使用【${spec.name}】`):drag.allowed.length?'拖到亮起的武将头顶 · 空白处松手收回':'当前不能拖动使用这张牌 · 松手收回';
+  if(drag.hint.textContent!==text)drag.hint.textContent=text;
+  drag.hint.classList.toggle('drop-ready',Boolean(hover));
+ },{passive:false});
+ document.addEventListener('pointerup',e=>{
+  const drag=state.drag;if(!drag||drag.pointerId!==e.pointerId)return;
+  blockClick(drag);
+  const target=drag.active?dropHeroAt(e.clientX,e.clientY,dragTargets(drag.entry)):null;
+  clearCardDrag();
+  if(!drag.active)return;
+  e.preventDefault();
+  if(!target){notify('已收回手牌');return;}
+  if(drag.entry.id==='tiesuo'){
+   if(state.selected!==drag.entry.key){state.selected=null;selectCard(drag.entry.key);}
+   if(!state.targets.includes(target))selectHero(target);
+   $('#cardInfo').hidden=true;
+   return;
+  }
+  state.selected=null;selectCard(drag.entry.key);
+  if(['sha','guohe'].includes(drag.entry.id))selectHero(target);
+  confirm();
+ });
+ const abort=()=>{if(state.drag){blockClick(state.drag);clearCardDrag();}};
+ hand.addEventListener('pointercancel',abort);hand.addEventListener('lostpointercapture',e=>{if(e.target===hand)abort();});
+ window.addEventListener('blur',abort);window.addEventListener('resize',abort);
+ document.addEventListener('keydown',e=>{
+  if(!state.drag)return;
+  if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();abort();return;}
+  if(e.key==='Enter'||/^[1-9]$/.test(e.key)){e.preventDefault();e.stopImmediatePropagation();}
+ },true);
+}
 function connectEvents() {
+ connectCardDragging();
  $('#hand').addEventListener('click',e=>{const b=e.target.closest('[data-hand]');if(b)selectCard(b.dataset.hand);});
- $('#hand').addEventListener('pointerover',e=>{if(e.pointerType==='touch'||state.inspect)return;const b=e.target.closest('[data-hand]');if(b)showCardInfo(state.hand.find(c=>c.key===b.dataset.hand).id);});
- $('#hand').addEventListener('pointerleave',()=>{const spec=cardSpec();if(spec)showCardInfo(spec.id);else $('#cardInfo').hidden=true;});
+ $('#hand').addEventListener('pointerover',e=>{if(e.pointerType==='touch'||state.inspect||state.drag?.active)return;const b=e.target.closest('[data-hand]');if(b)showCardInfo(state.hand.find(c=>c.key===b.dataset.hand).id);});
+ $('#hand').addEventListener('pointerleave',()=>{if(state.drag?.active)return;const spec=cardSpec();if(spec)showCardInfo(spec.id);else $('#cardInfo').hidden=true;});
  document.addEventListener('click',e=>{const inspectButton=e.target.closest('[data-inspect]'),hero=e.target.closest('[data-hero]'),skill=e.target.closest('[data-skill]'),equip=e.target.closest('[data-own-equipment]'),pool=e.target.closest('[data-pool]'),close=e.target.closest('[data-close]');
   if(inspectButton)inspect(inspectButton.dataset.inspect);else if(hero)selectHero(hero.dataset.hero);
   if(skill)showSkill(skill.dataset.skill);if(equip){if(equip.dataset.ownEquipment)showCardInfo(equip.dataset.ownEquipment);else notify('这个装备槽目前为空');}
@@ -133,6 +241,7 @@ function connectEvents() {
   if(close)$('#'+close.dataset.close).close();
   if(state.choosingRegion&&(e.target.closest('[data-hidden-slot]')||e.target.closest('[data-remove-equipment]')))finishUse(e.target.closest('[data-hidden-slot]')?'选择了一张未知手牌':'选择了公开装备');
  });
+ $('#targetChips').addEventListener('click',e=>{const button=e.target.closest('[data-unlink]');if(button)selectHero(button.dataset.unlink);});
  $('#confirm').addEventListener('click',confirm);$('#cancel').addEventListener('click',cancel);$('#closeInspector').addEventListener('click',()=>closeInspector(true));
  $('#endTurn').addEventListener('click',()=>{if(state.mode==='response'){log('孙尚香放弃响应，交由玩法结算。');state.mode='play';cancel();notify('放弃响应示例结束');}else $('#endDialog').showModal();});
  $('#nextResponse').addEventListener('click',()=>{$('#endDialog').close();setScenario('response');});
